@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#0A0A14" id="theme-meta">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="format-detection" content="address=no,email=no">
+<title>Civil Suite Ultimate v1.0</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,100..700,0..1,-50..200&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Barlow:wght@400;500;600;700&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<script>
+  var _s=localStorage.getItem('csu3_dark');
+  if(_s==='1'){document.documentElement.classList.add('dark')}
+  else{document.documentElement.classList.add('light')}
+</script>
+<style>
+:root{
+  --amber:#FFC200;--amber-d:#CC9800;--amber-l:#FFD966;--amber-bg:rgba(255,194,0,.15);
+  --chips:#00DDFF;--chips-d:#0099BB;--chips-l:#66EEFF;--chips-bg:rgba(0,221,255,.14);
+  --steel-c:#FF2A2A;--steel-cd:#CC0000;--steel-cl:#FF7777;--steel-cbg:rgba(255,42,42,.14);
+  --cement:#44BBDD;--cement-d:#2299BB;--cement-l:#88DDFF;--cement-bg:rgba(68,187,221,.14);
+  --blu:#2B6EFF;--blu-d:#1A52E0;--blu-l:#6699FF;--blu-bg:rgba(43,110,255,.14);
+  --grn:#00EE88;--grn-bg:rgba(0,238,136,.14);
+  --red:#FF1A38;--red-d:#CC0020;--red-l:#FF7788;--red-bg:rgba(255,26,56,.14);
+  --warn:#FF8800;--warn-bg:rgba(255,136,0,.14);
+  --purp:#A040FF;--purp-bg:rgba(160,64,255,.14);
+  --pay:#FF6B00;--pay-d:#CC5200;--pay-l:#FF9944;--pay-bg:rgba(255,107,0,.14);
+  --teal:#00C9B1;--teal-bg:rgba(0,201,177,.14);
+  --bg:#0A0A14;--bg-card:#121222;--bg-card-d:#1C1C2E;--bg-seg:#0E0E1E;
+  --dot-col:rgba(255,255,255,.06);
+  --text:#F2F4FF;--text-dim:rgba(220,224,255,.62);--text-faint:rgba(200,206,255,.28);--label:#545680;
+  --border:rgba(255,255,255,.07);--border-d:rgba(255,255,255,.13);
+  --sep:rgba(255,255,255,.05);--sep2:rgba(255,255,255,.025);
+  --fill:rgba(255,255,255,.065);--fill2:rgba(255,255,255,.03);
+  --sh:0 2px 8px rgba(0,0,0,.50);--sh-card:0 4px 24px rgba(0,0,0,.55);--sh-btn:0 4px 20px rgba(0,0,0,.40);
+  --r:14px;--r-lg:20px;--r-xl:24px;--r-pill:100px;
+  --spring:cubic-bezier(.34,1.56,.64,1);--ease-out:cubic-bezier(.22,1,.36,1);
+  --safe-top:env(safe-area-inset-top,0px);
+  --safe-bottom:env(safe-area-inset-bottom,0px);
+  --safe-left:env(safe-area-inset-left,0px);
+  --safe-right:env(safe-area-inset-right,0px);
+}
+html.light{
+  --bg:#E8EAFF;--bg-card:#FFFFFF;--bg-card-d:#DDE0FF;--bg-seg:#CDD0F8;
+  --dot-col:rgba(20,20,160,.07);
+  --text:#02020E;--text-dim:rgba(2,2,20,.58);--text-faint:rgba(2,2,20,.28);--label:#5A5C90;
+  --border:rgba(0,0,120,.09);--border-d:rgba(0,0,120,.18);
+  --sep:rgba(0,0,120,.06);--sep2:rgba(0,0,120,.03);
+  --fill:rgba(0,0,120,.06);--fill2:rgba(0,0,120,.03);
+  --sh:0 2px 8px rgba(0,0,60,.08);--sh-card:0 4px 20px rgba(0,0,60,.12);--sh-btn:0 4px 16px rgba(0,0,60,.20);
+  --red-bg:rgba(255,26,56,.09);--amber-bg:rgba(255,194,0,.11);--chips-bg:rgba(0,221,255,.10);
+  --steel-cbg:rgba(255,42,42,.10);--cement-bg:rgba(68,187,221,.10);
+  --blu-bg:rgba(43,110,255,.10);--grn-bg:rgba(0,238,136,.10);
+  --warn-bg:rgba(255,136,0,.10);--purp-bg:rgba(160,64,255,.10);
+  --pay-bg:rgba(255,107,0,.10);--teal-bg:rgba(0,201,177,.10);
+}
+html.light input[type=number],html.light input[type=text],html.light input[type=tel],html.light input[type=date],html.light select,html.light textarea{background:#EAEEFF;color:var(--text);border-color:rgba(0,0,120,.10)}
+html.light input::placeholder,html.light textarea::placeholder{color:var(--text-faint)}
+html.light .seg{background:var(--bg-seg)}html.light .seg-item{color:var(--text-dim)}
+html.light .seg-item.active{background:#fff;box-shadow:0 1px 8px rgba(0,0,60,.10)}
+html.light .chip{background:var(--fill);color:var(--text-dim);border-color:var(--border)}
+html.light .toggle-row{background:var(--fill);border-color:var(--border)}
+html.light .toggle-lbl{color:var(--text)}
+html.light .notebox{background:var(--fill2)}html.light .notebox-text{color:var(--text-dim)}
+html.light .elb-row,html.light .cmp-cell,html.light .scell,html.light .unit-cell,html.light .rec-card{background:var(--fill)}
+html.light .module-reset{color:var(--red)}
+html.light .assume-chip{background:var(--fill);border-color:var(--border);color:var(--text-dim)}
+html.light .el-type-sel option{background:#fff;color:#02020E}
+html.light nav{background:rgba(255,255,255,.97);border-color:rgba(0,0,60,.08)}
+html.light .ni-icon{color:#7A7CAA}
+html.light .version-chip{background:var(--fill);border-color:var(--border)}
+html.light .toast{background:#0E0E20;color:#F2F4FF;border-color:rgba(255,255,255,.08)}
+html.light .rec-act-btn{background:transparent}html.light .rec-act-btn:active{background:var(--fill)}
+html.light .steel-dia-inp{background:var(--bg-card-d);color:var(--text);border-color:var(--border)}
+html.light .grand-total-bar{background:var(--fill)}
+html.light .proj-input{background:#EAEEFF;color:var(--text);border-color:rgba(0,0,120,.10)}
+html.light .ctype-chip{background:var(--fill)}
+html.light .pay-dashboard{background:var(--fill)}
+html.light .pay-search-inp{background:#EAEEFF;color:var(--text);border-color:rgba(0,0,120,.10)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
+input,textarea,select{user-select:auto;-webkit-user-select:auto}
+/* ── IMMERSIVE FULL-SCREEN BASE — edge-to-edge Android WebView ── */
+html{
+  scroll-behavior:smooth;
+  /* height:100% would trap scroll; let body grow naturally */
+}
+body{
+  font-family:"Barlow",-apple-system,sans-serif;
+  background-color:var(--bg);
+  background-image:radial-gradient(circle,var(--dot-col) 1.3px,transparent 1.3px);
+  background-size:22px 22px;
+  color:var(--text);
+  /* dvh adapts when Android soft nav bar shows/hides */
+  min-height:100vh;
+  min-height:100dvh;
+  height:auto;
+  /* Respect display cutouts & nav gesture zones on all 4 sides */
+  padding-bottom:calc(90px + var(--safe-bottom));
+  padding-left:var(--safe-left);
+  padding-right:var(--safe-right);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  overflow-y:auto;
+  /* Suppress rubber-band bounce — feels native */
+  overscroll-behavior-y:none;
+  /* Required for smooth momentum scroll inside WebView */
+  -webkit-overflow-scrolling:touch;
+  /* Explicitly allow vertical pan — some Android WebView versions need this */
+  touch-action:pan-y;
+  transition:background-color .35s,color .25s;
+}
+.ms{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24;display:inline-block;user-select:none;letter-spacing:0;transition:font-variation-settings .20s,color .15s}
+.ms-sm{font-size:16px}.ms-xl{font-family:"Material Symbols Rounded";font-size:26px;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 48;color:rgba(255,255,255,.92)}
+/* SPLASH */
+#splash{position:fixed;inset:0;background-color:var(--bg);background-image:radial-gradient(circle,var(--dot-col) 1.3px,transparent 1.3px);background-size:22px 22px;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(56px + var(--safe-top)) 24px calc(44px + var(--safe-bottom));overflow:hidden;transition:opacity .4s var(--ease-out)}
+#splash.hiding{opacity:0;pointer-events:none}
+.sp-icon{width:84px;height:84px;border-radius:26px;background:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 12px 40px rgba(255,194,0,.44);animation:hdrPop .60s var(--spring) .05s both}
+.sp-icon .ms{font-size:36px;color:#000;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 48}
+.sp-h1{font:800 1.9rem/1 "Orbitron",sans-serif;letter-spacing:3px;color:var(--text);text-align:center;animation:slideDown .4s var(--ease-out) .15s both}
+.sp-h1 span{color:var(--amber)}
+.sp-sub{font:600 10px/1 "Barlow",sans-serif;color:var(--label);margin-top:9px;letter-spacing:3px;text-transform:uppercase;text-align:center;animation:slideDown .4s var(--ease-out) .2s both}
+.sp-pills{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:12px;animation:slideDown .4s var(--ease-out) .25s both}
+.sp-pill{padding:5px 11px;border-radius:var(--r-pill);font:700 9px/1 "Barlow",sans-serif;letter-spacing:.06em;border:1px solid var(--border);text-transform:uppercase}
+.sp-pill.a{background:var(--amber-bg);color:var(--amber);border-color:rgba(255,194,0,.25)}
+.sp-pill.b{background:var(--chips-bg);color:var(--chips);border-color:rgba(0,221,255,.25)}
+.sp-pill.c{background:var(--steel-cbg);color:var(--steel-c);border-color:rgba(255,42,42,.25)}
+.sp-pill.d{background:var(--grn-bg);color:var(--grn);border-color:rgba(0,238,136,.25)}
+.sp-pill.e{background:var(--blu-bg);color:var(--blu);border-color:rgba(43,110,255,.25)}
+.sp-pill.f{background:var(--pay-bg);color:var(--pay);border-color:rgba(255,107,0,.25)}
+.sp-feats{width:100%;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-xl);padding:14px;animation:slideDown .4s var(--ease-out) .3s both;margin-top:13px}
+.sp-feat-ttl{font:700 9px/1 "Barlow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:10px}
+.sp-feat-row{display:flex;align-items:center;gap:9px;padding:5px 0;border-bottom:.5px solid var(--sep)}
+.sp-feat-row:last-child{border-bottom:none;padding-bottom:0}
+.sp-feat-ic{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sp-feat-txt{font:400 11px/1.4 "Barlow",sans-serif;color:var(--text-dim)}
+.sp-dev{text-align:center;animation:slideDown .4s var(--ease-out) .35s both}
+.sp-dev-n{font:700 14px/1 "Rajdhani",sans-serif;color:var(--amber);margin-bottom:4px;letter-spacing:.06em;text-transform:uppercase}
+.sp-dev-r{font:400 10px/1 "Barlow",sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase}
+.sp-enter{width:100%;padding:17px;border:none;border-radius:var(--r-pill);background:var(--amber);color:#000;font:700 13px/1 "Barlow",sans-serif;cursor:pointer;letter-spacing:.12em;text-transform:uppercase;animation:slideDown .4s var(--ease-out) .4s both;box-shadow:0 6px 24px rgba(255,194,0,.40);transition:transform .12s var(--spring),filter .10s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
+.sp-enter::after{content:"";position:absolute;inset:0 0 50% 0;background:rgba(255,255,255,.12);pointer-events:none}
+.sp-enter:active{transform:scale(.96) translateY(1px);filter:brightness(.92)}
+/* HEADER */
+header{padding:calc(52px + var(--safe-top)) 16px 14px;border-bottom:1px solid var(--border);background-color:var(--bg);background-image:radial-gradient(circle,var(--dot-col) 1.3px,transparent 1.3px);background-size:22px 22px;transition:background-color .3s}
+.hdr-icon{width:64px;height:64px;border-radius:20px;background:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px rgba(255,194,0,.40);animation:hdrPop .5s var(--spring) .1s both}
+.hdr-icon .ms{font-size:28px;color:#000;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
+header h1{font:800 1.4rem/1 "Orbitron",sans-serif;letter-spacing:3px;color:var(--text);text-align:center;animation:slideDown .35s var(--ease-out) .15s both}
+header h1 span{color:var(--amber)}
+header p{font:600 .6rem/1 "Barlow",sans-serif;color:var(--label);margin-top:6px;letter-spacing:2.5px;text-transform:uppercase;text-align:center;animation:slideDown .35s var(--ease-out) .2s both}
+.hdr-row{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;flex-wrap:wrap;animation:slideDown .35s var(--ease-out) .25s both}
+.tab-pips{display:flex;gap:3px;align-items:center}
+.tab-pip{width:7px;height:3px;border-radius:var(--r-pill);background:var(--border);transition:background .3s,width .3s,transform .2s var(--spring)}
+.tab-pip.on{width:18px;transform:scaleY(1.4)}
+.btn-glass{display:flex;align-items:center;gap:5px;font:600 11px/1 "Barlow",sans-serif;color:var(--text-dim);background:var(--fill);border:1px solid var(--border);padding:7px 11px;border-radius:var(--r-pill);cursor:pointer;transition:opacity .14s,transform .12s}
+.btn-glass .ms{font-size:13px}.btn-glass:active{opacity:.7;transform:scale(.94)}
+.hdr-badge{font:700 10px/1 "Barlow",sans-serif;color:var(--amber);background:var(--amber-bg);border:1px solid rgba(255,194,0,.30);padding:6px 12px;border-radius:var(--r-pill);letter-spacing:.07em;text-transform:uppercase}
+.dark-toggle{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:var(--r-pill);background:var(--fill);border:1px solid var(--border);cursor:pointer;transition:background .2s,transform .12s var(--spring);-webkit-tap-highlight-color:transparent}
+.dark-toggle:active{transform:scale(.88)}.dark-toggle .ms{font-size:15px;color:var(--text-dim)}
+/* NAV */
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--bg-card);border-top:1px solid var(--border);padding:6px 2px calc(13px + var(--safe-bottom));display:flex;gap:0;z-index:1000;transition:background .3s,border-color .3s}
+html.light nav{background:rgba(255,255,255,.97)}
+.ni{flex:1;padding:5px 1px 4px;border-radius:11px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .22s var(--ease-out),transform .13s var(--spring);min-width:0}
+.ni:active{transform:scale(.78)}
+.ni-icon{font-family:"Material Symbols Rounded";font-size:19px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--spring)}
+.ni.active .ni-icon{font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24;transform:scale(1.08)}
+.ni-lbl{font:700 7px/1 "Barlow",sans-serif;color:var(--label);text-transform:uppercase;letter-spacing:.2px;transition:color .18s;white-space:nowrap}
+.ni.t1.active{background:var(--amber-bg)}.ni.t1.active .ni-icon,.ni.t1.active .ni-lbl{color:var(--amber)}
+.ni.t2.active{background:var(--chips-bg)}.ni.t2.active .ni-icon,.ni.t2.active .ni-lbl{color:var(--chips)}
+.ni.t3.active{background:var(--steel-cbg)}.ni.t3.active .ni-icon,.ni.t3.active .ni-lbl{color:var(--steel-c)}
+.ni.t4.active{background:var(--cement-bg)}.ni.t4.active .ni-icon,.ni.t4.active .ni-lbl{color:var(--cement)}
+.ni.t5.active{background:var(--blu-bg)}.ni.t5.active .ni-icon,.ni.t5.active .ni-lbl{color:var(--blu)}
+.ni.t6.active{background:var(--pay-bg)}.ni.t6.active .ni-icon,.ni.t6.active .ni-lbl{color:var(--pay)}
+.ni.t7.active{background:var(--grn-bg)}.ni.t7.active .ni-icon,.ni.t7.active .ni-lbl{color:var(--grn)}
+.ni.t8.active{background:var(--purp-bg)}.ni.t8.active .ni-icon,.ni.t8.active .ni-lbl{color:var(--purp)}
+/* PANELS */
+.panel{display:none;padding:0 16px}.panel.active{display:block}
+.th{padding:16px 0 12px;border-bottom:1px solid var(--border);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.th-icon{width:44px;height:44px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:thIconIn .38s var(--spring) .05s both}
+.th-icon.t1{background:var(--amber);box-shadow:0 4px 16px rgba(255,194,0,.38)}.th-icon.t1 .ms-xl{color:#000}
+.th-icon.t2{background:var(--chips);box-shadow:0 4px 16px rgba(0,221,255,.36)}.th-icon.t2 .ms-xl{color:#000}
+.th-icon.t3{background:var(--steel-c);box-shadow:0 4px 16px rgba(255,42,42,.36)}
+.th-icon.t4{background:var(--cement);box-shadow:0 4px 16px rgba(68,187,221,.36)}.th-icon.t4 .ms-xl{color:#000}
+.th-icon.t5{background:var(--blu);box-shadow:0 4px 16px rgba(43,110,255,.36)}
+.th-title{font:700 18px/1.1 "Rajdhani",sans-serif;letter-spacing:.05em;color:var(--text);animation:slideRight .3s var(--ease-out) .12s both}
+.th-sub{font:400 10px/1 "Barlow",sans-serif;color:var(--label);margin-top:3px;animation:slideRight .3s var(--ease-out) .18s both}
+.grp{margin-bottom:16px}
+.grp-lbl{display:flex;align-items:center;gap:6px;font:700 10px/1 "Barlow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--label);padding:0 2px 8px}
+.grp-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.grp-note{font:400 10px/1.5 "Barlow",sans-serif;color:var(--label);padding:4px 2px 0}
+.grp-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--sh)}
+#p-sand .grp-card:focus-within{border-color:rgba(255,194,0,.30)}
+#p-chips .grp-card:focus-within{border-color:rgba(0,221,255,.30)}
+#p-steel .grp-card:focus-within{border-color:rgba(255,42,42,.30)}
+#p-cement .grp-card:focus-within{border-color:rgba(68,187,221,.30)}
+#p-rcc .grp-card:focus-within{border-color:rgba(43,110,255,.30)}
+#p-payment .grp-card:focus-within{border-color:rgba(255,107,0,.30)}
+.seg-wrap{padding:10px 12px 8px}
+.seg{display:flex;background:var(--bg-seg);padding:3px;border-radius:var(--r-pill);gap:3px;border:1px solid var(--border)}
+.seg-item{flex:1;padding:9px 3px;text-align:center;font:700 10px/1 "Barlow",sans-serif;letter-spacing:.02em;color:var(--text-dim);border-radius:var(--r-pill);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .16s,color .16s,transform .14s var(--spring)}
+.seg-item.active{background:var(--bg-card-d);color:var(--text);box-shadow:0 1px 8px rgba(0,0,0,.28);transform:scale(1.02)}
+#fmt-mode-seg .seg-item.active,#fmt-cnt-seg .seg-item.active{color:var(--amber)}
+#chips-mode-seg .seg-item.active,#chips-cnt-seg .seg-item.active{color:var(--chips)}
+#grade-seg .seg-item.active{color:var(--blu)}
+#dvf-seg .seg-item.active{color:var(--blu)}
+#steel-mode-seg .seg-item.active{color:var(--text-dim)}
+#waste-seg .seg-item.active,#rcc-unit-seg .seg-item.active{color:var(--blu)}
+#rec-filter-seg{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#rec-filter-seg::-webkit-scrollbar{display:none}
+#rec-filter-seg .seg-item.active{color:var(--grn)}
+.chips-row{display:flex;gap:6px;padding:0 12px 12px;flex-wrap:wrap}
+.chip{padding:6px 13px;border-radius:var(--r-pill);font:600 11px/1 "Barlow",sans-serif;background:var(--fill);color:var(--text-dim);cursor:pointer;border:1px solid var(--border);-webkit-tap-highlight-color:transparent;transition:background .14s,color .14s,border-color .14s,transform .12s var(--spring)}
+.chip.active{background:var(--amber-bg);color:var(--amber);border-color:rgba(255,194,0,.32)}
+.chip:active{transform:scale(.90)}
+#p-rcc .chip.active{background:var(--blu-bg);color:var(--blu);border-color:rgba(43,110,255,.32)}
+.row{display:flex;align-items:center;gap:10px;padding:10px 14px;min-height:50px;position:relative;transition:background .10s}
+.row:active{background:var(--fill2)}
+.row+.row::before{content:"";position:absolute;top:0;left:46px;right:0;height:.5px;background:var(--sep)}
+.row-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ri-l{background:var(--red-bg)}.ri-w{background:var(--blu-bg)}.ri-h{background:var(--chips-bg)}
+.ri-v{background:var(--blu-bg)}.ri-o{background:var(--amber-bg)}.ri-g{background:var(--fill)}
+.row-lbl{font:600 13px/1 "Barlow",sans-serif;color:var(--text);flex-shrink:0}
+.inp-row{flex:1;display:flex;gap:6px}
+.inp-col{flex:1;display:flex;flex-direction:column;gap:3px}
+.inp-unit{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--label);padding-left:2px}
+input[type=number],input[type=text],input[type=tel],input[type=date]{width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);font:500 14px/1 "Barlow",sans-serif;padding:11px 12px;outline:none;-webkit-appearance:none;transition:border-color .18s,background .18s,box-shadow .18s}
+input[type=number]{font:500 16px/1 "Share Tech Mono",monospace;text-align:center;font-variant-numeric:tabular-nums}
+input::placeholder{color:var(--text-faint);font-weight:400;font-size:13px}
+input[type=number]:focus{border-color:var(--amber);background:rgba(255,194,0,.06);box-shadow:0 0 0 3px rgba(255,194,0,.16);animation:borderPulse .55s ease}
+input[type=text]:focus,input[type=tel]:focus,input[type=date]:focus{border-color:var(--amber);background:rgba(255,194,0,.04);box-shadow:0 0 0 3px rgba(255,194,0,.12)}
+#p-rcc input[type=number]:focus{border-color:var(--blu);background:rgba(43,110,255,.06);box-shadow:0 0 0 3px rgba(43,110,255,.16)}
+#p-payment input[type=text]:focus,#p-payment input[type=tel]:focus,#p-payment input[type=date]:focus,#p-payment textarea:focus{border-color:var(--pay);background:rgba(255,107,0,.05);box-shadow:0 0 0 3px rgba(255,107,0,.14)}
+#p-payment input[type=number]:focus{border-color:var(--pay);background:rgba(255,107,0,.05);box-shadow:0 0 0 3px rgba(255,107,0,.14)}
+input[type=number].invalid{border-color:var(--red)!important;animation:shake .3s ease}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
+select{width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);font:600 13px/1 "Barlow",sans-serif;padding:11px 12px;outline:none;-webkit-appearance:none;transition:border-color .18s}
+select:focus{border-color:var(--blu);box-shadow:0 0 0 3px rgba(43,110,255,.16)}
+textarea{width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);font:500 13px/1.55 "Barlow",sans-serif;padding:11px 12px;outline:none;-webkit-appearance:none;resize:vertical;min-height:80px;transition:border-color .18s,background .18s,box-shadow .18s}
+textarea::placeholder{color:var(--text-faint)}
+.proj-input{width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);font:500 13px/1 "Barlow",sans-serif;padding:10px 12px;outline:none;-webkit-appearance:none;transition:border-color .18s,background .18s}
+.proj-input:focus{border-color:var(--amber);background:rgba(255,194,0,.04);box-shadow:0 0 0 3px rgba(255,194,0,.12)}
+.toggle-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--fill);border-radius:8px;margin:0 12px 10px;border:1px solid var(--border)}
+.toggle-lbl{font:600 13px/1.3 "Barlow",sans-serif;color:var(--text)}
+.toggle-sub{font:400 10px/1 "Barlow",sans-serif;color:var(--label);display:block;margin-top:3px}
+.switch{position:relative;display:inline-block;width:44px;height:24px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider{position:absolute;cursor:pointer;inset:0;background:var(--fill);border:1.5px solid var(--border);transition:.25s;border-radius:24px}
+html.light .slider{background:#D0D0F0;border-color:#bbb}
+.slider::before{position:absolute;content:"";height:18px;width:18px;left:2px;bottom:2px;background:var(--label);transition:.25s;border-radius:50%;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+input:checked+.slider{background:var(--amber);border-color:var(--amber)}
+input:checked+.slider::before{background:#fff;transform:translateX(20px)}
+.mix-row{display:flex;align-items:center;gap:6px;padding:10px 14px}
+.mix-colon{font:300 20px/1 "Rajdhani",sans-serif;color:var(--label);margin-top:14px;flex-shrink:0}
+.btn-row{padding:8px 12px 12px}
+.btn{width:100%;padding:15px 20px;border:none;border-radius:var(--r-pill);color:#fff;font:700 13px/1 "Barlow",sans-serif;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;transition:transform .12s var(--spring),filter .10s,box-shadow .14s;box-shadow:var(--sh-btn);-webkit-tap-highlight-color:transparent}
+.btn.t1{background:var(--amber);color:#000;box-shadow:0 4px 18px rgba(255,194,0,.36)}.btn.t1 .ms{color:#000}
+.btn.t2{background:var(--chips);color:#000;box-shadow:0 4px 18px rgba(0,221,255,.36)}.btn.t2 .ms{color:#000}
+.btn.t3{background:var(--steel-c);box-shadow:0 4px 18px rgba(255,42,42,.36)}
+.btn.t4{background:var(--cement);color:#111;box-shadow:0 4px 18px rgba(68,187,221,.36)}.btn.t4 .ms{color:#111}
+.btn.t5{background:var(--blu);box-shadow:0 4px 18px rgba(43,110,255,.36)}
+.btn.t6{background:var(--pay);color:#000;box-shadow:0 4px 18px rgba(255,107,0,.36)}.btn.t6 .ms{color:#000}
+.btn.dark{background:var(--fill);border:1px solid var(--border);color:var(--text-dim);box-shadow:none}
+.btn::after{content:"";position:absolute;inset:0 0 50% 0;background:rgba(255,255,255,.10);pointer-events:none}
+.btn:active{transform:scale(.95) translateY(1px);filter:brightness(.90)}
+.btn:disabled{opacity:.45;pointer-events:none}
+.btn .ms{font-size:17px;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 20;color:rgba(255,255,255,.9)}
+.btn-hint{font:400 10px/1 "Barlow",sans-serif;color:var(--label);text-align:center;margin-top:6px}
+.btn-save{width:100%;padding:15px 20px;border:none;border-radius:var(--r-pill);font:700 13px/1 "Barlow",sans-serif;letter-spacing:.06em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:transform .12s var(--spring),filter .10s,box-shadow .12s;box-shadow:var(--sh-btn);position:relative;overflow:hidden;-webkit-tap-highlight-color:transparent}
+.btn-save::after{content:"";position:absolute;inset:0 0 50% 0;background:rgba(255,255,255,.10);pointer-events:none}
+.btn-save:active{transform:scale(.95) translateY(1px);filter:brightness(.88)}
+.btn-save.t1{background:var(--amber);color:#000}.btn-save.t2{background:var(--chips);color:#000}
+.btn-save.t3{background:var(--steel-c);color:#fff}.btn-save.t4{background:var(--cement);color:#111;box-shadow:0 4px 18px rgba(68,187,221,.36)}
+.btn-save.t5{background:var(--blu);color:#fff;box-shadow:0 4px 18px rgba(43,110,255,.38)}
+.btn-save.t6{background:var(--pay);color:#000;box-shadow:0 4px 18px rgba(255,107,0,.38)}
+.dev-row{display:flex;align-items:center;gap:10px;padding:11px 14px;position:relative}
+.dev-row+.dev-row::before{content:"";position:absolute;top:0;left:52px;right:0;height:.5px;background:var(--sep)}
+.dev-num{width:26px;height:26px;border-radius:8px;display:flex;align-items:center;justify-content:center;font:700 11px/1 "Share Tech Mono",monospace;flex-shrink:0}
+.dev-num.n1{background:var(--amber-bg);color:var(--amber)}.dev-num.n2{background:var(--purp-bg);color:var(--purp)}.dev-num.n3{background:var(--grn-bg);color:var(--grn)}.dev-num.n4{background:var(--chips-bg);color:var(--chips)}
+.dev-fb{width:32px;height:32px;border-radius:10px;background:#1877F2;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;text-decoration:none;transition:transform .14s var(--spring),filter .12s,box-shadow .14s;-webkit-tap-highlight-color:transparent;box-shadow:0 3px 10px rgba(24,119,242,.40)}
+.dev-fb:active{transform:scale(.82);filter:brightness(.88);box-shadow:0 1px 4px rgba(24,119,242,.20)}
+.dev-fb svg{display:block}.dev-name{font:600 14px/1 "Rajdhani",sans-serif;letter-spacing:.04em;color:var(--text);flex:1}.dev-role{font:400 10px/1 "Barlow",sans-serif;color:var(--label);margin-top:3px}
+.module-reset{display:flex;align-items:center;justify-content:center;gap:5px;padding:9px 14px;font:700 11px/1 "Barlow",sans-serif;color:var(--red);cursor:pointer;border:none;border-top:.5px solid var(--sep);-webkit-appearance:none;background:transparent;width:100%;border-radius:0;letter-spacing:.05em;text-transform:uppercase;-webkit-tap-highlight-color:transparent;transition:background .12s;outline:none}
+.module-reset:active{background:var(--red-bg)}.module-reset .ms{font-size:14px;color:var(--red)}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.28);transform:scale(0);animation:ripOut .5s linear forwards;pointer-events:none}
+@keyframes ripOut{to{transform:scale(4.5);opacity:0}}
+.r-sep{height:.5px;background:var(--sep);margin:0 14px}
+.r-sec{display:flex;align-items:center;justify-content:space-between;font:700 9px/1 "Barlow",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--label);padding:12px 14px 6px}
+.assume-strip{display:flex;flex-wrap:wrap;gap:5px;padding:0 12px 10px}
+.assume-chip{padding:5px 10px;border-radius:var(--r-pill);font:500 9px/1 "Barlow",sans-serif;background:var(--fill);color:var(--text-dim);border:1px solid var(--border)}
+.res{display:none;margin-bottom:18px;background:var(--bg-card-d);border:1px solid var(--border);border-radius:var(--r-xl);overflow:hidden;box-shadow:var(--sh-card)}
+.res.show{display:block;animation:resIn .30s var(--spring) both}
+@keyframes resIn{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+.res-bar{height:3px}
+.res-bar.t1{background:linear-gradient(90deg,var(--amber-l),var(--amber))}.res-bar.t2{background:linear-gradient(90deg,var(--chips-l),var(--chips))}.res-bar.t3{background:linear-gradient(90deg,var(--steel-cl),var(--steel-c))}.res-bar.t5{background:linear-gradient(90deg,var(--blu-l),var(--blu))}
+.res-hero{padding:20px 18px 14px;display:flex;align-items:center;gap:14px}
+.res-hicon{width:48px;height:48px;border-radius:var(--r-lg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.res-hicon.t1{background:var(--amber-bg)}.res-hicon.t1 .ms{color:var(--amber)}
+.res-hicon.t2{background:var(--chips-bg)}.res-hicon.t2 .ms{color:var(--chips)}
+.res-hicon.t3{background:var(--steel-cbg)}.res-hicon.t3 .ms{color:var(--steel-c)}
+.res-hicon.t5{background:var(--blu-bg)}.res-hicon.t5 .ms{color:var(--blu)}
+.res-hicon .ms{font-size:24px;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
+.res-hmeta{flex:1;min-width:0}
+@keyframes slideU{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.res-eye{font:700 9px/1 "Barlow",sans-serif;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;animation:slideU .22s ease .08s both}
+.res-eye.t1{color:var(--amber)}.res-eye.t2{color:var(--chips)}.res-eye.t3{color:var(--steel-c)}.res-eye.t5{color:var(--blu)}
+.res-big{font:700 46px/1 "Rajdhani",sans-serif;letter-spacing:-1px;color:var(--text);font-variant-numeric:tabular-nums;animation:slideU .24s ease .12s both;display:inline}
+.res-big-u{font:500 14px/1 "Barlow",sans-serif;color:var(--text-dim)}
+.res-line{font:400 11px/1.4 "Barlow",sans-serif;color:var(--label);margin-top:6px;animation:slideU .22s ease .18s both}
+.res-badge{font:700 10px/1 "Barlow",sans-serif;padding:5px 10px;border-radius:var(--r-pill);align-self:flex-start;flex-shrink:0;animation:slideU .22s ease .20s both}
+.res-badge.t1{background:var(--amber-bg);color:var(--amber)}.res-badge.t2{background:var(--chips-bg);color:var(--chips)}.res-badge.t3{background:var(--steel-cbg);color:var(--steel-c)}.res-badge.t5{background:var(--blu-bg);color:var(--blu)}
+.copy-btn{display:inline-flex;align-items:center;gap:4px;font:700 10px/1 "Barlow",sans-serif;border:1px solid var(--border);padding:5px 9px;border-radius:5px;cursor:pointer;margin-top:6px;animation:slideU .22s ease .22s both;transition:opacity .13s,transform .12s var(--spring)}
+.copy-btn:active{opacity:.6;transform:scale(.93)}.copy-btn .ms{font-size:13px}
+.copy-btn.t1{color:var(--amber);background:var(--amber-bg);border-color:rgba(255,194,0,.25)}
+.copy-btn.t2{color:var(--chips);background:var(--chips-bg);border-color:rgba(0,221,255,.25)}
+.copy-btn.t5{color:var(--blu);background:var(--blu-bg);border-color:rgba(43,110,255,.25)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 12px 12px}
+.scell{background:var(--fill);border:1px solid var(--border);border-radius:var(--r);padding:10px 11px;opacity:0;animation:cellIn .20s var(--ease-out) forwards}
+.scell:nth-child(1){animation-delay:.03s}.scell:nth-child(2){animation-delay:.06s}.scell:nth-child(3){animation-delay:.09s}.scell:nth-child(4){animation-delay:.12s}.scell:nth-child(5){animation-delay:.15s}.scell:nth-child(6){animation-delay:.18s}
+@keyframes cellIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.scell.hi{background:var(--grn-bg);border-color:rgba(0,238,136,.20)}.scell.lo{background:var(--red-bg);border-color:rgba(255,26,56,.20)}.scell.acc{background:var(--blu-bg);border-color:rgba(43,110,255,.20)}.scell.warn{background:var(--warn-bg);border-color:rgba(255,136,0,.20)}
+.sc-lbl{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;margin-bottom:4px;color:var(--label)}
+.scell.hi .sc-lbl{color:var(--grn)}.scell.lo .sc-lbl{color:var(--red)}.scell.acc .sc-lbl{color:var(--blu)}.scell.warn .sc-lbl{color:var(--warn)}
+.sc-val{font:700 14px/1.2 "Rajdhani",sans-serif;color:var(--text)}.sc-sub{font:400 10px/1 "Barlow",sans-serif;color:var(--label);margin-top:2px}
+@keyframes slideR{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:translateX(0)}}
+.rdims{padding:0 12px 12px;display:flex;flex-direction:column;gap:7px}
+.rdim{display:flex;align-items:center;gap:9px;opacity:0;animation:slideR .24s var(--ease-out) forwards}
+.rdim:nth-child(1){animation-delay:.04s}.rdim:nth-child(2){animation-delay:.08s}.rdim:nth-child(3){animation-delay:.12s}
+.rdim-chip{min-width:54px;padding:4px 8px;border-radius:5px;flex-shrink:0;font:700 9px/1 "Barlow",sans-serif;text-align:center}
+.ch-l{background:var(--red-bg);color:var(--red)}.ch-w{background:var(--blu-bg);color:var(--blu)}.ch-h{background:var(--grn-bg);color:var(--grn)}
+.rdim-main{font:700 14px/1 "Rajdhani",sans-serif;color:var(--text);flex:1}.rdim-dec{font:400 11px/1 "Barlow",sans-serif;color:var(--label)}
+.coll-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;font:700 9px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--label);-webkit-tap-highlight-color:transparent;transition:background .10s,color .18s}
+.coll-hdr:active{background:var(--fill2)}.coll-hdr.open{color:var(--amber)}
+.coll-chev{transition:transform .22s}.coll-hdr.open .coll-chev{transform:rotate(180deg)}
+.coll-body{max-height:0;overflow:hidden;transition:max-height .28s var(--ease-out)}.coll-body.open{max-height:3000px}
+.units-row{display:flex;gap:6px;padding:0 12px 12px}
+.unit-cell{flex:1;border-radius:var(--r);padding:10px 8px;text-align:center;background:var(--fill);border:1px solid var(--border)}
+.uc-val{font:700 14px/1.2 "Rajdhani",sans-serif;letter-spacing:-.3px;margin-bottom:3px}.uc-lbl{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--label)}
+.uc-sky{background:var(--chips-bg);border-color:rgba(0,221,255,.20)}.uc-sky .uc-val{color:var(--chips)}
+.uc-ora{background:var(--amber-bg);border-color:rgba(255,194,0,.20)}.uc-ora .uc-val{color:var(--amber)}
+.uc-grn{background:var(--grn-bg);border-color:rgba(0,238,136,.20)}.uc-grn .uc-val{color:var(--grn)}
+.fmt-dim-block{padding:10px 12px 6px}.fmt-dim-block+.fmt-dim-block{border-top:.5px solid var(--sep)}
+.fmt-dim-hdr{display:flex;align-items:center;gap:7px;margin-bottom:7px}.fmt-dim-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.fmt-dim-title{font:700 9px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--label);flex:1}
+.fmt-avg-chip{font:700 10px/1 "Barlow",sans-serif;padding:4px 9px;border-radius:5px;transition:background .18s,color .18s,opacity .18s;background:var(--fill);color:var(--text-faint);opacity:.4;border:1px solid var(--border)}
+.fmt-avg-chip.ok{background:var(--amber-bg);color:var(--amber);opacity:1;border-color:rgba(255,194,0,.28);animation:chipBounce .3s var(--spring) both}
+.fmt-avg-chip.ok-chips{background:var(--chips-bg);color:var(--chips);opacity:1;border-color:rgba(0,221,255,.28);animation:chipBounce .3s var(--spring) both}
+.fmt-avg-chip.warn{background:var(--warn-bg);color:var(--warn);opacity:1;border-color:rgba(255,136,0,.28);animation:chipBounce .3s var(--spring) both}
+.fmt-m-row{display:flex;align-items:center;gap:5px;margin-bottom:5px}
+.fmt-m-num{width:20px;height:20px;border-radius:5px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font:700 9px/1 "Rajdhani",sans-serif;color:#000}
+.steel-dia-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px 12px}
+.steel-dia-cell{display:flex;flex-direction:column;gap:3px}
+.steel-dia-lbl{font:700 10px/1 "Rajdhani",sans-serif;color:var(--text-dim);text-align:center;letter-spacing:.05em}
+.steel-dia-inp{text-align:center;background:var(--fill);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font:700 14px/1 "Share Tech Mono",monospace;padding:8px 4px;width:100%;outline:none;-webkit-appearance:none;transition:border-color .14s,background .14s}
+.steel-dia-inp:focus{border-color:var(--steel-c);background:rgba(255,42,42,.06);box-shadow:0 0 0 3px rgba(255,42,42,.15)}
+.steel-dia-unit{font:600 8px/1 "Barlow",sans-serif;color:var(--label);text-align:center;letter-spacing:.06em;text-transform:uppercase}
+.steel-dia-inp::-webkit-outer-spin-button,.steel-dia-inp::-webkit-inner-spin-button{-webkit-appearance:none}
+.grand-total-bar{background:var(--fill);border:1px solid var(--border);border-radius:var(--r);padding:12px 14px;margin:0 0 8px;display:flex;align-items:center;justify-content:space-between}
+.grand-total-bar .gt-lbl{font:700 10px/1 "Rajdhani",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:var(--label)}
+.grand-total-bar .gt-val{font:700 20px/1 "Rajdhani",sans-serif}
+.grand-total-bar .gt-val.t3{color:var(--steel-c)}.grand-total-bar .gt-val.t4{color:var(--cement)}
+.el-row{padding:10px 12px;position:relative;opacity:0;animation:slideR .24s var(--ease-out) forwards}
+.el-row+.el-row::before{content:"";position:absolute;top:0;left:12px;right:0;height:.5px;background:var(--sep)}
+.el-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.el-type-sel{flex:1;background:var(--fill);border:1.5px solid var(--border);border-radius:8px;font:600 13px/1 "Barlow",sans-serif;color:var(--text);padding:7px 10px;outline:none;-webkit-appearance:none}
+.el-del{width:28px;height:28px;border-radius:6px;background:var(--red-bg);border:1px solid rgba(255,26,56,.22);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .16s var(--spring)}
+.el-del:active{transform:scale(.82)}.el-del .ms{font-size:15px;color:var(--red)}
+.el-dims3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding-top:2px}
+.el-dim-col{display:flex;flex-direction:column;gap:4px}
+.el-dim-head{font:700 13px/1 "Rajdhani",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--text-dim);text-align:center;padding:4px 0;background:var(--fill);border-radius:6px;border:1px solid var(--border)}
+.el-d{display:flex;flex-direction:column;gap:3px}.el-d-lbl{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--label);padding-left:3px}
+.el-d input{font-size:13px;height:36px;padding:0 5px}
+.add-el{display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;cursor:pointer;font:700 12px/1 "Barlow",sans-serif;color:var(--blu);border-top:.5px solid var(--sep);-webkit-tap-highlight-color:transparent;transition:background .10s;text-transform:uppercase;letter-spacing:.06em}
+.add-el:active{background:var(--fill2)}.add-el .ms{font-size:17px;color:var(--blu)}
+.mat-rows{display:flex;flex-direction:column}
+.mat-row{display:flex;align-items:center;gap:10px;padding:12px 14px;position:relative;opacity:0;animation:slideR .24s var(--ease-out) forwards}
+.mat-row:nth-child(1){animation-delay:.04s}.mat-row:nth-child(2){animation-delay:.08s}.mat-row:nth-child(3){animation-delay:.12s}.mat-row:nth-child(4){animation-delay:.16s}
+.mat-row+.mat-row::before{content:"";position:absolute;top:0;left:14px;right:14px;height:.5px;background:var(--sep)}
+.mat-ico{width:40px;height:40px;border-radius:var(--r);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mat-ico.mc{background:var(--red-bg);border:1px solid rgba(255,26,56,.20)}.mat-ico.msa{background:var(--amber-bg);border:1px solid rgba(255,194,0,.20)}.mat-ico.ma{background:var(--blu-bg);border:1px solid rgba(43,110,255,.20)}.mat-ico.mw{background:var(--grn-bg);border:1px solid rgba(0,238,136,.20)}
+.mat-ico .ms{font-size:19px;font-variation-settings:"FILL" 0,"wght" 300,"GRAD" 0,"opsz" 24}
+.mat-ico.mc .ms{color:var(--red)}.mat-ico.msa .ms{color:var(--amber)}.mat-ico.ma .ms{color:var(--blu)}.mat-ico.mw .ms{color:var(--grn)}
+.mat-inf{flex:1;min-width:0}
+.mat-n{font:700 8px/1 "Barlow",sans-serif;text-transform:uppercase;letter-spacing:.10em;color:var(--label);margin-bottom:2px}
+.mat-v{font:700 24px/1 "Rajdhani",sans-serif;letter-spacing:-1px;color:var(--text);font-variant-numeric:tabular-nums}
+.mat-u{font:600 11px/1 "Barlow",sans-serif;color:var(--text-dim);margin-left:2px}.mat-s{font:400 10px/1.4 "Barlow",sans-serif;color:var(--label);margin-top:2px}
+.mat-bar-wrap{position:absolute;bottom:0;left:14px;right:14px;height:2px;background:var(--sep2);border-radius:99px;overflow:hidden}
+.mat-bar-fill{height:100%;border-radius:99px;width:0;transition:width .75s var(--ease-out)}
+.mbf-c{background:linear-gradient(90deg,var(--red-l),var(--red))}.mbf-s{background:linear-gradient(90deg,var(--amber-l),var(--amber))}.mbf-a{background:linear-gradient(90deg,var(--blu-l),var(--blu))}.mbf-w{background:linear-gradient(90deg,var(--grn),var(--grn))}
+.elb-list{padding:0 12px 12px;display:flex;flex-direction:column;gap:5px}
+.elb-row{display:flex;align-items:center;gap:9px;background:var(--fill);border:1px solid var(--border);border-radius:8px;padding:8px 10px;opacity:0;animation:slideR .24s var(--ease-out) forwards}
+.elb-badge{width:22px;height:22px;border-radius:5px;background:var(--blu-bg);color:var(--blu);font:700 10px/1 "Rajdhani",sans-serif;display:flex;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(43,110,255,.20)}
+.elb-type{font:700 9px/1 "Barlow",sans-serif;letter-spacing:.08em;text-transform:uppercase;min-width:48px;color:var(--label)}
+.elb-dims{font:600 11px/1.3 "Barlow",sans-serif;color:var(--text);flex:1}.elb-pct{font:700 9px/1 "Barlow",sans-serif;color:var(--text-dim);background:var(--fill);border-radius:5px;padding:3px 6px;flex-shrink:0}
+.cmp-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 12px 12px}
+.cmp-cell{background:var(--fill);border:1px solid var(--border);border-radius:var(--r);padding:10px 11px}
+.cmp-title{font:700 9px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--label);margin-bottom:8px}
+.cmp-r{display:flex;justify-content:space-between;margin-bottom:5px}
+.cmp-rl{font:400 11px/1 "Barlow",sans-serif;color:var(--text-dim)}.cmp-rv{font:700 11px/1 "Rajdhani",sans-serif;color:var(--text)}
+.notebox{margin:0 12px 12px;background:var(--fill);border-radius:var(--r);padding:10px 12px;border-left:3px solid var(--label)}
+.notebox.t1{border-color:var(--amber)}.notebox.t2{border-color:var(--chips)}.notebox.t3{border-color:var(--steel-c)}.notebox.t5{border-color:var(--blu)}
+.notebox-title{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.10em;text-transform:uppercase;margin-bottom:5px;display:flex;align-items:center;gap:5px}
+.notebox.t1 .notebox-title{color:var(--amber)}.notebox.t2 .notebox-title{color:var(--chips)}.notebox.t3 .notebox-title{color:var(--steel-c)}.notebox.t5 .notebox-title{color:var(--blu)}
+.notebox-title .ms{font-size:13px}
+.notebox-text{font:400 10px/1.75 "Share Tech Mono",monospace;color:var(--text-dim);white-space:pre-line}
+/* RECORDS */
+.rec-empty{text-align:center;padding:48px 20px;color:var(--label)}
+.rec-empty .ms{font-size:44px;display:block;margin:0 auto 12px;opacity:.4}
+.rec-empty-t{font:700 14px/1 "Rajdhani",sans-serif;color:var(--text-dim);margin-bottom:6px}.rec-empty-s{font:400 12px/1.5 "Barlow",sans-serif;color:var(--label)}
+.rec-list{display:flex;flex-direction:column;gap:10px;padding:0 0 8px}
+.rec-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh);animation:grpIn .25s var(--ease-out) both}
+.rec-bar{height:3px}
+.rec-bar.sand{background:linear-gradient(90deg,var(--amber-l),var(--amber))}.rec-bar.chips{background:linear-gradient(90deg,var(--chips-l),var(--chips))}.rec-bar.steel{background:linear-gradient(90deg,var(--steel-cl),var(--steel-c))}.rec-bar.cement{background:linear-gradient(90deg,var(--cement-l),var(--cement))}.rec-bar.rcc{background:linear-gradient(90deg,var(--blu-l),var(--blu))}.rec-bar.payment{background:linear-gradient(90deg,var(--pay-l),var(--pay))}
+.rec-header{display:flex;align-items:flex-start;gap:10px;padding:12px 12px 8px}
+.rec-badge{padding:4px 10px;border-radius:var(--r-pill);font:700 9px/1 "Barlow",sans-serif;letter-spacing:.08em;flex-shrink:0;margin-top:1px}
+.rec-badge.sand{background:var(--amber-bg);color:var(--amber)}.rec-badge.chips{background:var(--chips-bg);color:var(--chips)}.rec-badge.steel{background:var(--steel-cbg);color:var(--steel-c)}.rec-badge.cement{background:var(--cement-bg);color:var(--cement)}.rec-badge.rcc{background:var(--blu-bg);color:var(--blu)}.rec-badge.payment{background:var(--pay-bg);color:var(--pay)}
+/* CONTRACTOR TYPE BADGES */
+.ct-badge{padding:3px 9px;border-radius:var(--r-pill);font:700 8px/1 "Barlow",sans-serif;letter-spacing:.06em;text-transform:uppercase;flex-shrink:0}
+.ct-badge.rod{background:var(--red-bg);color:var(--red);border:1px solid rgba(255,26,56,.25)}
+.ct-badge.sanitary{background:var(--blu-bg);color:var(--blu);border:1px solid rgba(43,110,255,.25)}
+.ct-badge.electric{background:var(--amber-bg);color:var(--amber);border:1px solid rgba(255,194,0,.25)}
+.ct-badge.paint{background:var(--purp-bg);color:var(--purp);border:1px solid rgba(160,64,255,.25)}
+.ct-badge.tiles{background:var(--teal-bg);color:var(--teal);border:1px solid rgba(0,201,177,.25)}
+.rec-proj{font:700 14px/1.2 "Rajdhani",sans-serif;color:var(--text);flex:1}.rec-addr{font:400 10px/1 "Barlow",sans-serif;color:var(--label);margin-top:3px}.rec-date{font:500 9px/1 "Barlow",sans-serif;color:var(--label);flex-shrink:0;margin-top:2px}
+.rec-vals{display:flex;gap:6px;padding:0 13px 10px;flex-wrap:wrap}
+.rec-val-chip{background:var(--fill);border:1px solid var(--border);border-radius:var(--r-pill);padding:4px 10px;font:500 10px/1.3 "Barlow",sans-serif;color:var(--text-dim)}
+.rec-val-chip b{color:var(--text);font-weight:700}
+.rec-vehicle{display:flex;gap:6px;padding:0 13px 10px;flex-wrap:wrap}
+.rec-vehicle-chip{background:var(--fill);border:1px solid var(--border);border-radius:var(--r-pill);padding:3px 9px;font:400 9px/1 "Barlow",sans-serif;color:var(--text-dim);display:flex;align-items:center;gap:3px}
+.rec-vehicle-chip .ms{font-size:11px}
+.rec-vehicle-chip a{color:inherit;text-decoration:none}
+.rec-actions{display:flex;border-top:.5px solid var(--sep)}
+.rec-act-btn{flex:1;padding:9px;display:flex;align-items:center;justify-content:center;gap:5px;font:700 10px/1 "Barlow",sans-serif;cursor:pointer;background:transparent;border:none;-webkit-tap-highlight-color:transparent;transition:background .12s;letter-spacing:.04em;text-transform:uppercase;outline:none}
+.rec-act-btn.pdf{color:var(--amber)}.rec-act-btn.del{color:var(--red)}.rec-act-btn:active{background:var(--fill)}
+.rec-act-btn .ms{font-size:15px}
+.rec-act-div{width:.5px;background:var(--sep);flex-shrink:0}
+/* PAYMENT DASHBOARD */
+.pay-dashboard{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:16px;box-shadow:var(--sh)}
+.pay-dash-cell{display:flex;flex-direction:column;gap:4px;padding:10px 12px;background:var(--fill);border:1px solid var(--border);border-radius:var(--r);text-align:center}
+.pay-dash-lbl{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--label)}
+.pay-dash-val{font:700 22px/1 "JetBrains Mono",monospace;color:var(--pay);font-variant-numeric:tabular-nums;letter-spacing:-0.5px}
+.pay-dash-sub{font:400 9px/1 "Barlow",sans-serif;color:var(--label)}
+/* AMOUNT PREVIEW */
+.pay-amount-preview{display:none;margin:4px 14px 10px;padding:12px 14px;background:var(--pay-bg);border:1px solid rgba(255,107,0,.30);border-radius:var(--r);text-align:center;animation:resIn .25s var(--spring) both}
+.pay-amount-preview.show{display:block}
+.pay-amount-preview-label{font:700 8px/1 "Barlow",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--pay);opacity:.7;margin-bottom:6px}
+.pay-amount-preview-value{font:700 28px/1 "JetBrains Mono",monospace;color:var(--pay);font-variant-numeric:tabular-nums;letter-spacing:-0.5px}
+/* CONTRACTOR TYPE SELECTOR */
+.ctype-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;padding:12px}
+.ctype-chip{display:flex;flex-direction:column;align-items:center;gap:6px;padding:12px 4px 10px;border-radius:var(--r);background:var(--fill);border:1.5px solid var(--border);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s,border-color .15s,transform .13s var(--spring)}
+.ctype-chip:active{transform:scale(.83)}
+.ctype-chip .ms{font-size:22px;color:var(--label);transition:color .15s,font-variation-settings .15s;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24}
+.ctype-chip .ct-lbl{font:700 7.5px/1 "Barlow",sans-serif;letter-spacing:.04em;text-transform:uppercase;color:var(--label);transition:color .15s}
+.ctype-chip.rod.active{background:var(--red-bg);border-color:rgba(255,26,56,.50)}.ctype-chip.rod.active .ms{color:var(--red);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.rod.active .ct-lbl{color:var(--red)}
+.ctype-chip.sanitary.active{background:var(--blu-bg);border-color:rgba(43,110,255,.50)}.ctype-chip.sanitary.active .ms{color:var(--blu);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.sanitary.active .ct-lbl{color:var(--blu)}
+.ctype-chip.electric.active{background:var(--amber-bg);border-color:rgba(255,194,0,.50)}.ctype-chip.electric.active .ms{color:var(--amber);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.electric.active .ct-lbl{color:var(--amber)}
+.ctype-chip.paint.active{background:var(--purp-bg);border-color:rgba(160,64,255,.50)}.ctype-chip.paint.active .ms{color:var(--purp);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.paint.active .ct-lbl{color:var(--purp)}
+.ctype-chip.tiles.active{background:var(--teal-bg);border-color:rgba(0,201,177,.50)}.ctype-chip.tiles.active .ms{color:var(--teal);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.tiles.active .ct-lbl{color:var(--teal)}
+/* PAYMENT SEARCH */
+.pay-search-wrap{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px}
+.pay-search-inp{width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:var(--r);color:var(--text);font:500 13px/1 "Barlow",sans-serif;padding:10px 12px 10px 38px;outline:none;-webkit-appearance:none;transition:border-color .18s,background .18s}
+.pay-search-inp:focus{border-color:var(--pay);background:rgba(255,107,0,.04);box-shadow:0 0 0 3px rgba(255,107,0,.12)}
+.pay-search-inp::placeholder{color:var(--text-faint)}
+.pay-search-row{position:relative}
+.pay-search-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:16px;color:var(--label);pointer-events:none}
+.pay-type-filter{display:flex;gap:5px;flex-wrap:wrap}
+.pay-type-filter-chip{padding:5px 11px;border-radius:var(--r-pill);font:700 9px/1 "Barlow",sans-serif;letter-spacing:.05em;text-transform:uppercase;background:var(--fill);color:var(--text-dim);border:1px solid var(--border);cursor:pointer;transition:background .13s,color .13s,border-color .13s;-webkit-tap-highlight-color:transparent}
+.pay-type-filter-chip:active{transform:scale(.92)}
+.pay-type-filter-chip.rod.active{background:var(--red-bg);color:var(--red);border-color:rgba(255,26,56,.30)}
+.pay-type-filter-chip.sanitary.active{background:var(--blu-bg);color:var(--blu);border-color:rgba(43,110,255,.30)}
+.pay-type-filter-chip.electric.active{background:var(--amber-bg);color:var(--amber);border-color:rgba(255,194,0,.30)}
+.pay-type-filter-chip.paint.active{background:var(--purp-bg);color:var(--purp);border-color:rgba(160,64,255,.30)}
+.pay-type-filter-chip.tiles.active{background:var(--teal-bg);color:var(--teal);border-color:rgba(0,201,177,.30)}
+.pay-type-filter-chip.all.active{background:var(--pay-bg);color:var(--pay);border-color:rgba(255,107,0,.30)}
+/* PROFILE */
+.version-chip{display:inline-flex;align-items:center;gap:5px;background:var(--fill);border:1px solid var(--border);border-radius:99px;padding:5px 12px;font:500 11px/1 "Barlow",sans-serif;color:var(--text-dim)}
+/* PDF MODAL */
+#pdf-modal{position:fixed;inset:0;background:rgba(0,0,0,.80);z-index:8000;display:none;align-items:flex-end;justify-content:center}
+#pdf-modal.open{display:flex;animation:modalIn .28s var(--ease-out) both}
+@keyframes modalIn{from{opacity:0}to{opacity:1}}
+.pdf-sheet{background:var(--bg-card);border-radius:28px 28px 0 0;width:100%;max-width:520px;padding:24px 18px calc(40px + var(--safe-bottom));animation:sheetUp .30s var(--spring) both}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pdf-sheet-title{font:700 16px/1 "Rajdhani",sans-serif;letter-spacing:.06em;color:var(--text);margin-bottom:4px;text-align:center}
+.pdf-sheet-sub{font:400 11px/1 "Barlow",sans-serif;color:var(--label);text-align:center;margin-bottom:16px}
+.pdf-opts{display:flex;flex-direction:column;gap:8px;margin-bottom:16px}
+.pdf-opt{display:flex;align-items:center;gap:12px;padding:13px 14px;background:var(--fill);border:1px solid var(--border);border-radius:var(--r);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s,border-color .12s}
+.pdf-opt:active{background:var(--bg-card-d)}.pdf-opt-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pdf-opt-text{font:700 13px/1 "Barlow",sans-serif;color:var(--text)}.pdf-opt-sub{font:400 10px/1 "Barlow",sans-serif;color:var(--label);margin-top:2px}
+.pdf-cancel{width:100%;padding:13px;border:none;border-radius:var(--r);background:var(--fill);color:var(--text-dim);font:700 13px/1 "Barlow",sans-serif;cursor:pointer;transition:background .12s;outline:none;-webkit-tap-highlight-color:transparent}
+.pdf-cancel:active{background:var(--border)}
+/* TOAST */
+.toast{position:fixed;bottom:calc(98px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(8px);background:rgba(12,12,28,.96);color:var(--amber);padding:10px 20px;border-radius:var(--r-pill);font:700 12px/1 "Barlow",sans-serif;opacity:0;transition:opacity .20s,transform .22s var(--ease-out);z-index:2000;pointer-events:none;white-space:nowrap;border:1px solid rgba(255,194,0,.24);letter-spacing:.05em;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+footer{text-align:center;font:500 9px/1 "Barlow",sans-serif;color:var(--label);padding:8px 0 14px;letter-spacing:.12em;text-transform:uppercase}
+footer .h{color:var(--amber)}
+/* ANIMATIONS */
+@keyframes hdrPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:scale(1)}}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@keyframes thIconIn{from{opacity:0;transform:scale(.55)}to{opacity:1;transform:scale(1)}}
+@keyframes slideRight{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+@keyframes grpIn{from{opacity:.01;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes borderPulse{0%{box-shadow:0 0 0 0 rgba(255,194,0,.35)}70%{box-shadow:0 0 0 5px rgba(255,194,0,0)}100%{box-shadow:0 0 0 0 rgba(255,194,0,0)}}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@keyframes chipBounce{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
+@keyframes badgeGlow{0%,100%{box-shadow:0 0 0 0 rgba(255,194,0,0)}50%{box-shadow:0 0 10px 2px rgba(255,194,0,.22)}}
+.panel.active .grp:nth-child(1){animation:grpIn .28s var(--ease-out) .04s both}
+.panel.active .grp:nth-child(2){animation:grpIn .28s var(--ease-out) .08s both}
+.panel.active .grp:nth-child(3){animation:grpIn .28s var(--ease-out) .12s both}
+.panel.active .grp:nth-child(4){animation:grpIn .28s var(--ease-out) .16s both}
+.panel.active .grp:nth-child(5){animation:grpIn .28s var(--ease-out) .20s both}
+.panel.active .grp:nth-child(6){animation:grpIn .28s var(--ease-out) .24s both}
+.panel.active .grp:nth-child(7){animation:grpIn .28s var(--ease-out) .28s both}
+.panel.active .grp:nth-child(8){animation:grpIn .28s var(--ease-out) .32s both}
+.panel.active .grp:nth-child(9){animation:grpIn .28s var(--ease-out) .36s both}
+.panel.active .grp:nth-child(10){animation:grpIn .28s var(--ease-out) .40s both}
+.panel.active .grp:nth-child(11){animation:grpIn .28s var(--ease-out) .44s both}
+.panel.active .grp:nth-child(12){animation:grpIn .28s var(--ease-out) .48s both}
+.hdr-badge{animation:badgeGlow 3.5s ease-in-out 1s 4}
+body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.notebox,.elb-row,.scell,.unit-cell,.cmp-cell,.btn-glass,.hdr-badge,.dark-toggle,.rec-card{transition:background .28s,color .22s,border-color .22s}
+</style>
+<body>
+<!-- SPLASH -->
+<div id="splash">
+  <div style="display:flex;flex-direction:column;align-items:center;width:100%">
+    <div class="sp-icon"><span class="ms">engineering</span></div>
+    <h1 class="sp-h1">CIVIL <span>SUITE</span></h1>
+    <p class="sp-sub">Ultimate Edition · v1.0 · BNBC 2020</p>
+    <div class="sp-pills">
+      <span class="sp-pill a">Sand</span><span class="sp-pill b">Stone Chips</span><span class="sp-pill c">Steel Bars</span>
+      <span class="sp-pill d">Cement</span><span class="sp-pill e">RCC</span><span class="sp-pill f">Contractor Pay</span><span class="sp-pill d">Records &amp; PDF</span>
+    </div>
+    <div class="sp-feats">
+      <div class="sp-feat-ttl">Capabilities</div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--amber-bg)"><span class="ms ms-sm" style="color:var(--amber)">straighten</span></div><div class="sp-feat-txt">Multi-point field measurement with avg &amp; outlier detection</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">bar_chart</span></div><div class="sp-feat-txt">Steel bar inventory by diameter (8–32 mm)</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">inventory_2</span></div><div class="sp-feat-txt">Cement bags entry with brand &amp; vehicle tracking</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--blu-bg)"><span class="ms ms-sm" style="color:var(--blu)">foundation</span></div><div class="sp-feat-txt">BNBC 2020 RCC material estimation with mix comparison</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">handshake</span></div><div class="sp-feat-txt">Contractor payment log by trade type with date &amp; remarks</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">picture_as_pdf</span></div><div class="sp-feat-txt">PDF export per material with signature lines &amp; grand total</div></div>
+    </div>
+  </div>
+  <div class="sp-dev"><div class="sp-dev-n">K. M. Zaman</div><div class="sp-dev-r">Civil Engineer · Developer</div></div>
+  <button class="sp-enter" onclick="enterApp()">ENTER APP</button>
+</div>
+
+<header>
+  <div class="hdr-icon"><span class="ms">engineering</span></div>
+  <h1>CIVIL <span>SUITE</span></h1>
+  <p>Ultimate Edition · BNBC 2020</p>
+  <div class="hdr-row">
+    <div class="tab-pips">
+      <div class="tab-pip t1 on" id="tp1"></div><div class="tab-pip t2" id="tp2"></div>
+      <div class="tab-pip t3" id="tp3"></div><div class="tab-pip t4" id="tp4"></div>
+      <div class="tab-pip t5" id="tp5"></div><div class="tab-pip t6" id="tp6"></div>
+      <div class="tab-pip t7" id="tp7"></div><div class="tab-pip t8" id="tp8"></div>
+    </div>
+    <button class="btn-glass" onclick="clearAll()"><span class="ms">delete_sweep</span>Clear All</button>
+    <span class="hdr-badge">K. M. ZAMAN</span>
+    <button class="dark-toggle" onclick="toggleDark()" id="dark-btn"><span class="ms" id="dark-icon">dark_mode</span></button>
+  </div>
+</header>
+
+<!-- PANEL 1: SAND -->
+<div class="panel active" id="p-sand" role="tabpanel">
+  <div class="th"><div class="th-icon t1"><span class="ms ms-xl">water</span></div><div><div class="th-title">Sand Entry</div><div class="th-sub">Multi-Point Avg · Volume · Geometry</div></div></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Project Info</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="f_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="f_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="f_proj_date"></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Vehicle Information</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Vehicle Number</span><input type="text" class="proj-input" id="f_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Name</span><input type="text" class="proj-input" id="f_drv_name" placeholder="Driver's full name"></div></div>
+      <div class="row"><div class="row-icon ri-v"><span class="ms ms-sm">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Mobile</span><input type="tel" class="proj-input" id="f_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Input Mode</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="fmt-mode-seg">
+      <div class="seg-item active" onclick="setFMTMode('ftin',this)">ft &amp; in</div>
+      <div class="seg-item" onclick="setFMTMode('decft',this)">Dec ft</div>
+      <div class="seg-item" onclick="setFMTMode('inch',this)">Inches</div>
+      <div class="seg-item" onclick="setFMTMode('meter',this)">Meter</div>
+    </div></div></div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Measurements per Dimension</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="fmt-cnt-seg">
+      <div class="seg-item" onclick="setFMTCount(2,this)">2</div>
+      <div class="seg-item active" onclick="setFMTCount(3,this)">3</div>
+      <div class="seg-item" onclick="setFMTCount(4,this)">4</div>
+    </div></div></div>
+    <div class="grp-note">Empty fields are skipped automatically.</div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>L · W · H Measurements</div>
+    <div class="grp-card" id="fmt-card"></div>
+  </div>
+  <div class="grp"><div class="grp-card"><div class="btn-row">
+    <button class="btn t1" id="sand-calc-btn" onclick="runCalcFMT()"><span class="ms">calculate</span>CALCULATE VOLUME</button>
+  </div></div></div>
+  <div class="res" id="fmt-res">
+    <div class="res-bar t1"></div>
+    <div class="res-hero">
+      <div class="res-hicon t1"><span class="ms">view_in_ar</span></div>
+      <div class="res-hmeta">
+        <div class="res-eye t1">Volume (CFT)</div>
+        <div><span class="res-big" id="f-vol">—</span><span class="res-big-u"> ft³</span></div>
+        <div class="res-line" id="f-vol-line">—</div>
+        <button class="copy-btn t1" onclick="copyFMTResult()"><span class="ms">content_copy</span>Copy</button>
+      </div>
+    </div>
+    <div class="r-sep"></div><div class="r-sec">Other Units</div>
+    <div class="units-row">
+      <div class="unit-cell uc-sky"><div class="uc-val" id="f-vol-m3">—</div><div class="uc-lbl">m³</div></div>
+      <div class="unit-cell uc-ora"><div class="uc-val" id="f-vol-in3" style="font-size:12px">—</div><div class="uc-lbl">in³</div></div>
+      <div class="unit-cell uc-grn"><div class="uc-val" id="f-vol-cm3" style="font-size:12px">—</div><div class="uc-lbl">cm³</div></div>
+    </div>
+    <div class="r-sep"></div><div class="r-sec">Average Dimensions</div>
+    <div class="rdims">
+      <div class="rdim"><span class="rdim-chip ch-l">Avg L</span><span class="rdim-main" id="f-bL">—</span><span class="rdim-dec" id="f-bLd">—</span></div>
+      <div class="rdim"><span class="rdim-chip ch-w">Avg W</span><span class="rdim-main" id="f-bW">—</span><span class="rdim-dec" id="f-bWd">—</span></div>
+      <div class="rdim"><span class="rdim-chip ch-h">Avg H</span><span class="rdim-main" id="f-bH">—</span><span class="rdim-dec" id="f-bHd">—</span></div>
+    </div>
+    <div class="r-sep"></div>
+    <div class="coll-hdr" id="chdr-fgeo" onclick="toggleColl('fgeo')"><span>Geometry Details</span><span class="ms ms-sm coll-chev">expand_more</span></div>
+    <div class="coll-body" id="cbody-fgeo">
+      <div class="sgrid">
+        <div class="scell"><div class="sc-lbl">Base Area L×W</div><div class="sc-val" id="f-baseA">—</div><div class="sc-sub">ft²</div></div>
+        <div class="scell"><div class="sc-lbl">Base Perimeter</div><div class="sc-val" id="f-perim">—</div><div class="sc-sub">ft</div></div>
+        <div class="scell"><div class="sc-lbl">Total Surface</div><div class="sc-val" id="f-surf">—</div><div class="sc-sub">ft²</div></div>
+        <div class="scell"><div class="sc-lbl">Space Diagonal</div><div class="sc-val" id="f-diag">—</div><div class="sc-sub">ft</div></div>
+        <div class="scell acc"><div class="sc-lbl">Front L×H</div><div class="sc-val" id="f-faceF">—</div><div class="sc-sub">ft²</div></div>
+        <div class="scell acc"><div class="sc-lbl">Side W×H</div><div class="sc-val" id="f-faceS">—</div><div class="sc-sub">ft²</div></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:0 0 8px"><button class="btn-save t1" id="sand-add-btn" onclick="saveSandRecord()" style="display:none"><span class="ms">save</span>ADD TO RECORDS</button></div>
+</div>
+
+<!-- PANEL 2: STONE CHIPS -->
+<div class="panel" id="p-chips" role="tabpanel">
+  <div class="th"><div class="th-icon t2"><span class="ms ms-xl">landscape</span></div><div><div class="th-title">Stone Chips Entry</div><div class="th-sub">Multi-Point Avg · Volume · Geometry</div></div></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>Project Info</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="c_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="c_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="c_proj_date"></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>Vehicle Information</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Vehicle Number</span><input type="text" class="proj-input" id="c_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Name</span><input type="text" class="proj-input" id="c_drv_name" placeholder="Driver's full name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Mobile</span><input type="tel" class="proj-input" id="c_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>Input Mode</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="chips-mode-seg">
+      <div class="seg-item active" onclick="setChipsMode('ftin',this)">ft &amp; in</div>
+      <div class="seg-item" onclick="setChipsMode('decft',this)">Dec ft</div>
+      <div class="seg-item" onclick="setChipsMode('inch',this)">Inches</div>
+      <div class="seg-item" onclick="setChipsMode('meter',this)">Meter</div>
+    </div></div></div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>Measurements per Dimension</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="chips-cnt-seg">
+      <div class="seg-item" onclick="setChipsCount(2,this)">2</div>
+      <div class="seg-item active" onclick="setChipsCount(3,this)">3</div>
+      <div class="seg-item" onclick="setChipsCount(4,this)">4</div>
+    </div></div></div>
+    <div class="grp-note">Empty fields are skipped automatically.</div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>L · W · H Measurements</div>
+    <div class="grp-card" id="chips-card"></div>
+  </div>
+  <div class="grp"><div class="grp-card"><div class="btn-row">
+    <button class="btn t2" id="chips-calc-btn" onclick="runCalcChips()"><span class="ms">calculate</span>CALCULATE VOLUME</button>
+  </div></div></div>
+  <div class="res" id="chips-res">
+    <div class="res-bar t2"></div>
+    <div class="res-hero">
+      <div class="res-hicon t2"><span class="ms">view_in_ar</span></div>
+      <div class="res-hmeta">
+        <div class="res-eye t2">Volume (CFT)</div>
+        <div><span class="res-big" id="c-vol">—</span><span class="res-big-u"> ft³</span></div>
+        <div class="res-line" id="c-vol-line">—</div>
+        <button class="copy-btn t2" onclick="copyChipsResult()"><span class="ms">content_copy</span>Copy</button>
+      </div>
+    </div>
+    <div class="r-sep"></div><div class="r-sec">Other Units</div>
+    <div class="units-row">
+      <div class="unit-cell uc-sky"><div class="uc-val" id="c-vol-m3">—</div><div class="uc-lbl">m³</div></div>
+      <div class="unit-cell uc-ora"><div class="uc-val" id="c-vol-in3" style="font-size:12px">—</div><div class="uc-lbl">in³</div></div>
+      <div class="unit-cell uc-grn"><div class="uc-val" id="c-vol-cm3" style="font-size:12px">—</div><div class="uc-lbl">cm³</div></div>
+    </div>
+    <div class="r-sep"></div><div class="r-sec">Average Dimensions</div>
+    <div class="rdims">
+      <div class="rdim"><span class="rdim-chip ch-l">Avg L</span><span class="rdim-main" id="c-bL">—</span><span class="rdim-dec" id="c-bLd">—</span></div>
+      <div class="rdim"><span class="rdim-chip ch-w">Avg W</span><span class="rdim-main" id="c-bW">—</span><span class="rdim-dec" id="c-bWd">—</span></div>
+      <div class="rdim"><span class="rdim-chip ch-h">Avg H</span><span class="rdim-main" id="c-bH">—</span><span class="rdim-dec" id="c-bHd">—</span></div>
+    </div>
+  </div>
+  <div style="padding:0 0 8px"><button class="btn-save t2" id="chips-add-btn" onclick="saveChipsRecord()" style="display:none"><span class="ms">save</span>ADD TO RECORDS</button></div>
+</div>
+
+<!-- PANEL 3: STEEL -->
+<div class="panel" id="p-steel" role="tabpanel">
+  <div class="th"><div class="th-icon t3"><span class="ms ms-xl" style="color:#fff">linear_scale</span></div><div><div class="th-title">Steel Bar Entry</div><div class="th-sub">Diameter-wise inventory · KG / TON</div></div></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span>Project Info</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="s_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="s_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="s_proj_date"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Brand Name</span><input type="text" class="proj-input" id="s_brand" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span>Vehicle Information</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Vehicle Number</span><input type="text" class="proj-input" id="s_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Name</span><input type="text" class="proj-input" id="s_drv_name" placeholder="Driver's full name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Mobile</span><input type="tel" class="proj-input" id="s_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span>Diameters — KG per bar size</div>
+    <div class="grp-card">
+      <div class="steel-dia-grid">
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">8 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d8" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">10 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d10" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">12 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d12" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">16 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d16" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">20 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d20" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">22 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d22" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">25 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d25" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">28 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d28" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">32 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d32" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+      </div>
+      <div style="padding:0 12px 14px">
+        <div class="grand-total-bar">
+          <div><div class="gt-lbl">Grand Total</div></div>
+          <div><span class="gt-val t3" id="s-total-kg">0</span><span style="font:600 11px/1 Barlow,sans-serif;color:var(--label)"> KG</span>&nbsp;<span style="font:600 10px/1 Barlow,sans-serif;color:var(--label)">(<span id="s-total-ton">0.000</span> TON)</span></div>
+        </div>
+        <button class="btn-save t3" onclick="saveSteelRecord()"><span class="ms">save</span>ADD TO RECORDS</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 4: CEMENT -->
+<div class="panel" id="p-cement" role="tabpanel">
+  <div class="th"><div class="th-icon t4"><span class="ms ms-xl" style="color:#111">inventory_2</span></div><div><div class="th-title">Cement Entry</div><div class="th-sub">Bags · 50 KG per bag</div></div></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span>Project Info</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="m_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="m_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="m_proj_date"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Brand Name</span><input type="text" class="proj-input" id="m_brand" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span>Vehicle Information</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Vehicle Number</span><input type="text" class="proj-input" id="m_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Name</span><input type="text" class="proj-input" id="m_drv_name" placeholder="Driver's full name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Mobile</span><input type="tel" class="proj-input" id="m_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span>Cement Quantity</div>
+    <div class="grp-card">
+      <div class="row">
+        <div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">inventory_2</span></div>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit">Quantity</span><input type="number" inputmode="decimal" id="m_bags" min="0" placeholder="0" oninput="updateCementTotal()"></div></div>
+        <div style="margin-left:6px;flex-shrink:0;text-align:center">
+          <div style="font:700 9px/1 Barlow,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px">Unit</div>
+          <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--cement)">Bags</div>
+          <div style="font:600 9px/1 Barlow,sans-serif;color:var(--label);margin-top:2px">50 kg/bag</div>
+        </div>
+      </div>
+      <div style="padding:0 12px 14px">
+        <div class="grand-total-bar">
+          <div><div class="gt-lbl">Grand Total</div></div>
+          <div><span class="gt-val t4" id="m-total-bags">0</span><span style="font:600 11px/1 Barlow,sans-serif;color:var(--label)"> Bags</span>&nbsp;<span style="font:600 10px/1 Barlow,sans-serif;color:var(--label)">(<span id="m-total-kg">0</span> KG)</span></div>
+        </div>
+        <button class="btn-save t4" onclick="saveCementRecord()"><span class="ms">save</span>ADD TO RECORDS</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PANEL 5: RCC -->
+<div class="panel" id="p-rcc" role="tabpanel" aria-label="RCC Estimator">
+  <div class="th"><div class="th-icon t5"><span class="ms ms-xl" style="color:#fff">foundation</span></div><div><div class="th-title">RCC Estimator</div><div class="th-sub">BNBC 2020 · Multi-element · Mix Comparison</div></div></div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span>Structure Elements</div>
+    <div class="grp-card">
+      <div id="r-elements"></div>
+      <div class="add-el" onclick="addEl()" role="button"><span class="ms">add_circle</span>Add Element</div>
+    </div>
+    <div class="grp-note">Add beams, slabs, columns separately — volumes are combined automatically.</div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span>Concrete Grade &amp; W/C Ratio</div>
+    <div class="grp-card">
+      <div class="seg-wrap"><div class="seg" id="grade-seg">
+        <div class="seg-item" onclick="setGrade('M20',this)">M20</div>
+        <div class="seg-item active" onclick="setGrade('M25',this)">M25</div>
+        <div class="seg-item" onclick="setGrade('M30',this)">M30</div>
+        <div class="seg-item" onclick="setGrade('Custom',this)">Custom</div>
+      </div></div>
+      <div class="row" id="grade-info-row" style="padding-top:2px;padding-bottom:2px">
+        <div class="row-icon ri-v"><span class="ms ms-sm" style="color:var(--blu)">water_drop</span></div>
+        <div style="flex:1;min-width:0">
+          <div style="font:700 12px/1 Barlow,sans-serif;color:var(--text)" id="grade-wc-lbl">W/C = 0.50</div>
+          <div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim);margin-top:3px" id="grade-hint">M25 · fck 25 MPa · Hint mix 1:1:2</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <span style="font:600 10px/1 Barlow,sans-serif;color:var(--text-dim)" id="wc-override-lbl">Override</span>
+          <label class="switch"><input type="checkbox" id="r_wc_override" onchange="toggleWCOverride()"><span class="slider"></span></label>
+        </div>
+      </div>
+      <div id="wc-manual-row" class="row" style="display:none;padding-top:2px">
+        <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">tune</span></div>
+        <span class="row-lbl" style="min-width:70px">W/C Ratio</span>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit">w/c</span><input id="r_wc_manual" type="number" inputmode="decimal" min="0.3" max="0.7" step="0.01" placeholder="0.50"></div></div>
+      </div>
+    </div>
+    <div class="grp-note">BNBC 2020: M20→0.55 · M25→0.50 · M30→0.45 · Override for special mixes.</div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span>Mix Ratio C : S : Aggregate</div>
+    <div class="grp-card">
+      <div class="mix-row">
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">Cement</span><input id="r_mc" type="number" inputmode="decimal" min="0" value="1"></div>
+        <span class="mix-colon">:</span>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">Sand</span><input id="r_ms" type="number" inputmode="decimal" min="0" value="1.5"></div>
+        <span class="mix-colon">:</span>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--blu)">Agg</span><input id="r_ma" type="number" inputmode="decimal" min="0" value="3"></div>
+      </div>
+      <div class="chips-row" id="mix-chips">
+        <div class="chip" onclick="setMix(1,1,2,this)">1:1:2</div>
+        <div class="chip active" onclick="setMix(1,1.5,3,this)">1:1.5:3</div>
+        <div class="chip" onclick="setMix(1,2,4,this)">1:2:4</div>
+        <div class="chip" onclick="setMix(1,3,6,this)">1:3:6</div>
+      </div>
+    </div>
+    <div class="grp-note">Mix ratio is independent of grade. Grade defines W/C only.</div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span>Dry Volume Factor</div>
+    <div class="grp-card">
+      <div class="seg-wrap"><div class="seg" id="dvf-seg">
+        <div class="seg-item" onclick="setDVF(1.52,this)">1.52</div>
+        <div class="seg-item active" onclick="setDVF(1.54,this)">1.54</div>
+        <div class="seg-item" onclick="setDVF(1.57,this)">1.57</div>
+        <div class="seg-item" onclick="setDVF(-1,this)">Custom</div>
+      </div></div>
+      <div id="dvf-custom-row" class="row" style="display:none;padding-top:4px">
+        <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--blu)">tune</span></div>
+        <span class="row-lbl">Custom Factor</span>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit">factor</span><input id="r_dvf_custom" type="number" inputmode="decimal" min="1.3" max="1.7" step="0.01" placeholder="1.54"></div></div>
+      </div>
+    </div>
+    <div class="grp-note">BNBC range: 1.52–1.57 · Default 1.54 (most common). Lower = denser mix.</div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--red)"></span>Wastage Factor</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="waste-seg">
+      <div class="seg-item active" onclick="setWaste(0,this)">None</div>
+      <div class="seg-item" onclick="setWaste(5,this)">+5%</div>
+      <div class="seg-item" onclick="setWaste(10,this)">+10%</div>
+      <div class="seg-item" onclick="setWaste(15,this)">+15%</div>
+    </div></div></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--red)"></span>Sand Bulking</div>
+    <div class="grp-card" style="padding:4px 0">
+      <div class="toggle-row">
+        <div><span class="toggle-lbl">Sand Bulking (+25%)</span><small class="toggle-sub">Accounts for moisture-induced volume increase · BNBC</small></div>
+        <label class="switch"><input type="checkbox" id="r_bulking"><span class="slider"></span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--text-dim)"></span>Steel Reinforcement</div>
+    <div class="grp-card">
+      <div class="seg-wrap"><div class="seg" id="steel-mode-seg">
+        <div class="seg-item active" onclick="setSteelMode('elem',this)">Element-Based</div>
+        <div class="seg-item" onclick="setSteelMode('kgm3',this)">Direct kg/m³</div>
+      </div></div>
+      <div id="steel-elem-section">
+        <div class="row" style="padding-bottom:4px">
+          <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">category</span></div>
+          <span class="row-lbl" style="min-width:80px">Element Type</span>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit">type</span>
+            <select id="r_steel_elem_type" onchange="onSteelElemTypeChange()" style="width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font:700 13px/1 Barlow,sans-serif;padding:9px 10px;outline:none;-webkit-appearance:none">
+              <option value="slab">Slab (80–120 kg/m³)</option>
+              <option value="beam">Beam (120–180 kg/m³)</option>
+              <option value="column">Column (160–250 kg/m³)</option>
+              <option value="footing">Footing (90–150 kg/m³)</option>
+            </select>
+          </div></div>
+        </div>
+        <div class="row" style="padding-top:2px">
+          <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">scale</span></div>
+          <span class="row-lbl" style="min-width:80px">Steel kg/m³</span>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit">kg/m³</span><input id="r_steel_kgm3" type="number" inputmode="decimal" min="0" placeholder="100"></div></div>
+        </div>
+        <div class="chips-row" id="steel-elem-chips">
+          <div class="chip" onclick="setSteelElemPreset('slab',100,this)">Slab 100</div>
+          <div class="chip" onclick="setSteelElemPreset('beam',150,this)">Beam 150</div>
+          <div class="chip" onclick="setSteelElemPreset('column',200,this)">Column 200</div>
+          <div class="chip" onclick="setSteelElemPreset('footing',120,this)">Footing 120</div>
+        </div>
+        <div class="assume-strip" id="steel-assume-strip" style="padding-top:0">
+          <span class="assume-chip" id="steel-range-chip">Range: 80–120 kg/m³</span>
+          <span class="assume-chip" id="steel-mid-chip">Midpoint: 100</span>
+        </div>
+      </div>
+      <div id="steel-kgm3-section" style="display:none">
+        <div class="row">
+          <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">scale</span></div>
+          <span class="row-lbl" style="min-width:80px">kg/m³</span>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit">kg/m³</span><input id="r_steel_direct" type="number" inputmode="decimal" min="0" placeholder="0"></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="grp-note">ρ_steel = 7850 kg/m³ · Slab 80–120 · Beam 120–180 · Column 160–250 · Footing 90–150</div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span>Result Unit</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="rcc-unit-seg">
+      <div class="seg-item active" onclick="setRCCUnit('cft',this)">ft³ (CFT)</div>
+      <div class="seg-item" onclick="setRCCUnit('m3',this)">m³</div>
+    </div></div></div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span>Compare Mix B (Optional)</div>
+    <div class="grp-card">
+      <div class="mix-row">
+        <span style="font:600 12px/1 Barlow,sans-serif;color:var(--text-dim);min-width:38px">Mix B</span>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">C</span><input id="r_mc2" type="number" inputmode="decimal" min="0" value="1"></div>
+        <span class="mix-colon">:</span>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">S</span><input id="r_ms2" type="number" inputmode="decimal" min="0" value="1.5"></div>
+        <span class="mix-colon">:</span>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--blu)">A</span><input id="r_ma2" type="number" inputmode="decimal" min="0" value="3"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grp"><div class="grp-card"><div class="btn-row">
+    <button class="btn t5" id="rcc-btn" onclick="calcRCC(event)"><span class="ms">calculate</span>Estimate Materials</button>
+    <div class="btn-hint">Long-press any input to clear it</div>
+  </div></div></div>
+
+  <div class="res" id="rcc-res" aria-live="polite">
+    <div class="res-bar t5"></div>
+    <div class="res-hero">
+      <div class="res-hicon t5"><span class="ms">foundation</span></div>
+      <div class="res-hmeta">
+        <div class="res-eye t5">Concrete Volume</div>
+        <div><span class="res-big" id="r-vol">—</span><span class="res-big-u" id="r-vol-u"> ft³</span></div>
+        <div class="res-line" id="r-vol-line">—</div>
+      </div>
+      <div class="res-badge t5" id="r-mix-badge">—</div>
+    </div>
+    <div class="assume-strip" id="r-assume-strip"></div>
+    <div class="r-sep"></div>
+    <div class="coll-hdr open" id="chdr-els" onclick="toggleColl('els')"><span>Per-Element Breakdown</span><span class="ms ms-sm coll-chev">expand_more</span></div>
+    <div class="coll-body open" id="cbody-els"><div class="elb-list" id="r-elb"></div></div>
+    <div class="r-sep"></div>
+    <div class="r-sec">Required Materials <span id="r-waste-lbl" style="font:400 10px/1 Barlow,sans-serif;color:var(--text-dim)"></span></div>
+    <div class="mat-rows">
+      <div class="mat-row"><div class="mat-ico mc"><span class="ms">water_drop</span></div><div class="mat-inf"><div class="mat-n">Cement</div><div><span class="mat-v" id="r-bags">—</span><span class="mat-u">bags</span></div><div class="mat-s" id="r-bag-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-c" id="rb-c"></div></div></div>
+      <div class="mat-row"><div class="mat-ico msa"><span class="ms">terrain</span></div><div class="mat-inf"><div class="mat-n" id="r-sand-lbl">Sand (Fine Agg.)</div><div><span class="mat-v" id="r-sand">—</span><span class="mat-u" id="r-sand-u">cft</span></div><div class="mat-s" id="r-sand-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-s" id="rb-s"></div></div></div>
+      <div class="mat-row"><div class="mat-ico ma"><span class="ms">blur_on</span></div><div class="mat-inf"><div class="mat-n">Stone / Chips</div><div><span class="mat-v" id="r-chips">—</span><span class="mat-u" id="r-chips-u">cft</span></div><div class="mat-s" id="r-chips-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-a" id="rb-a"></div></div></div>
+      <div class="mat-row"><div class="mat-ico mw"><span class="ms">water</span></div><div class="mat-inf"><div class="mat-n">Water</div><div><span class="mat-v" id="r-water">—</span><span class="mat-u">L</span></div><div class="mat-s" id="r-water-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-w" id="rb-w"></div></div></div>
+    </div>
+    <div id="r-steel-wrap" style="display:none">
+      <div class="r-sep"></div>
+      <div class="r-sec">Steel Reinforcement</div>
+      <div class="sgrid">
+        <div class="scell"><div class="sc-lbl">Steel Volume</div><div class="sc-val" id="r-steel-vol">—</div><div class="sc-sub" id="r-steel-vol-u">ft³</div></div>
+        <div class="scell acc"><div class="sc-lbl">Steel Weight</div><div class="sc-val" id="r-steel-kg">—</div><div class="sc-sub">kg (ρ=7850)</div></div>
+      </div>
+    </div>
+    <div id="r-cmp-wrap" style="display:none">
+      <div class="r-sep"></div>
+      <div class="r-sec">Mix Comparison</div>
+      <div class="cmp-grid">
+        <div class="cmp-cell"><div class="cmp-title" id="cmp-ta">Mix A</div><div class="cmp-r"><span class="cmp-rl">Cement</span><span class="cmp-rv" id="cA-b">—</span></div><div class="cmp-r"><span class="cmp-rl">Sand</span><span class="cmp-rv" id="cA-s">—</span></div><div class="cmp-r"><span class="cmp-rl">Chips</span><span class="cmp-rv" id="cA-a">—</span></div><div class="cmp-r"><span class="cmp-rl">Water</span><span class="cmp-rv" id="cA-w">—</span></div></div>
+        <div class="cmp-cell"><div class="cmp-title" id="cmp-tb">Mix B</div><div class="cmp-r"><span class="cmp-rl">Cement</span><span class="cmp-rv" id="cB-b">—</span></div><div class="cmp-r"><span class="cmp-rl">Sand</span><span class="cmp-rv" id="cB-s">—</span></div><div class="cmp-r"><span class="cmp-rl">Chips</span><span class="cmp-rv" id="cB-a">—</span></div><div class="cmp-r"><span class="cmp-rl">Water</span><span class="cmp-rv" id="cB-w">—</span></div></div>
+      </div>
+      <div style="font:400 11px/1.5 Barlow,sans-serif;color:var(--text-dim);padding:0 13px 13px" id="cmp-note">—</div>
+    </div>
+    <div class="r-sep"></div>
+    <div style="padding:12px 14px"><button class="btn dark" onclick="copyRCCReport()"><span class="ms">content_copy</span>Copy Full Report</button></div>
+    <div class="notebox t5">
+      <div class="notebox-title"><span class="ms">straighten</span>BNBC 2020 Calculation Trace</div>
+      <div class="notebox-text" id="r-note">—</div>
+    </div>
+  </div>
+  <div style="padding:0 0 8px">
+    <button class="btn-save t5" id="rcc-add-btn" onclick="saveRCCRecord()" style="display:none"><span class="ms">save</span>ADD TO RECORDS</button>
+  </div>
+</div>
+
+<!-- PANEL 6: CONTRACTOR PAYMENT -->
+<div class="panel" id="p-payment" role="tabpanel">
+  <div class="th">
+    <div class="th-icon" style="background:var(--pay);box-shadow:0 4px 16px rgba(255,107,0,.40)"><span class="ms ms-xl" style="color:#000;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">handshake</span></div>
+    <div><div class="th-title" style="color:var(--text)">Contractor Payment</div><div class="th-sub">Payment Log · By Trade Type</div></div>
+  </div>
+  <!-- Dashboard -->
+  <div class="pay-dashboard" id="pay-dashboard">
+    <div class="pay-dash-cell">
+      <div class="pay-dash-lbl">Total Paid</div>
+      <div class="pay-dash-val" id="dash-total">৳ 0</div>
+      <div class="pay-dash-sub" id="dash-count">0 payments</div>
+    </div>
+    <div class="pay-dash-cell" style="background:var(--grn-bg);border-color:rgba(0,238,136,.20)">
+      <div class="pay-dash-lbl" style="color:var(--grn)">This Month</div>
+      <div class="pay-dash-val" style="color:var(--grn)" id="dash-month">৳ 0</div>
+      <div class="pay-dash-sub" id="dash-month-count">0 payments</div>
+    </div>
+  </div>
+  <!-- Project Details -->
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span>Project Details</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="pay_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="pay_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+    </div>
+  </div>
+  <!-- Contractor Type -->
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span>Contractor Type</div>
+    <div class="grp-card">
+      <div class="ctype-grid">
+        <div class="ctype-chip rod active" id="ct-rod" onclick="selectCType('rod',this)"><span class="ms">cable</span><span class="ct-lbl">Rod</span></div>
+        <div class="ctype-chip sanitary" id="ct-sanitary" onclick="selectCType('sanitary',this)"><span class="ms">plumbing</span><span class="ct-lbl">Sanitary</span></div>
+        <div class="ctype-chip electric" id="ct-electric" onclick="selectCType('electric',this)"><span class="ms">electric_bolt</span><span class="ct-lbl">Electric</span></div>
+        <div class="ctype-chip paint" id="ct-paint" onclick="selectCType('paint',this)"><span class="ms">format_paint</span><span class="ct-lbl">Paint</span></div>
+        <div class="ctype-chip tiles" id="ct-tiles" onclick="selectCType('tiles',this)"><span class="ms">grid_view</span><span class="ct-lbl">Tiles</span></div>
+      </div>
+      <div style="padding:0 12px 12px"><div id="pay-type-confirm" style="display:flex;align-items:center;gap:8px;background:var(--red-bg);border:1px solid rgba(255,26,56,.30);border-radius:var(--r);padding:10px 12px"><span class="ms" style="color:var(--red);font-size:16px">check_circle</span><span style="font:600 12px/1 Barlow,sans-serif;color:var(--red)" id="pay-type-display">Rod Contractor</span></div></div>
+    </div>
+  </div>
+  <!-- Contractor Details -->
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span>Contractor Details</div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Contractor's Name</span><input type="text" class="proj-input" id="pay_name" placeholder="Full name of contractor"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Phone Number</span><input type="tel" class="proj-input" id="pay_phone" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row" style="flex-direction:column;align-items:stretch;gap:4px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="row-icon" style="background:var(--pay-bg);flex-shrink:0"><span class="ms ms-sm" style="color:var(--pay)">payments</span></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Payment Amount (BDT)</span><input type="number" inputmode="decimal" id="pay_amount" min="0" placeholder="0.00" oninput="updatePayAmountPreview()" style="font:700 18px/1 JetBrains Mono,monospace;text-align:left;padding-left:14px"></div>
+        </div>
+        <div class="pay-amount-preview" id="pay-amount-preview">
+          <div class="pay-amount-preview-label">Payment Amount</div>
+          <div class="pay-amount-preview-value" id="pay-amount-preview-val">৳ 0.00</div>
+        </div>
+      </div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Payment Date</span><input type="date" class="proj-input" id="pay_date"></div></div>
+    </div>
+  </div>
+  <!-- Comments -->
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span>Comments / Remarks</div>
+    <div class="grp-card"><div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Additional Notes</span><textarea id="pay-comments" rows="3" placeholder="e.g. Payment for slab work on 3rd floor, labour cost only..."></textarea></div></div>
+  </div>
+  <div style="padding:0 0 8px"><button class="btn-save t6" onclick="savePaymentRecord()"><span class="ms">save</span>ADD TO RECORDS</button></div>
+</div>
+
+<!-- PANEL 7: RECORDS -->
+<div class="panel" id="p-records" role="tabpanel">
+  <div class="th"><div class="th-icon" style="background:var(--grn);box-shadow:0 4px 16px rgba(0,238,136,.36)"><span class="ms ms-xl" style="color:#000;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">folder_open</span></div><div><div class="th-title">Records</div><div class="th-sub">All saved entries · Export PDF</div></div></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span>Filter</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="rec-filter-seg">
+      <div class="seg-item active" onclick="filterRecords('all',this)">All</div>
+      <div class="seg-item" onclick="filterRecords('sand',this)">Sand</div>
+      <div class="seg-item" onclick="filterRecords('chips',this)">Chips</div>
+      <div class="seg-item" onclick="filterRecords('steel',this)">Steel</div>
+      <div class="seg-item" onclick="filterRecords('cement',this)">Cement</div>
+      <div class="seg-item" onclick="filterRecords('rcc',this)">RCC</div>
+      <div class="seg-item" onclick="filterRecords('payment',this)">Pay</div>
+    </div></div>
+    <!-- Payment sub-search (shown only when payment filter active) -->
+    <div id="pay-search-section" style="display:none">
+      <div class="pay-search-wrap">
+        <div class="pay-search-row">
+          <span class="ms pay-search-icon">search</span>
+          <input type="text" class="pay-search-inp" id="pay-search-inp" placeholder="Search by contractor or project..." oninput="renderRecords()">
+        </div>
+        <div class="pay-type-filter" id="pay-type-filter">
+          <div class="pay-type-filter-chip all active" onclick="setPTFilter('all',this)">All</div>
+          <div class="pay-type-filter-chip rod" onclick="setPTFilter('rod',this)">Rod</div>
+          <div class="pay-type-filter-chip sanitary" onclick="setPTFilter('sanitary',this)">Sanitary</div>
+          <div class="pay-type-filter-chip electric" onclick="setPTFilter('electric',this)">Electric</div>
+          <div class="pay-type-filter-chip paint" onclick="setPTFilter('paint',this)">Paint</div>
+          <div class="pay-type-filter-chip tiles" onclick="setPTFilter('tiles',this)">Tiles</div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+  <div class="grp"><div id="rec-container"><div class="rec-empty"><span class="ms">folder_open</span><div class="rec-empty-t">No Records Yet</div><div class="rec-empty-s">Add entries from each material tab.</div></div></div></div>
+</div>
+
+<!-- PANEL 8: ABOUT -->
+<div class="panel" id="p-about" role="tabpanel">
+  <div class="th"><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(160,64,255,.36)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">info</span></div><div><div class="th-title">About</div><div class="th-sub">App Info · Dev Team · Version</div></div></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span>Application</div>
+    <div class="grp-card">
+      <div style="padding:20px 16px;text-align:center;border-bottom:.5px solid var(--sep)">
+        <div style="width:68px;height:68px;border-radius:22px;background:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px rgba(255,194,0,.40)"><span class="ms" style="font-size:32px;color:#000;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48">engineering</span></div>
+        <div style="font:800 18px/1 Orbitron,sans-serif;letter-spacing:2px;color:var(--text);margin-bottom:6px">CIVIL <span style="color:var(--amber)">SUITE</span></div>
+        <div style="font:600 10px/1 Barlow,sans-serif;color:var(--label);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px">Ultimate Edition</div>
+        <div class="version-chip"><span class="ms ms-sm" style="color:var(--grn)">verified</span>Version 1.0 · BNBC 2020</div>
+      </div>
+      <div class="dev-row">
+        <div class="dev-num n1">01</div>
+        <div style="flex:1">
+          <div class="dev-name">K. M. Zaman</div>
+          <div class="dev-role">Lead Developer · Project Owner · Civil Engineer</div>
+        </div>
+        <a class="dev-fb" href="https://www.facebook.com/km.zaman.1996" target="_blank" rel="noopener" title="Facebook Profile">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.887v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+        </a>
+      </div>
+      <div class="dev-row"><div class="dev-num n2">02</div><div><div class="dev-name">Claude (Anthropic)</div><div class="dev-role">AI Engineering Assistant · Sonnet 4.5</div></div></div>
+      <div class="dev-row"><div class="dev-num n3">03</div><div><div class="dev-name">ChatGPT (OpenAI)</div><div class="dev-role">AI Code Review · Audit Assistant</div></div></div>
+      <div class="dev-row"><div class="dev-num n4">04</div><div><div class="dev-name">Gemini (Google)</div><div class="dev-role">AI Engineering Audit · BNBC Validation</div></div></div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span>Modules</div>
+    <div class="grp-card">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px">
+        <div style="background:var(--amber-bg);border:1px solid rgba(255,194,0,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--amber);margin-bottom:5px">Sand</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)">Multi-point measurement with avg, geometry &amp; unit conversion</div></div>
+        <div style="background:var(--chips-bg);border:1px solid rgba(0,221,255,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--chips);margin-bottom:5px">Stone Chips</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)">Same multi-point engine with chips-specific record format</div></div>
+        <div style="background:var(--steel-cbg);border:1px solid rgba(255,42,42,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--steel-c);margin-bottom:5px">Steel Bars</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)">Diameter-wise KG entry (8–32mm) with grand total &amp; tonnage</div></div>
+        <div style="background:var(--cement-bg);border:1px solid rgba(68,187,221,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--cement);margin-bottom:5px">Cement</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)">Bag count with brand, vehicle tracking &amp; KG conversion</div></div>
+        <div style="background:var(--blu-bg);border:1px solid rgba(43,110,255,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--blu);margin-bottom:5px">RCC</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)">BNBC 2020 multi-element estimator with mix comparison</div></div>
+        <div style="background:var(--pay-bg);border:1px solid rgba(255,107,0,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--pay);margin-bottom:5px">Contractor Pay</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)">Payment log by trade type with search, filter &amp; PDF export</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span>Standards &amp; References</div>
+    <div class="grp-card">
+      <div class="notebox t5" style="margin:12px">
+        <div class="notebox-title"><span class="ms">menu_book</span>References</div>
+        <div class="notebox-text">• BNBC 2020 — Bangladesh National Building Code
+• ACI 318 — Building Code Requirements for Structural Concrete
+• IS 10262 — Concrete Mix Proportioning Guidelines
+• Unit weight of steel: 7850 kg/m³ (standard)
+• Cement bag: 50 kg (standard Bangladesh)</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span>Data &amp; Backup</div>
+    <div class="grp-card">
+      <div class="row" style="cursor:pointer" onclick="backupLocal()">
+        <div class="row-icon" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">download</span></div>
+        <div style="flex:1">
+          <div class="row-lbl">Export Backup File</div>
+          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px">Save all records as a .json file to your device</div>
+        </div>
+        <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
+      </div>
+      <div class="row" style="cursor:pointer" onclick="restoreLocal()">
+        <div class="row-icon" style="background:var(--blu-bg)"><span class="ms ms-sm" style="color:var(--blu)">upload</span></div>
+        <div style="flex:1">
+          <div class="row-lbl">Import Backup File</div>
+          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px">Restore records from a previously saved .json backup</div>
+        </div>
+        <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
+      </div>
+      <div class="row" style="cursor:pointer" onclick="clearAllRecords()">
+        <div class="row-icon" style="background:var(--red-bg)"><span class="ms ms-sm" style="color:var(--red)">delete_forever</span></div>
+        <div style="flex:1">
+          <div class="row-lbl" style="color:var(--red)">Clear All Records</div>
+          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px">Permanently delete every saved record — cannot be undone</div>
+        </div>
+        <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="grp">
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Bulk PDF Export</div>
+    <div class="grp-card">
+      <div style="padding:10px 12px 4px;font:400 10px/1.5 Barlow,sans-serif;color:var(--label)">Export all saved records for a material type as a single consolidated PDF report with grand totals.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 12px 14px">
+        <button onclick="exportBulkPDF('sand')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--amber-bg);border:1px solid rgba(255,194,0,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--amber);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--amber)">water</span>Sand</button>
+        <button onclick="exportBulkPDF('chips')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--chips-bg);border:1px solid rgba(0,221,255,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--chips);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--chips)">landscape</span>Chips</button>
+        <button onclick="exportBulkPDF('steel')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--steel-cbg);border:1px solid rgba(255,42,42,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--steel-c);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--steel-c)">linear_scale</span>Steel</button>
+        <button onclick="exportBulkPDF('cement')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--cement-bg);border:1px solid rgba(68,187,221,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--cement);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--cement)">inventory_2</span>Cement</button>
+        <button onclick="exportBulkPDF('rcc')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--blu-bg);border:1px solid rgba(43,110,255,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--blu);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--blu)">foundation</span>RCC</button>
+        <button onclick="exportBulkPDF('payment')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--pay-bg);border:1px solid rgba(255,107,0,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--pay);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--pay)">handshake</span>Payment</button>
+      </div>
+      <div style="padding:0 12px 14px">
+        <button onclick="exportBulkPDF('all')" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:var(--amber);border:none;border-radius:var(--r-pill);cursor:pointer;font:700 12px/1 Barlow,sans-serif;color:#000;letter-spacing:.06em;box-shadow:0 4px 18px rgba(255,194,0,.34);-webkit-tap-highlight-color:transparent;transition:filter .12s">
+          <span class="ms" style="font-size:18px;color:#000;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 20">description</span>EXPORT ALL RECORDS
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer>Made with <span class="h">♥</span> by K. M. Zaman · Civil Suite v1.0</footer>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav role="navigation" aria-label="Main Navigation">
+  <div class="ni t1 active" onclick="switchTab('sand',1)" role="tab"><span class="ni-icon">water</span><span class="ni-lbl">Sand</span></div>
+  <div class="ni t2" onclick="switchTab('chips',2)" role="tab"><span class="ni-icon">landscape</span><span class="ni-lbl">Chips</span></div>
+  <div class="ni t3" onclick="switchTab('steel',3)" role="tab"><span class="ni-icon">linear_scale</span><span class="ni-lbl">Steel</span></div>
+  <div class="ni t4" onclick="switchTab('cement',4)" role="tab"><span class="ni-icon">inventory_2</span><span class="ni-lbl">Cement</span></div>
+  <div class="ni t5" onclick="switchTab('rcc',5)" role="tab"><span class="ni-icon">foundation</span><span class="ni-lbl">RCC</span></div>
+  <div class="ni t6" onclick="switchTab('payment',6)" role="tab"><span class="ni-icon">handshake</span><span class="ni-lbl">Pay</span></div>
+  <div class="ni t7" onclick="switchTab('records',7)" role="tab"><span class="ni-icon">folder_open</span><span class="ni-lbl">Records</span></div>
+  <div class="ni t8" onclick="switchTab('about',8)" role="tab"><span class="ni-icon">info</span><span class="ni-lbl">About</span></div>
+</nav>
+
+<!-- PDF MODAL -->
+<div id="pdf-modal" onclick="closePDFModal(event)">
+  <div class="pdf-sheet">
+    <div class="pdf-sheet-title">Export PDF</div>
+    <div class="pdf-sheet-sub" id="pdf-modal-sub">Choose export format</div>
+    <div class="pdf-opts" id="pdf-opts-container"></div>
+    <button class="pdf-cancel" onclick="closePDFModalDirect()">Cancel</button>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+<script>
+// ═══════════════════════════════════════════════════════
+// NATIVE BRIDGE — Android ↔ WebView compatibility layer
+// ═══════════════════════════════════════════════════════
+// All methods check window.NativeBridge (injected by Android @JavascriptInterface).
+// If absent, every method falls back to the browser implementation so the app
+// works perfectly in any browser without modification.
+//
+// Android @JavascriptInterface must expose:
+//   NativeBridge.saveData(jsonString)
+//   NativeBridge.loadData()                    → returns JSON string
+//   NativeBridge.printHTML(html, filename)      → opens Android print/share dialog
+//   NativeBridge.saveFile(filename, mime, data) → native file-picker save
+//   NativeBridge.pickFile()                    → calls window._nativeBridgeFileCb(content)
+//   NativeBridge.vibrate(ms)
+// ──────────────────────────────────────────────────────
+var NativeBridge = (function(){
+
+  // ─── STORAGE ──────────────────────────────────────────
+  function saveData(jsonString){
+    if(window.NativeBridge && typeof window.NativeBridge.saveData === 'function'){
+      try{ window.NativeBridge.saveData(jsonString); return true; }catch(e){}
+    }
+    try{ localStorage.setItem('csu3_records', jsonString); return true; }
+    catch(e){ return false; }
+  }
+
+  function loadData(){
+    if(window.NativeBridge && typeof window.NativeBridge.loadData === 'function'){
+      try{ return window.NativeBridge.loadData() || '[]'; }catch(e){}
+    }
+    try{ return localStorage.getItem('csu3_records') || '[]'; }
+    catch(e){ return '[]'; }
+  }
+
+  // ─── PDF EXPORT ───────────────────────────────────────
+  // Android: NativeBridge.printHTML(htmlString, filename) opens the Android
+  // print service / share sheet — user can Save as PDF, print, or share.
+  // window.open().print() does NOT work inside Android WebView.
+  function generatePDF(htmlString, fallbackFn){
+    if(window.NativeBridge && typeof window.NativeBridge.printHTML === 'function'){
+      try{
+        var filename='CivilSuite_Report_'+new Date().toISOString().slice(0,10)+'.pdf';
+        window.NativeBridge.printHTML(htmlString, filename);
+        return;
+      }catch(e){}
+    }
+    // Web / desktop fallback: open in new tab and trigger print dialog
+    if(typeof fallbackFn === 'function') fallbackFn();
+  }
+
+  // ─── BACKUP / FILE SAVE ───────────────────────────────
+  // Android: NativeBridge.saveFile(filename, mimeType, content) opens the
+  // Android system Storage Access Framework picker so the user chooses location.
+  // The browser <a download> attribute is silently ignored inside WebView.
+  function downloadBackup(jsonString, filename){
+    if(window.NativeBridge && typeof window.NativeBridge.saveFile === 'function'){
+      try{
+        window.NativeBridge.saveFile(
+          filename || 'CivilSuite_Backup.json',
+          'application/json',
+          jsonString
+        );
+        return;
+      }catch(e){}
+    }
+    // Web / desktop fallback: Blob + anchor download
+    try{
+      var blob = new Blob([jsonString], {type:'application/json'});
+      var url  = URL.createObjectURL(blob);
+      var a    = document.createElement('a');
+      a.href = url;
+      a.download = filename || 'CivilSuite_Backup.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(url); }, 600);
+    }catch(e){ showToast('Download failed — copy data manually'); }
+  }
+
+  // ─── FILE RESTORE / IMPORT ────────────────────────────
+  // Android: NativeBridge.pickFile() opens the native file picker.
+  //   Android side must call window._nativeBridgeFileCb(fileContentString)
+  //   with the raw file text after the user picks a file.
+  // Browser fallback: standard <input type="file">.
+  //   NOTE: WebChromeClient MUST implement onShowFileChooser() for
+  //   <input type="file"> to work inside a WebView.
+  function openFilePicker(onFileSelected){
+    if(window.NativeBridge && typeof window.NativeBridge.pickFile === 'function'){
+      try{
+        // One-time callback Android will invoke with the raw file content string
+        window._nativeBridgeFileCb = function(content){
+          window._nativeBridgeFileCb = null;
+          // Wrap raw string in a Blob so the FileReader path is identical
+          // for both Android and browser flows
+          var fakeFile = new Blob([content], {type:'application/json'});
+          if(onFileSelected) onFileSelected(fakeFile);
+        };
+        window.NativeBridge.pickFile();
+        return;
+      }catch(e){ window._nativeBridgeFileCb = null; }
+    }
+    // Browser fallback (requires WebChromeClient.onShowFileChooser in WebView)
+    var inp = document.createElement('input');
+    inp.type = 'file';
+    inp.accept = '.json';
+    inp.onchange = function(e){ var f = e.target.files[0]; if(f && onFileSelected) onFileSelected(f); };
+    inp.click();
+  }
+
+  // ─── HAPTIC FEEDBACK ──────────────────────────────────
+  function vibrate(ms){
+    if(window.NativeBridge && typeof window.NativeBridge.vibrate === 'function'){
+      try{ window.NativeBridge.vibrate(ms || 20); return; }catch(e){}
+    }
+    if(navigator && navigator.vibrate) navigator.vibrate(ms || 20);
+  }
+
+  // ─── PUBLIC API ───────────────────────────────────────
+  return {
+    saveData:       saveData,
+    loadData:       loadData,
+    generatePDF:    generatePDF,
+    downloadBackup: downloadBackup,
+    openFilePicker: openFilePicker,
+    vibrate:        vibrate,
+    isAndroid: function(){
+      return !!(window.NativeBridge && typeof window.NativeBridge.saveData === 'function');
+    }
+  };
+})();
+
+// ═══════════════════════════════════════════════════════
+// CIVIL SUITE v1.0 — CORE ENGINE
+// ═══════════════════════════════════════════════════════
+var records = (function(){try{return JSON.parse(NativeBridge.loadData()||'[]');}catch(e){console.warn('Civil Suite: records storage corrupted, resetting.',e);NativeBridge.saveData('[]');return [];}})();
+var fmtMode='ftin', fmtCount=3;
+var chipsMode='ftin', chipsCount=3;
+var selectedCType='rod';
+var recFilter='all';
+var payTypeFilter='all';
+
+var CTYPE_LABELS={
+  rod:'Rod Contractor',sanitary:'Sanitary Contractor',
+  electric:'Electric Contractor',paint:'Paint Contractor',tiles:'Tiles Contractor'
+};
+
+// ─── HTML ESCAPE ───
+function esc(v){
+  return String(v||'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;');
+}
+
+// ─── UNIQUE ID ───
+function genId(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5);}
+
+// ─── ANIMATED COUNTER ───
+function countUp(el,to,dec,ms,prefix,suffix){
+  if(!el)return;
+  var t0=null;
+  prefix=prefix||''; suffix=suffix||'';
+  requestAnimationFrame(function tick(ts){
+    if(!t0)t0=ts;
+    var p=Math.min((ts-t0)/(ms||600),1);
+    var ease=1-Math.pow(1-p,4);
+    el.textContent=prefix+(to*ease).toFixed(dec)+suffix;
+    if(p<1)requestAnimationFrame(tick);
+    else el.textContent=prefix+to.toFixed(dec)+suffix;
+  });
+}
+
+// ─── INIT ───
+window.addEventListener('DOMContentLoaded',function(){
+  var today=new Date().toISOString().split('T')[0];
+  ['f_proj_date','c_proj_date','s_proj_date','m_proj_date','pay_date'].forEach(function(id){
+    var el=document.getElementById(id); if(el) el.value=today;
+  });
+  buildFMTCard(); buildChipsCard(); addEl();
+  renderRecords(); updatePips(1); updatePayDashboard();
+  var d=localStorage.getItem('csu3_dark');
+  document.getElementById('dark-icon').textContent=(d==='1')?'light_mode':'dark_mode';
+  // Init RCC grade to M25 default — M25 is the 3rd item (M20, M25, M30, Custom)
+  var gradeEl=document.querySelector('#grade-seg .seg-item:nth-child(3)');
+  if(gradeEl) setGrade('M25', gradeEl);
+});
+
+// ─── SPLASH ───
+function enterApp(){
+  var s=document.getElementById('splash');
+  s.classList.add('hiding');
+  setTimeout(function(){s.style.display='none';},420);
+}
+
+// ─── DARK MODE ───
+function toggleDark(){
+  var isD=document.documentElement.classList.toggle('dark');
+  document.documentElement.classList.toggle('light',!isD);
+  document.getElementById('dark-icon').textContent=isD?'light_mode':'dark_mode';
+  document.getElementById('theme-meta').content=isD?'#0A0A14':'#E8EAFF';
+  localStorage.setItem('csu3_dark',isD?'1':'0');
+}
+
+// ─── TAB SWITCHING ───
+function switchTab(name,num){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('p-'+name).classList.add('active');
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('active');});
+  document.querySelectorAll('.ni')[num-1].classList.add('active');
+  updatePips(num);
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function updatePips(active){
+  var colors=['var(--amber)','var(--chips)','var(--steel-c)','var(--cement)','var(--blu)','var(--pay)','var(--grn)','var(--purp)'];
+  for(var i=1;i<=8;i++){
+    var p=document.getElementById('tp'+i);
+    p.classList.toggle('on',i===active);
+    p.style.background=i===active?colors[i-1]:'var(--border)';
+  }
+}
+
+// ─── CLEAR ALL ───
+function clearAll(){
+  if(!confirm('Clear measurement inputs on this tab?'))return;
+  var panel=document.querySelector('.panel.active');
+  // Only clear measurement/numeric inputs — not project info or vehicle fields
+  var protectedIds=['f_proj_name','f_proj_addr','f_proj_date','f_veh_num','f_drv_name','f_drv_mob',
+    'c_proj_name','c_proj_addr','c_proj_date','c_veh_num','c_drv_name','c_drv_mob',
+    's_proj_name','s_proj_addr','s_proj_date','s_veh_num','s_drv_name','s_drv_mob','s_brand',
+    'm_proj_name','m_proj_addr','m_proj_date','m_veh_num','m_drv_name','m_drv_mob','m_brand',
+    'pay_proj_name','pay_proj_addr','pay_date'];
+  panel.querySelectorAll('input[type=number]').forEach(function(i){i.value='';});
+  panel.querySelectorAll('input[type=text],input[type=tel]').forEach(function(i){
+    if(protectedIds.indexOf(i.id)===-1) i.value='';
+  });
+  panel.querySelectorAll('textarea').forEach(function(t){t.value='';});
+  var pr=document.getElementById('pay-amount-preview');
+  if(pr) pr.classList.remove('show');
+  showToast('Measurements cleared');
+}
+
+// ─── TOAST ───
+var _toastT;
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  clearTimeout(_toastT);
+  _toastT=setTimeout(function(){t.classList.remove('show');},2200);
+}
+
+// ─── COLLAPSIBLE ───
+function toggleColl(id){
+  var h=document.getElementById('chdr-'+id);
+  var b=document.getElementById('cbody-'+id);
+  h.classList.toggle('open'); b.classList.toggle('open');
+}
+
+// ─── UNIT CONVERSION ───
+function toFt(val,mode){
+  if(isNaN(val)||val===''||val===null)return NaN;
+  val=parseFloat(val);
+  if(mode==='ftin'||mode==='decft')return val;
+  if(mode==='inch')return val/12;
+  if(mode==='meter')return val*3.28084;
+  return val;
+}
+function fmtFt(ft){
+  var f=Math.floor(ft),i=Math.round((ft-f)*12);
+  if(i===12){f++;i=0;}
+  return f+"' "+i+'"';
+}
+function fmtDecFt(ft){return ft.toFixed(3)+' ft';}
+
+// ═══════════════════════════════════════════════════════
+// SAND MODULE
+// ═══════════════════════════════════════════════════════
+function setFMTMode(m,el){
+  fmtMode=m;
+  document.querySelectorAll('#fmt-mode-seg .seg-item').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active'); buildFMTCard();
+}
+function setFMTCount(n,el){
+  fmtCount=n;
+  document.querySelectorAll('#fmt-cnt-seg .seg-item').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active'); buildFMTCard();
+}
+function buildFMTCard(){
+  var dims=['L','W','H'],dimColors=['#FF1A38','#2B6EFF','#00EE88'];
+  var card=document.getElementById('fmt-card'); card.innerHTML='';
+  dims.forEach(function(d,di){
+    var block=document.createElement('div'); block.className='fmt-dim-block';
+    var hdr=document.createElement('div'); hdr.className='fmt-dim-hdr';
+    var dot=document.createElement('span'); dot.className='fmt-dim-dot'; dot.style.background=dimColors[di];
+    var ttl=document.createElement('span'); ttl.className='fmt-dim-title'; ttl.textContent=d+' — Measurements';
+    var avgChip=document.createElement('span'); avgChip.className='fmt-avg-chip'; avgChip.id='f-avg-'+d; avgChip.textContent='AVG: —';
+    hdr.appendChild(dot); hdr.appendChild(ttl); hdr.appendChild(avgChip); block.appendChild(hdr);
+    for(var m=0;m<fmtCount;m++){
+      var row=document.createElement('div'); row.className='fmt-m-row';
+      var num=document.createElement('div'); num.className='fmt-m-num'; num.style.background=dimColors[di]; num.textContent=m+1;
+      row.appendChild(num);
+      if(fmtMode==='ftin'){
+        var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
+        iF.id='f_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
+        var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
+        iI.id='f_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1';
+        row.appendChild(iF); row.appendChild(iI);
+      } else {
+        var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
+        inp.id='f_'+d+'_'+m; inp.min=0;
+        inp.placeholder=fmtMode==='meter'?'m':fmtMode==='inch'?'in':'ft';
+        inp.style.flex='1'; row.appendChild(inp);
+      }
+      block.appendChild(row);
+    }
+    card.appendChild(block);
+  });
+}
+function runCalcFMT(){
+  calcFMT();
+  var res=document.getElementById('fmt-res');
+  if(!res.classList.contains('show')){
+    showToast('Enter at least one value per dimension (L, W, H)');
+    return;
+  }
+  var vol=parseFloat(document.getElementById('f-vol').textContent)||0;
+  if(vol<=0){showToast('Volume must be greater than zero');res.classList.remove('show');return;}
+  var btn=document.getElementById('sand-add-btn');
+  if(btn) btn.style.display='flex';
+}
+function calcFMT(){
+  var dims=['L','W','H'],avgs=[];
+  dims.forEach(function(d){
+    var vals=[];
+    for(var m=0;m<fmtCount;m++){
+      var v;
+      if(fmtMode==='ftin'){
+        var ft=parseFloat((document.getElementById('f_'+d+'_'+m+'_ft')||{}).value)||0;
+        var inch=parseFloat((document.getElementById('f_'+d+'_'+m+'_in')||{}).value)||0;
+        if(ft>0||inch>0) v=ft+inch/12;
+      } else {
+        var raw=(document.getElementById('f_'+d+'_'+m)||{}).value;
+        if(raw!==''&&raw!=null&&!isNaN(raw)) v=toFt(parseFloat(raw),fmtMode);
+      }
+      if(v!==undefined&&!isNaN(v)) vals.push(v);
+    }
+    if(!vals.length){avgs.push(NaN);document.getElementById('f-avg-'+d).textContent='AVG: —';document.getElementById('f-avg-'+d).className='fmt-avg-chip';return;}
+    var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length; avgs.push(avg);
+    var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
+    var chip=document.getElementById('f-avg-'+d);
+    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok';
+  });
+  if(avgs.some(isNaN)){document.getElementById('fmt-res').classList.remove('show');return;}
+  var vol=avgs[0]*avgs[1]*avgs[2];
+  document.getElementById('fmt-res').classList.add('show');
+  document.getElementById('f-vol').textContent=vol.toFixed(3);
+  document.getElementById('f-vol-line').textContent='Avg L×W×H = '+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
+  document.getElementById('f-vol-m3').textContent=(vol/35.3147).toFixed(3);
+  document.getElementById('f-vol-in3').textContent=Math.round(vol*1728).toLocaleString();
+  document.getElementById('f-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString();
+  document.getElementById('f-bL').textContent=fmtFt(avgs[0]); document.getElementById('f-bLd').textContent=fmtDecFt(avgs[0]);
+  document.getElementById('f-bW').textContent=fmtFt(avgs[1]); document.getElementById('f-bWd').textContent=fmtDecFt(avgs[1]);
+  document.getElementById('f-bH').textContent=fmtFt(avgs[2]); document.getElementById('f-bHd').textContent=fmtDecFt(avgs[2]);
+  var L=avgs[0],W=avgs[1],H=avgs[2];
+  document.getElementById('f-baseA').textContent=(L*W).toFixed(2);
+  document.getElementById('f-perim').textContent=(2*(L+W)).toFixed(2);
+  document.getElementById('f-surf').textContent=(2*(L*W+L*H+W*H)).toFixed(2);
+  document.getElementById('f-diag').textContent=Math.sqrt(L*L+W*W+H*H).toFixed(2);
+  document.getElementById('f-faceF').textContent=(L*H).toFixed(2);
+  document.getElementById('f-faceS').textContent=(W*H).toFixed(2);
+}
+function copyFMTResult(){var v=document.getElementById('f-vol').textContent;navigator.clipboard.writeText(v+' CFT').catch(function(){});showToast('Copied: '+v+' CFT');}
+function saveSandRecord(){
+  var vol=parseFloat(document.getElementById('f-vol').textContent)||0;
+  if(!vol||vol<=0){showToast('Calculate first!');return;}
+  var volM3=vol/35.3147;
+  saveRecord({id:genId(),createdAt:Date.now(),type:'sand',
+    date:document.getElementById('f_proj_date').value||new Date().toISOString().split('T')[0],
+    proj:document.getElementById('f_proj_name').value||'Unnamed',
+    addr:document.getElementById('f_proj_addr').value||'',
+    vol:vol,volM3:parseFloat(volM3.toFixed(3)),
+    avgL:document.getElementById('f-bL').textContent,avgW:document.getElementById('f-bW').textContent,avgH:document.getElementById('f-bH').textContent,
+    vehNum:document.getElementById('f_veh_num').value,drvName:document.getElementById('f_drv_name').value,drvMob:document.getElementById('f_drv_mob').value
+  });
+  document.getElementById('fmt-res').classList.remove('show');
+  var addBtn=document.getElementById('sand-add-btn'); if(addBtn) addBtn.style.display='none';
+}
+
+// ═══════════════════════════════════════════════════════
+// CHIPS MODULE
+// ═══════════════════════════════════════════════════════
+function setChipsMode(m,el){
+  chipsMode=m;
+  document.querySelectorAll('#chips-mode-seg .seg-item').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active'); buildChipsCard();
+}
+function setChipsCount(n,el){
+  chipsCount=n;
+  document.querySelectorAll('#chips-cnt-seg .seg-item').forEach(function(s){s.classList.remove('active');});
+  el.classList.add('active'); buildChipsCard();
+}
+function buildChipsCard(){
+  var dims=['L','W','H'],dimColors=['#FF1A38','#2B6EFF','#00EE88'];
+  var card=document.getElementById('chips-card'); card.innerHTML='';
+  dims.forEach(function(d,di){
+    var block=document.createElement('div'); block.className='fmt-dim-block';
+    var hdr=document.createElement('div'); hdr.className='fmt-dim-hdr';
+    var dot=document.createElement('span'); dot.className='fmt-dim-dot'; dot.style.background=dimColors[di];
+    var ttl=document.createElement('span'); ttl.className='fmt-dim-title'; ttl.textContent=d+' — Measurements';
+    var avgChip=document.createElement('span'); avgChip.className='fmt-avg-chip'; avgChip.id='ch-avg-'+d; avgChip.textContent='AVG: —';
+    hdr.appendChild(dot); hdr.appendChild(ttl); hdr.appendChild(avgChip); block.appendChild(hdr);
+    for(var m=0;m<chipsCount;m++){
+      var row=document.createElement('div'); row.className='fmt-m-row';
+      var num=document.createElement('div'); num.className='fmt-m-num'; num.style.background=dimColors[di]; num.textContent=m+1;
+      row.appendChild(num);
+      if(chipsMode==='ftin'){
+        var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
+        iF.id='ch_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
+        iF.addEventListener('input',calcChips);
+        var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
+        iI.id='ch_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1'; iI.addEventListener('input',calcChips);
+        row.appendChild(iF); row.appendChild(iI);
+      } else {
+        var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
+        inp.id='ch_'+d+'_'+m; inp.min=0;
+        inp.placeholder=chipsMode==='meter'?'m':chipsMode==='inch'?'in':'ft';
+        inp.style.flex='1'; row.appendChild(inp);
+      }
+      block.appendChild(row);
+    }
+    card.appendChild(block);
+  });
+}
+function runCalcChips(){
+  calcChips();
+  var res=document.getElementById('chips-res');
+  if(!res.classList.contains('show')){
+    showToast('Enter at least one value per dimension (L, W, H)');
+    return;
+  }
+  var vol=parseFloat(document.getElementById('c-vol').textContent)||0;
+  if(vol<=0){showToast('Volume must be greater than zero');res.classList.remove('show');return;}
+  var btn=document.getElementById('chips-add-btn');
+  if(btn) btn.style.display='flex';
+}
+function calcChips(){
+  var dims=['L','W','H'],avgs=[];
+  dims.forEach(function(d){
+    var vals=[];
+    for(var m=0;m<chipsCount;m++){
+      var v;
+      if(chipsMode==='ftin'){
+        var ft=parseFloat((document.getElementById('ch_'+d+'_'+m+'_ft')||{}).value)||0;
+        var inch=parseFloat((document.getElementById('ch_'+d+'_'+m+'_in')||{}).value)||0;
+        if(ft>0||inch>0) v=ft+inch/12;
+      } else {
+        var raw=(document.getElementById('ch_'+d+'_'+m)||{}).value;
+        if(raw!==''&&raw!=null&&!isNaN(raw)) v=toFt(parseFloat(raw),chipsMode);
+      }
+      if(v!==undefined&&!isNaN(v)) vals.push(v);
+    }
+    if(!vals.length){avgs.push(NaN);document.getElementById('ch-avg-'+d).textContent='AVG: —';document.getElementById('ch-avg-'+d).className='fmt-avg-chip';return;}
+    var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length; avgs.push(avg);
+    var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
+    var chip=document.getElementById('ch-avg-'+d);
+    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok-chips';
+  });
+  if(avgs.some(isNaN)){document.getElementById('chips-res').classList.remove('show');return;}
+  var vol=avgs[0]*avgs[1]*avgs[2];
+  document.getElementById('chips-res').classList.add('show');
+  document.getElementById('c-vol').textContent=vol.toFixed(3);
+  document.getElementById('c-vol-line').textContent='Avg L×W×H = '+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
+  document.getElementById('c-vol-m3').textContent=(vol/35.3147).toFixed(3);
+  document.getElementById('c-vol-in3').textContent=Math.round(vol*1728).toLocaleString();
+  document.getElementById('c-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString();
+  document.getElementById('c-bL').textContent=fmtFt(avgs[0]); document.getElementById('c-bLd').textContent=fmtDecFt(avgs[0]);
+  document.getElementById('c-bW').textContent=fmtFt(avgs[1]); document.getElementById('c-bWd').textContent=fmtDecFt(avgs[1]);
+  document.getElementById('c-bH').textContent=fmtFt(avgs[2]); document.getElementById('c-bHd').textContent=fmtDecFt(avgs[2]);
+}
+function copyChipsResult(){var v=document.getElementById('c-vol').textContent;navigator.clipboard.writeText(v+' CFT').catch(function(){});showToast('Copied: '+v+' CFT');}
+function saveChipsRecord(){
+  var vol=parseFloat(document.getElementById('c-vol').textContent)||0;
+  if(!vol||vol<=0){showToast('Calculate first!');return;}
+  saveRecord({id:genId(),createdAt:Date.now(),type:'chips',
+    date:document.getElementById('c_proj_date').value||new Date().toISOString().split('T')[0],
+    proj:document.getElementById('c_proj_name').value||'Unnamed',addr:document.getElementById('c_proj_addr').value||'',
+    vol:vol,volM3:parseFloat((vol/35.3147).toFixed(3)),
+    avgL:document.getElementById('c-bL').textContent,avgW:document.getElementById('c-bW').textContent,avgH:document.getElementById('c-bH').textContent,
+    vehNum:document.getElementById('c_veh_num').value,drvName:document.getElementById('c_drv_name').value,drvMob:document.getElementById('c_drv_mob').value
+  });
+  document.getElementById('chips-res').classList.remove('show');
+  var addBtn=document.getElementById('chips-add-btn'); if(addBtn) addBtn.style.display='none';
+}
+
+// ═══════════════════════════════════════════════════════
+// STEEL MODULE
+// ═══════════════════════════════════════════════════════
+function updateSteelTotal(){
+  var dias=[8,10,12,16,20,22,25,28,32],total=0;
+  dias.forEach(function(d){total+=parseFloat(document.getElementById('s_d'+d).value)||0;});
+  document.getElementById('s-total-kg').textContent=total.toFixed(1);
+  document.getElementById('s-total-ton').textContent=(total/1000).toFixed(3);
+}
+function saveSteelRecord(){
+  var dias=[8,10,12,16,20,22,25,28,32],breakdown={};
+  var total=parseFloat(document.getElementById('s-total-kg').textContent)||0;
+  if(total<=0){showToast('Enter at least one diameter!');return;}
+  dias.forEach(function(d){var v=parseFloat(document.getElementById('s_d'+d).value)||0;if(v>0)breakdown['d'+d]=v;});
+  saveRecord({id:genId(),createdAt:Date.now(),type:'steel',
+    date:document.getElementById('s_proj_date').value||new Date().toISOString().split('T')[0],
+    proj:document.getElementById('s_proj_name').value||'Unnamed',addr:document.getElementById('s_proj_addr').value||'',
+    brand:document.getElementById('s_brand').value||'',totalKg:total,totalTon:(total/1000),breakdown:breakdown,
+    vehNum:document.getElementById('s_veh_num').value,drvName:document.getElementById('s_drv_name').value,drvMob:document.getElementById('s_drv_mob').value
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// CEMENT MODULE
+// ═══════════════════════════════════════════════════════
+function updateCementTotal(){
+  var bags=parseFloat(document.getElementById('m_bags').value)||0;
+  document.getElementById('m-total-bags').textContent=bags;
+  document.getElementById('m-total-kg').textContent=(bags*50).toLocaleString();
+}
+function saveCementRecord(){
+  var bags=parseFloat(document.getElementById('m_bags').value)||0;
+  if(bags<=0){showToast('Enter bag count!');return;}
+  saveRecord({id:genId(),createdAt:Date.now(),type:'cement',
+    date:document.getElementById('m_proj_date').value||new Date().toISOString().split('T')[0],
+    proj:document.getElementById('m_proj_name').value||'Unnamed',addr:document.getElementById('m_proj_addr').value||'',
+    brand:document.getElementById('m_brand').value||'',bags:bags,totalKg:bags*50,
+    vehNum:document.getElementById('m_veh_num').value,drvName:document.getElementById('m_drv_name').value,drvMob:document.getElementById('m_drv_mob').value
+  });
+}
+
+// ═══════════════════════════════════════════════════════
+// RCC MODULE — BNBC 2020 (restored from V6)
+// ═══════════════════════════════════════════════════════
+var WASTE=0,RCC_UNIT='cft',EL_IDX=0,EL_IDS=[],STEEL_MODE='elem',DVF=1.54;
+var CONCRETE_GRADE='M25',WC_OVERRIDE=false;
+var FT3_M3=0.0283168;
+var rf=function(id){var e=document.getElementById(id);if(!e||e.value.trim()==='')return NaN;return parseFloat(e.value);};
+var d1=function(n){return n.toFixed(1)},d2=function(n){return n.toFixed(2)},d3=function(n){return n.toFixed(3)};
+function dV(cft){return RCC_UNIT==='m3'?d3(cft*FT3_M3):d2(cft);}
+function dU(){return RCC_UNIT==='m3'?'m³':'cft';}
+function lsSave(k,v){try{localStorage.setItem('csu3_'+k,String(v));}catch(e){}}
+function lsGet(k,d){try{var v=localStorage.getItem('csu3_'+k);return v!==null?v:d;}catch(e){return d;}}
+function activateSeg(sid,el){document.querySelectorAll('#'+sid+' .seg-item').forEach(function(b){b.classList.remove('active');});if(el)el.classList.add('active');}
+function activateChip(parentEl,el){if(!parentEl)return;parentEl.querySelectorAll('.chip').forEach(function(c){c.classList.remove('active');});if(el&&el.classList)el.classList.add('active');}
+function btnGuard(id,ms){var b=document.getElementById(id);if(!b)return;b.disabled=true;setTimeout(function(){b.disabled=false;},ms||1200);}
+function bindLP(){document.querySelectorAll('input[type=number]').forEach(function(inp){if(inp._lp)return;inp._lp=true;var t;inp.addEventListener('pointerdown',function(){t=setTimeout(function(){inp.value='';},600);});['pointerup','pointerleave','pointercancel'].forEach(function(ev){inp.addEventListener(ev,function(){clearTimeout(t);});});});}
+
+var GRADE_DATA={
+  'M20':{wc:0.55,fck:20,desc:'M20 · fck 20 MPa · Hint mix 1:1.5:3'},
+  'M25':{wc:0.50,fck:25,desc:'M25 · fck 25 MPa · Hint mix 1:1:2'},
+  'M30':{wc:0.45,fck:30,desc:'M30 · fck 30 MPa · Hint mix 1:1:2'}
+};
+var STEEL_ELEM_RANGES={slab:{min:80,max:120,mid:100},beam:{min:120,max:180,mid:150},column:{min:160,max:250,mid:205},footing:{min:90,max:150,mid:120}};
+
+function getWC(){
+  if(WC_OVERRIDE){var v=parseFloat((document.getElementById('r_wc_manual')||{}).value);if(!isNaN(v)&&v>0&&v<1)return v;}
+  if(CONCRETE_GRADE==='Custom'){var v2=parseFloat((document.getElementById('r_wc_manual')||{}).value);return(!isNaN(v2)&&v2>0&&v2<1)?v2:0.50;}
+  return GRADE_DATA[CONCRETE_GRADE]?GRADE_DATA[CONCRETE_GRADE].wc:0.50;
+}
+function setGrade(grade,el){
+  CONCRETE_GRADE=grade; activateSeg('grade-seg',el); lsSave('rcc_grade',grade);
+  var mr=document.getElementById('wc-manual-row'),ir=document.getElementById('grade-info-row'),ol=document.getElementById('wc-override-lbl');
+  if(grade==='Custom'){if(mr)mr.style.display='flex';if(ir)ir.style.display='none';var cb=document.getElementById('r_wc_override');if(cb){cb.checked=true;WC_OVERRIDE=true;}if(ol)ol.innerText='W/C';}
+  else{var g=GRADE_DATA[grade];if(ir)ir.style.display='flex';if(ol)ol.innerText='Override';if(!WC_OVERRIDE&&mr)mr.style.display='none';if(g){var wl=document.getElementById('grade-wc-lbl');if(wl)wl.innerText='W/C = '+g.wc;var ht=document.getElementById('grade-hint');if(ht)ht.innerText=g.desc;}}
+}
+function toggleWCOverride(){var cb=document.getElementById('r_wc_override');WC_OVERRIDE=cb?cb.checked:false;lsSave('rcc_wc_override',WC_OVERRIDE?'1':'0');var mr=document.getElementById('wc-manual-row');if(mr)mr.style.display=(WC_OVERRIDE&&CONCRETE_GRADE!=='Custom')?'flex':'none';}
+function setDVF(val,el){activateSeg('dvf-seg',el);var cr=document.getElementById('dvf-custom-row');if(val===-1){if(cr)cr.style.display='flex';DVF=parseFloat((document.getElementById('r_dvf_custom')||{}).value)||1.54;}else{if(cr)cr.style.display='none';DVF=val;lsSave('rcc_dvf',val);}}
+function setSteelMode(mode,el){STEEL_MODE=mode;activateSeg('steel-mode-seg',el);lsSave('steel_mode',mode);var es=document.getElementById('steel-elem-section'),ks=document.getElementById('steel-kgm3-section');if(es)es.style.display=mode==='elem'?'block':'none';if(ks)ks.style.display=mode==='kgm3'?'block':'none';}
+function onSteelElemTypeChange(){var sel=document.getElementById('r_steel_elem_type');if(!sel)return;var r=STEEL_ELEM_RANGES[sel.value];if(!r)return;var inp=document.getElementById('r_steel_kgm3');if(inp&&(inp.value===''||inp._autoFilled)){inp.value=r.mid;inp._autoFilled=true;}var rc=document.getElementById('steel-range-chip'),mc=document.getElementById('steel-mid-chip');if(rc)rc.innerText='Range: '+r.min+'–'+r.max+' kg/m³';if(mc)mc.innerText='Midpoint: '+r.mid;}
+function setSteelElemPreset(elemType,kgm3,el){var sel=document.getElementById('r_steel_elem_type');if(sel){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===elemType){sel.selectedIndex=i;break;}}}var inp=document.getElementById('r_steel_kgm3');if(inp){inp.value=kgm3;inp._autoFilled=false;}activateChip(document.getElementById('steel-elem-chips'),el);onSteelElemTypeChange();}
+function resolveSteelKg(volM3){if(STEEL_MODE==='elem'){var v=parseFloat((document.getElementById('r_steel_kgm3')||{}).value);return(isNaN(v)||v<=0)?0:volM3*v;}var v2=parseFloat((document.getElementById('r_steel_direct')||{}).value);return(isNaN(v2)||v2<=0)?0:volM3*v2;}
+function setMix(c,s,a,el){document.getElementById('r_mc').value=c;document.getElementById('r_ms').value=s;document.getElementById('r_ma').value=a;activateChip(document.getElementById('mix-chips'),el);}
+function setWaste(pct,el){WASTE=pct;lsSave('rcc_waste',pct);activateSeg('waste-seg',el);}
+function setRCCUnit(u,el){RCC_UNIT=u;lsSave('rcc_unit',u);activateSeg('rcc-unit-seg',el);}
+
+function addEl(){
+  EL_IDX++;var id='el_'+EL_IDX;EL_IDS.push(id);
+  var div=document.createElement('div');div.className='el-row';div.id=id;
+  div.innerHTML='<div class="el-top"><select class="el-type-sel" id="'+id+'_type"><option>Slab</option><option>Beam</option><option>Column</option><option>Footing</option><option>Staircase</option><option>Other</option></select><div class="el-del" onclick="removeEl(\''+id+'\')"><span class="ms">remove</span></div></div><div class="el-dims3"><div class="el-dim-col"><div class="el-dim-head">L</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_lft" min="0" placeholder="0"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_lin" min="0" placeholder="0"></div></div><div class="el-dim-col"><div class="el-dim-head">W</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_wft" min="0" placeholder="0"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_win" min="0" placeholder="0"></div></div><div class="el-dim-col"><div class="el-dim-head">H</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_hft" min="0" placeholder="0"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_hin" min="0" placeholder="0"></div></div></div>';
+  document.getElementById('r-elements').appendChild(div);
+  bindLP();
+}
+function removeEl(id){var el=document.getElementById(id);if(!el)return;el.style.transition='opacity .2s';el.style.opacity='0';setTimeout(function(){el.remove();EL_IDS=EL_IDS.filter(function(e){return e!==id;});},200);}
+function getElVol(id){
+  function g(sid){var e=document.getElementById(sid);return e?(parseFloat(e.value)||0):0;}
+  var l=g(id+'_lft')+g(id+'_lin')/12,w=g(id+'_wft')+g(id+'_win')/12,h=g(id+'_hft')+g(id+'_hin')/12;
+  var typeEl=document.getElementById(id+'_type');
+  return{l:l,w:w,h:h,vol:l*w*h,type:typeEl?typeEl.value:'Element'};
+}
+function rccCompute(mc,ms,ma,netWetVol,dvf,wc){
+  var tp=mc+ms+ma,dry=netWetVol*dvf;
+  var cemVol=(mc/tp)*dry,bags=cemVol/1.25;
+  var sand=(ms/tp)*dry,chips=(ma/tp)*dry;
+  var water=bags*50*wc;
+  return{tp:tp,dry:dry,cemVol:cemVol,bags:bags,sand:sand,chips:chips,water:water,wc:wc};
+}
+var _rccReport='';
+function calcRCC(e){
+  if(e&&e.currentTarget)btnGuard('rcc-btn');
+  if(EL_IDS.length===0){showToast('Add at least one element');return;}
+  var vMC=rf('r_mc'),vMS=rf('r_ms'),vMA=rf('r_ma');
+  var mc=isNaN(vMC)?1:vMC,ms=isNaN(vMS)?1.5:vMS,ma=isNaN(vMA)?3:vMA;
+  if(mc<=0||ms<=0||ma<=0){showToast('Mix ratio values must be positive');return;}
+  var dvf=DVF;if(dvf<1.3||dvf>1.7){showToast('DVF must be 1.30–1.70');return;}
+  var wc=getWC();
+  var totalWet=0,elData=[];
+  EL_IDS.forEach(function(id){var d=getElVol(id);totalWet+=d.vol;elData.push(d);});
+  if(totalWet<=0){showToast('Enter positive dimensions');return;}
+  var netWetVol=totalWet*(1+WASTE/100);
+  var R=rccCompute(mc,ms,ma,netWetVol,dvf,wc);
+  var isBulking=document.getElementById('r_bulking')&&document.getElementById('r_bulking').checked;
+  var finalSand=isBulking?R.sand*1.25:R.sand;
+  var bagsRaw=R.bags,bagsCeil=Math.ceil(bagsRaw);
+  var volM3=totalWet*FT3_M3;
+  var steelKg=resolveSteelKg(volM3),steelActive=steelKg>0,steelVolFt3=steelActive?steelKg/7850/FT3_M3:0;
+  var res=document.getElementById('rcc-res');res.classList.remove('show');void res.offsetWidth;res.classList.add('show');
+  countUp(document.getElementById('r-vol'),RCC_UNIT==='m3'?totalWet*FT3_M3:totalWet,RCC_UNIT==='m3'?3:2,700);
+  document.getElementById('r-vol-u').innerText=' '+dU();
+  document.getElementById('r-vol-line').innerText='Structural vol · Dry: '+d3(R.dry)+' ft³ · W/C='+wc+' ('+CONCRETE_GRADE+')';
+  document.getElementById('r-mix-badge').innerText=mc+':'+ms+':'+ma;
+  document.getElementById('r-waste-lbl').innerText=WASTE>0?' (mat. +'+WASTE+'%)':'';
+  document.getElementById('r-assume-strip').innerHTML='<span class="assume-chip">'+CONCRETE_GRADE+' W/C='+wc+'</span><span class="assume-chip">Mix '+mc+':'+ms+':'+ma+'</span><span class="assume-chip">DVF '+dvf+'</span><span class="assume-chip">Wastage '+WASTE+'%</span><span class="assume-chip">Bag=1.25 cft</span>'+(isBulking?'<span class="assume-chip">Sand+25%</span>':'');
+  var elb=document.getElementById('r-elb');elb.innerHTML='';
+  elData.forEach(function(d,i){var pct=totalWet>0?d2(d.vol/totalWet*100):'0';var row=document.createElement('div');row.className='elb-row';row.style.animationDelay=(0.04+i*0.06)+'s';row.innerHTML='<div class="elb-badge">'+(i+1)+'</div><span class="elb-type">'+d.type+'</span><span class="elb-dims">'+d3(d.l)+'×'+d3(d.w)+'×'+d3(d.h)+' = <b>'+dV(d.vol)+' '+dU()+'</b></span><span class="elb-pct">'+pct+'%</span>';elb.appendChild(row);});
+  countUp(document.getElementById('r-bags'),bagsCeil,0,800);
+  countUp(document.getElementById('r-sand'),RCC_UNIT==='m3'?finalSand*FT3_M3:finalSand,RCC_UNIT==='m3'?3:2,850);
+  countUp(document.getElementById('r-chips'),RCC_UNIT==='m3'?R.chips*FT3_M3:R.chips,RCC_UNIT==='m3'?3:2,900);
+  countUp(document.getElementById('r-water'),R.water,1,950);
+  document.getElementById('r-sand-u').innerText=dU();document.getElementById('r-chips-u').innerText=dU();
+  document.getElementById('r-sand-lbl').innerText='Sand (Fine Agg.)'+(isBulking?' +25% Bulked':'');
+  document.getElementById('r-bag-sub').innerText=d3(R.cemVol)+' cft · '+d2(bagsRaw)+' exact → '+bagsCeil+' bags';
+  document.getElementById('r-sand-sub').innerText='Ratio '+ms+'/'+R.tp+(isBulking?' · +25%':'');
+  document.getElementById('r-chips-sub').innerText='Ratio '+ma+'/'+R.tp+' · Coarse';
+  document.getElementById('r-water-sub').innerText='W/C='+wc+' ('+CONCRETE_GRADE+')';
+  var mx=Math.max(R.cemVol,finalSand,R.chips,R.water/30)||1;
+  setTimeout(function(){document.getElementById('rb-c').style.width=Math.min(R.cemVol/mx*100,100).toFixed(1)+'%';document.getElementById('rb-s').style.width=Math.min(finalSand/mx*100,100).toFixed(1)+'%';document.getElementById('rb-a').style.width=Math.min(R.chips/mx*100,100).toFixed(1)+'%';document.getElementById('rb-w').style.width=Math.min(R.water/30/mx*100,100).toFixed(1)+'%';},140);
+  var sw=document.getElementById('r-steel-wrap');
+  if(steelActive){sw.style.display='block';document.getElementById('r-steel-vol').innerText=dV(steelVolFt3);document.getElementById('r-steel-vol-u').innerText=dU();document.getElementById('r-steel-kg').innerText=d2(steelKg)+' kg';}else{sw.style.display='none';}
+  var vMC2=rf('r_mc2'),vMS2=rf('r_ms2'),vMA2=rf('r_ma2');
+  var mc2=isNaN(vMC2)?1:vMC2,ms2=isNaN(vMS2)?1.5:vMS2,ma2=isNaN(vMA2)?3:vMA2;
+  var cw=document.getElementById('r-cmp-wrap');
+  if(mc2>0&&ms2>0&&ma2>0&&!(mc2===mc&&ms2===ms&&ma2===ma)){cw.style.display='block';var R2=rccCompute(mc2,ms2,ma2,netWetVol,dvf,wc);var bags2=Math.ceil(R2.bags),sand2=isBulking?R2.sand*1.25:R2.sand;document.getElementById('cmp-ta').innerText='Mix A ('+mc+':'+ms+':'+ma+')';document.getElementById('cmp-tb').innerText='Mix B ('+mc2+':'+ms2+':'+ma2+')';document.getElementById('cA-b').innerText=bagsCeil+' bags';document.getElementById('cA-s').innerText=d2(finalSand)+' cft';document.getElementById('cA-a').innerText=d2(R.chips)+' cft';document.getElementById('cA-w').innerText=d1(R.water)+' L';document.getElementById('cB-b').innerText=bags2+' bags';document.getElementById('cB-s').innerText=d2(sand2)+' cft';document.getElementById('cB-a').innerText=d2(R2.chips)+' cft';document.getElementById('cB-w').innerText=d1(R2.water)+' L';document.getElementById('cmp-note').innerText='Mix B needs '+Math.abs(R2.bags-bagsRaw).toFixed(2)+' bags '+(R2.bags>bagsRaw?'MORE':'LESS')+' cement.';}else{cw.style.display='none';}
+  var noteLines=elData.map(function(d){return d.type+': '+d3(d.vol)+' ft³';}).join('\n');
+  var noteEl=document.getElementById('r-note');if(noteEl)noteEl.innerText=noteLines+'\n────────────────────\nGrade = '+CONCRETE_GRADE+' · W/C = '+wc+'\nStruct.Vol = '+d3(totalWet)+' ft³\nDry Vol = '+d3(R.dry)+' ft³\nCement = '+d2(bagsRaw)+' → '+bagsCeil+' bags\nSand = '+d3(finalSand)+' cft\nChips = '+d3(R.chips)+' cft\nWater = '+d2(bagsRaw)+'×50×'+wc+' = '+d1(R.water)+' L';
+  _rccReport=noteEl?noteEl.innerText:'';
+  window._lastRCC={vol:d2(totalWet),bags:bagsCeil,sand:d2(finalSand),chips:d2(R.chips),water:d1(R.water),mix:mc+':'+ms+':'+ma,grade:CONCRETE_GRADE,wc:wc};
+  var addBtn=document.getElementById('rcc-add-btn');if(addBtn)addBtn.style.display='flex';
+}
+function copyRCCReport(){if(!_rccReport){showToast('Calculate first');return;}navigator.clipboard?navigator.clipboard.writeText(_rccReport).then(function(){showToast('Report copied!');}).catch(function(){}):showToast('Clipboard unavailable');}
+function saveRCCRecord(){
+  if(!window._lastRCC){showToast('Calculate RCC first');return;}
+  var lr=window._lastRCC;
+  saveRecord({id:genId(),createdAt:Date.now(),type:'rcc',
+    date:new Date().toISOString().split('T')[0],proj:'RCC Project',addr:'',
+    grade:lr.grade,vol:parseFloat(lr.vol),unit:RCC_UNIT,
+    cement:lr.bags+' bags',sand:lr.sand,agg:lr.chips
+  });
+  window._lastRCC=null;
+  var addBtn=document.getElementById('rcc-add-btn');if(addBtn)addBtn.style.display='none';
+}
+
+// ═══════════════════════════════════════════════════════
+// CONTRACTOR PAYMENT MODULE
+// ═══════════════════════════════════════════════════════
+var CTYPE_CONFIRM_STYLES={
+  rod:{bg:'var(--red-bg)',border:'rgba(255,26,56,.30)',color:'var(--red)'},
+  sanitary:{bg:'var(--blu-bg)',border:'rgba(43,110,255,.30)',color:'var(--blu)'},
+  electric:{bg:'var(--amber-bg)',border:'rgba(255,194,0,.30)',color:'var(--amber)'},
+  paint:{bg:'var(--purp-bg)',border:'rgba(160,64,255,.30)',color:'var(--purp)'},
+  tiles:{bg:'var(--teal-bg)',border:'rgba(0,201,177,.30)',color:'var(--teal)'}
+};
+function selectCType(type,el){
+  selectedCType=type;
+  document.querySelectorAll('.ctype-chip').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  var st=CTYPE_CONFIRM_STYLES[type];
+  var confirm=document.getElementById('pay-type-confirm');
+  confirm.style.background=st.bg;
+  confirm.style.borderColor=st.border;
+  var icon=confirm.querySelector('.ms');
+  var label=document.getElementById('pay-type-display');
+  icon.style.color=st.color; label.style.color=st.color;
+  label.textContent=CTYPE_LABELS[type];
+}
+function updatePayAmountPreview(){
+  var val=parseFloat(document.getElementById('pay_amount').value)||0;
+  var preview=document.getElementById('pay-amount-preview');
+  var display=document.getElementById('pay-amount-preview-val');
+  if(val>0){
+    preview.classList.add('show');
+    display.textContent='৳ '+val.toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2});
+  } else {
+    preview.classList.remove('show');
+  }
+}
+function savePaymentRecord(){
+  var name=document.getElementById('pay_name').value.trim();
+  var phone=document.getElementById('pay_phone').value.trim();
+  var amount=parseFloat(document.getElementById('pay_amount').value)||0;
+  var date=document.getElementById('pay_date').value||new Date().toISOString().split('T')[0];
+  var comments=document.getElementById('pay-comments').value.trim();
+  var projName=document.getElementById('pay_proj_name').value.trim()||'Payment Record';
+  var projAddr=document.getElementById('pay_proj_addr').value.trim()||'';
+  if(!name){showToast('Enter contractor name!');return;}
+  if(amount<=0){showToast('Enter payment amount!');return;}
+  saveRecord({id:genId(),createdAt:Date.now(),type:'payment',date:date,
+    proj:projName,addr:projAddr,projName:projName,projAddr:projAddr,
+    cType:selectedCType,cTypeLabel:CTYPE_LABELS[selectedCType],
+    contractorName:name,phone:phone,amount:amount,comments:comments
+  });
+  // Reset form fields after save
+  document.getElementById('pay_name').value='';
+  document.getElementById('pay_phone').value='';
+  document.getElementById('pay_amount').value='';
+  document.getElementById('pay-comments').value='';
+  document.getElementById('pay_date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('pay-amount-preview').classList.remove('show');
+}
+function updatePayDashboard(){
+  var payRecs=records.filter(function(r){return r.type==='payment';});
+  var total=payRecs.reduce(function(s,r){return s+(r.amount||0);},0);
+  var totalEl=document.getElementById('dash-total');
+  var countEl=document.getElementById('dash-count');
+  if(totalEl){
+    totalEl.textContent='৳ '+total.toLocaleString('en-BD',{minimumFractionDigits:0});
+    if(total>0){
+      countUp(totalEl,total,0,700,'৳ ','');
+      // After animation finishes, re-apply locale formatting
+      setTimeout(function(){
+        if(totalEl) totalEl.textContent='৳ '+total.toLocaleString('en-BD',{minimumFractionDigits:0});
+      },730);
+    }
+  }
+  if(countEl) countEl.textContent=payRecs.length+' payment'+(payRecs.length!==1?'s':'');
+  var now=new Date(),thisMonth=now.getFullYear()+'-'+(String(now.getMonth()+1).padStart(2,'0'));
+  var monthRecs=payRecs.filter(function(r){return (r.date||'').startsWith(thisMonth);});
+  var monthTotal=monthRecs.reduce(function(s,r){return s+(r.amount||0);},0);
+  var monthEl=document.getElementById('dash-month');
+  var monthCountEl=document.getElementById('dash-month-count');
+  if(monthEl) monthEl.textContent='৳ '+monthTotal.toLocaleString('en-BD',{minimumFractionDigits:0});
+  if(monthCountEl) monthCountEl.textContent=monthRecs.length+' payment'+(monthRecs.length!==1?'s':'');
+}
+
+// ─── PAYMENT SEARCH / FILTER ───
+function setPTFilter(type,el){
+  payTypeFilter=type;
+  document.querySelectorAll('.pay-type-filter-chip').forEach(function(c){c.classList.remove('active');});
+  el.classList.add('active');
+  renderRecords();
+}
+
+// ═══════════════════════════════════════════════════════
+// RECORDS ENGINE
+// ═══════════════════════════════════════════════════════
+function saveRecord(r){
+  records.push(r);
+  var ok=NativeBridge.saveData(JSON.stringify(records));
+  if(!ok) showToast('Storage full — backup your data!');
+  renderRecords(); updatePayDashboard();
+  showToast('Record saved ✓');
+  NativeBridge.vibrate(18);
+  if(r.type!=='payment') switchTab('records',7);
+}
+function filterRecords(f,el){
+  recFilter=f;
+  document.querySelectorAll('#rec-filter-seg .seg-item').forEach(function(s){s.classList.remove('active');}); el.classList.add('active');
+  var paySearch=document.getElementById('pay-search-section');
+  if(paySearch) paySearch.style.display=(f==='payment')?'block':'none';
+  renderRecords();
+}
+function renderRecords(){
+  var searchQ='';
+  var sinp=document.getElementById('pay-search-inp');
+  if(sinp) searchQ=sinp.value.trim().toLowerCase();
+
+  var list=records.slice().sort(function(a,b){return (b.createdAt||b.ts||0)-(a.createdAt||a.ts||0);});
+  if(recFilter!=='all') list=list.filter(function(r){return r.type===recFilter;});
+
+  // Payment-specific sub-filtering
+  if(recFilter==='payment'){
+    if(payTypeFilter!=='all') list=list.filter(function(r){return r.cType===payTypeFilter;});
+    if(searchQ){
+      list=list.filter(function(r){
+        return (r.contractorName||'').toLowerCase().indexOf(searchQ)>-1||
+               (r.proj||'').toLowerCase().indexOf(searchQ)>-1||
+               (r.projName||'').toLowerCase().indexOf(searchQ)>-1;
+      });
+    }
+  }
+
+  var c=document.getElementById('rec-container');
+  if(!list.length){
+    var emptyIcon='folder_open', emptyTitle='No Records Found', emptySub='No entries match the current filter.';
+    if(recFilter==='payment'&&records.filter(function(r){return r.type==='payment';}).length===0){
+      emptyIcon='handshake'; emptyTitle='No Payment Records Yet'; emptySub='Go to the Pay tab to log a contractor payment.';
+    } else if(recFilter==='all'&&records.length===0){
+      emptyIcon='folder_open'; emptyTitle='No Records Yet'; emptySub='Add entries from any material tab and they\'ll appear here.';
+    }
+    c.innerHTML='<div class="rec-empty"><span class="ms">'+emptyIcon+'</span><div class="rec-empty-t">'+emptyTitle+'</div><div class="rec-empty-s">'+emptySub+'</div></div>';
+    return;
+  }
+  c.innerHTML='<div class="rec-list" id="rec-list"></div>';
+  var rl=document.getElementById('rec-list');
+  list.forEach(function(r,i){
+    var card=document.createElement('div'); card.className='rec-card'; card.style.animationDelay=(i*0.04)+'s';
+    var bar=document.createElement('div'); bar.className='rec-bar '+r.type; card.appendChild(bar);
+    var hdr=document.createElement('div'); hdr.className='rec-header';
+    var badge=document.createElement('div'); badge.className='rec-badge '+r.type;
+    badge.textContent={sand:'SAND',chips:'CHIPS',steel:'STEEL',cement:'CEMENT',rcc:'RCC',payment:'PAYMENT'}[r.type]||r.type.toUpperCase();
+    var meta=document.createElement('div'); meta.style.flex='1';
+    var proj=document.createElement('div'); proj.className='rec-proj'; proj.textContent=r.projName||r.proj||'Unnamed';
+    var addr=document.createElement('div'); addr.className='rec-addr'; addr.textContent=r.projAddr||r.addr||'';
+    meta.appendChild(proj); meta.appendChild(addr);
+
+    // Contractor type badge for payment records
+    if(r.type==='payment'&&r.cType){
+      var ctb=document.createElement('div'); ctb.className='ct-badge '+r.cType;
+      ctb.textContent={rod:'Rod',sanitary:'Sanitary',electric:'Electric',paint:'Paint',tiles:'Tiles'}[r.cType]||r.cType;
+      meta.appendChild(ctb);
+    }
+
+    var date=document.createElement('div'); date.className='rec-date'; date.textContent=r.date||'';
+    hdr.appendChild(badge); hdr.appendChild(meta); hdr.appendChild(date); card.appendChild(hdr);
+
+    var vals=document.createElement('div'); vals.className='rec-vals';
+    if(r.type==='sand'||r.type==='chips'){
+      vals.innerHTML='<span class="rec-val-chip">Vol: <b>'+r.vol.toFixed(3)+' ft³</b></span>'+
+        '<span class="rec-val-chip">'+r.volM3.toFixed(3)+' m³</span>'+
+        '<span class="rec-val-chip">L: <b>'+r.avgL+'</b></span>'+
+        '<span class="rec-val-chip">W: <b>'+r.avgW+'</b></span>'+
+        '<span class="rec-val-chip">H: <b>'+r.avgH+'</b></span>';
+    } else if(r.type==='steel'){
+      vals.innerHTML='<span class="rec-val-chip">Total: <b>'+r.totalKg.toFixed(1)+' KG</b></span>'+
+        '<span class="rec-val-chip"><b>'+(r.totalTon||r.totalKg/1000).toFixed(3)+' TON</b></span>'+
+        (r.brand?'<span class="rec-val-chip">'+esc(r.brand)+'</span>':'');
+    } else if(r.type==='cement'){
+      vals.innerHTML='<span class="rec-val-chip">Bags: <b>'+r.bags+'</b></span>'+
+        '<span class="rec-val-chip"><b>'+r.totalKg.toLocaleString()+' KG</b></span>'+
+        (r.brand?'<span class="rec-val-chip">'+esc(r.brand)+'</span>':'');
+    } else if(r.type==='rcc'){
+      vals.innerHTML='<span class="rec-val-chip">Grade: <b>'+r.grade+'</b></span>'+
+        '<span class="rec-val-chip">Vol: <b>'+r.vol.toFixed(2)+' '+(r.unit==='cft'?'ft³':'m³')+'</b></span>'+
+        '<span class="rec-val-chip">Cement: <b>'+r.cement+' bags</b></span>';
+    } else if(r.type==='payment'){
+      vals.innerHTML='<span class="rec-val-chip">Contractor: <b>'+r.contractorName+'</b></span>'+
+        '<span class="rec-val-chip">Amount: <b>৳ '+r.amount.toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2})+'</b></span>'+
+        (r.comments?'<span class="rec-val-chip" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+r.comments.substring(0,50)+(r.comments.length>50?'…':'')+'</span>':'');
+    }
+    card.appendChild(vals);
+
+    // Vehicle info for material records
+    if((r.type==='sand'||r.type==='chips'||r.type==='steel'||r.type==='cement')&&(r.vehNum||r.drvName)){
+      var veh=document.createElement('div'); veh.className='rec-vehicle';
+      if(r.vehNum) veh.innerHTML+='<span class="rec-vehicle-chip"><span class="ms">directions_car</span>'+esc(r.vehNum)+'</span>';
+      if(r.drvName) veh.innerHTML+='<span class="rec-vehicle-chip"><span class="ms">person</span>'+esc(r.drvName)+'</span>';
+      if(r.drvMob) veh.innerHTML+='<span class="rec-vehicle-chip"><span class="ms">call</span><a href="tel:'+esc(r.drvMob)+'">'+esc(r.drvMob)+'</a></span>';
+      card.appendChild(veh);
+    }
+    // Phone for payment records
+    if(r.type==='payment'&&r.phone){
+      var pveh=document.createElement('div'); pveh.className='rec-vehicle';
+      pveh.innerHTML='<span class="rec-vehicle-chip"><span class="ms">call</span><a href="tel:'+esc(r.phone)+'">'+esc(r.phone)+'</a></span>';
+      card.appendChild(pveh);
+    }
+
+    var acts=document.createElement('div'); acts.className='rec-actions';
+    var pdfBtn=document.createElement('button'); pdfBtn.className='rec-act-btn pdf';
+    pdfBtn.innerHTML='<span class="ms">picture_as_pdf</span>PDF';
+    pdfBtn.onclick=(function(rec){return function(){openPDFModal(rec);};})(r);
+    var divider=document.createElement('div'); divider.className='rec-act-div';
+    var delBtn=document.createElement('button'); delBtn.className='rec-act-btn del';
+    delBtn.innerHTML='<span class="ms">delete</span>Delete';
+    delBtn.onclick=(function(rec){return function(){deleteRecord(rec.id);};})(r);
+    acts.appendChild(pdfBtn); acts.appendChild(divider); acts.appendChild(delBtn);
+    card.appendChild(acts);
+    rl.appendChild(card);
+  });
+}
+function deleteRecord(id){
+  if(!confirm('Delete this record?'))return;
+  records=records.filter(function(r){return String(r.id)!==String(id);});
+  NativeBridge.saveData(JSON.stringify(records));
+  renderRecords(); updatePayDashboard(); showToast('Record deleted');
+}
+
+// ═══════════════════════════════════════════════════════
+// BACKUP & RESTORE
+// ═══════════════════════════════════════════════════════
+function backupLocal(){
+  var data={app:'Civil Suite Ultimate',v:'1.0',ts:Date.now(),records:records};
+  var json=JSON.stringify(data,null,2);
+  var today=new Date().toISOString().slice(0,10).replace(/-/g,'');
+  var filename='CivilSuite_Backup_'+today+'.json';
+  NativeBridge.downloadBackup(json, filename);
+  showToast('Backup saved ✓');
+}
+// NOTE FOR ANDROID: WebChromeClient MUST implement onShowFileChooser()
+// to handle the <input type="file"> picker triggered by openFilePicker().
+// Without it, this function will silently do nothing in Android WebView.
+function restoreLocal(){
+  NativeBridge.openFilePicker(function(file){
+    var reader=new FileReader();
+    reader.onload=function(ev){
+      try{
+        var data=JSON.parse(ev.target.result);
+        if(!data.records||!Array.isArray(data.records))throw new Error('Invalid');
+        if(!confirm('Restore '+data.records.length+' records? This will replace your current records.'))return;
+        records=data.records;
+        var ok=NativeBridge.saveData(JSON.stringify(records));
+        if(!ok) showToast('Storage full — records loaded in memory only');
+        renderRecords();updatePayDashboard();
+        showToast('Restored '+records.length+' records ✓');
+        switchTab('records',7);
+      }catch(ex){showToast('Invalid backup file');}
+    };
+    reader.readAsText(file);
+  });
+}
+function clearAllRecords(){
+  if(!confirm('Delete ALL '+records.length+' records permanently? This cannot be undone.'))return;
+  records=[];
+  NativeBridge.saveData(JSON.stringify(records));
+  renderRecords();updatePayDashboard();
+  showToast('All records cleared');
+}
+
+// ═══════════════════════════════════════════════════════
+// BULK PDF EXPORT (All records by material)
+// ═══════════════════════════════════════════════════════
+function exportBulkPDF(materialFilter){
+  var list=records.slice().sort(function(a,b){return (a.createdAt||a.ts||0)-(b.createdAt||b.ts||0);});
+  if(materialFilter!=='all') list=list.filter(function(r){return r.type===materialFilter;});
+  if(!list.length){showToast('No records for selected type');return;}
+
+  var MNAME={sand:'Sand',chips:'Stone Chips',steel:'Steel Bars',cement:'Cement',rcc:'RCC Estimation',payment:'Contractor Payment'};
+  var MCOLOR={sand:'#FFC200',chips:'#00DDFF',steel:'#FF2A2A',cement:'#44BBDD',rcc:'#2B6EFF',payment:'#FF6B00'};
+  var MTXT={sand:'#000',chips:'#000',steel:'#fff',cement:'#000',rcc:'#fff',payment:'#000'};
+
+  function escH(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function tRow(l,v){return '<tr><td style="padding:6px 12px;font:600 11px/1.3 Barlow,sans-serif;color:#666;width:38%;border-bottom:1px solid #f0f0f0">'+escH(l)+'</td><td style="padding:6px 12px;font:600 12px/1.3 Rajdhani,sans-serif;color:#111;border-bottom:1px solid #f0f0f0">'+v+'</td></tr>';}
+
+  function buildSection(type,recs){
+    if(!recs.length)return'';
+    var color=MCOLOR[type],mname=MNAME[type]||type,txtCol=MTXT[type]||'#fff';
+    var grandVol=0,grandVol3=0,grandKg=0,grandBags=0,grandKgC=0,grandAmt=0;
+    var rows='';
+    recs.forEach(function(r,i){
+      var inner='';
+      if(r.type==='sand'||r.type==='chips'){
+        inner+=tRow('Volume (CFT)',(r.vol||0).toFixed(3)+' ft³');
+        inner+=tRow('Volume (m³)',(r.volM3||0).toFixed(3)+' m³');
+        inner+=tRow('Avg L / W / H',escH(r.avgL)+' / '+escH(r.avgW)+' / '+escH(r.avgH));
+        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—')+(r.drvMob?' · '+escH(r.drvMob):''));
+        grandVol+=parseFloat(r.vol)||0; grandVol3+=parseFloat(r.volM3)||0;
+      } else if(r.type==='steel'){
+        if(r.brand) inner+=tRow('Brand',escH(r.brand));
+        inner+=tRow('Total Weight',(r.totalKg||0).toFixed(1)+' KG');
+        inner+=tRow('Tonnage',(r.totalTon||r.totalKg/1000||0).toFixed(3)+' TON');
+        if(r.breakdown){Object.keys(r.breakdown).forEach(function(k){inner+=tRow(k.replace('d','')+'mm',r.breakdown[k].toFixed(1)+' KG');});}
+        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
+        grandKg+=parseFloat(r.totalKg)||0;
+      } else if(r.type==='cement'){
+        if(r.brand) inner+=tRow('Brand',escH(r.brand));
+        inner+=tRow('Quantity',(r.bags||0)+' Bags');
+        inner+=tRow('Weight',(r.totalKg||0).toLocaleString()+' KG');
+        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
+        grandBags+=parseFloat(r.bags)||0; grandKgC+=parseFloat(r.totalKg)||0;
+      } else if(r.type==='rcc'){
+        inner+=tRow('Concrete Grade',escH(r.grade||'—'));
+        inner+=tRow('Structural Volume',(r.vol||0).toFixed(2)+(r.unit==='cft'?' ft³':' m³'));
+        inner+=tRow('Cement',escH(r.cement||'—')+' bags');
+        inner+=tRow('Sand',escH(r.sand||'—')+' ft³');
+        inner+=tRow('Stone Chips',escH(r.agg||'—')+' ft³');
+      } else if(r.type==='payment'){
+        inner+=tRow('Contractor Type',escH(r.cTypeLabel||r.cType||'—'));
+        inner+=tRow('Contractor Name',escH(r.contractorName||'—'));
+        inner+=tRow('Phone',r.phone?'<a href="tel:'+escH(r.phone)+'" style="color:#2B6EFF">'+escH(r.phone)+'</a>':'—');
+        inner+=tRow('Amount','<b style="color:'+color+'">৳ '+(r.amount||0).toLocaleString('en-BD',{minimumFractionDigits:2})+'</b>');
+        if(r.comments) inner+=tRow('Remarks',escH(r.comments));
+        grandAmt+=parseFloat(r.amount)||0;
+      }
+      rows+='<div style="margin-bottom:14px;border:1px solid #e8e8e8;border-radius:10px;overflow:hidden">'+
+        '<div style="background:'+color+';padding:8px 14px;display:flex;justify-content:space-between;align-items:center">'+
+        '<span style="font:700 12px/1 Barlow,sans-serif;color:'+txtCol+'">#'+(i+1)+' — '+escH(r.projName||r.proj||'Unnamed')+'</span>'+
+        '<span style="font:500 10px/1 Barlow,sans-serif;color:'+txtCol+';opacity:.8">'+escH(r.date||'')+'</span></div>'+
+        (r.projAddr||r.addr?'<div style="padding:6px 14px 2px;font:400 10px/1 Barlow,sans-serif;color:#888">'+escH(r.projAddr||r.addr||'')+'</div>':'')+
+        '<table style="width:100%;border-collapse:collapse">'+inner+'</table></div>';
+    });
+
+    // Grand total
+    var gt='';
+    if(type==='sand'||type==='chips') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</span><span style="font:800 18px/1 Rajdhani,sans-serif;color:'+color+'">'+grandVol.toFixed(3)+' ft³ &nbsp;/&nbsp; '+grandVol3.toFixed(3)+' m³</span></div>';
+    else if(type==='steel') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</span><span style="font:800 18px/1 Rajdhani,sans-serif;color:'+color+'">'+grandKg.toFixed(1)+' KG &nbsp;/&nbsp; '+(grandKg/1000).toFixed(3)+' TON</span></div>';
+    else if(type==='cement') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</span><span style="font:800 18px/1 Rajdhani,sans-serif;color:'+color+'">'+grandBags.toFixed(0)+' Bags &nbsp;/&nbsp; '+grandKgC.toFixed(0)+' KG</span></div>';
+    else if(type==='payment') gt='<div style="background:#fff3eb;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL PAID ('+recs.length+' payment'+(recs.length!==1?'s':'')+')</span><span style="font:800 22px/1 JetBrains Mono,monospace;color:'+color+'">৳ '+grandAmt.toLocaleString('en-BD',{minimumFractionDigits:2})+'</span></div>';
+
+    return '<div style="page-break-before:always;padding-top:20px">'+
+      '<div style="border-bottom:3px solid '+color+';padding-bottom:10px;margin-bottom:16px;display:flex;align-items:center;gap:10px">'+
+      '<div style="width:14px;height:28px;background:'+color+';border-radius:3px"></div>'+
+      '<h2 style="font:800 18px/1 Barlow,sans-serif;color:'+color+';margin:0;letter-spacing:.04em">'+mname.toUpperCase()+'</h2>'+
+      '<span style="font:600 10px/1 Barlow,sans-serif;color:#888;margin-left:auto">'+recs.length+' record'+(recs.length!==1?'s':'')+'</span></div>'+
+      rows+gt+'</div>';
+  }
+
+  var types=materialFilter==='all'?['sand','chips','steel','cement','rcc','payment']:[materialFilter];
+  var sections='';
+  types.forEach(function(type){
+    var typeRecs=list.filter(function(r){return r.type===type;});
+    if(typeRecs.length) sections+=buildSection(type,typeRecs);
+  });
+  if(!sections){showToast('No records to export');return;}
+
+  var today=new Date().toLocaleDateString('en-BD');
+
+  var htmlString='<!DOCTYPE html><html><head><meta charset="UTF-8">'+
+    '<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700;800&family=Rajdhani:wght@600;700;800&family=JetBrains+Mono:wght@600;700&family=Orbitron:wght@800&display=swap" rel="stylesheet">'+
+    '<title>Civil Suite Report</title>'+
+    '<style>@page{margin:18mm}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Barlow,Arial,sans-serif;color:#111;font-size:13px;background:#fff}@media print{.no-print{display:none}}</style>'+
+    '</head><body>'+
+    '<div style="background:#0A0A14;padding:20px 24px">'+
+      '<div style="display:flex;align-items:center;gap:16px">'+
+        '<div style="width:52px;height:52px;background:#FFC200;border-radius:16px;display:flex;align-items:center;justify-content:center;font:800 22px/1 Orbitron,sans-serif;color:#000;flex-shrink:0">⚙</div>'+
+        '<div>'+
+          '<div style="font:800 20px/1 Orbitron,sans-serif;color:#FFC200;letter-spacing:2px">CIVIL <span style="color:#fff">SUITE</span></div>'+
+          '<div style="font:600 9px/1 Barlow,sans-serif;color:rgba(255,255,255,.45);margin-top:5px;letter-spacing:2.5px;text-transform:uppercase">Ultimate Edition · Material &amp; Payment Report · BNBC 2020</div>'+
+        '</div>'+
+        '<div style="margin-left:auto;text-align:right">'+
+          '<div style="font:700 10px/1 Barlow,sans-serif;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px">Report Date</div>'+
+          '<div style="font:700 13px/1 Barlow,sans-serif;color:#FFC200">'+today+'</div>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div style="padding:16px 24px">'+sections+'</div>'+
+    '<div style="margin-top:32px;text-align:center;font:400 10px/1.6 Barlow,sans-serif;color:#aaa;border-top:1px solid #eee;padding:16px 24px">'+
+      'Generated by Civil Suite v1.0 · Developed by K. M. Zaman · Standard: BNBC 2020<br>'+
+      'AI Assistance: Claude (Anthropic) · ChatGPT (OpenAI) · Gemini (Google)'+
+    '</div>'+
+    '<div class="no-print" style="text-align:center;padding:16px">'+
+      '<button onclick="window.print()" style="padding:12px 28px;background:#FFC200;border:none;border-radius:99px;font:700 13px/1 Barlow,sans-serif;color:#000;cursor:pointer;letter-spacing:.06em">PRINT / SAVE AS PDF</button>'+
+    '</div>'+
+    '</body></html>';
+
+  NativeBridge.generatePDF(htmlString, function(){
+    // Web fallback: open in new tab and print
+    var w=window.open('','_blank');
+    if(!w){showToast('Allow popups to export PDF');return;}
+    w.document.write(htmlString);
+    w.document.close();
+    setTimeout(function(){w.print();},700);
+  });
+  showToast('PDF report ready!');
+}
+
+var _pdfRec=null;
+function openPDFModal(rec){
+  _pdfRec=rec;
+  document.getElementById('pdf-modal-sub').textContent='Export '+rec.type.toUpperCase()+' record to PDF';
+  var opts=document.getElementById('pdf-opts-container'); opts.innerHTML='';
+  opts.appendChild(makePDFOpt('picture_as_pdf','var(--amber-bg)','var(--amber)','Standard Report','Full details, vehicle info, signature lines',function(){generatePDF(_pdfRec,'standard');}));
+  opts.appendChild(makePDFOpt('summarize','var(--blu-bg)','var(--blu)','Summary Only','Compact one-page summary',function(){generatePDF(_pdfRec,'summary');}));
+  document.getElementById('pdf-modal').classList.add('open');
+}
+function makePDFOpt(icon,bg,col,title,sub,fn){
+  var d=document.createElement('div'); d.className='pdf-opt'; d.onclick=fn;
+  d.innerHTML='<div class="pdf-opt-icon" style="background:'+bg+'"><span class="ms" style="color:'+col+'">'+icon+'</span></div>'+
+    '<div><div class="pdf-opt-text">'+title+'</div><div class="pdf-opt-sub">'+sub+'</div></div>';
+  return d;
+}
+function closePDFModal(e){if(e.target===document.getElementById('pdf-modal'))closePDFModalDirect();}
+function closePDFModalDirect(){document.getElementById('pdf-modal').classList.remove('open');}
+
+function generatePDF(rec,mode){
+  closePDFModalDirect();
+  var accentMap={sand:'#FFC200',chips:'#00DDFF',steel:'#FF2A2A',cement:'#44BBDD',rcc:'#2B6EFF',payment:'#FF6B00'};
+  var ctAccentMap={rod:'#FF1A38',sanitary:'#2B6EFF',electric:'#FFC200',paint:'#A040FF',tiles:'#00C9B1'};
+  var accent=rec.type==='payment'?(ctAccentMap[rec.cType]||'#FF6B00'):accentMap[rec.type]||'#FFC200';
+  var typeLabel={sand:'SAND',chips:'STONE CHIPS',steel:'STEEL BARS',cement:'CEMENT',rcc:'RCC ESTIMATOR',payment:'CONTRACTOR PAYMENT'}[rec.type]||rec.type.toUpperCase();
+  var bg='#ffffff',text='#02020E',dim='rgba(2,2,20,0.55)',border='rgba(0,0,120,0.10)',fill='rgba(0,0,120,0.04)';
+
+  function row(label,val){
+    return '<tr><td style="padding:8px 14px;font:600 12px/1.4 Barlow,sans-serif;color:'+dim+';border-bottom:1px solid '+border+';width:40%">'+label+'</td>'+
+      '<td style="padding:8px 14px;font:600 13px/1.4 Rajdhani,sans-serif;color:'+text+';border-bottom:1px solid '+border+'">'+val+'</td></tr>';
+  }
+  function section(title){
+    return '<tr><td colspan="2" style="padding:12px 14px 5px;font:700 9px/1 Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:'+accent+';background:'+accent+'0D">'+title+'</td></tr>';
+  }
+  function sigLine(label){
+    return '<div style="flex:1;text-align:center"><div style="height:1px;background:'+border+';margin-bottom:6px"></div><div style="font:600 10px/1 Barlow,sans-serif;color:'+dim+';letter-spacing:.06em">'+label+'</div></div>';
+  }
+
+  var rows='';
+  rows+=section('PROJECT INFORMATION');
+  rows+=row('Project',esc(rec.projName||rec.proj||'—'));
+  rows+=row('Address',esc(rec.projAddr||rec.addr||'—'));
+  rows+=row('Date',esc(rec.date||'—'));
+
+  if(rec.type==='sand'||rec.type==='chips'){
+    rows+=section('VOLUME MEASUREMENT');
+    rows+=row('Volume (CFT)',rec.vol.toFixed(3)+' ft³');
+    rows+=row('Volume (m³)',rec.volM3.toFixed(3)+' m³');
+    rows+=row('Avg Length',esc(rec.avgL));
+    rows+=row('Avg Width',esc(rec.avgW));
+    rows+=row('Avg Height',esc(rec.avgH));
+    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));}
+  } else if(rec.type==='steel'){
+    rows+=section('STEEL INVENTORY');
+    rows+=row('Brand',esc(rec.brand||'—'));
+    rows+=row('Total Weight',rec.totalKg.toFixed(1)+' KG');
+    rows+=row('Total Tonnage',(rec.totalTon||rec.totalKg/1000).toFixed(3)+' TON');
+    if(rec.breakdown){rows+=section('DIAMETER BREAKDOWN');Object.keys(rec.breakdown).forEach(function(k){rows+=row(k.replace('d','')+'mm',rec.breakdown[k].toFixed(1)+' KG');});}
+    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));}
+  } else if(rec.type==='cement'){
+    rows+=section('CEMENT DETAILS');
+    rows+=row('Brand',esc(rec.brand||'—'));
+    rows+=row('Quantity',rec.bags+' Bags');
+    rows+=row('Total Weight',rec.totalKg.toLocaleString()+' KG');
+    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));}
+  } else if(rec.type==='rcc'){
+    rows+=section('RCC ESTIMATION');
+    rows+=row('Concrete Grade',esc(rec.grade));
+    rows+=row('Total Volume',rec.vol.toFixed(3)+(rec.unit==='cft'?' ft³':' m³'));
+    rows+=row('Cement',esc(rec.cement)+' bags');
+    rows+=row('Sand (Fine Agg.)',esc(rec.sand)+' ft³');
+    rows+=row('Stone Chips',esc(rec.agg)+' ft³');
+    rows+=section('STANDARDS'); rows+=row('Code','BNBC 2020');
+  } else if(rec.type==='payment'){
+    rows+=section('CONTRACTOR INFORMATION');
+    rows+=row('Contractor Type',esc(rec.cTypeLabel||'—'));
+    rows+=row('Contractor Name',esc(rec.contractorName||'—'));
+    rows+=row('Phone Number',esc(rec.phone||'—'));
+    rows+=section('PAYMENT DETAILS');
+    rows+=row('Payment Amount','৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2}));
+    rows+=row('Payment Date',esc(rec.date||'—'));
+    if(rec.comments){rows+=section('REMARKS');rows+=row('Comments',esc(rec.comments));}
+  }
+
+  var grandTotalSection='';
+  if(rec.type==='payment'){
+    grandTotalSection='<div style="margin-top:20px;background:'+accent+'11;border:2px solid '+accent+'44;border-radius:12px;padding:16px 20px;display:flex;justify-content:space-between;align-items:center">'+
+      '<div><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:'+dim+'">GRAND TOTAL PAYMENT</div>'+
+      '<div style="font:400 10px/1 Barlow,sans-serif;color:'+dim+';margin-top:4px">'+esc(rec.cTypeLabel||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
+      '<div style="font:700 28px/1 JetBrains Mono,monospace;color:'+accent+';letter-spacing:-1px">৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2})+'</div></div>';
+  }
+
+  var sigSection='';
+  if(mode==='standard'){
+    sigSection='<div style="margin-top:40px;display:flex;gap:32px;padding-top:10px">'+
+      sigLine('Prepared By')+sigLine('Verified By')+sigLine('Received By')+
+      '</div>';
+  }
+
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8">'+
+    '<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&family=Barlow:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">'+
+    '<title>Civil Suite - '+esc(typeLabel)+'</title>'+
+    '<style>'+
+    '*{box-sizing:border-box;margin:0;padding:0}'+
+    'body{background:'+bg+';color:'+text+';font-family:Barlow,sans-serif;padding:32px 28px;max-width:720px;margin:0 auto}'+
+    '.hdr{display:flex;align-items:center;gap:16px;padding-bottom:18px;border-bottom:3px solid '+accent+';margin-bottom:22px}'+
+    '.hdr-icon{width:52px;height:52px;border-radius:14px;background:'+accent+';display:flex;align-items:center;justify-content:center;font:800 22px/1 Orbitron,sans-serif;color:#000;flex-shrink:0}'+
+    '.h1{font:800 20px/1 Orbitron,sans-serif;color:'+text+';letter-spacing:2px}.h1 span{color:'+accent+'}'+
+    '.h2{font:600 10px/1 Barlow,sans-serif;color:'+dim+';letter-spacing:2px;text-transform:uppercase;margin-top:5px}'+
+    '.badge{display:inline-block;background:'+accent+'22;border:1px solid '+accent+'55;padding:4px 12px;border-radius:99px;font:700 10px/1 Barlow,sans-serif;color:'+accent+';letter-spacing:.08em;margin-left:auto;white-space:nowrap}'+
+    'table{width:100%;border-collapse:collapse;background:'+fill+';border-radius:10px;overflow:hidden;border:1px solid '+border+'}'+
+    'tr:last-child td{border-bottom:none!important}'+
+    '.footer{margin-top:28px;padding-top:12px;border-top:1px solid '+border+';text-align:center;font:600 9px/1 Barlow,sans-serif;color:'+dim+';letter-spacing:1.5px;text-transform:uppercase}'+
+    '@media print{body{padding:16px;max-width:none}}'+
+    '</style></head><body>'+
+    '<div class="hdr"><div class="hdr-icon">⚙</div>'+
+    '<div><div class="h1">CIVIL <span>SUITE</span></div><div class="h2">Ultimate Edition · v1.0</div></div>'+
+    '<div class="badge">'+esc(typeLabel)+'</div></div>'+
+    '<table>'+rows+'</table>'+
+    grandTotalSection+sigSection+
+    '<div class="footer">Generated by Civil Suite v1.0 · BNBC 2020 · K. M. Zaman · '+new Date().toLocaleDateString()+'</div>'+
+    '</body></html>';
+
+  NativeBridge.generatePDF(html, function(){
+    // Web fallback: open in new tab and print
+    var w=window.open('','_blank');
+    if(w){w.document.write(html);w.document.close();setTimeout(function(){w.print();},900);}
+    else{showToast('Allow popups to export PDF');}
+  });
+  showToast('PDF ready!');
+}
+</script>
+</body>
+</html>

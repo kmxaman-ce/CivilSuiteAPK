@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+        NoActionBar + transparent status/nav bars = true edge-to-edge immersive.
+        The actual immersive flag is set in Java (MainActivity).
+    -->
+    <style name="Theme.CivilSuite" parent="Theme.AppCompat.NoActionBar">
+        <!-- Transparent system bars — app draws behind them -->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!-- Dark icons on status bar (false = light/white icons for our dark bg) -->
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!-- Full screen window flags -->
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+</resources>

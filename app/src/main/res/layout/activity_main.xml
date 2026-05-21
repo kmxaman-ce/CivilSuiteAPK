@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Single WebView that fills the ENTIRE screen including behind system bars.
+    fitsSystemWindows="false" is critical — without it Android adds padding
+    for the status bar and nav bar, breaking edge-to-edge immersive mode.
+-->
+<WebView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/webView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="false"
+    android:background="#0A0A14" />
