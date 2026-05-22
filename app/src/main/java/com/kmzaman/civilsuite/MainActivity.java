@@ -50,8 +50,11 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
-    private ValueCallback<Uri[]> filePathCallback; // For WebChromeClient file chooser
+    private ValueCallback<Uri[]> filePathCallback;
     private static final int STORAGE_PERMISSION_CODE = 101;
+
+    // Declared BEFORE the launchers to avoid illegal forward reference
+    private String pendingFileContent = null;
 
     // ── Activity Result Launchers ────────────────────────
     private final ActivityResultLauncher<Intent> filePickerLauncher =
@@ -83,9 +86,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-    // Temp storage for file content waiting to be written
-    private String pendingFileContent = null;
 
     // ═══════════════════════════════════════════════════
     // onCreate — entry point
