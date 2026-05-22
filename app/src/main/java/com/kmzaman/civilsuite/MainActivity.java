@@ -1,24 +1,20 @@
 package com.kmzaman.civilsuite;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
-import android.view.View;
 import android.view.Window;
-import android.view.WindowInsetsController;
 import android.webkit.JavascriptInterface;
+import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -29,10 +25,7 @@ import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
@@ -43,189 +36,135 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
     private WebView webView;
-    private ValueCallback<Uri[]> filePathCallback;
-    private static final int STORAGE_PERMISSION_CODE = 101;
 
-    // Declared BEFORE the launchers to avoid illegal forward reference
+    // MUST be declared BEFORE the launchers — Java forward reference rule
     private String pendingFileContent = null;
+    private ValueCallback<Uri[]> filePathCallback = null;
 
-    // ── Activity Result Launchers ────────────────────────
-    private final ActivityResultLauncher<Intent> filePickerLauncher =
+    // ── FIX #2: File Save Launcher (ACTION_CREATE_DOCUMENT) ──────────────
+    private final ActivityResultLauncher<Intent> fileSaveLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                Uri uri = result.getData().getData();
-                if (uri != null) {
-                    readFileAndPassToJS(uri);
+            if (result.getResultCode() == Activity.RESULT_OK
+                    && result.getData() != null
+                    && result.getData().getData() != null
+                    && pendingFileContent != null) {
+                writeFileToUri(result.getData().getData(), pendingFileContent);
+            } else {
+                if (result.getResultCode() != Activity.RESULT_OK) {
+                    showToast("Save cancelled");
                 }
             }
-            // Also handle WebChromeClient file chooser (for <input type="file">)
+            pendingFileContent = null;
+        });
+
+    // ── File Picker Launcher (ACTION_GET_CONTENT) ─────────────────────────
+    private final ActivityResultLauncher<Intent> filePickerLauncher =
+        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            // Handle WebChromeClient <input type="file">
             if (filePathCallback != null) {
                 Uri[] uris = null;
                 if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                    uris = new Uri[]{result.getData().getData()};
+                    uris = new Uri[]{ result.getData().getData() };
                 }
                 filePathCallback.onReceiveValue(uris);
                 filePathCallback = null;
+                return;
+            }
+            // Handle NativeBridge.pickFile()
+            if (result.getResultCode() == Activity.RESULT_OK
+                    && result.getData() != null
+                    && result.getData().getData() != null) {
+                readFileAndPassToJS(result.getData().getData());
             }
         });
 
-    private final ActivityResultLauncher<Intent> fileSaveLauncher =
-        registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                Uri uri = result.getData().getData();
-                if (uri != null && pendingFileContent != null) {
-                    writeFileToUri(uri, pendingFileContent);
-                    pendingFileContent = null;
-                }
-            }
-        });
-
-    // ═══════════════════════════════════════════════════
-    // onCreate — entry point
     // ═══════════════════════════════════════════════════
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // ── STEP 1: Enable edge-to-edge BEFORE setContentView ──
         enableEdgeToEdge();
-
         setContentView(R.layout.activity_main);
-
-        // ── STEP 2: Set true immersive full-screen ──
         setImmersiveMode();
-
-        // ── STEP 3: Configure WebView ──
         webView = findViewById(R.id.webView);
         setupWebView();
-
-        // ── STEP 4: Load the app ──
         webView.loadUrl("file:///android_asset/index.html");
     }
 
-    // ═══════════════════════════════════════════════════
-    // EDGE-TO-EDGE: Draw behind status & nav bars
-    // ═══════════════════════════════════════════════════
+    // ── EDGE-TO-EDGE ──────────────────────────────────────────────────────
     private void enableEdgeToEdge() {
-        // Tell Android our window will handle its own insets
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
         Window window = getWindow();
-        // Transparent system bars — our HTML draws behind them
         window.setStatusBarColor(android.graphics.Color.TRANSPARENT);
         window.setNavigationBarColor(android.graphics.Color.TRANSPARENT);
-
-        // Handle display cutouts (notch / punch-hole)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             window.getAttributes().layoutInDisplayCutoutMode =
                 android.view.WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
     }
 
-    // ═══════════════════════════════════════════════════
-    // IMMERSIVE MODE: Hide status bar & navigation bar
-    // ═══════════════════════════════════════════════════
+    // ── IMMERSIVE MODE ────────────────────────────────────────────────────
     private void setImmersiveMode() {
-        WindowInsetsControllerCompat controller =
+        WindowInsetsControllerCompat ctrl =
             WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-
-        // Hide both the status bar and the navigation bar
-        controller.hide(WindowInsetsCompat.Type.systemBars());
-
-        // BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE:
-        // User can swipe in from edge to temporarily reveal bars,
-        // then they auto-hide again — true immersive feel
-        controller.setSystemBarsBehavior(
-            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        );
-
-        // Light status bar icons = false → white icons on dark background
-        controller.setAppearanceLightStatusBars(false);
-        controller.setAppearanceLightNavigationBars(false);
+        ctrl.hide(WindowInsetsCompat.Type.systemBars());
+        ctrl.setSystemBarsBehavior(
+            WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        ctrl.setAppearanceLightStatusBars(false);
+        ctrl.setAppearanceLightNavigationBars(false);
     }
 
-    // ═══════════════════════════════════════════════════
-    // RE-APPLY on window focus (bars may reappear after dialogs/toasts)
-    // ═══════════════════════════════════════════════════
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            setImmersiveMode();
-        }
+        if (hasFocus) setImmersiveMode();
     }
 
-    // ═══════════════════════════════════════════════════
-    // WEBVIEW SETUP
-    // ═══════════════════════════════════════════════════
+    // ── WEBVIEW SETUP ─────────────────────────────────────────────────────
     @SuppressLint({"SetJavaScriptEnabled", "AddJavascriptInterface"})
     private void setupWebView() {
-        WebSettings settings = webView.getSettings();
+        WebSettings s = webView.getSettings();
+        s.setJavaScriptEnabled(true);
+        s.setAllowFileAccess(true);
+        s.setDomStorageEnabled(true);
+        s.setUseWideViewPort(true);
+        s.setLoadWithOverviewMode(true);
+        s.setSupportZoom(false);
+        s.setBuiltInZoomControls(false);
+        s.setDisplayZoomControls(false);
+        s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        s.setCacheMode(WebSettings.LOAD_DEFAULT);
+        s.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
 
-        // Required — enables the JS engine
-        settings.setJavaScriptEnabled(true);
-
-        // Allow file:// to load other file:// resources (our local HTML)
-        settings.setAllowFileAccess(true);
-
-        // DOM Storage = localStorage support
-        settings.setDomStorageEnabled(true);
-
-        // Smooth scrolling
-        settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
-
-        // Viewport meta tag support
-        settings.setUseWideViewPort(true);
-        settings.setLoadWithOverviewMode(true);
-
-        // No zoom controls
-        settings.setSupportZoom(false);
-        settings.setBuiltInZoomControls(false);
-        settings.setDisplayZoomControls(false);
-
-        // Allow mixed content (https page loading http resources — for Google Fonts CDN)
-        settings.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-
-        // Cache — use cache when available for faster loads
-        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
-
-        // Dark mode: force dark if supported and system is in dark mode
         if (WebViewFeature.isFeatureSupported(WebViewFeature.ALGORITHMIC_DARKENING)) {
-            WebSettingsCompat.setAlgorithmicDarkeningAllowed(settings, false);
+            WebSettingsCompat.setAlgorithmicDarkeningAllowed(s, false);
         }
 
-        // Inject our NativeBridge Java object as window.NativeBridge in JS
-        webView.addJavascriptInterface(new NativeBridge(this, webView), "NativeBridge");
+        webView.addJavascriptInterface(new NativeBridgeImpl(this, webView), "NativeBridge");
 
-        // WebViewClient — handle navigation & errors
         webView.setWebViewClient(new WebViewClient() {
             @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                String url = request.getUrl().toString();
-                // Open external links in browser, not in our WebView
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest req) {
+                String url = req.getUrl().toString();
                 if (!url.startsWith("file://")) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    try { startActivity(intent); } catch (ActivityNotFoundException ignored) {}
+                    try {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+                    } catch (ActivityNotFoundException ignored) {}
                     return true;
                 }
                 return false;
             }
         });
 
-        // WebChromeClient — handles <input type="file"> picker for restore
         webView.setWebChromeClient(new WebChromeClient() {
             @Override
-            public boolean onShowFileChooser(WebView webView,
-                                             ValueCallback<Uri[]> callback,
+            public boolean onShowFileChooser(WebView wv,
+                                             ValueCallback<Uri[]> cb,
                                              FileChooserParams params) {
-                filePathCallback = callback;
+                filePathCallback = cb;
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
                 intent.setType("application/json");
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -239,51 +178,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Scroll the WebView itself, not just its content
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
-
-        // Remove default WebView background (prevents white flash on load)
         webView.setBackgroundColor(0xFF0A0A14);
     }
 
-    // ═══════════════════════════════════════════════════
-    // BACK BUTTON — go back in WebView history
-    // ═══════════════════════════════════════════════════
     @Override
     public void onBackPressed() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
-        } else {
-            super.onBackPressed();
-        }
+        if (webView != null && webView.canGoBack()) webView.goBack();
+        else super.onBackPressed();
     }
 
-    // ═══════════════════════════════════════════════════
-    // FILE HELPERS
-    // ═══════════════════════════════════════════════════
+    // ── FILE I/O HELPERS ──────────────────────────────────────────────────
     private void readFileAndPassToJS(Uri uri) {
         try {
             InputStream is = getContentResolver().openInputStream(uri);
             if (is == null) return;
-            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
             StringBuilder sb = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) sb.append(line).append('\n');
             reader.close();
+            // Escape for JS string literal
             String content = sb.toString()
                 .replace("\\", "\\\\")
-                .replace("'", "\\'")
-                .replace("\n", "\\n")
-                .replace("\r", "");
-            // Call the one-time callback registered by JS openFilePicker()
+                .replace("'",  "\\'")
+                .replace("\r", "")
+                .replace("\n", "\\n");
             webView.post(() ->
                 webView.evaluateJavascript(
                     "if(typeof window._nativeBridgeFileCb==='function')" +
                     "{window._nativeBridgeFileCb('" + content + "');}",
-                    null
-                )
-            );
+                    null));
         } catch (Exception e) {
             showToast("Could not read file");
         }
@@ -292,109 +218,117 @@ public class MainActivity extends AppCompatActivity {
     private void writeFileToUri(Uri uri, String content) {
         try {
             OutputStream os = getContentResolver().openOutputStream(uri);
-            if (os == null) return;
+            if (os == null) { showToast("Could not open file"); return; }
             os.write(content.getBytes("UTF-8"));
             os.flush();
             os.close();
             showToast("Backup saved ✓");
         } catch (Exception e) {
-            showToast("Could not save file");
+            showToast("Could not save file: " + e.getMessage());
         }
     }
 
-    private void showToast(String msg) {
-        runOnUiThread(() ->
-            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
-        );
+    void showToast(String msg) {
+        runOnUiThread(() -> Toast.makeText(this, msg, Toast.LENGTH_SHORT).show());
     }
 
     // ═══════════════════════════════════════════════════
-    // NATIVE BRIDGE — @JavascriptInterface methods
-    // Called by JavaScript as window.NativeBridge.methodName(...)
+    // NATIVE BRIDGE  — @JavascriptInterface
+    // window.NativeBridge.xxx() calls from JavaScript
     // ═══════════════════════════════════════════════════
-    public class NativeBridge {
+    public class NativeBridgeImpl {
 
         private final Activity activity;
         private final WebView wv;
-        private static final String PREFS_KEY = "csu3_records";
+        private static final String PREFS_KEY  = "csu3_records";
         private static final String PREFS_NAME = "CivilSuitePrefs";
 
-        NativeBridge(Activity activity, WebView wv) {
-            this.activity = activity;
-            this.wv = wv;
-        }
+        NativeBridgeImpl(Activity a, WebView w) { activity = a; wv = w; }
 
-        // ── DATA STORAGE ──────────────────────────────────
+        // ── STORAGE ───────────────────────────────────
         @JavascriptInterface
-        public void saveData(String jsonString) {
-            SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            prefs.edit().putString(PREFS_KEY, jsonString).apply();
+        public void saveData(String json) {
+            activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                .edit().putString(PREFS_KEY, json).apply();
         }
 
         @JavascriptInterface
         public String loadData() {
-            SharedPreferences prefs = activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-            return prefs.getString(PREFS_KEY, "[]");
+            return activity.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
+                .getString(PREFS_KEY, "[]");
         }
 
-        // ── PDF PRINT ─────────────────────────────────────
-        // Called by JS as: NativeBridge.printHTML(htmlString, filename)
-        // Opens Android Print Manager → user can Save as PDF or print
+        // ── FIX #3: PDF PRINT ─────────────────────────
+        // Loads HTML into an off-screen WebView then calls Android PrintManager.
+        // printWebView MUST be kept alive until onPageFinished fires — we keep
+        // a reference on the outer class to prevent GC.
         @JavascriptInterface
-        public void printHTML(String htmlContent, String filename) {
+        public void printHTML(final String html, final String jobName) {
             activity.runOnUiThread(() -> {
-                WebView printWebView = new WebView(activity);
-                printWebView.getSettings().setJavaScriptEnabled(true);
-                printWebView.setWebViewClient(new WebViewClient() {
+                // Use a fresh WebView dedicated to printing
+                final WebView printWV = new WebView(activity);
+                printWV.getSettings().setJavaScriptEnabled(true);
+
+                printWV.setWebViewClient(new WebViewClient() {
                     @Override
                     public void onPageFinished(WebView view, String url) {
-                        PrintManager printManager =
-                            (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
+                        PrintManager pm = (PrintManager)
+                            activity.getSystemService(Context.PRINT_SERVICE);
+                        if (pm == null) {
+                            showToast("Print not available on this device");
+                            return;
+                        }
+                        String name = (jobName != null && !jobName.isEmpty())
+                            ? jobName : "CivilSuite_Report";
                         PrintDocumentAdapter adapter =
-                            printWebView.createPrintDocumentAdapter(
-                                filename != null ? filename : "CivilSuite_Report"
-                            );
+                            printWV.createPrintDocumentAdapter(name);
                         PrintAttributes attrs = new PrintAttributes.Builder()
                             .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                            .setResolution(new PrintAttributes.Resolution(
+                                "pdf", "PDF", 300, 300))
+                            .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                             .build();
-                        if (printManager != null) {
-                            printManager.print(
-                                filename != null ? filename : "CivilSuite_Report",
-                                adapter,
-                                attrs
-                            );
-                        }
+                        pm.print(name, adapter, attrs);
                     }
                 });
-                printWebView.loadDataWithBaseURL(
-                    null, htmlContent, "text/html", "UTF-8", null
-                );
+
+                // loadDataWithBaseURL with https base allows the print WebView
+                // to load Google Fonts (CDN resources) correctly
+                printWV.loadDataWithBaseURL(
+                    "https://civil-suite.local/",
+                    html,
+                    "text/html",
+                    "UTF-8",
+                    null);
             });
         }
 
-        // ── FILE SAVE (Backup export) ─────────────────────
-        // Called by JS as: NativeBridge.saveFile(filename, mimeType, content)
-        // Opens Android Storage Access Framework so user picks save location
+        // ── FIX #2: FILE SAVE (Backup export) ─────────
+        // ACTION_CREATE_DOCUMENT opens the Android file picker so the user
+        // can choose where to save the backup JSON file.
         @JavascriptInterface
-        public void saveFile(String filename, String mimeType, String content) {
-            pendingFileContent = content;
+        public void saveFile(final String filename,
+                             final String mimeType,
+                             final String content) {
             activity.runOnUiThread(() -> {
+                pendingFileContent = content;
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType(mimeType != null ? mimeType : "application/json");
-                intent.putExtra(Intent.EXTRA_TITLE, filename != null ? filename : "backup.json");
+                intent.setType(mimeType != null && !mimeType.isEmpty()
+                    ? mimeType : "application/json");
+                intent.putExtra(Intent.EXTRA_TITLE,
+                    filename != null && !filename.isEmpty()
+                        ? filename : "CivilSuite_Backup.json");
                 try {
                     fileSaveLauncher.launch(intent);
                 } catch (ActivityNotFoundException e) {
-                    showToast("File save not supported on this device");
                     pendingFileContent = null;
+                    showToast("File manager not found on this device");
                 }
             });
         }
 
-        // ── FILE PICKER (Backup import) ───────────────────
-        // Called by JS as: NativeBridge.pickFile()
-        // After user picks a file, Java calls window._nativeBridgeFileCb(content)
+        // ── FILE PICKER (Backup import) ────────────────
         @JavascriptInterface
         public void pickFile() {
             activity.runOnUiThread(() -> {
@@ -409,31 +343,28 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // ── HAPTIC FEEDBACK ───────────────────────────────
+        // ── HAPTIC FEEDBACK ───────────────────────────
+        @SuppressWarnings("deprecation")
         @JavascriptInterface
         public void vibrate(int ms) {
-            android.os.Vibrator vibrator =
+            android.os.Vibrator v =
                 (android.os.Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-            if (vibrator != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(
-                        android.os.VibrationEffect.createOneShot(ms,
-                            android.os.VibrationEffect.DEFAULT_AMPLITUDE)
-                    );
-                } else {
-                    vibrator.vibrate(ms);
-                }
+            if (v == null) return;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                v.vibrate(android.os.VibrationEffect.createOneShot(
+                    ms, android.os.VibrationEffect.DEFAULT_AMPLITUDE));
+            } else {
+                v.vibrate(ms);
             }
         }
 
-        // ── THEME COLOR (update status bar tint from JS) ──
+        // ── THEME COLOR ───────────────────────────────
         @JavascriptInterface
-        public void setThemeColor(String hexColor) {
+        public void setThemeColor(String hex) {
             try {
-                int color = android.graphics.Color.parseColor(hexColor);
+                int color = android.graphics.Color.parseColor(hex);
                 activity.runOnUiThread(() ->
-                    activity.getWindow().setStatusBarColor(color)
-                );
+                    activity.getWindow().setStatusBarColor(color));
             } catch (Exception ignored) {}
         }
     }
