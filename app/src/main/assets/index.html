@@ -17,25 +17,33 @@
   else{document.documentElement.classList.add('light')}
 </script>
 <style>
+/* ── ENGINEERING DOODLE SVG BACKGROUNDS ── */
+/* Dark mode: white-outline tools on deep navy */
 :root{
-  --amber:#FFC200;--amber-d:#CC9800;--amber-l:#FFD966;--amber-bg:rgba(255,194,0,.15);
-  --chips:#00DDFF;--chips-d:#0099BB;--chips-l:#66EEFF;--chips-bg:rgba(0,221,255,.14);
-  --steel-c:#FF2A2A;--steel-cd:#CC0000;--steel-cl:#FF7777;--steel-cbg:rgba(255,42,42,.14);
-  --cement:#44BBDD;--cement-d:#2299BB;--cement-l:#88DDFF;--cement-bg:rgba(68,187,221,.14);
-  --blu:#2B6EFF;--blu-d:#1A52E0;--blu-l:#6699FF;--blu-bg:rgba(43,110,255,.14);
-  --grn:#00EE88;--grn-bg:rgba(0,238,136,.14);
-  --red:#FF1A38;--red-d:#CC0020;--red-l:#FF7788;--red-bg:rgba(255,26,56,.14);
-  --warn:#FF8800;--warn-bg:rgba(255,136,0,.14);
-  --purp:#A040FF;--purp-bg:rgba(160,64,255,.14);
-  --pay:#FF6B00;--pay-d:#CC5200;--pay-l:#FF9944;--pay-bg:rgba(255,107,0,.14);
-  --teal:#00C9B1;--teal-bg:rgba(0,201,177,.14);
-  --bg:#0A0A14;--bg-card:#121222;--bg-card-d:#1C1C2E;--bg-seg:#0E0E1E;
-  --dot-col:rgba(255,255,255,.06);
-  --text:#F2F4FF;--text-dim:rgba(220,224,255,.62);--text-faint:rgba(200,206,255,.28);--label:#545680;
-  --border:rgba(255,255,255,.07);--border-d:rgba(255,255,255,.13);
-  --sep:rgba(255,255,255,.05);--sep2:rgba(255,255,255,.025);
-  --fill:rgba(255,255,255,.065);--fill2:rgba(255,255,255,.03);
-  --sh:0 2px 8px rgba(0,0,0,.50);--sh-card:0 4px 24px rgba(0,0,0,.55);--sh-btn:0 4px 20px rgba(0,0,0,.40);
+  --doodle-dark:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%230F1117'/%3E%3Cg stroke='rgba(255,255,255,0.045)' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3C!-- Ruler --%3E%3Crect x='20' y='30' width='80' height='18' rx='3' stroke-width='1.5'/%3E%3Cline x1='30' y1='30' x2='30' y2='38' stroke-width='1'/%3E%3Cline x1='40' y1='30' x2='40' y2='42' stroke-width='1'/%3E%3Cline x1='50' y1='30' x2='50' y2='38' stroke-width='1'/%3E%3Cline x1='60' y1='30' x2='60' y2='42' stroke-width='1'/%3E%3Cline x1='70' y1='30' x2='70' y2='38' stroke-width='1'/%3E%3Cline x1='80' y1='30' x2='80' y2='42' stroke-width='1'/%3E%3Cline x1='90' y1='30' x2='90' y2='38' stroke-width='1'/%3E%3C!-- Set square --%3E%3Cpolygon points='140,20 190,20 140,80' stroke-width='1.5'/%3E%3Cline x1='140' y1='35' x2='155' y2='35' stroke-width='1'/%3E%3Cline x1='140' y1='50' x2='165' y2='50' stroke-width='1'/%3E%3Cline x1='140' y1='65' x2='175' y2='65' stroke-width='1'/%3E%3C!-- Compass --%3E%3Ccircle cx='310' cy='50' r='20' stroke-width='1.5'/%3E%3Cline x1='310' y1='50' x2='320' y2='70' stroke-width='1.5'/%3E%3Cline x1='310' y1='50' x2='300' y2='70' stroke-width='1.5'/%3E%3Ccircle cx='310' cy='50' r='4' stroke-width='1.5'/%3E%3C!-- T-Square --%3E%3Crect x='340' y='10' width='50' height='10' rx='2' stroke-width='1.5'/%3E%3Cline x1='365' y1='20' x2='365' y2='90' stroke-width='1.5'/%3E%3C!-- Pencil --%3E%3Crect x='10' y='120' width='10' height='60' rx='2' stroke-width='1.5'/%3E%3Cpolygon points='10,180 20,180 15,195' stroke-width='1.5'/%3E%3Cline x1='10' y1='130' x2='20' y2='130' stroke-width='1'/%3E%3C!-- Beam cross-section --%3E%3Crect x='50' y='110' width='60' height='10' rx='1' stroke-width='1.5'/%3E%3Crect x='73' y='120' width='14' height='40' rx='1' stroke-width='1.5'/%3E%3Crect x='50' y='160' width='60' height='10' rx='1' stroke-width='1.5'/%3E%3C!-- Column detail --%3E%3Crect x='160' y='100' width='30' height='8' rx='1' stroke-width='1.5'/%3E%3Crect x='168' y='108' width='14' height='60' rx='1' stroke-width='1.5'/%3E%3Crect x='160' y='168' width='30' height='8' rx='1' stroke-width='1.5'/%3E%3C!-- Steel rebar --%3E%3Ccircle cx='250' cy='130' r='12' stroke-width='1.5'/%3E%3Ccircle cx='280' cy='130' r='12' stroke-width='1.5'/%3E%3Ccircle cx='250' cy='160' r='12' stroke-width='1.5'/%3E%3Ccircle cx='280' cy='160' r='12' stroke-width='1.5'/%3E%3Crect x='230' y='110' width='70' height='70' rx='4' stroke-width='1.5'/%3E%3C!-- Protractor arc --%3E%3Cpath d='M320,180 A50,50 0 0,1 380,180' stroke-width='1.5'/%3E%3Cline x1='350' y1='130' x2='350' y2='180' stroke-width='1'/%3E%3Cline x1='320' y1='180' x2='380' y2='180' stroke-width='1'/%3E%3C!-- Wrench --%3E%3Cpath d='M20,240 Q10,250 12,265 Q14,280 25,282 L50,260 L40,248 Z' stroke-width='1.5'/%3E%3Crect x='45' y='252' width='8' height='40' rx='2' transform='rotate(45 49 272)' stroke-width='1.5'/%3E%3C!-- Level bubble --%3E%3Crect x='100' y='250' width='80' height='24' rx='12' stroke-width='1.5'/%3E%3Ccircle cx='140' cy='262' r='8' stroke-width='1.5'/%3E%3Cline x1='100' y1='262' x2='132' y2='262' stroke-width='1'/%3E%3Cline x1='148' y1='262' x2='180' y2='262' stroke-width='1'/%3E%3C!-- Grid / slab --%3E%3Crect x='220' y='230' width='80' height='80' stroke-width='1.5'/%3E%3Cline x1='247' y1='230' x2='247' y2='310' stroke-width='1'/%3E%3Cline x1='274' y1='230' x2='274' y2='310' stroke-width='1'/%3E%3Cline x1='220' y1='257' x2='300' y2='257' stroke-width='1'/%3E%3Cline x1='220' y1='284' x2='300' y2='284' stroke-width='1'/%3E%3C!-- Dimension arrows --%3E%3Cline x1='330' y1='240' x2='390' y2='240' stroke-width='1.5'/%3E%3Cpolygon points='330,236 330,244 320,240' stroke-width='1' fill='rgba(255,255,255,0.045)'/%3E%3Cpolygon points='390,236 390,244 400,240' stroke-width='1' fill='rgba(255,255,255,0.045)'/%3E%3Cline x1='355' y1='230' x2='355' y2='250' stroke-width='1'/%3E%3C!-- Theodolite telescope --%3E%3Ccircle cx='50' cy='360' r='25' stroke-width='1.5'/%3E%3Cline x1='25' y1='360' x2='75' y2='360' stroke-width='1'/%3E%3Cline x1='50' y1='335' x2='50' y2='385' stroke-width='1'/%3E%3Ccircle cx='50' cy='360' r='8' stroke-width='1.5'/%3E%3C!-- Hardhat --%3E%3Cpath d='M140,390 Q140,350 180,348 Q220,346 220,390 Z' stroke-width='1.5'/%3E%3Crect x='130' y='388' width='100' height='8' rx='4' stroke-width='1.5'/%3E%3C!-- Blueprint lines --%3E%3Cline x1='260' y1='340' x2='390' y2='340' stroke-width='1'/%3E%3Cline x1='260' y1='360' x2='390' y2='360' stroke-width='1'/%3E%3Cline x1='260' y1='380' x2='340' y2='380' stroke-width='1'/%3E%3Cline x1='260' y1='340' x2='260' y2='400' stroke-width='1'/%3E%3Cline x1='290' y1='340' x2='290' y2='400' stroke-width='1'/%3E%3Cline x1='320' y1='340' x2='320' y2='400' stroke-width='1'/%3E%3Cline x1='360' y1='340' x2='360' y2='380' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+  --doodle-light:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Crect width='400' height='400' fill='%23F0F4FF'/%3E%3Cg stroke='rgba(30,60,180,0.06)' fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='20' y='30' width='80' height='18' rx='3' stroke-width='1.5'/%3E%3Cline x1='30' y1='30' x2='30' y2='38' stroke-width='1'/%3E%3Cline x1='40' y1='30' x2='40' y2='42' stroke-width='1'/%3E%3Cline x1='50' y1='30' x2='50' y2='38' stroke-width='1'/%3E%3Cline x1='60' y1='30' x2='60' y2='42' stroke-width='1'/%3E%3Cline x1='70' y1='30' x2='70' y2='38' stroke-width='1'/%3E%3Cline x1='80' y1='30' x2='80' y2='42' stroke-width='1'/%3E%3Cline x1='90' y1='30' x2='90' y2='38' stroke-width='1'/%3E%3Cpolygon points='140,20 190,20 140,80' stroke-width='1.5'/%3E%3Cline x1='140' y1='35' x2='155' y2='35' stroke-width='1'/%3E%3Cline x1='140' y1='50' x2='165' y2='50' stroke-width='1'/%3E%3Cline x1='140' y1='65' x2='175' y2='65' stroke-width='1'/%3E%3Ccircle cx='310' cy='50' r='20' stroke-width='1.5'/%3E%3Cline x1='310' y1='50' x2='320' y2='70' stroke-width='1.5'/%3E%3Cline x1='310' y1='50' x2='300' y2='70' stroke-width='1.5'/%3E%3Ccircle cx='310' cy='50' r='4' stroke-width='1.5'/%3E%3Crect x='340' y='10' width='50' height='10' rx='2' stroke-width='1.5'/%3E%3Cline x1='365' y1='20' x2='365' y2='90' stroke-width='1.5'/%3E%3Crect x='10' y='120' width='10' height='60' rx='2' stroke-width='1.5'/%3E%3Cpolygon points='10,180 20,180 15,195' stroke-width='1.5'/%3E%3Cline x1='10' y1='130' x2='20' y2='130' stroke-width='1'/%3E%3Crect x='50' y='110' width='60' height='10' rx='1' stroke-width='1.5'/%3E%3Crect x='73' y='120' width='14' height='40' rx='1' stroke-width='1.5'/%3E%3Crect x='50' y='160' width='60' height='10' rx='1' stroke-width='1.5'/%3E%3Crect x='160' y='100' width='30' height='8' rx='1' stroke-width='1.5'/%3E%3Crect x='168' y='108' width='14' height='60' rx='1' stroke-width='1.5'/%3E%3Crect x='160' y='168' width='30' height='8' rx='1' stroke-width='1.5'/%3E%3Ccircle cx='250' cy='130' r='12' stroke-width='1.5'/%3E%3Ccircle cx='280' cy='130' r='12' stroke-width='1.5'/%3E%3Ccircle cx='250' cy='160' r='12' stroke-width='1.5'/%3E%3Ccircle cx='280' cy='160' r='12' stroke-width='1.5'/%3E%3Crect x='230' y='110' width='70' height='70' rx='4' stroke-width='1.5'/%3E%3Cpath d='M320,180 A50,50 0 0,1 380,180' stroke-width='1.5'/%3E%3Cline x1='350' y1='130' x2='350' y2='180' stroke-width='1'/%3E%3Cline x1='320' y1='180' x2='380' y2='180' stroke-width='1'/%3E%3Cpath d='M20,240 Q10,250 12,265 Q14,280 25,282 L50,260 L40,248 Z' stroke-width='1.5'/%3E%3Crect x='45' y='252' width='8' height='40' rx='2' transform='rotate(45 49 272)' stroke-width='1.5'/%3E%3Crect x='100' y='250' width='80' height='24' rx='12' stroke-width='1.5'/%3E%3Ccircle cx='140' cy='262' r='8' stroke-width='1.5'/%3E%3Cline x1='100' y1='262' x2='132' y2='262' stroke-width='1'/%3E%3Cline x1='148' y1='262' x2='180' y2='262' stroke-width='1'/%3E%3Crect x='220' y='230' width='80' height='80' stroke-width='1.5'/%3E%3Cline x1='247' y1='230' x2='247' y2='310' stroke-width='1'/%3E%3Cline x1='274' y1='230' x2='274' y2='310' stroke-width='1'/%3E%3Cline x1='220' y1='257' x2='300' y2='257' stroke-width='1'/%3E%3Cline x1='220' y1='284' x2='300' y2='284' stroke-width='1'/%3E%3Cline x1='330' y1='240' x2='390' y2='240' stroke-width='1.5'/%3E%3Ccircle cx='50' cy='360' r='25' stroke-width='1.5'/%3E%3Cline x1='25' y1='360' x2='75' y2='360' stroke-width='1'/%3E%3Cline x1='50' y1='335' x2='50' y2='385' stroke-width='1'/%3E%3Ccircle cx='50' cy='360' r='8' stroke-width='1.5'/%3E%3Cpath d='M140,390 Q140,350 180,348 Q220,346 220,390 Z' stroke-width='1.5'/%3E%3Crect x='130' y='388' width='100' height='8' rx='4' stroke-width='1.5'/%3E%3Cline x1='260' y1='340' x2='390' y2='340' stroke-width='1'/%3E%3Cline x1='260' y1='360' x2='390' y2='360' stroke-width='1'/%3E%3Cline x1='260' y1='380' x2='340' y2='380' stroke-width='1'/%3E%3Cline x1='260' y1='340' x2='260' y2='400' stroke-width='1'/%3E%3Cline x1='290' y1='340' x2='290' y2='400' stroke-width='1'/%3E%3Cline x1='320' y1='340' x2='320' y2='400' stroke-width='1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+:root{
+  /* ── Material 3 — Subtle Engineering palette (dark) ── */
+  --amber:#E8AB00;--amber-d:#B88800;--amber-l:#FFCF44;--amber-bg:rgba(232,171,0,.13);
+  --chips:#00B4CC;--chips-d:#008BA0;--chips-l:#4DD8EC;--chips-bg:rgba(0,180,204,.12);
+  --steel-c:#E05252;--steel-cd:#B83030;--steel-cl:#F08080;--steel-cbg:rgba(224,82,82,.12);
+  --cement:#38A8C8;--cement-d:#2080A0;--cement-l:#70C8E0;--cement-bg:rgba(56,168,200,.12);
+  --blu:#4B7FE8;--blu-d:#2E60CC;--blu-l:#80A8FF;--blu-bg:rgba(75,127,232,.13);
+  --grn:#00C870;--grn-bg:rgba(0,200,112,.12);
+  --red:#E04444;--red-d:#BC2020;--red-l:#F08888;--red-bg:rgba(224,68,68,.12);
+  --warn:#E07800;--warn-bg:rgba(224,120,0,.12);
+  --purp:#8844E0;--purp-bg:rgba(136,68,224,.12);
+  --pay:#E06000;--pay-d:#B84A00;--pay-l:#F09040;--pay-bg:rgba(224,96,0,.12);
+  --teal:#00A898;--teal-bg:rgba(0,168,152,.12);
+  /* M3 dark surface — warm midnight navy */
+  --bg:#0F1117;--bg-card:#181B24;--bg-card-d:#1F2330;--bg-seg:#141720;
+  --text:#E8EAF8;--text-dim:rgba(210,215,240,.60);--text-faint:rgba(190,196,230,.25);--label:#4E5278;
+  --border:rgba(255,255,255,.065);--border-d:rgba(255,255,255,.11);
+  --sep:rgba(255,255,255,.045);--sep2:rgba(255,255,255,.022);
+  --fill:rgba(255,255,255,.06);--fill2:rgba(255,255,255,.028);
+  --sh:0 2px 10px rgba(0,0,0,.45);--sh-card:0 4px 24px rgba(0,0,0,.50);--sh-btn:0 4px 20px rgba(0,0,0,.38);
   --r:14px;--r-lg:20px;--r-xl:24px;--r-pill:100px;
   --spring:cubic-bezier(.34,1.56,.64,1);--ease-out:cubic-bezier(.22,1,.36,1);
   --safe-top:env(safe-area-inset-top,0px);
@@ -44,18 +52,18 @@
   --safe-right:env(safe-area-inset-right,0px);
 }
 html.light{
-  --bg:#E8EAFF;--bg-card:#FFFFFF;--bg-card-d:#DDE0FF;--bg-seg:#CDD0F8;
-  --dot-col:rgba(20,20,160,.07);
-  --text:#02020E;--text-dim:rgba(2,2,20,.58);--text-faint:rgba(2,2,20,.28);--label:#5A5C90;
-  --border:rgba(0,0,120,.09);--border-d:rgba(0,0,120,.18);
-  --sep:rgba(0,0,120,.06);--sep2:rgba(0,0,120,.03);
-  --fill:rgba(0,0,120,.06);--fill2:rgba(0,0,120,.03);
-  --sh:0 2px 8px rgba(0,0,60,.08);--sh-card:0 4px 20px rgba(0,0,60,.12);--sh-btn:0 4px 16px rgba(0,0,60,.20);
-  --red-bg:rgba(255,26,56,.09);--amber-bg:rgba(255,194,0,.11);--chips-bg:rgba(0,221,255,.10);
-  --steel-cbg:rgba(255,42,42,.10);--cement-bg:rgba(68,187,221,.10);
-  --blu-bg:rgba(43,110,255,.10);--grn-bg:rgba(0,238,136,.10);
-  --warn-bg:rgba(255,136,0,.10);--purp-bg:rgba(160,64,255,.10);
-  --pay-bg:rgba(255,107,0,.10);--teal-bg:rgba(0,201,177,.10);
+  /* M3 light surface — clean paper white with warm tint */
+  --bg:#F0F4FF;--bg-card:#FFFFFF;--bg-card-d:#E4E8FF;--bg-seg:#D8DCFA;
+  --text:#0D0E1A;--text-dim:rgba(10,12,40,.58);--text-faint:rgba(10,12,40,.26);--label:#52559A;
+  --border:rgba(0,0,100,.08);--border-d:rgba(0,0,100,.15);
+  --sep:rgba(0,0,100,.055);--sep2:rgba(0,0,100,.028);
+  --fill:rgba(0,0,100,.055);--fill2:rgba(0,0,100,.028);
+  --sh:0 2px 8px rgba(0,0,60,.07);--sh-card:0 4px 20px rgba(0,0,60,.11);--sh-btn:0 4px 16px rgba(0,0,60,.18);
+  --red-bg:rgba(224,68,68,.08);--amber-bg:rgba(232,171,0,.10);--chips-bg:rgba(0,180,204,.09);
+  --steel-cbg:rgba(224,82,82,.09);--cement-bg:rgba(56,168,200,.09);
+  --blu-bg:rgba(75,127,232,.09);--grn-bg:rgba(0,200,112,.09);
+  --warn-bg:rgba(224,120,0,.09);--purp-bg:rgba(136,68,224,.09);
+  --pay-bg:rgba(224,96,0,.09);--teal-bg:rgba(0,168,152,.09);
 }
 html.light input[type=number],html.light input[type=text],html.light input[type=tel],html.light input[type=date],html.light select,html.light textarea{background:#EAEEFF;color:var(--text);border-color:rgba(0,0,120,.10)}
 html.light input::placeholder,html.light textarea::placeholder{color:var(--text-faint)}
@@ -83,40 +91,33 @@ html.light .pay-search-inp{background:#EAEEFF;color:var(--text);border-color:rgb
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 input,textarea,select{user-select:auto;-webkit-user-select:auto}
-/* ── IMMERSIVE FULL-SCREEN BASE — edge-to-edge Android WebView ── */
-html{
-  scroll-behavior:smooth;
-  /* height:100% would trap scroll; let body grow naturally */
-}
 body{
   font-family:"Barlow",-apple-system,sans-serif;
   background-color:var(--bg);
-  background-image:radial-gradient(circle,var(--dot-col) 1.3px,transparent 1.3px);
-  background-size:22px 22px;
+  background-image:var(--doodle-dark);
+  background-size:400px 400px;
+  background-repeat:repeat;
   color:var(--text);
-  /* dvh adapts when Android soft nav bar shows/hides */
   min-height:100vh;
   min-height:100dvh;
   height:auto;
-  /* Respect display cutouts & nav gesture zones on all 4 sides */
   padding-bottom:calc(90px + var(--safe-bottom));
   padding-left:var(--safe-left);
   padding-right:var(--safe-right);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;
   overflow-y:auto;
-  /* Suppress rubber-band bounce — feels native */
   overscroll-behavior-y:none;
-  /* Required for smooth momentum scroll inside WebView */
   -webkit-overflow-scrolling:touch;
-  /* Explicitly allow vertical pan — some Android WebView versions need this */
   touch-action:pan-y;
   transition:background-color .35s,color .25s;
 }
+html.light body{background-image:var(--doodle-light);}
 .ms{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24;display:inline-block;user-select:none;letter-spacing:0;transition:font-variation-settings .20s,color .15s}
 .ms-sm{font-size:16px}.ms-xl{font-family:"Material Symbols Rounded";font-size:26px;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 48;color:rgba(255,255,255,.92)}
 /* SPLASH */
-#splash{position:fixed;inset:0;background-color:var(--bg);background-image:radial-gradient(circle,var(--dot-col) 1.3px,transparent 1.3px);background-size:22px 22px;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(56px + var(--safe-top)) 24px calc(44px + var(--safe-bottom));overflow:hidden;transition:opacity .4s var(--ease-out)}
+#splash{position:fixed;inset:0;background-color:var(--bg);background-image:var(--doodle-dark);background-size:400px 400px;background-repeat:repeat;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(56px + var(--safe-top)) 24px calc(44px + var(--safe-bottom));overflow:hidden;transition:opacity .4s var(--ease-out)}
+html.light #splash{background-image:var(--doodle-light);}
 #splash.hiding{opacity:0;pointer-events:none}
 .sp-icon{width:84px;height:84px;border-radius:26px;background:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 12px 40px rgba(255,194,0,.44);animation:hdrPop .60s var(--spring) .05s both}
 .sp-icon .ms{font-size:36px;color:#000;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 48}
@@ -144,7 +145,8 @@ body{
 .sp-enter::after{content:"";position:absolute;inset:0 0 50% 0;background:rgba(255,255,255,.12);pointer-events:none}
 .sp-enter:active{transform:scale(.96) translateY(1px);filter:brightness(.92)}
 /* HEADER */
-header{padding:calc(52px + var(--safe-top)) 16px 14px;border-bottom:1px solid var(--border);background-color:var(--bg);background-image:radial-gradient(circle,var(--dot-col) 1.3px,transparent 1.3px);background-size:22px 22px;transition:background-color .3s}
+header{padding:calc(52px + var(--safe-top)) 16px 14px;border-bottom:1px solid var(--border);background-color:var(--bg);background-image:var(--doodle-dark);background-size:400px 400px;background-repeat:repeat;transition:background-color .3s}
+html.light header{background-image:var(--doodle-light);}
 .hdr-icon{width:64px;height:64px;border-radius:20px;background:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px rgba(255,194,0,.40);animation:hdrPop .5s var(--spring) .1s both}
 .hdr-icon .ms{font-size:28px;color:#000;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
 header h1{font:800 1.4rem/1 "Orbitron",sans-serif;letter-spacing:3px;color:var(--text);text-align:center;animation:slideDown .35s var(--ease-out) .15s both}
@@ -1542,14 +1544,16 @@ function buildFMTCard(){
       if(fmtMode==='ftin'){
         var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
         iF.id='f_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
+        iF.addEventListener('input',calcFMT);
         var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
         iI.id='f_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1';
+        iI.addEventListener('input',calcFMT);
         row.appendChild(iF); row.appendChild(iI);
       } else {
         var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
         inp.id='f_'+d+'_'+m; inp.min=0;
         inp.placeholder=fmtMode==='meter'?'m':fmtMode==='inch'?'in':'ft';
-        inp.style.flex='1'; row.appendChild(inp);
+        inp.style.flex='1'; inp.addEventListener('input',calcFMT); row.appendChild(inp);
       }
       block.appendChild(row);
     }
