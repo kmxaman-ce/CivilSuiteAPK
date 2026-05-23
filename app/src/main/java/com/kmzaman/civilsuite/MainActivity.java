@@ -259,47 +259,61 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // ── FIX #3: PDF PRINT ─────────────────────────
-        // Loads HTML into an off-screen WebView then calls Android PrintManager.
-        // printWebView MUST be kept alive until onPageFinished fires — we keep
-        // a reference on the outer class to prevent GC.
+        // We inject the report HTML into a hidden iframe inside the main WebView,
+        // wait for it to load, then call Android PrintManager on the main WebView.
+        // A separate off-screen WebView is unreliable — it never fires onPageFinished
+        // when loaded from a file:// context.
         @JavascriptInterface
         public void printHTML(final String html, final String jobName) {
             activity.runOnUiThread(() -> {
-                // Use a fresh WebView dedicated to printing
-                final WebView printWV = new WebView(activity);
-                printWV.getSettings().setJavaScriptEnabled(true);
+                // Escape the HTML for safe injection into a JS string
+                String safe = html
+                    .replace("\\", "\\\\")
+                    .replace("`", "\\`");
 
-                printWV.setWebViewClient(new WebViewClient() {
-                    @Override
-                    public void onPageFinished(WebView view, String url) {
-                        PrintManager pm = (PrintManager)
-                            activity.getSystemService(Context.PRINT_SERVICE);
+                // Create an invisible iframe inside the page, write the report
+                // HTML into it, wait 1.5 s for fonts/styles to render, then print.
+                String js =
+                    "(function(){\n" +
+                    "  var old=document.getElementById('_cs_print_frame');\n" +
+                    "  if(old) old.remove();\n" +
+                    "  var fr=document.createElement('iframe');\n" +
+                    "  fr.id='_cs_print_frame';\n" +
+                    "  fr.style.cssText='position:fixed;top:-9999px;left:-9999px;" +
+                                        "width:210mm;height:297mm;border:none;z-index:-1';\n" +
+                    "  document.body.appendChild(fr);\n" +
+                    "  fr.contentDocument.open();\n" +
+                    "  fr.contentDocument.write(`" + safe + "`);\n" +
+                    "  fr.contentDocument.close();\n" +
+                    "  window._csPrintReady=true;\n" +
+                    "})();";
+
+                wv.evaluateJavascript(js, result -> {
+                    // Give the iframe 1.5 s to render fonts & CSS, then trigger print
+                    wv.postDelayed(() -> {
+                        PrintManager pm =
+                            (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
                         if (pm == null) {
                             showToast("Print not available on this device");
                             return;
                         }
                         String name = (jobName != null && !jobName.isEmpty())
                             ? jobName : "CivilSuite_Report";
-                        PrintDocumentAdapter adapter =
-                            printWV.createPrintDocumentAdapter(name);
+                        // createPrintDocumentAdapter on the MAIN WebView — always works
+                        PrintDocumentAdapter adapter = wv.createPrintDocumentAdapter(name);
                         PrintAttributes attrs = new PrintAttributes.Builder()
                             .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-                            .setResolution(new PrintAttributes.Resolution(
-                                "pdf", "PDF", 300, 300))
+                            .setResolution(new PrintAttributes.Resolution("pdf","PDF",300,300))
                             .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                             .build();
                         pm.print(name, adapter, attrs);
-                    }
+                        // Clean up iframe after print dialog opens
+                        wv.postDelayed(() ->
+                            wv.evaluateJavascript(
+                                "var f=document.getElementById('_cs_print_frame');if(f)f.remove();",
+                                null), 3000);
+                    }, 1500);
                 });
-
-                // loadDataWithBaseURL with https base allows the print WebView
-                // to load Google Fonts (CDN resources) correctly
-                printWV.loadDataWithBaseURL(
-                    "https://civil-suite.local/",
-                    html,
-                    "text/html",
-                    "UTF-8",
-                    null);
             });
         }
 
