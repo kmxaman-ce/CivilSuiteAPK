@@ -33,6 +33,8 @@ import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -240,6 +242,8 @@ public class MainActivity extends AppCompatActivity {
 
         private final Activity activity;
         private final WebView wv;
+        // Strong field reference — prevents GC before onPageFinished fires
+        private WebView printWebView = null;
         private static final String PREFS_KEY  = "csu3_records";
         private static final String PREFS_NAME = "CivilSuitePrefs";
 
@@ -259,85 +263,104 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // ── FIX #3: PDF PRINT ─────────────────────────
-        // We inject the report HTML into a hidden iframe inside the main WebView,
-        // wait for it to load, then call Android PrintManager on the main WebView.
-        // A separate off-screen WebView is unreliable — it never fires onPageFinished
-        // when loaded from a file:// context.
+        // The only reliable approach in Android WebView:
+        //   1. Write the HTML to a temp file in cache dir
+        //   2. Load it in a new WebView (kept as a FIELD to prevent GC)
+        //   3. In onPageFinished call PrintManager on that WebView
+        // iframe / evaluateJavascript approaches fail because
+        // createPrintDocumentAdapter captures the host page, not injected HTML.
         @JavascriptInterface
         public void printHTML(final String html, final String jobName) {
             activity.runOnUiThread(() -> {
-                // Escape the HTML for safe injection into a JS string
-                String safe = html
-                    .replace("\\", "\\\\")
-                    .replace("`", "\\`");
+                try {
+                    // 1. Write HTML to temp file
+                    java.io.File cacheDir = activity.getCacheDir();
+                    java.io.File tmpFile = new java.io.File(cacheDir, "civil_suite_print.html");
+                    java.io.FileOutputStream fos = new java.io.FileOutputStream(tmpFile);
+                    fos.write(html.getBytes("UTF-8"));
+                    fos.close();
 
-                // Create an invisible iframe inside the page, write the report
-                // HTML into it, wait 1.5 s for fonts/styles to render, then print.
-                String js =
-                    "(function(){\n" +
-                    "  var old=document.getElementById('_cs_print_frame');\n" +
-                    "  if(old) old.remove();\n" +
-                    "  var fr=document.createElement('iframe');\n" +
-                    "  fr.id='_cs_print_frame';\n" +
-                    "  fr.style.cssText='position:fixed;top:-9999px;left:-9999px;" +
-                                        "width:210mm;height:297mm;border:none;z-index:-1';\n" +
-                    "  document.body.appendChild(fr);\n" +
-                    "  fr.contentDocument.open();\n" +
-                    "  fr.contentDocument.write(`" + safe + "`);\n" +
-                    "  fr.contentDocument.close();\n" +
-                    "  window._csPrintReady=true;\n" +
-                    "})();";
+                    // 2. Create a dedicated print WebView — stored in field to survive GC
+                    printWebView = new WebView(activity);
+                    printWebView.getSettings().setJavaScriptEnabled(true);
+                    printWebView.getSettings().setAllowFileAccess(true);
+                    printWebView.getSettings().setAllowFileAccessFromFileURLs(true);
+                    printWebView.getSettings().setDomStorageEnabled(true);
+                    printWebView.getSettings().setMixedContentMode(
+                        WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
-                wv.evaluateJavascript(js, result -> {
-                    // Give the iframe 1.5 s to render fonts & CSS, then trigger print
-                    wv.postDelayed(() -> {
-                        PrintManager pm =
-                            (PrintManager) activity.getSystemService(Context.PRINT_SERVICE);
-                        if (pm == null) {
-                            showToast("Print not available on this device");
-                            return;
+                    // 3. On load complete → open print dialog
+                    printWebView.setWebViewClient(new WebViewClient() {
+                        @Override
+                        public void onPageFinished(WebView view, String url) {
+                            PrintManager pm = (PrintManager)
+                                activity.getSystemService(Context.PRINT_SERVICE);
+                            if (pm == null) {
+                                showToast("Print service not available");
+                                printWebView = null;
+                                return;
+                            }
+                            String name = (jobName != null && !jobName.isEmpty())
+                                ? jobName : "CivilSuite_Report";
+                            PrintDocumentAdapter adapter =
+                                view.createPrintDocumentAdapter(name);
+                            PrintAttributes attrs = new PrintAttributes.Builder()
+                                .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                                .setResolution(new PrintAttributes.Resolution(
+                                    "pdf", "PDF", 300, 300))
+                                .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
+                                .build();
+                            pm.print(name, adapter, attrs);
+                            // Release after dialog opens
+                            wv.postDelayed(() -> { printWebView = null; }, 5000);
                         }
-                        String name = (jobName != null && !jobName.isEmpty())
-                            ? jobName : "CivilSuite_Report";
-                        // createPrintDocumentAdapter on the MAIN WebView — always works
-                        PrintDocumentAdapter adapter = wv.createPrintDocumentAdapter(name);
-                        PrintAttributes attrs = new PrintAttributes.Builder()
-                            .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-                            .setResolution(new PrintAttributes.Resolution("pdf","PDF",300,300))
-                            .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
-                            .build();
-                        pm.print(name, adapter, attrs);
-                        // Clean up iframe after print dialog opens
-                        wv.postDelayed(() ->
-                            wv.evaluateJavascript(
-                                "var f=document.getElementById('_cs_print_frame');if(f)f.remove();",
-                                null), 3000);
-                    }, 1500);
-                });
+                    });
+
+                    // 4. Load the temp file — file:// URL works in WebView
+                    printWebView.loadUrl("file://" + tmpFile.getAbsolutePath());
+
+                } catch (Exception e) {
+                    showToast("PDF error: " + e.getMessage());
+                }
             });
         }
 
         // ── FIX #2: FILE SAVE (Backup export) ─────────
-        // ACTION_CREATE_DOCUMENT opens the Android file picker so the user
-        // can choose where to save the backup JSON file.
+        // ACTION_CREATE_DOCUMENT opens the Android Storage Access Framework
+        // file picker so the user chooses where to save the backup.
         @JavascriptInterface
         public void saveFile(final String filename,
                              final String mimeType,
                              final String content) {
             activity.runOnUiThread(() -> {
+                // Store content BEFORE launching intent
                 pendingFileContent = content;
+
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType(mimeType != null && !mimeType.isEmpty()
-                    ? mimeType : "application/json");
+                intent.setType("application/json");
                 intent.putExtra(Intent.EXTRA_TITLE,
-                    filename != null && !filename.isEmpty()
+                    (filename != null && !filename.isEmpty())
                         ? filename : "CivilSuite_Backup.json");
+                // Some MIUI versions need this flag
+                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
                 try {
                     fileSaveLauncher.launch(intent);
                 } catch (ActivityNotFoundException e) {
-                    pendingFileContent = null;
-                    showToast("File manager not found on this device");
+                    // Fallback: try generic file manager
+                    try {
+                        Intent fallback = new Intent(Intent.ACTION_SEND);
+                        fallback.setType("application/json");
+                        fallback.putExtra(Intent.EXTRA_TEXT, content);
+                        fallback.putExtra(Intent.EXTRA_SUBJECT, filename);
+                        activity.startActivity(Intent.createChooser(
+                            fallback, "Save backup via..."));
+                        pendingFileContent = null;
+                    } catch (Exception ex) {
+                        pendingFileContent = null;
+                        showToast("File manager not found");
+                    }
                 }
             });
         }
