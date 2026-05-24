@@ -14,7 +14,6 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintManager;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
-import android.webkit.MimeTypeMap;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     private String pendingFileContent = null;
     private ValueCallback<Uri[]> filePathCallback = null;
 
-    // ── FIX #2: File Save Launcher (ACTION_CREATE_DOCUMENT) ──────────────
+    // ── File Save Launcher (ACTION_CREATE_DOCUMENT) ───────────────────────
     private final ActivityResultLauncher<Intent> fileSaveLauncher =
         registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == Activity.RESULT_OK
@@ -131,13 +130,14 @@ public class MainActivity extends AppCompatActivity {
         WebSettings s = webView.getSettings();
         s.setJavaScriptEnabled(true);
         s.setAllowFileAccess(true);
+        s.setAllowFileAccessFromFileURLs(true);
         s.setDomStorageEnabled(true);
         s.setUseWideViewPort(true);
         s.setLoadWithOverviewMode(true);
         s.setSupportZoom(false);
         s.setBuiltInZoomControls(false);
         s.setDisplayZoomControls(false);
-        s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
+        s.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         s.setCacheMode(WebSettings.LOAD_DEFAULT);
         s.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NORMAL);
 
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
         webView.setVerticalScrollBarEnabled(false);
         webView.setHorizontalScrollBarEnabled(false);
-        webView.setBackgroundColor(0xFF0A0A14);
+        webView.setBackgroundColor(0xFF0F1117);
     }
 
     @Override
@@ -201,7 +201,6 @@ public class MainActivity extends AppCompatActivity {
             String line;
             while ((line = reader.readLine()) != null) sb.append(line).append('\n');
             reader.close();
-            // Escape for JS string literal
             String content = sb.toString()
                 .replace("\\", "\\\\")
                 .replace("'",  "\\'")
@@ -235,8 +234,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // ═══════════════════════════════════════════════════
-    // NATIVE BRIDGE  — @JavascriptInterface
-    // window.NativeBridge.xxx() calls from JavaScript
+    // NATIVE BRIDGE — @JavascriptInterface methods
+    // Injected as window.NativeBridge in JavaScript
     // ═══════════════════════════════════════════════════
     public class NativeBridgeImpl {
 
@@ -262,34 +261,33 @@ public class MainActivity extends AppCompatActivity {
                 .getString(PREFS_KEY, "[]");
         }
 
-        // ── FIX #3: PDF PRINT ─────────────────────────
-        // The only reliable approach in Android WebView:
-        //   1. Write the HTML to a temp file in cache dir
-        //   2. Load it in a new WebView (kept as a FIELD to prevent GC)
-        //   3. In onPageFinished call PrintManager on that WebView
-        // iframe / evaluateJavascript approaches fail because
-        // createPrintDocumentAdapter captures the host page, not injected HTML.
+        // ── PDF PRINT ─────────────────────────────────
+        // Approach:
+        //  1. Write HTML to a temp file in cache dir
+        //  2. Load it in a dedicated WebView (held as field to prevent GC)
+        //  3. onPageFinished → call Android PrintManager on that WebView
+        // This is the ONLY reliable approach — iframes and evaluateJavascript
+        // do NOT work because createPrintDocumentAdapter captures the host page.
         @JavascriptInterface
         public void printHTML(final String html, final String jobName) {
             activity.runOnUiThread(() -> {
                 try {
                     // 1. Write HTML to temp file
-                    java.io.File cacheDir = activity.getCacheDir();
-                    java.io.File tmpFile = new java.io.File(cacheDir, "civil_suite_print.html");
-                    java.io.FileOutputStream fos = new java.io.FileOutputStream(tmpFile);
+                    File tmpFile = new File(activity.getCacheDir(), "civil_print.html");
+                    FileOutputStream fos = new FileOutputStream(tmpFile);
                     fos.write(html.getBytes("UTF-8"));
                     fos.close();
 
-                    // 2. Create a dedicated print WebView — stored in field to survive GC
+                    // 2. Create dedicated print WebView — stored in field to survive GC
                     printWebView = new WebView(activity);
-                    printWebView.getSettings().setJavaScriptEnabled(true);
-                    printWebView.getSettings().setAllowFileAccess(true);
-                    printWebView.getSettings().setAllowFileAccessFromFileURLs(true);
-                    printWebView.getSettings().setDomStorageEnabled(true);
-                    printWebView.getSettings().setMixedContentMode(
-                        WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+                    WebSettings ps = printWebView.getSettings();
+                    ps.setJavaScriptEnabled(true);
+                    ps.setAllowFileAccess(true);
+                    ps.setAllowFileAccessFromFileURLs(true);
+                    ps.setDomStorageEnabled(true);
+                    ps.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
 
-                    // 3. On load complete → open print dialog
+                    // 3. onPageFinished → open Android print dialog
                     printWebView.setWebViewClient(new WebViewClient() {
                         @Override
                         public void onPageFinished(WebView view, String url) {
@@ -311,12 +309,12 @@ public class MainActivity extends AppCompatActivity {
                                 .setMinMargins(PrintAttributes.Margins.NO_MARGINS)
                                 .build();
                             pm.print(name, adapter, attrs);
-                            // Release after dialog opens
-                            wv.postDelayed(() -> { printWebView = null; }, 5000);
+                            // Release field after dialog opens
+                            wv.postDelayed(() -> { printWebView = null; }, 8000);
                         }
                     });
 
-                    // 4. Load the temp file — file:// URL works in WebView
+                    // 4. Load via file:// URL — always works for local assets
                     printWebView.loadUrl("file://" + tmpFile.getAbsolutePath());
 
                 } catch (Exception e) {
@@ -325,47 +323,32 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
-        // ── FIX #2: FILE SAVE (Backup export) ─────────
-        // ACTION_CREATE_DOCUMENT opens the Android Storage Access Framework
-        // file picker so the user chooses where to save the backup.
+        // ── FILE SAVE — backup export ─────────────────
+        // Opens Android Storage Access Framework picker so user picks location.
+        // Toast is shown by writeFileToUri AFTER the file is actually written.
         @JavascriptInterface
         public void saveFile(final String filename,
                              final String mimeType,
                              final String content) {
             activity.runOnUiThread(() -> {
-                // Store content BEFORE launching intent
                 pendingFileContent = content;
-
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
-                intent.setType("application/json");
+                intent.setType(mimeType != null && !mimeType.isEmpty()
+                    ? mimeType : "application/json");
                 intent.putExtra(Intent.EXTRA_TITLE,
-                    (filename != null && !filename.isEmpty())
+                    filename != null && !filename.isEmpty()
                         ? filename : "CivilSuite_Backup.json");
-                // Some MIUI versions need this flag
-                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-
                 try {
                     fileSaveLauncher.launch(intent);
                 } catch (ActivityNotFoundException e) {
-                    // Fallback: try generic file manager
-                    try {
-                        Intent fallback = new Intent(Intent.ACTION_SEND);
-                        fallback.setType("application/json");
-                        fallback.putExtra(Intent.EXTRA_TEXT, content);
-                        fallback.putExtra(Intent.EXTRA_SUBJECT, filename);
-                        activity.startActivity(Intent.createChooser(
-                            fallback, "Save backup via..."));
-                        pendingFileContent = null;
-                    } catch (Exception ex) {
-                        pendingFileContent = null;
-                        showToast("File manager not found");
-                    }
+                    pendingFileContent = null;
+                    showToast("File manager not found on this device");
                 }
             });
         }
 
-        // ── FILE PICKER (Backup import) ────────────────
+        // ── FILE PICKER — backup import ───────────────
         @JavascriptInterface
         public void pickFile() {
             activity.runOnUiThread(() -> {
