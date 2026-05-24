@@ -2142,8 +2142,8 @@ function backupLocal(){
   var json=JSON.stringify(data,null,2);
   var today=new Date().toISOString().slice(0,10).replace(/-/g,'');
   var filename='CivilSuite_Backup_'+today+'.json';
+  // Toast is shown by Java AFTER file is actually written — do NOT call showToast here
   NativeBridge.downloadBackup(json, filename);
-  showToast('Backup saved ✓');
 }
 // NOTE FOR ANDROID: WebChromeClient MUST implement onShowFileChooser()
 // to handle the <input type="file"> picker triggered by openFilePicker().
