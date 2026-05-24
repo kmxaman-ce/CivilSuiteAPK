@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Civil Suite — Material 3 Adaptive Icon Foreground
-  Design: Engineering compass + structural beam on amber circle
-  Safe zone: 66dp centered in 108dp canvas (leave 21dp margin each side)
+  Civil Suite – Adaptive Icon Foreground
+  Full-bleed amber fill so MIUI/stock launcher clips it to a rounded square.
+  Design: Construction hard hat + I-beam, navy on amber.
+  Safe zone = inner 72dp (18dp margin each side on the 108dp canvas).
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -10,34 +11,41 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Amber filled circle background within safe zone -->
+    <!-- Full-bleed amber fill – launcher clips this to rounded rect -->
     <path
         android:fillColor="#E8AB00"
-        android:pathData="M54,18 A36,36 0 1 1 54,90 A36,36 0 1 1 54,18 Z"/>
+        android:pathData="M0,0 L108,0 L108,108 L0,108 Z"/>
 
-    <!-- Hard hat / construction helmet shape — navy on amber -->
-    <!-- Helmet dome -->
+    <!-- Hard hat dome (navy) – centred in safe zone -->
     <path
-        android:fillColor="#0F1117"
-        android:pathData="M36,58 Q36,40 54,38 Q72,40 72,58 Z"/>
-    <!-- Helmet brim -->
-    <path
-        android:fillColor="#0F1117"
-        android:pathData="M32,58 L76,58 L76,62 Q54,65 32,62 Z"/>
-    <!-- Center stripe on helmet -->
-    <path
-        android:fillColor="#E8AB00"
-        android:pathData="M52,38.5 L52,58 L56,58 L56,38.5 Q54,38 52,38.5 Z"/>
+        android:fillColor="#1A1C24"
+        android:pathData="M30,62
+            C30,44 39,34 54,33
+            C69,34 78,44 78,62
+            Z"/>
 
-    <!-- Structural I-beam below helmet — amber accent -->
+    <!-- Hat brim (navy) -->
+    <path
+        android:fillColor="#1A1C24"
+        android:pathData="M26,62 L82,62 L82,68 Q54,72 26,68 Z"/>
+
+    <!-- Yellow centre stripe on dome -->
     <path
         android:fillColor="#E8AB00"
-        android:pathData="M44,70 L64,70 L64,73 L44,73 Z"/>
+        android:pathData="M51,33.5 L51,62 L57,62 L57,33.5 Q54,33 51,33.5 Z"/>
+
+    <!-- I-beam below hat (navy) -->
+    <!-- Top flange -->
     <path
-        android:fillColor="#E8AB00"
-        android:pathData="M51,73 L57,73 L57,82 L51,82 Z"/>
+        android:fillColor="#1A1C24"
+        android:pathData="M36,76 L72,76 L72,81 L36,81 Z"/>
+    <!-- Web -->
     <path
-        android:fillColor="#E8AB00"
-        android:pathData="M44,82 L64,82 L64,85 L44,85 Z"/>
+        android:fillColor="#1A1C24"
+        android:pathData="M50,81 L58,81 L58,91 L50,91 Z"/>
+    <!-- Bottom flange -->
+    <path
+        android:fillColor="#1A1C24"
+        android:pathData="M36,91 L72,91 L72,96 L36,96 Z"/>
 
 </vector>
