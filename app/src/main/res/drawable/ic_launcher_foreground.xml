@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Civil Suite – Adaptive Icon Foreground
-  Full-bleed amber fill so MIUI/stock launcher clips it to a rounded square.
-  Design: Construction hard hat + I-beam, navy on amber.
-  Safe zone = inner 72dp (18dp margin each side on the 108dp canvas).
+  Civil Suite – Material 3 Adaptive Icon
+  Full-bleed amber background + engineering gear with theodolite cross
+  Safe zone: 66dp centred in 108dp canvas
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -11,41 +10,48 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
 
-    <!-- Full-bleed amber fill – launcher clips this to rounded rect -->
-    <path
-        android:fillColor="#E8AB00"
+  <!-- Full-bleed amber background -->
+  <path android:fillColor="#E8AB00"
         android:pathData="M0,0 L108,0 L108,108 L0,108 Z"/>
 
-    <!-- Hard hat dome (navy) – centred in safe zone -->
-    <path
-        android:fillColor="#1A1C24"
-        android:pathData="M30,62
-            C30,44 39,34 54,33
-            C69,34 78,44 78,62
-            Z"/>
+  <!-- ── Outer gear ring (navy) ── -->
+  <!-- 8-tooth gear: outer circle with rectangular teeth -->
+  <!-- Gear body ring (donut) -->
+  <path android:fillColor="#0F1117"
+        android:fillType="evenOdd"
+        android:pathData="
+    M54,24 A30,30 0 1 0 54,84 A30,30 0 1 0 54,24 Z
+    M54,38 A16,16 0 1 1 54,70 A16,16 0 1 1 54,38 Z"/>
 
-    <!-- Hat brim (navy) -->
-    <path
-        android:fillColor="#1A1C24"
-        android:pathData="M26,62 L82,62 L82,68 Q54,72 26,68 Z"/>
+  <!-- Gear teeth: top, bottom, left, right -->
+  <path android:fillColor="#0F1117"
+        android:pathData="M50,18 L58,18 L58,28 L50,28 Z"/>
+  <path android:fillColor="#0F1117"
+        android:pathData="M50,80 L58,80 L58,90 L50,90 Z"/>
+  <path android:fillColor="#0F1117"
+        android:pathData="M18,50 L28,50 L28,58 L18,58 Z"/>
+  <path android:fillColor="#0F1117"
+        android:pathData="M80,50 L90,50 L90,58 L80,58 Z"/>
 
-    <!-- Yellow centre stripe on dome -->
-    <path
-        android:fillColor="#E8AB00"
-        android:pathData="M51,33.5 L51,62 L57,62 L57,33.5 Q54,33 51,33.5 Z"/>
+  <!-- Diagonal teeth (45°) -->
+  <path android:fillColor="#0F1117"
+        android:pathData="M72,22 L79,29 L72,36 L65,29 Z"/>
+  <path android:fillColor="#0F1117"
+        android:pathData="M36,22 L29,29 L36,36 L43,29 Z"/>
+  <path android:fillColor="#0F1117"
+        android:pathData="M72,86 L79,79 L72,72 L65,79 Z"/>
+  <path android:fillColor="#0F1117"
+        android:pathData="M36,86 L29,79 L36,72 L43,79 Z"/>
 
-    <!-- I-beam below hat (navy) -->
-    <!-- Top flange -->
-    <path
-        android:fillColor="#1A1C24"
-        android:pathData="M36,76 L72,76 L72,81 L36,81 Z"/>
-    <!-- Web -->
-    <path
-        android:fillColor="#1A1C24"
-        android:pathData="M50,81 L58,81 L58,91 L50,91 Z"/>
-    <!-- Bottom flange -->
-    <path
-        android:fillColor="#1A1C24"
-        android:pathData="M36,91 L72,91 L72,96 L36,96 Z"/>
+  <!-- ── Theodolite cross-hair in centre (amber on navy ring hole) ── -->
+  <!-- Horizontal bar -->
+  <path android:fillColor="#E8AB00"
+        android:pathData="M42,52 L66,52 L66,56 L42,56 Z"/>
+  <!-- Vertical bar -->
+  <path android:fillColor="#E8AB00"
+        android:pathData="M52,42 L56,42 L56,66 L52,66 Z"/>
+  <!-- Centre dot (navy) -->
+  <path android:fillColor="#0F1117"
+        android:pathData="M51,51 A3,3 0 1 0 51,57 A3,3 0 1 0 51,51 Z"/>
 
 </vector>
