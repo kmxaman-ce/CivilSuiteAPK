@@ -1264,6 +1264,8 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <div style="padding:0 0 8px"><button class="btn-save t6" onclick="savePaymentRecord()"><span class="ms">save</span>ADD TO RECORDS</button></div>
 </div>
 
+<!-- PANEL 7: RECORDS -->
+
 <!-- ═══ PANEL 7: SITE LOG KEEPER ═══ -->
 <div class="panel" id="p-log" role="tabpanel">
   <div class="th">
@@ -1275,31 +1277,21 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="th-sub">Construction diary · timestamped entries</div>
     </div>
   </div>
-
-  <!-- Search -->
   <div class="grp">
     <div class="grp-card">
       <div class="pay-search-wrap" style="padding:10px 12px 10px">
         <div class="pay-search-row">
           <span class="ms pay-search-icon">search</span>
-          <input class="pay-search-inp" type="text" id="log-search-inp"
-            placeholder="Search logs…"
-            oninput="renderLogs()">
+          <input class="pay-search-inp" type="text" id="log-search-inp" placeholder="Search logs…" oninput="renderLogs()">
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Add Log Button -->
   <div class="grp">
     <div class="btn-row">
-      <button class="btn t1" onclick="openLogDialog()">
-        <span class="ms">add_circle</span>INPUT LOG
-      </button>
+      <button class="btn t1" onclick="openLogDialog()"><span class="ms">add_circle</span>INPUT LOG</button>
     </div>
   </div>
-
-  <!-- Log list -->
   <div class="grp">
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--ios-orange-d)"></span>All Log Entries</div>
     <div id="log-list-wrap">
@@ -1318,17 +1310,10 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <div style="background:var(--bg-card);border-radius:28px 28px 0 0;width:100%;max-width:540px;padding:20px 18px calc(36px + var(--safe-bottom));border-top:.5px solid var(--sep);animation:sheetUp .30s var(--spring) both">
     <div style="font:700 17px/1 -apple-system;color:var(--text);text-align:center;margin-bottom:4px" id="log-dialog-title">Add Site Log</div>
     <div style="font:400 13px/1 -apple-system;color:var(--label);text-align:center;margin-bottom:16px">Entry will be timestamped automatically</div>
-
-    <!-- Log text -->
     <div style="margin-bottom:12px">
       <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">LOG ENTRY</div>
-      <textarea id="log-text-inp" placeholder="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…"
-        style="width:100%;min-height:96px;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;padding:11px 14px;outline:none;-webkit-appearance:none;resize:none;transition:border-color .18s"
-        onfocus="this.style.borderColor='var(--ios-orange-d)'"
-        onblur="this.style.borderColor='transparent'"></textarea>
+      <textarea id="log-text-inp" placeholder="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…" style="width:100%;min-height:96px;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;padding:11px 14px;outline:none;-webkit-appearance:none;resize:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--ios-orange-d)'" onblur="this.style.borderColor='transparent'"></textarea>
     </div>
-
-    <!-- Date + Time row -->
     <div style="display:flex;gap:10px;margin-bottom:16px">
       <div style="flex:1">
         <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">DATE</div>
@@ -1339,8 +1324,6 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <input type="time" id="log-time-inp" style="width:100%">
       </div>
     </div>
-
-    <!-- Buttons -->
     <div style="display:flex;gap:10px">
       <button onclick="closeLogDialog()" style="flex:1;padding:14px;border:none;border-radius:var(--r-lg);background:var(--fill);color:var(--text-dim);font:600 15px/1 -apple-system;cursor:pointer;-webkit-tap-highlight-color:transparent">Cancel</button>
       <button onclick="saveLogEntry()" style="flex:2;padding:14px;border:none;border-radius:var(--r-lg);background:var(--ios-orange-d);color:#fff;font:600 15px/1 -apple-system;cursor:pointer;box-shadow:0 4px 16px rgba(255,159,10,.38);-webkit-tap-highlight-color:transparent">Save Log</button>
@@ -1348,8 +1331,6 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   </div>
 </div>
 
-
-<!-- PANEL 7: RECORDS -->
 <div class="panel" id="p-records" role="tabpanel">
   <div class="th"><div class="th-icon" style="background:var(--grn);box-shadow:0 4px 16px rgba(0,238,136,.36)"><span class="ms ms-xl" style="color:#000;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">folder_open</span></div><div><div class="th-title">Records</div><div class="th-sub">All saved entries · Export PDF</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span>Filter</div>
@@ -1479,7 +1460,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       </div>
       <div style="padding:0 12px 14px">
         <!-- Site Log PDF Export -->
-        <button onclick="exportLogsPDF()" style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--fill);border:.5px solid var(--sep);border-radius:var(--r-lg);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:10px;transition:filter .12s">
+        <button onclick="exportLogsPDF()" style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--fill);border:.5px solid var(--sep);border-radius:var(--r-lg);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:10px;transition:filter .12s;outline:none" ontouchstart="">
           <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,159,10,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="ms" style="color:var(--ios-orange-d);font-size:20px">article</span></div>
           <div style="flex:1;text-align:left"><div style="font:600 15px/1 -apple-system;color:var(--text)">Export Site Logs PDF</div><div style="font:400 12px/1 -apple-system;color:var(--label);margin-top:3px">Print or save all log entries as PDF</div></div>
           <span class="ms" style="color:var(--label);font-size:18px">chevron_right</span>
@@ -1706,6 +1687,11 @@ function enterApp(){
   var s=document.getElementById('splash');
   s.classList.add('hiding');
   setTimeout(function(){s.style.display='none';},420);
+  // Activate nav item t1 (Sand) so it lights up correctly
+  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('active');});
+  var t1=document.querySelectorAll('.ni')[0];
+  if(t1) t1.classList.add('active');
+  updatePips(1);
 }
 
 // ─── DARK MODE ───
@@ -1729,12 +1715,23 @@ function switchTab(name,num){
   if(name==='log') renderLogs();
 }
 function updatePips(active){
-  var colors=['var(--amber)','var(--chips)','var(--steel-c)','var(--cement)','var(--blu)','var(--pay)','var(--ios-orange-d)','var(--grn)','var(--purp)'];
+  // 9 colours matching: Sand,Chips,Steel,Cement,RCC,Pay,Log,Records,About
+  var colors=[
+    'var(--ios-orange-d)',  // t1 Sand
+    'var(--ios-teal-d)',    // t2 Chips
+    'var(--ios-red-d)',     // t3 Steel
+    'var(--ios-blue-d)',    // t4 Cement
+    'var(--ios-indigo-d)', // t5 RCC
+    'var(--ios-orange-d)', // t6 Pay
+    'var(--ios-orange-d)', // t7 Log
+    'var(--ios-green-d)',  // t8 Records
+    'var(--ios-purple-d)'  // t9 About
+  ];
   for(var i=1;i<=9;i++){
     var p=document.getElementById('tp'+i);
-    if(!p) continue;
+    if(!p) continue; // safety: skip if pip not found
     p.classList.toggle('on',i===active);
-    p.style.background=i===active?colors[i-1]:'var(--border)';
+    p.style.background=i===active ? (colors[i-1]||'var(--ios-orange-d)') : 'var(--border)';
   }
 }
 
@@ -2452,161 +2449,101 @@ function clearAllRecords(){
 }
 
 // ═══════════════════════════════════════════════════════
+// BULK PDF EXPORT (All records by material)
+// ═══════════════════════════════════════════════════════
 
 // ═══════════════════════════════════════════════════════
 // SITE LOG KEEPER MODULE
 // ═══════════════════════════════════════════════════════
-var siteLogs = (function(){
-  try{ return JSON.parse(NativeBridge.loadData().replace('csu3_records','') || '[]'); }
-  catch(e){ return []; }
-})();
-
-// Use separate storage key for logs
 function loadSiteLogs(){
-  try{
-    if(_Droid && typeof _Droid.loadData === 'function'){
-      var raw = localStorage.getItem('csu3_logs');
-      return raw ? JSON.parse(raw) : [];
-    }
-    return JSON.parse(localStorage.getItem('csu3_logs')||'[]');
-  }catch(e){ return []; }
+  try{ return JSON.parse(localStorage.getItem('csu3_logs')||'[]'); }
+  catch(e){ return []; }
 }
 function saveSiteLogs(){
-  try{ localStorage.setItem('csu3_logs', JSON.stringify(siteLogs)); }catch(e){}
+  try{ localStorage.setItem('csu3_logs',JSON.stringify(siteLogs)); }catch(e){}
 }
-siteLogs = loadSiteLogs();
-
+var siteLogs = loadSiteLogs();
 var _editingLogId = null;
 
 function openLogDialog(editId){
   _editingLogId = editId || null;
-  var modal = document.getElementById('log-modal');
-  var titleEl = document.getElementById('log-dialog-title');
-  var textEl  = document.getElementById('log-text-inp');
-  var dateEl  = document.getElementById('log-date-inp');
-  var timeEl  = document.getElementById('log-time-inp');
-
-  var now = new Date();
-  var iso = now.toISOString().split('T')[0];
-  var hhmm = String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-
+  var modal=document.getElementById('log-modal');
+  var titleEl=document.getElementById('log-dialog-title');
+  var textEl=document.getElementById('log-text-inp');
+  var dateEl=document.getElementById('log-date-inp');
+  var timeEl=document.getElementById('log-time-inp');
+  var now=new Date();
+  var iso=now.toISOString().split('T')[0];
+  var hhmm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
   if(editId){
-    var existing = siteLogs.find(function(l){ return l.id === editId; });
-    if(!existing) return;
-    titleEl.textContent = 'Edit Log #'+existing.serial;
-    textEl.value  = existing.text;
-    dateEl.value  = existing.date;
-    timeEl.value  = existing.time;
+    var ex=siteLogs.find(function(l){return l.id===editId;});
+    if(!ex)return;
+    titleEl.textContent='Edit Log #'+ex.serial;
+    textEl.value=ex.text; dateEl.value=ex.date; timeEl.value=ex.time;
   } else {
-    titleEl.textContent = 'Add Site Log';
-    textEl.value  = '';
-    dateEl.value  = iso;
-    timeEl.value  = hhmm;
+    titleEl.textContent='Add Site Log';
+    textEl.value=''; dateEl.value=iso; timeEl.value=hhmm;
   }
-
-  modal.style.display = 'flex';
-  setTimeout(function(){ textEl.focus(); }, 200);
+  modal.style.display='flex';
+  setTimeout(function(){textEl.focus();},200);
 }
 
 function closeLogDialog(){
-  document.getElementById('log-modal').style.display = 'none';
-  _editingLogId = null;
+  document.getElementById('log-modal').style.display='none';
+  _editingLogId=null;
 }
 
 function saveLogEntry(){
-  var textEl = document.getElementById('log-text-inp');
-  var dateEl = document.getElementById('log-date-inp');
-  var timeEl = document.getElementById('log-time-inp');
-
-  var text = textEl.value.trim();
-  if(!text){ showToast('Please enter a log entry'); textEl.focus(); return; }
-
-  var date = dateEl.value || new Date().toISOString().split('T')[0];
-  var time = timeEl.value || (function(){
-    var n=new Date();
-    return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');
-  })();
-
+  var textEl=document.getElementById('log-text-inp');
+  var dateEl=document.getElementById('log-date-inp');
+  var timeEl=document.getElementById('log-time-inp');
+  var text=textEl.value.trim();
+  if(!text){showToast('Please enter a log entry');textEl.focus();return;}
+  var date=dateEl.value||new Date().toISOString().split('T')[0];
+  var time=timeEl.value||(function(){var n=new Date();return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');})();
   if(_editingLogId){
-    // Update existing
-    var idx = siteLogs.findIndex(function(l){ return l.id === _editingLogId; });
-    if(idx > -1){
-      siteLogs[idx].text = text;
-      siteLogs[idx].date = date;
-      siteLogs[idx].time = time;
-    }
+    var idx=siteLogs.findIndex(function(l){return l.id===_editingLogId;});
+    if(idx>-1){siteLogs[idx].text=text;siteLogs[idx].date=date;siteLogs[idx].time=time;}
     showToast('Log updated ✓');
   } else {
-    // New entry — insert in correct chronological position
-    var newEntry = {
-      id: genId(),
-      serial: 0, // will be reassigned
-      text: text,
-      date: date,
-      time: time,
-      createdAt: Date.now()
-    };
-    // Insert sorted by date+time
-    var newDT = date + 'T' + time;
-    var insertIdx = siteLogs.length;
-    for(var i = 0; i < siteLogs.length; i++){
-      if((siteLogs[i].date + 'T' + siteLogs[i].time) > newDT){
-        insertIdx = i;
-        break;
-      }
+    var entry={id:genId(),serial:0,text:text,date:date,time:time,createdAt:Date.now()};
+    var newDT=date+'T'+time;
+    var insertIdx=siteLogs.length;
+    for(var i=0;i<siteLogs.length;i++){
+      if((siteLogs[i].date+'T'+siteLogs[i].time)>newDT){insertIdx=i;break;}
     }
-    siteLogs.splice(insertIdx, 0, newEntry);
+    siteLogs.splice(insertIdx,0,entry);
     showToast('Log saved ✓');
     NativeBridge.vibrate(18);
   }
-
-  // Reassign serials in chronological order
-  siteLogs.forEach(function(l, i){ l.serial = i + 1; });
+  siteLogs.forEach(function(l,i){l.serial=i+1;});
   saveSiteLogs();
   renderLogs();
   closeLogDialog();
 }
 
 function deleteLog(id){
-  if(!confirm('Delete this log entry?')) return;
-  siteLogs = siteLogs.filter(function(l){ return l.id !== id; });
-  siteLogs.forEach(function(l, i){ l.serial = i + 1; });
+  if(!confirm('Delete this log entry?'))return;
+  siteLogs=siteLogs.filter(function(l){return l.id!==id;});
+  siteLogs.forEach(function(l,i){l.serial=i+1;});
   saveSiteLogs();
   renderLogs();
   showToast('Log deleted');
 }
 
 function renderLogs(){
-  var query = (document.getElementById('log-search-inp')||{}).value || '';
-  query = query.trim().toLowerCase();
-
-  var filtered = query
-    ? siteLogs.filter(function(l){ return l.text.toLowerCase().indexOf(query) > -1; })
-    : siteLogs;
-
-  var emptyEl = document.getElementById('log-empty');
-  var listEl  = document.getElementById('log-list');
-  if(!listEl) return;
-
-  if(filtered.length === 0){
-    emptyEl.style.display = 'flex';
-    listEl.style.display = 'none';
-    listEl.innerHTML = '';
-    return;
-  }
-  emptyEl.style.display = 'none';
-  listEl.style.display = 'block';
-
-  listEl.innerHTML = filtered.map(function(l, i){
-    var displayDate = formatDate(l.date);
-    // Format time as 12h display
-    var timeParts = (l.time||'00:00').split(':');
-    var hh = parseInt(timeParts[0]);
-    var mm = timeParts[1]||'00';
-    var ampm = hh >= 12 ? 'PM' : 'AM';
-    var h12 = hh % 12 || 12;
-    var timeDisplay = h12 + ':' + mm + ' ' + ampm;
-
+  var query=((document.getElementById('log-search-inp')||{}).value||'').trim().toLowerCase();
+  var filtered=query?siteLogs.filter(function(l){return l.text.toLowerCase().indexOf(query)>-1;}):siteLogs;
+  var emptyEl=document.getElementById('log-empty');
+  var listEl=document.getElementById('log-list');
+  if(!listEl)return;
+  if(filtered.length===0){emptyEl.style.display='flex';listEl.style.display='none';listEl.innerHTML='';return;}
+  emptyEl.style.display='none';listEl.style.display='block';
+  listEl.innerHTML=filtered.map(function(l,i){
+    var tp=(l.time||'00:00').split(':');
+    var hh=parseInt(tp[0]);var mm=tp[1]||'00';
+    var ampm=hh>=12?'PM':'AM';var h12=hh%12||12;
+    var td=h12+':'+mm+' '+ampm;
     return '<div class="log-card" style="animation-delay:'+(i*0.04)+'s">'+
       '<div class="log-card-inner">'+
         '<div class="log-serial-col">'+
@@ -2616,8 +2553,8 @@ function renderLogs(){
         '<div class="log-body">'+
           '<div class="log-text">'+esc(l.text)+'</div>'+
           '<div class="log-meta">'+
-            '<span class="log-date-chip"><span class="ms">calendar_today</span>'+displayDate+'</span>'+
-            '<span class="log-date-chip"><span class="ms">schedule</span>'+timeDisplay+'</span>'+
+            '<span class="log-date-chip"><span class="ms">calendar_today</span>'+formatDate(l.date)+'</span>'+
+            '<span class="log-date-chip"><span class="ms">schedule</span>'+td+'</span>'+
           '</div>'+
         '</div>'+
       '</div>'+
@@ -2630,71 +2567,58 @@ function renderLogs(){
   }).join('');
 }
 
-// ── EXPORT LOGS AS PDF ────────────────────────────────
 function exportLogsPDF(){
-  if(siteLogs.length === 0){ showToast('No logs to export'); return; }
-  var today = todayFormatted();
-  var rows = siteLogs.map(function(l){
-    var timeParts = (l.time||'00:00').split(':');
-    var hh = parseInt(timeParts[0]);
-    var mm = timeParts[1]||'00';
-    var ampm = hh>=12?'PM':'AM';
-    var h12 = hh%12||12;
-    var td = h12+':'+mm+' '+ampm;
+  if(siteLogs.length===0){showToast('No logs to export');return;}
+  var today=todayFormatted();
+  var rows=siteLogs.map(function(l){
+    var tp=(l.time||'00:00').split(':');
+    var hh=parseInt(tp[0]);var mm=tp[1]||'00';
+    var ampm=hh>=12?'PM':'AM';var h12=hh%12||12;
+    var td=h12+':'+mm+' '+ampm;
     return '<tr style="border-bottom:1px solid #eee">'+
       '<td style="padding:10px 14px;font:600 13px/1 Arial;color:#FF9F0A;width:48px;vertical-align:top">#'+l.serial+'</td>'+
-      '<td style="padding:10px 14px;font:400 13px/1.7 Arial;color:#111;flex:1">'+esc(l.text)+'</td>'+
-      '<td style="padding:10px 14px;font:400 12px/1 Arial;color:#666;white-space:nowrap;vertical-align:top">'+formatDate(l.date)+'<br><span style="color:#999">'+td+'</span></td>'+
+      '<td style="padding:10px 14px;font:400 13px/1.7 Arial;color:#111">'+esc(l.text)+'</td>'+
+      '<td style="padding:10px 14px;font:400 12px/1.4 Arial;color:#666;white-space:nowrap;vertical-align:top">'+formatDate(l.date)+'<br>'+td+'</td>'+
     '</tr>';
   }).join('');
-
-  var html = '<!DOCTYPE html><html><head><meta charset="UTF-8">'+
-    '<title>Civil Suite — Site Log</title>'+
-    '<style>@page{margin:15mm}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#fff;color:#111}@media print{.no-print{display:none}}</style>'+
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Civil Suite Site Log</title>'+
+    '<style>@page{margin:15mm}*{box-sizing:border-box;margin:0;padding:0}body{font-family:Arial,sans-serif;background:#fff}@media print{.no-print{display:none}}</style>'+
     '</head><body>'+
     '<div style="background:#0A0A14;padding:20px 24px;display:flex;align-items:center;gap:16px">'+
-      '<div style="width:48px;height:48px;background:#FF9F0A;border-radius:14px;display:flex;align-items:center;justify-content:center;font:700 20px/1 Arial;color:#000;flex-shrink:0">📋</div>'+
-      '<div>'+
-        '<div style="font:800 20px/1 Arial;color:#FF9F0A;letter-spacing:2px">CIVIL <span style="color:#fff">SUITE</span></div>'+
-        '<div style="font:400 10px/1 Arial;color:rgba(255,255,255,.45);margin-top:5px;letter-spacing:2px;text-transform:uppercase">Site Log Report · BNBC 2020</div>'+
-      '</div>'+
+      '<div style="width:48px;height:48px;background:#FF9F0A;border-radius:14px;display:flex;align-items:center;justify-content:center;font:700 20px/1 Arial;color:#000;flex-shrink:0">S</div>'+
+      '<div><div style="font:800 20px/1 Arial;color:#FF9F0A;letter-spacing:2px">SITE <span style="color:#fff">LOG</span></div>'+
+      '<div style="font:400 10px/1 Arial;color:rgba(255,255,255,.45);margin-top:5px;letter-spacing:2px;text-transform:uppercase">Civil Suite v1.0 · BNBC 2020</div></div>'+
       '<div style="margin-left:auto;text-align:right">'+
         '<div style="font:400 10px/1 Arial;color:rgba(255,255,255,.4);text-transform:uppercase;margin-bottom:4px">Report Date</div>'+
         '<div style="font:700 13px/1 Arial;color:#FF9F0A">'+today+'</div>'+
       '</div>'+
     '</div>'+
     '<div style="padding:20px 24px">'+
-      '<div style="font:700 14px/1 Arial;color:#FF9F0A;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px;display:flex;align-items:center;gap:10px">'+
-        '<div style="width:4px;height:20px;background:#FF9F0A;border-radius:2px"></div>'+
-        'SITE LOG ENTRIES ('+siteLogs.length+')'+
-      '</div>'+
+      '<div style="font:700 14px/1 Arial;color:#FF9F0A;text-transform:uppercase;letter-spacing:2px;margin-bottom:16px">SITE LOG ENTRIES ('+siteLogs.length+')</div>'+
       '<table style="width:100%;border-collapse:collapse;border-top:2px solid #FF9F0A">'+
         '<thead><tr style="background:#f9f9f9">'+
-          '<th style="padding:10px 14px;font:600 11px/1 Arial;text-transform:uppercase;letter-spacing:1px;color:#666;text-align:left">#</th>'+
-          '<th style="padding:10px 14px;font:600 11px/1 Arial;text-transform:uppercase;letter-spacing:1px;color:#666;text-align:left">Log Entry</th>'+
-          '<th style="padding:10px 14px;font:600 11px/1 Arial;text-transform:uppercase;letter-spacing:1px;color:#666;text-align:left">Date & Time</th>'+
+          '<th style="padding:10px 14px;font:600 11px/1 Arial;color:#666;text-align:left">#</th>'+
+          '<th style="padding:10px 14px;font:600 11px/1 Arial;color:#666;text-align:left">Log Entry</th>'+
+          '<th style="padding:10px 14px;font:600 11px/1 Arial;color:#666;text-align:left">Date &amp; Time</th>'+
         '</tr></thead>'+
         '<tbody>'+rows+'</tbody>'+
       '</table>'+
     '</div>'+
-    '<div style="margin-top:24px;text-align:center;font:400 10px/1.6 Arial;color:#aaa;border-top:1px solid #eee;padding:16px 24px">'+
-      'Generated by Civil Suite v1.0 · Developed by K. M. Zaman · Standard: BNBC 2020'+
+    '<div style="margin-top:24px;text-align:center;font:400 10px/1.6 Arial;color:#aaa;border-top:1px solid #eee;padding:16px">'+
+      'Generated by Civil Suite v1.0 · K. M. Zaman · BNBC 2020'+
     '</div>'+
     '<div class="no-print" style="text-align:center;padding:16px">'+
       '<button onclick="window.print()" style="padding:12px 28px;background:#FF9F0A;border:none;border-radius:99px;font:700 13px/1 Arial;color:#000;cursor:pointer">PRINT / SAVE AS PDF</button>'+
     '</div>'+
     '</body></html>';
-
-  NativeBridge.generatePDF(html, function(){
-    var w = window.open('','_blank');
-    if(w){ w.document.write(html); w.document.close(); setTimeout(function(){w.print();},700); }
-    else{ showToast('Allow popups to export PDF'); }
+  NativeBridge.generatePDF(html,function(){
+    var w=window.open('','_blank');
+    if(w){w.document.write(html);w.document.close();setTimeout(function(){w.print();},700);}
+    else{showToast('Allow popups to export PDF');}
   });
 }
-// ─────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────
 
-// BULK PDF EXPORT (All records by material)
-// ═══════════════════════════════════════════════════════
 function exportBulkPDF(materialFilter){
   var list=records.slice().sort(function(a,b){return (a.createdAt||a.ts||0)-(b.createdAt||b.ts||0);});
   if(materialFilter!=='all') list=list.filter(function(r){return r.type===materialFilter;});
