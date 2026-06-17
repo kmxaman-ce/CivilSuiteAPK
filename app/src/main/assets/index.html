@@ -211,9 +211,9 @@ body{
 .sp-enter{width:100%;padding:17px;border:none;border-radius:var(--r-pill);background:var(--ios-orange-d);color:#fff;font:600 15px/1 -apple-system;font-size:15px;cursor:pointer;letter-spacing:-.2px;animation:slideDown .4s var(--ease-out) .4s both;box-shadow:0 4px 24px rgba(255,159,10,.40);transition:transform .12s var(--spring),filter .10s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
 .sp-enter:active{transform:scale(.96);filter:brightness(.90)}
 
-/* ── HEADER ── */
+/* ── HEADER (compact horizontal layout) ── */
 header{
-  padding:calc(52px + var(--safe-top)) 16px 14px;
+  padding:calc(10px + var(--safe-top)) 16px 10px;
   border-bottom:.5px solid var(--sep);
   background:var(--glass-bg);
   backdrop-filter:var(--glass-blur);
@@ -223,12 +223,14 @@ header{
   top:0;
   z-index:500;
 }
-.hdr-icon{width:64px;height:64px;border-radius:18px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px rgba(255,159,10,.40);animation:hdrPop .5s var(--spring) .1s both}
-.hdr-icon .ms{font-size:28px;color:#fff;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
-header h1{font:700 1.4rem/1 -apple-system;font-size:1.4rem;letter-spacing:-.4px;color:var(--text);text-align:center;animation:slideDown .35s var(--ease-out) .15s both}
+.hdr-top{display:flex;align-items:center;gap:10px}
+.hdr-icon{width:40px;height:40px;border-radius:12px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(255,159,10,.36);animation:hdrPop .5s var(--spring) .05s both}
+.hdr-icon .ms{font-size:20px;color:#fff;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
+.hdr-titles{flex:1;min-width:0;text-align:left}
+header h1{font:700 1.05rem/1.15 -apple-system;font-size:1.05rem;letter-spacing:-.3px;color:var(--text);text-align:left;animation:slideRight .3s var(--ease-out) .1s both}
 header h1 span{color:var(--ios-orange-d)}
-header p{font:500 .6rem/1 -apple-system;font-size:.6rem;color:var(--label);margin-top:6px;letter-spacing:2px;text-transform:uppercase;text-align:center;animation:slideDown .35s var(--ease-out) .2s both}
-.hdr-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;flex-wrap:wrap;animation:slideDown .35s var(--ease-out) .25s both}
+header p{font:500 .58rem/1 -apple-system;font-size:.58rem;color:var(--label);margin-top:2px;letter-spacing:1.4px;text-transform:uppercase;text-align:left;animation:slideRight .3s var(--ease-out) .14s both}
+.hdr-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:9px;flex-wrap:wrap;animation:slideDown .3s var(--ease-out) .18s both}
 .tab-pips{display:flex;gap:4px;align-items:center}
 .tab-pip{width:6px;height:3px;border-radius:var(--r-pill);background:var(--sep);transition:background .3s,width .3s var(--spring)}
 .tab-pip.on{width:18px}
@@ -731,9 +733,14 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 </div>
 
 <header>
-  <div class="hdr-icon"><span class="ms">engineering</span></div>
-  <h1>CIVIL <span>SUITE</span></h1>
-  <p>Ultimate Edition · BNBC 2020</p>
+  <div class="hdr-top">
+    <div class="hdr-icon"><span class="ms">engineering</span></div>
+    <div class="hdr-titles">
+      <h1>CIVIL <span>SUITE</span></h1>
+      <p>Ultimate Edition · BNBC 2020</p>
+    </div>
+    <button class="dark-toggle" onclick="toggleDark()" id="dark-btn"><span class="ms" id="dark-icon">dark_mode</span></button>
+  </div>
   <div class="hdr-row">
     <div class="tab-pips">
       <div class="tab-pip t1 on" id="tp1"></div><div class="tab-pip t2" id="tp2"></div>
@@ -744,7 +751,6 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     </div>
     <button class="btn-glass" onclick="clearAll()"><span class="ms">delete_sweep</span>Clear All</button>
     <span class="hdr-badge">K. M. ZAMAN</span>
-    <button class="dark-toggle" onclick="toggleDark()" id="dark-btn"><span class="ms" id="dark-icon">dark_mode</span></button>
   </div>
 </header>
 
@@ -2631,7 +2637,7 @@ function exportBulkPDF(materialFilter){
   function escH(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function tRow(l,v){return '<tr><td style="padding:6px 12px;font:600 11px/1.3 Barlow,sans-serif;color:#666;width:38%;border-bottom:1px solid #f0f0f0">'+escH(l)+'</td><td style="padding:6px 12px;font:600 12px/1.3 Rajdhani,sans-serif;color:#111;border-bottom:1px solid #f0f0f0">'+v+'</td></tr>';}
 
-  function buildSection(type,recs){
+  function buildSection(type,recs,isFirst){
     if(!recs.length)return'';
     var color=MCOLOR[type],mname=MNAME[type]||type,txtCol=MTXT[type]||'#fff';
     var grandVol=0,grandVol3=0,grandKg=0,grandBags=0,grandKgC=0,grandAmt=0;
@@ -2660,9 +2666,13 @@ function exportBulkPDF(materialFilter){
       } else if(r.type==='rcc'){
         inner+=tRow('Concrete Grade',escH(r.grade||'—'));
         inner+=tRow('Structural Volume',(r.vol||0).toFixed(2)+(r.unit==='cft'?' ft³':' m³'));
-        inner+=tRow('Cement',escH(r.cement||'—')+' bags');
-        inner+=tRow('Sand',escH(r.sand||'—')+' ft³');
-        inner+=tRow('Stone Chips',escH(r.agg||'—')+' ft³');
+        inner+=tRow('Cement',escH(r.cement||'—'));
+        inner+=tRow('Sand',(parseFloat(r.sand)||0).toFixed(2)+' ft³');
+        inner+=tRow('Stone Chips',(parseFloat(r.agg)||0).toFixed(2)+' ft³');
+        grandVol+=parseFloat(r.vol)||0;
+        grandBags+=parseFloat(r.cement)||0; // r.cement is like "30 bags" — parseFloat extracts the leading number
+        grandKgC+=parseFloat(r.sand)||0;    // reuse grandKgC accumulator for sand ft³
+        grandAmt+=parseFloat(r.agg)||0;     // reuse grandAmt accumulator for chips ft³
       } else if(r.type==='payment'){
         inner+=tRow('Contractor Type',escH(r.cTypeLabel||r.cType||'—'));
         inner+=tRow('Contractor Name',escH(r.contractorName||'—'));
@@ -2674,7 +2684,7 @@ function exportBulkPDF(materialFilter){
       rows+='<div style="margin-bottom:14px;border:1px solid #e8e8e8;border-radius:10px;overflow:hidden">'+
         '<div style="background:'+color+';padding:8px 14px;display:flex;justify-content:space-between;align-items:center">'+
         '<span style="font:700 12px/1 Barlow,sans-serif;color:'+txtCol+'">#'+(i+1)+' — '+escH(r.projName||r.proj||'Unnamed')+'</span>'+
-        '<span style="font:500 10px/1 Barlow,sans-serif;color:'+txtCol+';opacity:.8">'+escH(r.date||'')+'</span></div>'+
+        '<span style="font:500 10px/1 Barlow,sans-serif;color:'+txtCol+';opacity:.8">'+escH(formatDate(r.date)||'')+'</span></div>'+
         (r.projAddr||r.addr?'<div style="padding:6px 14px 2px;font:400 10px/1 Barlow,sans-serif;color:#888">'+escH(r.projAddr||r.addr||'')+'</div>':'')+
         '<table style="width:100%;border-collapse:collapse">'+inner+'</table></div>';
     });
@@ -2684,9 +2694,10 @@ function exportBulkPDF(materialFilter){
     if(type==='sand'||type==='chips') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</span><span style="font:800 18px/1 Rajdhani,sans-serif;color:'+color+'">'+grandVol.toFixed(3)+' ft³ &nbsp;/&nbsp; '+grandVol3.toFixed(3)+' m³</span></div>';
     else if(type==='steel') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</span><span style="font:800 18px/1 Rajdhani,sans-serif;color:'+color+'">'+grandKg.toFixed(1)+' KG &nbsp;/&nbsp; '+(grandKg/1000).toFixed(3)+' TON</span></div>';
     else if(type==='cement') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</span><span style="font:800 18px/1 Rajdhani,sans-serif;color:'+color+'">'+grandBags.toFixed(0)+' Bags &nbsp;/&nbsp; '+grandKgC.toFixed(0)+' KG</span></div>';
+    else if(type==='rcc') gt='<div style="background:#f5f5f5;border:2px solid '+color+';border-radius:10px;padding:14px 16px;margin-top:4px"><div style="font:700 11px/1 Barlow,sans-serif;color:#444;margin-bottom:10px">GRAND TOTAL ('+recs.length+' record'+(recs.length!==1?'s':'')+')</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><div><div style="font:600 9px/1 Barlow,sans-serif;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Structural Volume</div><div style="font:800 16px/1 Rajdhani,sans-serif;color:'+color+'">'+grandVol.toFixed(2)+' ft³</div></div><div><div style="font:600 9px/1 Barlow,sans-serif;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Cement</div><div style="font:800 16px/1 Rajdhani,sans-serif;color:'+color+'">'+grandBags.toFixed(0)+' bags</div></div><div><div style="font:600 9px/1 Barlow,sans-serif;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Sand</div><div style="font:800 16px/1 Rajdhani,sans-serif;color:'+color+'">'+grandKgC.toFixed(2)+' ft³</div></div><div><div style="font:600 9px/1 Barlow,sans-serif;color:#999;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px">Stone Chips</div><div style="font:800 16px/1 Rajdhani,sans-serif;color:'+color+'">'+grandAmt.toFixed(2)+' ft³</div></div></div></div>';
     else if(type==='payment') gt='<div style="background:#fff3eb;border:2px solid '+color+';border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;margin-top:4px"><span style="font:700 11px/1 Barlow,sans-serif;color:#444">GRAND TOTAL PAID ('+recs.length+' payment'+(recs.length!==1?'s':'')+')</span><span style="font:800 22px/1 JetBrains Mono,monospace;color:'+color+'">৳ '+grandAmt.toLocaleString('en-BD',{minimumFractionDigits:2})+'</span></div>';
 
-    return '<div style="page-break-before:always;padding-top:20px">'+
+    return '<div style="'+(isFirst?'':'page-break-before:always;')+'padding-top:20px">'+
       '<div style="border-bottom:3px solid '+color+';padding-bottom:10px;margin-bottom:16px;display:flex;align-items:center;gap:10px">'+
       '<div style="width:14px;height:28px;background:'+color+';border-radius:3px"></div>'+
       '<h2 style="font:800 18px/1 Barlow,sans-serif;color:'+color+';margin:0;letter-spacing:.04em">'+mname.toUpperCase()+'</h2>'+
@@ -2696,9 +2707,13 @@ function exportBulkPDF(materialFilter){
 
   var types=materialFilter==='all'?['sand','chips','steel','cement','rcc','payment']:[materialFilter];
   var sections='';
+  var sectionCount=0;
   types.forEach(function(type){
     var typeRecs=list.filter(function(r){return r.type===type;});
-    if(typeRecs.length) sections+=buildSection(type,typeRecs);
+    if(typeRecs.length){
+      sections+=buildSection(type,typeRecs,sectionCount===0);
+      sectionCount++;
+    }
   });
   if(!sections){showToast('No records to export');return;}
 
@@ -2811,9 +2826,9 @@ function generatePDF(rec,mode){
     rows+=section('RCC ESTIMATION');
     rows+=row('Concrete Grade',esc(rec.grade));
     rows+=row('Total Volume',rec.vol.toFixed(3)+(rec.unit==='cft'?' ft³':' m³'));
-    rows+=row('Cement',esc(rec.cement)+' bags');
-    rows+=row('Sand (Fine Agg.)',esc(rec.sand)+' ft³');
-    rows+=row('Stone Chips',esc(rec.agg)+' ft³');
+    rows+=row('Cement',esc(rec.cement));
+    rows+=row('Sand (Fine Agg.)',(parseFloat(rec.sand)||0).toFixed(2)+' ft³');
+    rows+=row('Stone Chips',(parseFloat(rec.agg)||0).toFixed(2)+' ft³');
     rows+=section('STANDARDS'); rows+=row('Code','BNBC 2020');
   } else if(rec.type==='payment'){
     rows+=section('CONTRACTOR INFORMATION');
