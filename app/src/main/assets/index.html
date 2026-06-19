@@ -704,6 +704,24 @@ footer .h{color:var(--ios-red-d)}
 .log-act-btn .ms{font-size:15px}
 .log-act-div{width:.5px;background:var(--sep);flex-shrink:0}
 
+
+/* ── DATE INPUT OVERLAY (DD/MM/YYYY display) ── */
+.date-wrap{position:relative;width:100%;display:block}
+.date-wrap input[type=date]{color:transparent!important;-webkit-text-fill-color:transparent}
+.date-overlay{position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  font:500 16px/1 -apple-system;color:var(--text);pointer-events:none;
+  letter-spacing:0;white-space:nowrap}
+.date-wrap input[type=date]:focus ~ .date-overlay{color:var(--text-dim)}
+/* FIX 4: time input matches date input styling */
+input[type=time]{
+  width:100%;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);
+  color:var(--text);font:500 16px/1 -apple-system;font-size:16px;padding:11px 14px;
+  outline:none;-webkit-appearance:none;
+  transition:border-color .18s,background .18s,box-shadow .18s;
+}
+input[type=time]:focus{border-color:var(--ios-orange-d);background:rgba(255,159,10,.08);box-shadow:0 0 0 4px rgba(255,159,10,.18)}
+html.light input[type=time]{background:rgba(120,120,128,.12);color:#000}
+
 /* Shared transitions */
 body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.notebox,.elb-row,.scell,.unit-cell,.cmp-cell,.btn-glass,.dark-toggle,.rec-card{transition:background .28s var(--ease-std),color .22s,border-color .22s}
 </style>
@@ -761,7 +779,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="grp-card">
       <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="f_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
       <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="f_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="f_proj_date"></div></div>
+      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><div class="date-wrap"><input type="date" class="proj-input" id="f_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_f_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Vehicle Information</div>
@@ -839,7 +857,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="grp-card">
       <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="c_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
       <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="c_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="c_proj_date"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>Vehicle Information</div>
@@ -905,7 +923,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="grp-card">
       <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="s_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
       <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="s_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="s_proj_date"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><div class="date-wrap"><input type="date" class="proj-input" id="s_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_s_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
       <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Brand Name</span><input type="text" class="proj-input" id="s_brand" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
     </div>
   </div>
@@ -947,7 +965,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="grp-card">
       <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="m_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
       <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="m_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><input type="date" class="proj-input" id="m_proj_date"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><div class="date-wrap"><input type="date" class="proj-input" id="m_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_m_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
       <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Brand Name</span><input type="text" class="proj-input" id="m_brand" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
     </div>
   </div>
@@ -1260,7 +1278,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
           <div class="pay-amount-preview-value" id="pay-amount-preview-val">৳ 0.00</div>
         </div>
       </div>
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Payment Date</span><input type="date" class="proj-input" id="pay_date"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Payment Date</span><div class="date-wrap"><input type="date" class="proj-input" id="pay_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_pay_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <!-- Comments -->
@@ -1323,7 +1341,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div style="display:flex;gap:10px;margin-bottom:16px">
       <div style="flex:1">
         <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">DATE</div>
-        <input type="date" id="log-date-inp" style="width:100%">
+        <div class="date-wrap"><input type="date" id="log-date-inp" style="width:100%" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_log-date-inp" style="color:var(--text-dim)">DD/MM/YYYY</span></div>
       </div>
       <div style="flex:1">
         <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px">TIME</div>
@@ -1656,6 +1674,27 @@ function formatDate(isoDateStr){
   return dd+'/'+mm+'/'+d.getFullYear();
 }
 function todayISO(){ return new Date().toISOString().split('T')[0]; }
+
+function updateDateOverlay(input){
+  var ov=document.getElementById('ov_'+input.id);
+  if(!ov) return;
+  if(input.value){
+    ov.textContent=formatDate(input.value);
+    ov.style.color='';
+  } else {
+    ov.textContent='DD/MM/YYYY';
+    ov.style.color='var(--text-faint)';
+  }
+}
+// Initialise all date overlays to today's date on page load
+function initDateOverlays(){
+  var ids=['f_proj_date','c_proj_date','s_proj_date','m_proj_date','pay_date','log-date-inp'];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) updateDateOverlay(el);
+  });
+}
+
 function todayFormatted(){ return formatDate(todayISO()); }
 
 // ─── ANIMATED COUNTER ───
@@ -1679,6 +1718,7 @@ window.addEventListener('DOMContentLoaded',function(){
   ['f_proj_date','c_proj_date','s_proj_date','m_proj_date','pay_date'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value=today;
   });
+  initDateOverlays();
   buildFMTCard(); buildChipsCard(); addEl();
   renderRecords(); updatePips(1); updatePayDashboard();
   var d=localStorage.getItem('csu3_dark');
@@ -1823,21 +1863,52 @@ function buildFMTCard(){
       if(fmtMode==='ftin'){
         var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
         iF.id='f_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
-        iF.addEventListener('input',calcFMT);
+        iF.addEventListener('input',updateFMTAverages);
         var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
         iI.id='f_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1';
-        iI.addEventListener('input',calcFMT);
+        iI.addEventListener('input',updateFMTAverages);
         row.appendChild(iF); row.appendChild(iI);
       } else {
         var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
         inp.id='f_'+d+'_'+m; inp.min=0;
         inp.placeholder=fmtMode==='meter'?'m':fmtMode==='inch'?'in':'ft';
-        inp.style.flex='1'; inp.addEventListener('input',calcFMT); row.appendChild(inp);
+        inp.style.flex='1'; inp.addEventListener('input',updateFMTAverages); row.appendChild(inp);
       }
       block.appendChild(row);
     }
     card.appendChild(block);
   });
+}
+function updateFMTAverages(){
+  var dims=['L','W','H'];
+  dims.forEach(function(d){
+    var vals=[];
+    for(var m=0;m<fmtCount;m++){
+      var v;
+      if(fmtMode==='ftin'){
+        var ft=parseFloat((document.getElementById('f_'+d+'_'+m+'_ft')||{}).value)||0;
+        var inch=parseFloat((document.getElementById('f_'+d+'_'+m+'_in')||{}).value)||0;
+        if(ft>0||inch>0) v=ft+inch/12;
+      } else {
+        var raw=(document.getElementById('f_'+d+'_'+m)||{}).value;
+        if(raw!==''&&raw!=null&&!isNaN(raw)) v=toFt(parseFloat(raw),fmtMode);
+      }
+      if(v!==undefined&&!isNaN(v)) vals.push(v);
+    }
+    var chip=document.getElementById('f-avg-'+d);
+    if(!chip) return;
+    if(!vals.length){ chip.textContent='AVG: —'; chip.className='fmt-avg-chip'; return; }
+    var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length;
+    var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
+    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok';
+  });
+  // Editing any dimension invalidates a previously-shown result until
+  // Calculate is pressed again — prevents stale numbers being displayed
+  var res=document.getElementById('fmt-res');
+  if(res) res.classList.remove('show');
+  var addBtn=document.getElementById('sand-add-btn');
+  if(addBtn) addBtn.style.display='none';
 }
 function runCalcFMT(){
   calcFMT();
@@ -1940,20 +2011,49 @@ function buildChipsCard(){
       if(chipsMode==='ftin'){
         var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
         iF.id='ch_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
-        iF.addEventListener('input',calcChips);
+        iF.addEventListener('input',updateChipsAverages);
         var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
-        iI.id='ch_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1'; iI.addEventListener('input',calcChips);
+        iI.id='ch_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1'; iI.addEventListener('input',updateChipsAverages);
         row.appendChild(iF); row.appendChild(iI);
       } else {
         var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
         inp.id='ch_'+d+'_'+m; inp.min=0;
         inp.placeholder=chipsMode==='meter'?'m':chipsMode==='inch'?'in':'ft';
-        inp.style.flex='1'; row.appendChild(inp);
+        inp.style.flex='1'; inp.addEventListener('input',updateChipsAverages); row.appendChild(inp);
       }
       block.appendChild(row);
     }
     card.appendChild(block);
   });
+}
+function updateChipsAverages(){
+  var dims=['L','W','H'];
+  dims.forEach(function(d){
+    var vals=[];
+    for(var m=0;m<chipsCount;m++){
+      var v;
+      if(chipsMode==='ftin'){
+        var ft=parseFloat((document.getElementById('ch_'+d+'_'+m+'_ft')||{}).value)||0;
+        var inch=parseFloat((document.getElementById('ch_'+d+'_'+m+'_in')||{}).value)||0;
+        if(ft>0||inch>0) v=ft+inch/12;
+      } else {
+        var raw=(document.getElementById('ch_'+d+'_'+m)||{}).value;
+        if(raw!==''&&raw!=null&&!isNaN(raw)) v=toFt(parseFloat(raw),chipsMode);
+      }
+      if(v!==undefined&&!isNaN(v)) vals.push(v);
+    }
+    var chip=document.getElementById('ch-avg-'+d);
+    if(!chip) return;
+    if(!vals.length){ chip.textContent='AVG: —'; chip.className='fmt-avg-chip'; return; }
+    var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length;
+    var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
+    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok-chips';
+  });
+  var res=document.getElementById('chips-res');
+  if(res) res.classList.remove('show');
+  var addBtn=document.getElementById('chips-add-btn');
+  if(addBtn) addBtn.style.display='none';
 }
 function runCalcChips(){
   calcChips();
@@ -2244,6 +2344,7 @@ function savePaymentRecord(){
   document.getElementById('pay_amount').value='';
   document.getElementById('pay-comments').value='';
   document.getElementById('pay_date').value=new Date().toISOString().split('T')[0];
+  var _pd=document.getElementById('pay_date'); if(_pd) updateDateOverlay(_pd);
   document.getElementById('pay-amount-preview').classList.remove('show');
 }
 function updatePayDashboard(){
@@ -2485,10 +2586,10 @@ function openLogDialog(editId){
     var ex=siteLogs.find(function(l){return l.id===editId;});
     if(!ex)return;
     titleEl.textContent='Edit Log #'+ex.serial;
-    textEl.value=ex.text; dateEl.value=ex.date; timeEl.value=ex.time;
+    textEl.value=ex.text; dateEl.value=ex.date; updateDateOverlay(dateEl); timeEl.value=ex.time;
   } else {
     titleEl.textContent='Add Site Log';
-    textEl.value=''; dateEl.value=iso; timeEl.value=hhmm;
+    textEl.value=''; dateEl.value=iso; updateDateOverlay(dateEl); timeEl.value=hhmm;
   }
   modal.style.display='flex';
   setTimeout(function(){textEl.focus();},200);
