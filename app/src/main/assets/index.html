@@ -95,6 +95,11 @@
   --safe-left:env(safe-area-inset-left,0px);
   --safe-right:env(safe-area-inset-right,0px);
 }
+/* Native date/time picker calendar & clock icons are browser-drawn and
+   ignore CSS color — color-scheme tells the browser which icon variant
+   (light/dark) to draw so it stays visible against our background. */
+html{color-scheme:dark}
+html.light{color-scheme:light}
 
 /* ── LIGHT MODE (iOS 26 system white) ── */
 html.light{
