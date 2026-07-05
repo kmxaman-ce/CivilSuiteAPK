@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  Civil Suite — Adaptive Icon FOREGROUND layer (v3 — simplified)
-  Design: minimal white "engineer" silhouette matching the splash-screen icon —
-  hardhat dome + shoulder arc + small 8-tooth gear spark. Single colour (white),
-  no clutter, transparent everywhere else so the amber background layer shows through.
+  Civil Suite — Adaptive Icon FOREGROUND layer (OxygenOS theme)
+  Design: minimal red "engineer" silhouette (hardhat dome + shoulder arc +
+  small 8-tooth gear spark) on near-black, matching the OnePlus OxygenOS
+  signature monochrome + single-red-accent identity.
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"
@@ -13,7 +13,7 @@
 
   <!-- Hardhat dome -->
   <path
-      android:strokeColor="#FFFFFF"
+      android:strokeColor="#EB1E28"
       android:strokeWidth="3.4"
       android:strokeLineCap="round"
       android:strokeLineJoin="round"
@@ -21,44 +21,44 @@
 
   <!-- Hardhat brim -->
   <path
-      android:strokeColor="#FFFFFF"
+      android:strokeColor="#EB1E28"
       android:strokeWidth="3.4"
       android:strokeLineCap="round"
       android:pathData="M41,46 L67,46"/>
 
   <!-- Hardhat top ridge -->
   <path
-      android:strokeColor="#FFFFFF"
+      android:strokeColor="#EB1E28"
       android:strokeWidth="3.4"
       android:strokeLineCap="round"
       android:pathData="M54,33 L54,36"/>
 
   <!-- Shoulder / body arc -->
   <path
-      android:strokeColor="#FFFFFF"
+      android:strokeColor="#EB1E28"
       android:strokeWidth="3.4"
       android:strokeLineCap="round"
       android:strokeLineJoin="round"
       android:pathData="M36,68 a18,18 0 0 1 36,0"/>
 
   <!-- Gear spark: hub -->
-  <path android:fillColor="#FFFFFF"
+  <path android:fillColor="#EB1E28"
         android:pathData="M71,30.6 A5.4,5.4 0 1 0 71,41.4 A5.4,5.4 0 1 0 71,30.6 Z"/>
-  <path android:fillColor="#E8AB00"
+  <path android:fillColor="#0F0F0F"
         android:pathData="M71,33.8 A2.2,2.2 0 1 0 71,38.2 A2.2,2.2 0 1 0 71,33.8 Z"/>
 
-  <!-- Gear spark: 4 cardinal teeth (up/down/left/right) -->
-  <path android:fillColor="#FFFFFF" android:pathData="M69.6,28.4 h2.8 v3.4 h-2.8 Z"/>
-  <path android:fillColor="#FFFFFF" android:pathData="M69.6,40.2 h2.8 v3.4 h-2.8 Z"/>
-  <path android:fillColor="#FFFFFF" android:pathData="M62.6,34.6 h3.4 v2.8 h-3.4 Z"/>
-  <path android:fillColor="#FFFFFF" android:pathData="M76.6,34.6 h3.4 v2.8 h-3.4 Z"/>
+  <!-- Gear spark: 4 cardinal teeth -->
+  <path android:fillColor="#EB1E28" android:pathData="M69.6,28.4 h2.8 v3.4 h-2.8 Z"/>
+  <path android:fillColor="#EB1E28" android:pathData="M69.6,40.2 h2.8 v3.4 h-2.8 Z"/>
+  <path android:fillColor="#EB1E28" android:pathData="M62.6,34.6 h3.4 v2.8 h-3.4 Z"/>
+  <path android:fillColor="#EB1E28" android:pathData="M76.6,34.6 h3.4 v2.8 h-3.4 Z"/>
 
-  <!-- Gear spark: 4 diagonal teeth (rotated via group, true 45° squares) -->
+  <!-- Gear spark: 4 diagonal teeth (rotated via group) -->
   <group android:pivotX="71" android:pivotY="36" android:rotation="45">
-    <path android:fillColor="#FFFFFF" android:pathData="M69.6,28.4 h2.8 v3.4 h-2.8 Z"/>
-    <path android:fillColor="#FFFFFF" android:pathData="M69.6,40.2 h2.8 v3.4 h-2.8 Z"/>
-    <path android:fillColor="#FFFFFF" android:pathData="M62.6,34.6 h3.4 v2.8 h-3.4 Z"/>
-    <path android:fillColor="#FFFFFF" android:pathData="M76.6,34.6 h3.4 v2.8 h-3.4 Z"/>
+    <path android:fillColor="#EB1E28" android:pathData="M69.6,28.4 h2.8 v3.4 h-2.8 Z"/>
+    <path android:fillColor="#EB1E28" android:pathData="M69.6,40.2 h2.8 v3.4 h-2.8 Z"/>
+    <path android:fillColor="#EB1E28" android:pathData="M62.6,34.6 h3.4 v2.8 h-3.4 Z"/>
+    <path android:fillColor="#EB1E28" android:pathData="M76.6,34.6 h3.4 v2.8 h-3.4 Z"/>
   </group>
 
 </vector>
