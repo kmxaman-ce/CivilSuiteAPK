@@ -911,6 +911,14 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="row"><div class="row-icon ri-v"><span class="ms ms-sm">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Driver Mobile</span><input type="tel" class="proj-input" id="f_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
     </div>
   </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Sand Category</div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="sand-cat-seg">
+      <div class="seg-item active" onclick="setSandCat('Coarse',this)">Coarse</div>
+      <div class="seg-item" onclick="setSandCat('Medium',this)">Medium</div>
+      <div class="seg-item" onclick="setSandCat('Fine',this)">Fine</div>
+      <div class="seg-item" onclick="setSandCat('Local',this)">Local</div>
+    </div></div></div>
+  </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Input Mode</div>
     <div class="grp-card"><div class="seg-wrap"><div class="seg" id="fmt-mode-seg">
       <div class="seg-item active" onclick="setFMTMode('ftin',this)">ft &amp; in</div>
@@ -980,6 +988,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Project Name</span><input type="text" class="proj-input" id="c_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
       <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Address</span><input type="text" class="proj-input" id="c_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
       <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Date</span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">category</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit">Category</span><input type="text" class="proj-input" id="c_category" placeholder="e.g. Tusha, Blackstone..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span>Vehicle Information</div>
@@ -1727,8 +1736,6 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="notebox t5" style="margin:12px">
         <div class="notebox-title"><span class="ms">menu_book</span>References</div>
         <div class="notebox-text">• BNBC 2020 — Bangladesh National Building Code
-• ACI 318 — Building Code Requirements for Structural Concrete
-• IS 10262 — Concrete Mix Proportioning Guidelines
 • Unit weight of steel: 7850 kg/m³ (standard)
 • Cement bag: 50 kg (standard Bangladesh)</div>
       </div>
@@ -2079,7 +2086,7 @@ function clearAll(){
   var panel=document.querySelector('.panel.active');
   // Only clear measurement/numeric inputs — not project info or vehicle fields
   var protectedIds=['f_proj_name','f_proj_addr','f_proj_date','f_veh_num','f_drv_name','f_drv_mob',
-    'c_proj_name','c_proj_addr','c_proj_date','c_veh_num','c_drv_name','c_drv_mob',
+    'c_proj_name','c_proj_addr','c_proj_date','c_veh_num','c_drv_name','c_drv_mob','c_category',
     's_proj_name','s_proj_addr','s_proj_date','s_veh_num','s_drv_name','s_drv_mob','s_brand',
     'm_proj_name','m_proj_addr','m_proj_date','m_veh_num','m_drv_name','m_drv_mob','m_brand',
     'b_proj_name','b_proj_addr','b_proj_date','b_veh_num','b_drv_name','b_drv_mob',
@@ -2266,6 +2273,7 @@ function saveSandRecord(){
     date:document.getElementById('f_proj_date').value||new Date().toISOString().split('T')[0],
     proj:document.getElementById('f_proj_name').value||'Unnamed',
     addr:document.getElementById('f_proj_addr').value||'',
+    category:SAND_CAT,
     vol:vol,volM3:parseFloat(volM3.toFixed(3)),
     avgL:document.getElementById('f-bL').textContent,avgW:document.getElementById('f-bW').textContent,avgH:document.getElementById('f-bH').textContent,
     vehNum:document.getElementById('f_veh_num').value,drvName:document.getElementById('f_drv_name').value,drvMob:document.getElementById('f_drv_mob').value
@@ -2402,6 +2410,7 @@ function saveChipsRecord(){
   saveRecord({id:genId(),createdAt:Date.now(),type:'chips',
     date:document.getElementById('c_proj_date').value||new Date().toISOString().split('T')[0],
     proj:document.getElementById('c_proj_name').value||'Unnamed',addr:document.getElementById('c_proj_addr').value||'',
+    category:document.getElementById('c_category').value||'',
     vol:vol,volM3:parseFloat((vol/35.3147).toFixed(3)),
     avgL:document.getElementById('c-bL').textContent,avgW:document.getElementById('c-bW').textContent,avgH:document.getElementById('c-bH').textContent,
     vehNum:document.getElementById('c_veh_num').value,drvName:document.getElementById('c_drv_name').value,drvMob:document.getElementById('c_drv_mob').value
@@ -2459,6 +2468,8 @@ function setBrickCat(cat,el){
   BRICK_CAT=cat; activateSeg('brick-cat-seg',el);
   var catEl=document.getElementById('b-total-cat'); if(catEl) catEl.textContent=cat;
 }
+var SAND_CAT='Coarse';
+function setSandCat(cat,el){ SAND_CAT=cat; activateSeg('sand-cat-seg',el); }
 function setBrickUnit(unit,el){
   BRICK_UNIT=unit; activateSeg('brick-unit-seg',el);
   var lbl=document.getElementById('brick-qty-lbl'); if(lbl) lbl.textContent='Quantity ('+unit+')';
@@ -2871,7 +2882,8 @@ function renderRecords(){
         '<span class="rec-val-chip">'+r.volM3.toFixed(3)+' m³</span>'+
         '<span class="rec-val-chip">L: <b>'+r.avgL+'</b></span>'+
         '<span class="rec-val-chip">W: <b>'+r.avgW+'</b></span>'+
-        '<span class="rec-val-chip">H: <b>'+r.avgH+'</b></span>';
+        '<span class="rec-val-chip">H: <b>'+r.avgH+'</b></span>'+
+        (r.category?'<span class="rec-val-chip">'+esc(r.category)+'</span>':'');
     } else if(r.type==='steel'){
       vals.innerHTML='<span class="rec-val-chip">Total: <b>'+r.totalKg.toFixed(1)+' KG</b></span>'+
         '<span class="rec-val-chip"><b>'+(r.totalTon||r.totalKg/1000).toFixed(3)+' TON</b></span>'+
@@ -3201,6 +3213,7 @@ function exportBulkPDF(materialFilter){
     recs.forEach(function(r,i){
       var inner='';
       if(r.type==='sand'||r.type==='chips'){
+        if(r.category) inner+=tRow('Category',escH(r.category));
         inner+=tRow('Volume (CFT)',mono((r.vol||0).toFixed(3)+' ft³'));
         inner+=tRow('Volume (m³)',mono((r.volM3||0).toFixed(3)+' m³'));
         inner+=tRow('Avg L / W / H',mono(escH(r.avgL)+' / '+escH(r.avgW)+' / '+escH(r.avgH)));
@@ -3410,6 +3423,7 @@ function generatePDF(rec,mode){
 
   if(rec.type==='sand'||rec.type==='chips'){
     rows+=section('VOLUME MEASUREMENT');
+    if(rec.category) rows+=row('Category',esc(rec.category));
     rows+=row('Volume (CFT)','<span class="mono">'+rec.vol.toFixed(3)+' ft³</span>');
     rows+=row('Volume (m³)','<span class="mono">'+rec.volM3.toFixed(3)+' m³</span>');
     rows+=row('Avg Length','<span class="mono">'+esc(rec.avgL)+'</span>');
