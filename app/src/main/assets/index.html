@@ -2050,6 +2050,7 @@ function enterApp(){
 var DEST_PANEL={home:'d-home',records:'p-records',payment:'p-payment',more:'d-more'};
 var _activeDest='home';
 var _activeSubPage=null;
+var _navigatingViaPopstate=false;
 
 function switchDest(name){
   _activeSubPage=null;
@@ -2086,6 +2087,10 @@ function openSubPage(name){
   document.getElementById('hdr-row-calc').style.display=showClear?'flex':'none';
   window.scrollTo({top:0,behavior:'instant'});
   if(name==='log') renderLogs();
+  // Push a history entry so the Android back gesture/button closes this
+  // sub-page instead of falling through to the WebView's own history
+  // (which would exit the app). See popstate handler below.
+  if(!_navigatingViaPopstate) history.pushState({subpage:name},'',location.href);
 }
 function closeSubPage(){
   var from=_activeSubPage;
@@ -2094,7 +2099,21 @@ function closeSubPage(){
   // About goes back to More, calculators/log go back to Home.
   var backTo=(from==='about')?'more':'home';
   switchDest(backTo);
+  // Consume the history entry pushed in openSubPage so the stack stays in
+  // sync. Skip this when we were called *from* a popstate event (back
+  // gesture) — the browser has already moved back in that case.
+  if(!_navigatingViaPopstate && from) history.back();
 }
+// Android back gesture / hardware back button fires a normal browser
+// popstate. If a sub-page is open, treat it exactly like tapping the
+// in-app back button instead of letting the gesture exit the app.
+window.addEventListener('popstate',function(){
+  if(_activeSubPage){
+    _navigatingViaPopstate=true;
+    closeSubPage();
+    _navigatingViaPopstate=false;
+  }
+});
 function showNav(visible){
   var n=document.querySelector('nav');
   if(n) n.style.display=visible?'flex':'none';
