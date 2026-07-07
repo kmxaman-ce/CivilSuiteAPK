@@ -55,6 +55,14 @@
   --ios-yellow:#EB1E28;  --ios-yellow-d:#FF3B3B;
   --ios-cyan:#9E9E9E;    --ios-cyan-d:#B0B0B0;
   --ios-mint:#9E9E9E;    --ios-mint-d:#B0B0B0;
+  /* Fixed material identity colours — constant across all themes so each
+     material is always recognisable by colour, independent of OEM theme */
+  --mat-sand:#E0A639;    --mat-sand-bg:rgba(224,166,57,.16);
+  --mat-chips:#6E93B5;   --mat-chips-bg:rgba(110,147,181,.16);
+  --mat-steel:#E14B4B;   --mat-steel-bg:rgba(225,75,75,.16);
+  --mat-cement:#4C86D6;  --mat-cement-bg:rgba(76,134,214,.16);
+  --mat-brick:#C05A2E;   --mat-brick-bg:rgba(192,90,46,.16);
+  --mat-rcc:#8B7CD6;     --mat-rcc-bg:rgba(139,124,214,.16);
   --amber:var(--ios-red-d);      --amber-d:#D11A22;  --amber-l:#FF8080;  --amber-bg:rgba(255,59,59,.14);
   --chips:#9E9E9E;               --chips-d:#7A7A7A;  --chips-l:#C7C7C7;  --chips-bg:rgba(158,158,158,.14);
   --steel-c:var(--ios-red-d);   --steel-cd:#D11A22; --steel-cl:#FF8080; --steel-cbg:rgba(255,59,59,.14);
@@ -316,22 +324,24 @@ nav{
 .home-stat-lbl{font:600 10px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase}
 .home-stat-val{font:800 22px/1 -apple-system;color:var(--text);margin-top:6px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
 .home-sec-lbl{font:700 13px/1 -apple-system;color:var(--text);letter-spacing:-.1px;margin:18px 0 10px;display:flex;align-items:center;gap:7px}
-.mod-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px}
-.mod-card{position:relative;background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-xl);padding:16px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring),box-shadow .16s;box-shadow:var(--sh-card);overflow:hidden;min-height:118px;display:flex;flex-direction:column;justify-content:space-between}
-.mod-card:active{transform:scale(.96)}
-.mod-card-strip{position:absolute;top:0;left:0;width:4px;height:100%;border-radius:0}
-.mod-card-icon{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:10px}
-.mod-card-icon .ms{font-size:22px;font-variation-settings:"FILL" 0,"wght" 250,"GRAD" 0,"opsz" 24}
-.mod-card-name{font:700 14.5px/1.2 -apple-system;color:var(--text);letter-spacing:-.1px}
-.mod-card-desc{font:400 11px/1.35 -apple-system;color:var(--label);margin-top:3px}
+.mod-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
+.mod-card{position:relative;background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);padding:11px 8px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring),box-shadow .16s;box-shadow:var(--sh-card);overflow:hidden;min-height:88px;display:flex;flex-direction:column;justify-content:flex-start;text-align:center;align-items:center}
+.mod-card:active{transform:scale(.95)}
+.mod-card-strip{position:absolute;top:0;left:0;width:100%;height:3px;border-radius:0}
+.mod-card-icon{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:7px}
+.mod-card-icon .ms{font-size:18px;font-variation-settings:"FILL" 0,"wght" 250,"GRAD" 0,"opsz" 24}
+.mod-card-name{font:700 11.5px/1.15 -apple-system;color:var(--text);letter-spacing:-.1px}
+.mod-card-desc{font:400 9px/1.3 -apple-system;color:var(--label);margin-top:2px}
 .mod-card-badge{position:absolute;top:12px;right:12px;font:700 10px/1 -apple-system;padding:3px 8px;border-radius:var(--r-pill)}
-/* Module accent mapping for Home cards */
-.mod-card.m-sand .mod-card-strip{background:var(--ios-orange-d)}.mod-card.m-sand .mod-card-icon{background:var(--amber-bg)}.mod-card.m-sand .mod-card-icon .ms{color:var(--ios-orange-d)}.mod-card.m-sand .mod-card-badge{background:var(--amber-bg);color:var(--ios-orange-d)}
-.mod-card.m-chips .mod-card-strip{background:var(--ios-teal-d)}.mod-card.m-chips .mod-card-icon{background:var(--chips-bg)}.mod-card.m-chips .mod-card-icon .ms{color:var(--ios-teal-d)}.mod-card.m-chips .mod-card-badge{background:var(--chips-bg);color:var(--ios-teal-d)}
-.mod-card.m-steel .mod-card-strip{background:var(--ios-red-d)}.mod-card.m-steel .mod-card-icon{background:var(--steel-cbg)}.mod-card.m-steel .mod-card-icon .ms{color:var(--ios-red-d)}.mod-card.m-steel .mod-card-badge{background:var(--steel-cbg);color:var(--ios-red-d)}
-.mod-card.m-cement .mod-card-strip{background:var(--ios-blue-d)}.mod-card.m-cement .mod-card-icon{background:var(--cement-bg)}.mod-card.m-cement .mod-card-icon .ms{color:var(--ios-blue-d)}.mod-card.m-cement .mod-card-badge{background:var(--cement-bg);color:var(--ios-blue-d)}
-.mod-card.m-rcc .mod-card-strip{background:var(--ios-indigo-d)}.mod-card.m-rcc .mod-card-icon{background:var(--blu-bg)}.mod-card.m-rcc .mod-card-icon .ms{color:var(--ios-indigo-d)}.mod-card.m-rcc .mod-card-badge{background:var(--blu-bg);color:var(--ios-indigo-d)}
-.mod-card.m-brick .mod-card-strip{background:var(--brick)}.mod-card.m-brick .mod-card-icon{background:var(--brick-bg)}.mod-card.m-brick .mod-card-icon .ms{color:var(--brick)}.mod-card.m-brick .mod-card-badge{background:var(--brick-bg);color:var(--brick)}
+.mod-card.m-rcc{grid-column:1/-1;flex-direction:row;text-align:left;align-items:center;gap:12px;padding:13px 14px;min-height:0}
+.mod-card.m-rcc .mod-card-icon{margin-bottom:0}
+/* Module accent mapping for Home cards — fixed identity colours, theme-independent */
+.mod-card.m-sand .mod-card-strip{background:var(--mat-sand)}.mod-card.m-sand .mod-card-icon{background:var(--mat-sand-bg)}.mod-card.m-sand .mod-card-icon .ms{color:var(--mat-sand)}.mod-card.m-sand .mod-card-badge{background:var(--mat-sand-bg);color:var(--mat-sand)}
+.mod-card.m-chips .mod-card-strip{background:var(--mat-chips)}.mod-card.m-chips .mod-card-icon{background:var(--mat-chips-bg)}.mod-card.m-chips .mod-card-icon .ms{color:var(--mat-chips)}.mod-card.m-chips .mod-card-badge{background:var(--mat-chips-bg);color:var(--mat-chips)}
+.mod-card.m-steel .mod-card-strip{background:var(--mat-steel)}.mod-card.m-steel .mod-card-icon{background:var(--mat-steel-bg)}.mod-card.m-steel .mod-card-icon .ms{color:var(--mat-steel)}.mod-card.m-steel .mod-card-badge{background:var(--mat-steel-bg);color:var(--mat-steel)}
+.mod-card.m-cement .mod-card-strip{background:var(--mat-cement)}.mod-card.m-cement .mod-card-icon{background:var(--mat-cement-bg)}.mod-card.m-cement .mod-card-icon .ms{color:var(--mat-cement)}.mod-card.m-cement .mod-card-badge{background:var(--mat-cement-bg);color:var(--mat-cement)}
+.mod-card.m-rcc .mod-card-strip{background:var(--mat-rcc)}.mod-card.m-rcc .mod-card-icon{background:var(--mat-rcc-bg)}.mod-card.m-rcc .mod-card-icon .ms{color:var(--mat-rcc)}.mod-card.m-rcc .mod-card-badge{background:var(--mat-rcc-bg);color:var(--mat-rcc)}
+.mod-card.m-brick .mod-card-strip{background:var(--mat-brick)}.mod-card.m-brick .mod-card-icon{background:var(--mat-brick-bg)}.mod-card.m-brick .mod-card-icon .ms{color:var(--mat-brick)}.mod-card.m-brick .mod-card-badge{background:var(--mat-brick-bg);color:var(--mat-brick)}
 .home-quick-row{display:flex;gap:10px;margin-bottom:6px}
 .home-quick-btn{flex:1;display:flex;align-items:center;gap:9px;padding:13px 14px;background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .13s,transform .12s var(--spring)}
 .home-quick-btn:active{opacity:.7;transform:scale(.97)}
@@ -872,29 +882,29 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="mod-card m-sand" onclick="openSubPage('sand')">
       <div class="mod-card-strip"></div>
       <div class="mod-card-icon"><span class="ms">water</span></div>
-      <div><div class="mod-card-name">Sand</div><div class="mod-card-desc">Multi-point volume &amp; geometry</div></div>
+      <div><div class="mod-card-name">Sand</div><div class="mod-card-desc">Volume · CFT</div></div>
     </div>
     <div class="mod-card m-chips" onclick="openSubPage('chips')">
       <div class="mod-card-strip"></div>
       <div class="mod-card-icon"><span class="ms">landscape</span></div>
-      <div><div class="mod-card-name">Stone Chips</div><div class="mod-card-desc">Volume &amp; unit conversion</div></div>
+      <div><div class="mod-card-name">Stone Chips</div><div class="mod-card-desc">Volume · CFT</div></div>
     </div>
     <div class="mod-card m-steel" onclick="openSubPage('steel')">
       <div class="mod-card-strip"></div>
       <div class="mod-card-icon"><span class="ms">linear_scale</span></div>
-      <div><div class="mod-card-name">Steel Bars</div><div class="mod-card-desc">Diameter-wise KG &amp; tonnage</div></div>
+      <div><div class="mod-card-name">Steel Bars</div><div class="mod-card-desc">KG · Tonnage</div></div>
     </div>
     <div class="mod-card m-cement" onclick="openSubPage('cement')">
       <div class="mod-card-strip"></div>
       <div class="mod-card-icon"><span class="ms">inventory_2</span></div>
-      <div><div class="mod-card-name">Cement</div><div class="mod-card-desc">Bags · 50 KG per bag</div></div>
+      <div><div class="mod-card-name">Cement</div><div class="mod-card-desc">Bags · 50kg</div></div>
     </div>
     <div class="mod-card m-brick" onclick="openSubPage('brick')">
       <div class="mod-card-strip"></div>
       <div class="mod-card-icon"><span class="ms">domain</span></div>
-      <div><div class="mod-card-name">Brick</div><div class="mod-card-desc">Class &amp; Picket · Truck/Piece</div></div>
+      <div><div class="mod-card-name">Brick</div><div class="mod-card-desc">Class · Count</div></div>
     </div>
-    <div class="mod-card m-rcc" style="grid-column:1/-1" onclick="openSubPage('rcc')">
+    <div class="mod-card m-rcc" onclick="openSubPage('rcc')">
       <div class="mod-card-strip"></div>
       <div class="mod-card-icon"><span class="ms">foundation</span></div>
       <div><div class="mod-card-name">RCC Estimator</div><div class="mod-card-desc">BNBC 2020 · multi-element · mix comparison</div></div>
