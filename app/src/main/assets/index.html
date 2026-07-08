@@ -281,7 +281,6 @@ header p{font:500 .58rem/1 -apple-system;font-size:.58rem;color:var(--label);mar
 .hdr-row{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:9px;flex-wrap:wrap;animation:slideDown .3s var(--ease-out) .18s both}
 .btn-glass{display:flex;align-items:center;gap:5px;font:500 12px/1 -apple-system;font-size:12px;color:var(--text-dim);background:var(--fill);border:1px solid var(--border);padding:7px 12px;border-radius:var(--r-pill);cursor:pointer;transition:opacity .14s,transform .12s var(--spring)}
 .btn-glass .ms{font-size:13px}.btn-glass:active{opacity:.7;transform:scale(.94)}
-.hdr-badge{font:600 11px/1 -apple-system;font-size:11px;color:var(--ios-orange-d);background:var(--amber-bg);border:1px solid rgba(77,134,232,.28);padding:6px 13px;border-radius:var(--r-pill)}
 
 /* ── FLOATING PILL NAV BAR (iOS 26 style) ── */
 nav{
@@ -759,12 +758,15 @@ footer .h{color:var(--ios-red-d)}
 @keyframes chipBounce{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes tapWiggle{0%{transform:scale(1) rotate(0)}30%{transform:scale(.86) rotate(-5deg)}60%{transform:scale(.92) rotate(4deg)}100%{transform:scale(.86) rotate(0)}}
 @keyframes pageSlide{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes textGlow{
-  0%,100%{text-shadow:0 0 4px var(--amber),0 0 8px var(--amber-bg);}
-  50%{text-shadow:0 0 10px var(--amber),0 0 20px var(--amber),0 0 28px var(--amber-bg);}
-}
+@keyframes nameShimmer{0%{background-position:200% 0}100%{background-position:-50% 0}}
 .panel.active{animation:pageSlide .34s var(--ease-out) both}
-.glow-name{display:inline-block;color:var(--amber);animation:textGlow 2.2s ease-in-out infinite}
+.glow-name{
+  display:inline-block;
+  background-image:linear-gradient(90deg,var(--amber) 0%,var(--amber) 35%,#fff 50%,var(--amber) 65%,var(--amber) 100%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+  animation:nameShimmer 2.6s linear infinite;
+}
 
 /* Panel stagger — 12 children */
 .panel.active .grp:nth-child(1){animation:grpIn .32s var(--ease-out) .04s both}
@@ -852,9 +854,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <p>Ultimate Edition · BNBC 2020</p>
     </div>
   </div>
-  <div class="hdr-row" id="hdr-row-default">
-    <span class="hdr-badge">K. M. ZAMAN · BNBC 2020</span>
-  </div>
+  <div class="hdr-row" id="hdr-row-default" style="margin-top:0;min-height:0"></div>
   <div class="hdr-row" id="hdr-row-calc" style="display:none">
     <button class="btn-glass" onclick="clearAll()"><span class="ms">delete_sweep</span>Clear All</button>
   </div>
