@@ -2015,13 +2015,12 @@ window.addEventListener('DOMContentLoaded',function(){
   var today=new Date().toISOString().split('T')[0];
   ['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','pay_date'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value=today;
-    updateThemeMeta();
+  });
+  updateThemeMeta();
   renderThemePicker();
   initDateOverlays();
   var _dark=localStorage.getItem('csu3_dark')==='1';
   var sw=document.getElementById('settings-dark-switch'); if(sw) sw.checked=_dark;
-});
-  initDateOverlays();
   buildFMTCard(); buildChipsCard(); addEl();
   renderRecords(); updatePayDashboard(); updateHomeStats();
   var d=localStorage.getItem('csu3_dark');
@@ -2567,46 +2566,10 @@ function toggleDark(){
 }
 // ── THEME-AWARE PDF HELPERS ───────────────────────────────────────
 function updateDateOverlay(input){var ov=document.getElementById('ov_'+input.id);if(!ov)return;if(input.value){ov.textContent=formatDate(input.value);ov.style.color='';}else{ov.textContent='DD/MM/YYYY';ov.style.color='var(--text-faint)';}}
-function initDateOverlays(){var ids=['f_proj_date','c_proj_date','s_proj_date','m_proj_date','bk_date','pay_date','log-date-inp'];ids.forEach(function(id){var el=document.getElementById(id);if(el)updateDateOverlay(el);});}
+function initDateOverlays(){var ids=['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','pay_date','log-date-inp'];ids.forEach(function(id){var el=document.getElementById(id);if(el)updateDateOverlay(el);});}
 
 
 // ── BRICK MODULE ──────────────────────────────────────────────────
-var _bkCat='First Class', _bkUnit='truck';
-function setBkUnitUI(){
-  var isTruck=_bkUnit==='truck';
-  var icon=document.getElementById('bk-qty-icon');
-  var label=document.getElementById('bk-qty-label');
-  var uLbl=document.getElementById('bk-qty-unit-lbl');
-  if(icon) icon.textContent=isTruck?'local_shipping':'straighten';
-  if(label) label.textContent=isTruck?'Number of Trucks':'Number of Pieces';
-  if(uLbl) uLbl.textContent=isTruck?'Truck':'Pcs';
-  updateBkPreview();
-}
-function updateBkPreview(){
-  var qty=parseFloat(document.getElementById('bk_qty').value)||0;
-  var prev=document.getElementById('bk-preview');
-  var disp=document.getElementById('bk-qty-display');
-  var txt=document.getElementById('bk-preview-text');
-  if(disp) disp.textContent=qty>0?qty.toLocaleString():'—';
-  if(qty>0){
-    var u=_bkUnit==='truck'?(qty===1?'1 Truck':qty+' Trucks'):qty.toLocaleString()+' Pieces';
-    if(txt) txt.textContent=_bkCat+' · '+u;
-    if(prev) prev.style.display='block';
-    var h=document.getElementById('bk-hint'); if(h) h.textContent='';
-  } else { if(prev) prev.style.display='none'; }
-}
-function resetBrick(){
-  ['b_proj_name','b_proj_addr','b_veh_num','b_drv_name','b_drv_mob','b_voucher','b_qty'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
-  var today=new Date().toISOString().split('T')[0];
-  var de=document.getElementById('bk_date'); if(de){de.value=today;updateDateOverlay(de);}
-  _bkCat='First Class'; _bkUnit='truck';
-  var cs=document.querySelector('#bk-cat-seg .seg-item'); if(cs) activateSeg('bk-cat-seg',cs);
-  var us=document.querySelector('#bk-unit-seg .seg-item'); if(us) activateSeg('bk-unit-seg',us);
-  setBkUnitUI();
-  var p=document.getElementById('bk-preview'); if(p) p.style.display='none';
-  var h=document.getElementById('bk-hint'); if(h) h.textContent='';
-  showToast('Brick form reset');
-}
 
 function saveBrickRecord(){
   var qty=parseFloat(document.getElementById('b_qty').value)||0;
@@ -2945,9 +2908,9 @@ function renderRecords(){
         '<span class="rec-val-chip">Vol: <b>'+r.vol.toFixed(2)+' '+(r.unit==='cft'?'ft³':'m³')+'</b></span>'+
         '<span class="rec-val-chip">Cement: <b>'+r.cement+' bags</b></span>';
     } else if(r.type==='payment'){
-      vals.innerHTML='<span class="rec-val-chip">Contractor: <b>'+r.contractorName+'</b></span>'+
+      vals.innerHTML='<span class="rec-val-chip">Contractor: <b>'+esc(r.contractorName)+'</b></span>'+
         '<span class="rec-val-chip">Amount: <b>৳ '+r.amount.toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2})+'</b></span>'+
-        (r.comments?'<span class="rec-val-chip" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+r.comments.substring(0,50)+(r.comments.length>50?'…':'')+'</span>':'');
+        (r.comments?'<span class="rec-val-chip" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.comments.substring(0,50))+(r.comments.length>50?'…':'')+'</span>':'');
     }
     card.appendChild(vals);
 
@@ -3010,7 +2973,8 @@ function restoreLocal(){
         var data=JSON.parse(ev.target.result);
         if(!data.records||!Array.isArray(data.records))throw new Error('Invalid');
         if(!confirm('Restore '+data.records.length+' records? This will replace your current records.'))return;
-        records=data.records;
+        var incoming=data.records.map(normalizeRecord).filter(function(r){return r;});
+        records=incoming;
         var ok=NativeBridge.saveData(JSON.stringify(records));
         if(!ok) showToast('Storage full — records loaded in memory only');
         renderRecords();updatePayDashboard();updateHomeStats();
