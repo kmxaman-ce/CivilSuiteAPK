@@ -353,7 +353,8 @@ nav{
 /* ── PANELS ── */
 .panel{display:none;padding:0 16px}.panel.active{display:block}
 .th{padding:16px 0 12px;border-bottom:.5px solid var(--sep);margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.th-back{width:36px;height:36px;border-radius:50%;background:var(--fill);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .13s,transform .12s var(--spring)}
+.th-back{position:relative;width:36px;height:36px;border-radius:50%;background:var(--fill);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .13s,transform .12s var(--spring)}
+.th-back::after{content:'';position:absolute;inset:-6px}
 .th-back:active{opacity:.6;transform:scale(.90)}
 .th-back .ms{font-size:20px;color:var(--text)}
 .th-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:thIconIn .38s var(--spring) .05s both}
@@ -758,6 +759,14 @@ footer .h{color:var(--ios-red-d)}
 @keyframes chipBounce{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes tapWiggle{0%{transform:scale(1) rotate(0)}30%{transform:scale(.86) rotate(-5deg)}60%{transform:scale(.92) rotate(4deg)}100%{transform:scale(.86) rotate(0)}}
 @keyframes pageSlide{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
 @keyframes nameShimmer{0%{background-position:200% 0}100%{background-position:-50% 0}}
 .panel.active{animation:pageSlide .34s var(--ease-out) both}
 .glow-name{
@@ -921,20 +930,20 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 <!-- PANEL 1: SAND -->
 
 <div class="panel subpage" id="p-sand" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon t1"><span class="ms ms-xl">water</span></div><div><div class="th-title" data-i18n="sand_th_title">Sand Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t1"><span class="ms ms-xl">water</span></div><div><div class="th-title" data-i18n="sand_th_title">Sand Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="f_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="f_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="f_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="f_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
       <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="f_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_f_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="f_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="f_drv_name" placeholder="Driver's full name"></div></div>
-      <div class="row"><div class="row-icon ri-v"><span class="ms ms-sm">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="f_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="f_voucher" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="f_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="f_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon ri-v"><span class="ms ms-sm">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="f_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="f_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_sand_category">Sand Category</span></div>
@@ -1008,21 +1017,21 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL 2: STONE CHIPS -->
 <div class="panel subpage" id="p-chips" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon t2"><span class="ms ms-xl">landscape</span></div><div><div class="th-title" data-i18n="chips_th_title">Stone Chips Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t2"><span class="ms ms-xl">landscape</span></div><div><div class="th-title" data-i18n="chips_th_title">Stone Chips Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="c_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="c_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="c_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="c_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
       <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">category</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_category">Category</span><input type="text" class="proj-input" id="c_category" placeholder="e.g. Tusha, Blackstone..."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">category</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_category">Category</span><input type="text" class="proj-input" id="c_category" maxlength="120" placeholder="e.g. Tusha, Blackstone..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="c_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="c_drv_name" placeholder="Driver's full name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="c_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="c_voucher" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="c_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="c_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="c_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="c_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_input_mode">Input Mode</span></div>
@@ -1076,21 +1085,21 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL 3: STEEL -->
 <div class="panel subpage" id="p-steel" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon t3"><span class="ms ms-xl" style="color:#fff">linear_scale</span></div><div><div class="th-title" data-i18n="steel_th_title">Steel Bar Entry</div><div class="th-sub" data-i18n="steel_th_sub">Diameter-wise inventory · KG / TON</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t3"><span class="ms ms-xl" style="color:#fff">linear_scale</span></div><div><div class="th-title" data-i18n="steel_th_title">Steel Bar Entry</div><div class="th-sub" data-i18n="steel_th_sub">Diameter-wise inventory · KG / TON</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="s_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="s_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="s_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="s_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
       <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="s_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_s_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="s_brand" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="s_brand" maxlength="120" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="s_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="s_drv_name" placeholder="Driver's full name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="s_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="s_voucher" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="s_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="s_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="s_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="s_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_diameters">Diameters — KG per bar size</span></div>
@@ -1119,21 +1128,21 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL 4: CEMENT -->
 <div class="panel subpage" id="p-cement" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon t4"><span class="ms ms-xl" style="color:#111">inventory_2</span></div><div><div class="th-title" data-i18n="cement_th_title">Cement Entry</div><div class="th-sub" data-i18n="cement_th_sub">Bags · 50 KG per bag</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t4"><span class="ms ms-xl" style="color:#111">inventory_2</span></div><div><div class="th-title" data-i18n="cement_th_title">Cement Entry</div><div class="th-sub" data-i18n="cement_th_sub">Bags · 50 KG per bag</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="m_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="m_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="m_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="m_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
       <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="m_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_m_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="m_brand" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="m_brand" maxlength="120" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="m_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="m_drv_name" placeholder="Driver's full name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="m_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="m_voucher" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="m_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="m_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="m_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="m_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_cement_qty">Cement Quantity</span></div>
@@ -1160,20 +1169,20 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL: BRICK -->
 <div class="panel subpage" id="p-brick" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">domain</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class &amp; Picket · Truck / Piece</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">domain</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class &amp; Picket · Truck / Piece</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="b_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="b_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
       <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="b_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_b_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="b_veh_num" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="b_drv_name" placeholder="Driver's full name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="b_drv_mob" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="b_voucher" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="b_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="b_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="b_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="b_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_brick_category">Brick Category</span></div>
@@ -1207,7 +1216,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL 5: RCC -->
 <div class="panel subpage" id="p-rcc" role="tabpanel" aria-label="RCC Estimator">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon t5"><span class="ms ms-xl" style="color:#fff">foundation</span></div><div><div class="th-title" data-i18n="rcc_name">RCC Estimator</div><div class="th-sub" data-i18n="rcc_th_sub">BNBC 2020 · Multi-element · Mix Comparison</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t5"><span class="ms ms-xl" style="color:#fff">foundation</span></div><div><div class="th-title" data-i18n="rcc_name">RCC Estimator</div><div class="th-sub" data-i18n="rcc_th_sub">BNBC 2020 · Multi-element · Mix Comparison</div></div></div>
 
   <div class="grp">
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_structure_elements">Structure Elements</span></div>
@@ -1453,8 +1462,8 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <!-- Project Details -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_project_details">Project Details</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="pay_proj_name" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="pay_proj_addr" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="pay_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="pay_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
     </div>
   </div>
   <!-- Contractor Type -->
@@ -1473,8 +1482,8 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <!-- Contractor Details -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_contractor_details">Contractor Details</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_contractor_name">Contractor's Name</span><input type="text" class="proj-input" id="pay_name" placeholder="Full name of contractor"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_phone_number">Phone Number</span><input type="tel" class="proj-input" id="pay_phone" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_contractor_name">Contractor's Name</span><input type="text" class="proj-input" id="pay_name" maxlength="120" placeholder="Full name of contractor" data-i18n-ph="ph_contractor_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_phone_number">Phone Number</span><input type="tel" class="proj-input" id="pay_phone" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
       <div class="row" style="flex-direction:column;align-items:stretch;gap:4px">
         <div style="display:flex;align-items:center;gap:10px">
           <div class="row-icon" style="background:var(--pay-bg);flex-shrink:0"><span class="ms ms-sm" style="color:var(--pay)">payments</span></div>
@@ -1490,7 +1499,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   </div>
   <!-- Comments -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_comments">Comments / Remarks</span></div>
-    <div class="grp-card"><div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_additional_notes">Additional Notes</span><textarea id="pay-comments" rows="3" placeholder="e.g. Payment for slab work on 3rd floor, labour cost only..."></textarea></div></div>
+    <div class="grp-card"><div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_additional_notes">Additional Notes</span><textarea id="pay-comments" rows="3" maxlength="500" placeholder="e.g. Payment for slab work on 3rd floor, labour cost only..."></textarea></div></div>
   </div>
   <div style="padding:0 0 8px"><button class="btn-save t6" onclick="savePaymentRecord()"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
 </div>
@@ -1500,7 +1509,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 <!-- ═══ PANEL 7: SITE LOG KEEPER ═══ -->
 <div class="panel subpage" id="p-log" role="tabpanel">
   <div class="th">
-    <div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div>
+    <div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div>
     <div class="th-icon" style="background:var(--ios-orange-d);box-shadow:0 4px 16px rgba(77,134,232,.36)">
       <span class="ms-xl ms">article</span>
     </div>
@@ -1544,7 +1553,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div style="font:400 13px/1 -apple-system;color:var(--label);text-align:center;margin-bottom:16px" data-i18n="lbl_timestamped_auto">Entry will be timestamped automatically</div>
     <div style="margin-bottom:12px">
       <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px" data-i18n="lbl_log_entry">LOG ENTRY</div>
-      <textarea id="log-text-inp" placeholder="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…" data-i18n-ph="ph_log_entry" style="width:100%;min-height:96px;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;padding:11px 14px;outline:none;-webkit-appearance:none;resize:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--ios-orange-d)'" onblur="this.style.borderColor='transparent'"></textarea>
+      <textarea id="log-text-inp" maxlength="1000" placeholder="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…" data-i18n-ph="ph_log_entry" style="width:100%;min-height:96px;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;padding:11px 14px;outline:none;-webkit-appearance:none;resize:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--ios-orange-d)'" onblur="this.style.borderColor='transparent'"></textarea>
     </div>
     <div style="display:flex;gap:10px;margin-bottom:16px">
       <div style="flex:1">
@@ -1743,7 +1752,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- ═══ SUB-PAGE: ABOUT (Dev Team / Modules / Standards) ═══ -->
 <div class="panel subpage" id="p-about" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()"><span class="ms">arrow_back</span></div><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(63,194,187,.36)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">info</span></div><div><div class="th-title" data-i18n="about_th_title">About</div><div class="th-sub" data-i18n="about_th_sub">App Info · Dev Team · Version</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(63,194,187,.36)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">info</span></div><div><div class="th-title" data-i18n="about_th_title">About</div><div class="th-sub" data-i18n="about_th_sub">App Info · Dev Team · Version</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span><span data-i18n="lbl_dev_team">Development Team</span></div>
     <div class="grp-card">
       <div class="dev-row">
@@ -1801,10 +1810,10 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 <!-- PDF MODAL -->
 <div id="pdf-modal" onclick="closePDFModal(event)">
   <div class="pdf-sheet">
-    <div class="pdf-sheet-title">Export PDF</div>
-    <div class="pdf-sheet-sub" id="pdf-modal-sub">Choose export format</div>
+    <div class="pdf-sheet-title" data-i18n="lbl_export_pdf">Export PDF</div>
+    <div class="pdf-sheet-sub" id="pdf-modal-sub" data-i18n="lbl_choose_export_format">Choose export format</div>
     <div class="pdf-opts" id="pdf-opts-container"></div>
-    <button class="pdf-cancel" onclick="closePDFModalDirect()">Cancel</button>
+    <button class="pdf-cancel" onclick="closePDFModalDirect()" data-i18n="btn_cancel">Cancel</button>
   </div>
 </div>
 <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
@@ -1981,6 +1990,15 @@ function esc(v){
 function genId(){return Date.now().toString(36)+Math.random().toString(36).substr(2,5);}
 
 // ─── DEBOUNCE (search inputs etc.) ───
+// ─── RAPID-TAP GUARD (prevents duplicate saves/deletes/exports from double-tapping) ───
+var _tapLocks={};
+function isLocked(key,ms){
+  if(_tapLocks[key]) return true;
+  _tapLocks[key]=true;
+  setTimeout(function(){_tapLocks[key]=false;},ms||900);
+  return false;
+}
+
 function debounce(fn,ms){
   var t;
   return function(){
@@ -1993,6 +2011,40 @@ function debounce(fn,ms){
 // ─── DARK/LIGHT-AWARE PDF COLOR HELPERS ───
 // Reads the currently active CSS variable (dark or light mode) so PDF
 // exports always match whichever mode is active at export time.
+
+// ─── DATE LOCALIZATION ───
+var BN_DIGITS=['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+function toBnDigits(str){
+  return String(str).replace(/[0-9]/g,function(d){return BN_DIGITS[+d];});
+}
+// Localizes an already-formatted date/number string's digits to Bengali numerals
+// when in Bangla mode. Never touches engineering/decimal values — only called
+// explicitly on date-display strings, not on calculation output.
+function localizeDateStr(str){
+  return getCurrentLang()==='bn' ? toBnDigits(str) : str;
+}
+var BN_MONTHS=['জানুয়ারি','ফেব্রুয়ারি','মার্চ','এপ্রিল','মে','জুন','জুলাই','আগস্ট','সেপ্টেম্বর','অক্টোবর','নভেম্বর','ডিসেম্বর'];
+var EN_MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+// Long-form localized date: "09 July 2026" (en) / "৯ জুলাই ২০২৬" (bn)
+function formatDateLong(dateInput){
+  var d = (dateInput instanceof Date) ? dateInput : new Date(dateInput);
+  if(isNaN(d.getTime())) return '';
+  var lang=getCurrentLang();
+  var day=d.getDate(), month=d.getMonth(), year=d.getFullYear();
+  if(lang==='bn'){
+    return toBnDigits(day)+' '+BN_MONTHS[month]+' '+toBnDigits(year);
+  }
+  return String(day).padStart(2,'0')+' '+EN_MONTHS[month]+' '+year;
+}
+
+// Locale-aware "N entries/entry" style phrase for PDF generation.
+// English keeps its plural 's'; Bengali doesn't need one — same word either way.
+function pdfCount(n, enWord, bnWord){
+  n = n||0;
+  if(getCurrentLang()==='bn') return toBnDigits(n)+' '+bnWord;
+  return n+' '+enWord+(n===1?'':'s');
+}
+function pdfDate(v){ return localizeDateStr(formatDate(v)); }
 
 function formatDate(isoDateStr){
   if(!isoDateStr) return '';
@@ -2150,7 +2202,7 @@ function updateHomeStats(){
 
 // ─── CLEAR ALL ───
 function clearAll(){
-  if(!confirm('Clear measurement inputs on this tab?'))return;
+  if(!confirm(tr('confirm_clear_measurements')))return;
   var panel=document.querySelector('.panel.active');
   // Only clear measurement/numeric inputs — not project info or vehicle fields
   var protectedIds=['f_proj_name','f_proj_addr','f_proj_date','f_veh_num','f_drv_name','f_drv_mob','f_voucher',
@@ -2265,10 +2317,10 @@ function updateFMTAverages(){
     }
     var chip=document.getElementById('f-avg-'+d);
     if(!chip) return;
-    if(!vals.length){ chip.textContent='AVG: —'; chip.className='fmt-avg-chip'; return; }
+    if(!vals.length){ chip.textContent=tr('lbl_avg_prefix')+' —'; chip.className='fmt-avg-chip'; return; }
     var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length;
     var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
-    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.textContent=tr('lbl_avg_prefix')+' '+avg.toFixed(3)+' ft';
     chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok';
   });
   // Editing any dimension invalidates a previously-shown result until
@@ -2310,14 +2362,14 @@ function calcFMT(){
     var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length; avgs.push(avg);
     var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
     var chip=document.getElementById('f-avg-'+d);
-    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.textContent=tr('lbl_avg_prefix')+' '+avg.toFixed(3)+' ft';
     chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok';
   });
   if(avgs.some(isNaN)){document.getElementById('fmt-res').classList.remove('show');return;}
   var vol=avgs[0]*avgs[1]*avgs[2];
   document.getElementById('fmt-res').classList.add('show');
   document.getElementById('f-vol').textContent=vol.toFixed(3);
-  document.getElementById('f-vol-line').textContent='Avg L×W×H = '+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
+  document.getElementById('f-vol-line').textContent=tr('lbl_avg_lwh_eq')+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
   document.getElementById('f-vol-m3').textContent=(vol/35.3147).toFixed(3);
   document.getElementById('f-vol-in3').textContent=Math.round(vol*1728).toLocaleString();
   document.getElementById('f-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString();
@@ -2334,6 +2386,7 @@ function calcFMT(){
 }
 function copyFMTResult(){var v=document.getElementById('f-vol').textContent;navigator.clipboard.writeText(v+' CFT').catch(function(){});showToast(tr('toast_copied')+' '+v+' CFT');}
 function saveSandRecord(){
+  if(isLocked('sand'))return;
   var vol=parseFloat(document.getElementById('f-vol').textContent)||0;
   if(!vol||vol<=0){showToast(tr('toast_calc_first_ex'));return;}
   var volM3=vol/35.3147;
@@ -2413,10 +2466,10 @@ function updateChipsAverages(){
     }
     var chip=document.getElementById('ch-avg-'+d);
     if(!chip) return;
-    if(!vals.length){ chip.textContent='AVG: —'; chip.className='fmt-avg-chip'; return; }
+    if(!vals.length){ chip.textContent=tr('lbl_avg_prefix')+' —'; chip.className='fmt-avg-chip'; return; }
     var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length;
     var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
-    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.textContent=tr('lbl_avg_prefix')+' '+avg.toFixed(3)+' ft';
     chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok-chips';
   });
   var res=document.getElementById('chips-res');
@@ -2456,14 +2509,14 @@ function calcChips(){
     var avg=vals.reduce(function(a,b){return a+b;},0)/vals.length; avgs.push(avg);
     var spread=vals.length>1?(Math.max.apply(null,vals)-Math.min.apply(null,vals)):0;
     var chip=document.getElementById('ch-avg-'+d);
-    chip.textContent='AVG: '+avg.toFixed(3)+' ft';
+    chip.textContent=tr('lbl_avg_prefix')+' '+avg.toFixed(3)+' ft';
     chip.className=spread>0.5?'fmt-avg-chip warn':'fmt-avg-chip ok-chips';
   });
   if(avgs.some(isNaN)){document.getElementById('chips-res').classList.remove('show');return;}
   var vol=avgs[0]*avgs[1]*avgs[2];
   document.getElementById('chips-res').classList.add('show');
   document.getElementById('c-vol').textContent=vol.toFixed(3);
-  document.getElementById('c-vol-line').textContent='Avg L×W×H = '+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
+  document.getElementById('c-vol-line').textContent=tr('lbl_avg_lwh_eq')+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
   document.getElementById('c-vol-m3').textContent=(vol/35.3147).toFixed(3);
   document.getElementById('c-vol-in3').textContent=Math.round(vol*1728).toLocaleString();
   document.getElementById('c-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString();
@@ -2473,6 +2526,7 @@ function calcChips(){
 }
 function copyChipsResult(){var v=document.getElementById('c-vol').textContent;navigator.clipboard.writeText(v+' CFT').catch(function(){});showToast(tr('toast_copied')+' '+v+' CFT');}
 function saveChipsRecord(){
+  if(isLocked('chips'))return;
   var vol=parseFloat(document.getElementById('c-vol').textContent)||0;
   if(!vol||vol<=0){showToast(tr('toast_calc_first_ex'));return;}
   saveRecord({id:genId(),createdAt:Date.now(),type:'chips',
@@ -2497,6 +2551,7 @@ function updateSteelTotal(){
   document.getElementById('s-total-ton').textContent=(total/1000).toFixed(3);
 }
 function saveSteelRecord(){
+  if(isLocked('steel'))return;
   var dias=[8,10,12,16,20,22,25,28,32],breakdown={};
   var total=parseFloat(document.getElementById('s-total-kg').textContent)||0;
   if(total<=0){showToast(tr('toast_enter_diameter'));return;}
@@ -2518,6 +2573,7 @@ function updateCementTotal(){
   document.getElementById('m-total-kg').textContent=(bags*50).toLocaleString();
 }
 function saveCementRecord(){
+  if(isLocked('cement'))return;
   var bags=parseFloat(document.getElementById('m_bags').value)||0;
   if(bags<=0){showToast(tr('toast_enter_bags'));return;}
   saveRecord({id:genId(),createdAt:Date.now(),type:'cement',
@@ -2841,7 +2897,114 @@ var I18N={
   "toast_applied": "applied",
   "toast_restored": "Restored",
   "toast_records_suffix": "records",
-  "toast_copied": "Copied:"
+  "toast_copied": "Copied:",
+  "ph_driver_name": "Driver's full name",
+  "ph_contractor_name": "Full name of contractor",
+  "lbl_avg_prefix": "AVG:",
+  "lbl_avg_lwh_eq": "Avg L×W×H = ",
+  "lbl_edit_log_prefix": "Edit Log #",
+  "confirm_restore_prefix": "Restore",
+  "confirm_restore_suffix": "? This will replace your current records.",
+  "confirm_delete_all_prefix": "Delete ALL",
+  "confirm_delete_all_suffix": "permanently? This cannot be undone.",
+  "confirm_clear_measurements": "Clear measurement inputs on this tab?",
+  "confirm_delete_record": "Delete this record?",
+  "confirm_delete_log": "Delete this log entry?",
+  "lbl_choose_export_format": "Choose export format",
+  "lbl_export_record_to_pdf": "Export {type} record to PDF",
+  "lbl_standard_report": "Standard Report",
+  "lbl_standard_report_sub": "Full details, vehicle info, signature lines",
+  "lbl_summary_only": "Summary Only",
+  "lbl_summary_only_sub": "Compact one-page summary",
+  "pdf_project_info": "PROJECT INFORMATION",
+  "pdf_volume_measurement": "VOLUME MEASUREMENT",
+  "pdf_vehicle_info": "VEHICLE INFORMATION",
+  "pdf_steel_inventory": "STEEL INVENTORY",
+  "pdf_diameter_breakdown": "DIAMETER BREAKDOWN",
+  "pdf_cement_details": "CEMENT DETAILS",
+  "pdf_brick_details": "BRICK DETAILS",
+  "pdf_rcc_estimation": "RCC ESTIMATION",
+  "pdf_standards": "STANDARDS",
+  "pdf_contractor_info": "CONTRACTOR INFORMATION",
+  "pdf_payment_details": "PAYMENT DETAILS",
+  "pdf_remarks": "REMARKS",
+  "pdf_project": "Project",
+  "pdf_address": "Address",
+  "pdf_date": "Date",
+  "pdf_category": "Category",
+  "pdf_volume_cft": "Volume (CFT)",
+  "pdf_volume_m3": "Volume (m³)",
+  "pdf_avg_length": "Avg Length",
+  "pdf_avg_width": "Avg Width",
+  "pdf_avg_height": "Avg Height",
+  "pdf_avg_lwh": "Avg L / W / H",
+  "pdf_vehicle_no": "Vehicle No.",
+  "pdf_vehicle_driver": "Vehicle / Driver",
+  "pdf_driver": "Driver",
+  "pdf_mobile": "Mobile",
+  "pdf_voucher_no": "Voucher No.",
+  "pdf_brand": "Brand",
+  "pdf_total_weight": "Total Weight",
+  "pdf_quantity": "Quantity",
+  "pdf_concrete_grade": "Concrete Grade",
+  "pdf_total_volume": "Total Volume",
+  "pdf_structural_volume": "Structural Volume",
+  "pdf_cement": "Cement",
+  "pdf_sand": "Sand",
+  "pdf_sand_fine_agg": "Sand (Fine Agg.)",
+  "pdf_stone_chips": "Stone Chips",
+  "pdf_code": "Code",
+  "pdf_contractor_type": "Contractor Type",
+  "pdf_contractor_name": "Contractor Name",
+  "pdf_phone": "Phone",
+  "pdf_phone_number": "Phone Number",
+  "pdf_amount": "Amount",
+  "pdf_payment_amount": "Payment Amount",
+  "pdf_payment_date": "Payment Date",
+  "pdf_comments": "Comments",
+  "pdf_grand_total": "GRAND TOTAL",
+  "pdf_grand_total_paid": "GRAND TOTAL PAID",
+  "pdf_grand_total_payment": "GRAND TOTAL PAYMENT",
+  "pdf_final_volume": "FINAL VOLUME",
+  "pdf_total_steel_weight": "TOTAL STEEL WEIGHT",
+  "pdf_total_cement": "TOTAL CEMENT",
+  "pdf_total_brick_qty": "TOTAL BRICK QUANTITY",
+  "pdf_structural_volume_caps": "STRUCTURAL VOLUME",
+  "pdf_site_log": "SITE LOG",
+  "pdf_report_date": "Report Date",
+  "pdf_site_log_entries": "Site Log Entries",
+  "pdf_log_entry_col": "Log Entry",
+  "pdf_date_time_col": "Date &amp; Time",
+  "pdf_civil_suite": "CIVIL SUITE",
+  "pdf_ultimate_material_report": "Ultimate Edition · Material &amp; Payment Report · BNBC 2020",
+  "pdf_ultimate_engineering_report": "Ultimate Edition · Engineering Report",
+  "pdf_generated_by": "Generated by Civil Suite Ultimate",
+  "pdf_version_label": "Version",
+  "pdf_developed_by": "Developed by",
+  "pdf_prepared_by_label": "Prepared by:",
+  "pdf_prepared_by_sig": "Prepared By",
+  "pdf_verified_by": "Verified By",
+  "pdf_received_by": "Received By",
+  "pdf_print_save": "PRINT / SAVE AS PDF",
+  "pdf_ref": "ref.",
+  "pdf_type_sand": "SAND",
+  "pdf_type_chips": "STONE CHIPS",
+  "pdf_type_steel": "STEEL BARS",
+  "pdf_type_cement": "CEMENT",
+  "pdf_type_brick": "BRICK",
+  "pdf_type_rcc": "RCC ESTIMATOR",
+  "pdf_type_payment": "CONTRACTOR PAYMENT",
+  "pdf_w_entries": "entries",
+  "pdf_w_entry": "entry",
+  "pdf_w_records": "records",
+  "pdf_w_record": "record",
+  "pdf_w_payments": "payments",
+  "pdf_w_payment": "payment",
+  "pdf_w_bags": "Bags",
+  "pdf_w_truck": "Truck",
+  "pdf_w_trucks": "Trucks",
+  "pdf_w_piece": "Piece",
+  "pdf_w_pieces": "Pieces"
 },
   bn:{
   "home_title": "ইঞ্জিনিয়ারিং টুলস",
@@ -3119,7 +3282,114 @@ var I18N={
   "toast_applied": "প্রয়োগ হয়েছে",
   "toast_restored": "পুনরুদ্ধার হয়েছে",
   "toast_records_suffix": "টি রেকর্ড",
-  "toast_copied": "কপি হয়েছে:"
+  "toast_copied": "কপি হয়েছে:",
+  "ph_driver_name": "ড্রাইভারের পূর্ণ নাম",
+  "ph_contractor_name": "ঠিকাদারের পূর্ণ নাম",
+  "lbl_avg_prefix": "গড়:",
+  "lbl_avg_lwh_eq": "গড় দৈর্ঘ্য×প্রস্থ×উচ্চতা = ",
+  "lbl_edit_log_prefix": "লগ সম্পাদনা #",
+  "confirm_restore_prefix": "পুনরুদ্ধার করবেন",
+  "confirm_restore_suffix": "? এটি আপনার বর্তমান রেকর্ডগুলো প্রতিস্থাপন করবে।",
+  "confirm_delete_all_prefix": "সব",
+  "confirm_delete_all_suffix": "স্থায়ীভাবে মুছে ফেলবেন? এটি ফিরিয়ে আনা যাবে না।",
+  "confirm_clear_measurements": "এই ট্যাবের পরিমাপ ইনপুট মুছে ফেলবেন?",
+  "confirm_delete_record": "এই রেকর্ডটি মুছে ফেলবেন?",
+  "confirm_delete_log": "এই লগ এন্ট্রিটি মুছে ফেলবেন?",
+  "lbl_choose_export_format": "এক্সপোর্ট ফরম্যাট বেছে নিন",
+  "lbl_export_record_to_pdf": "{type} রেকর্ড পিডিএফে এক্সপোর্ট করুন",
+  "lbl_standard_report": "স্ট্যান্ডার্ড রিপোর্ট",
+  "lbl_standard_report_sub": "সম্পূর্ণ বিবরণ, যানবাহনের তথ্য, স্বাক্ষর লাইন",
+  "lbl_summary_only": "শুধু সারসংক্ষেপ",
+  "lbl_summary_only_sub": "সংক্ষিপ্ত এক-পাতার সারসংক্ষেপ",
+  "pdf_project_info": "প্রজেক্টের তথ্য",
+  "pdf_volume_measurement": "আয়তন পরিমাপ",
+  "pdf_vehicle_info": "যানবাহনের তথ্য",
+  "pdf_steel_inventory": "রডের মজুদ",
+  "pdf_diameter_breakdown": "ব্যাস অনুযায়ী বিবরণ",
+  "pdf_cement_details": "সিমেন্টের বিবরণ",
+  "pdf_brick_details": "ইটের বিবরণ",
+  "pdf_rcc_estimation": "আরসিসি এস্টিমেশন",
+  "pdf_standards": "মানদণ্ড",
+  "pdf_contractor_info": "ঠিকাদারের তথ্য",
+  "pdf_payment_details": "পেমেন্টের বিবরণ",
+  "pdf_remarks": "মন্তব্য",
+  "pdf_project": "প্রজেক্ট",
+  "pdf_address": "ঠিকানা",
+  "pdf_date": "তারিখ",
+  "pdf_category": "শ্রেণী",
+  "pdf_volume_cft": "আয়তন (সিএফটি)",
+  "pdf_volume_m3": "আয়তন (মি³)",
+  "pdf_avg_length": "গড় দৈর্ঘ্য",
+  "pdf_avg_width": "গড় প্রস্থ",
+  "pdf_avg_height": "গড় উচ্চতা",
+  "pdf_avg_lwh": "গড় দৈর্ঘ্য / প্রস্থ / উচ্চতা",
+  "pdf_vehicle_no": "গাড়ির নম্বর",
+  "pdf_vehicle_driver": "গাড়ি / ড্রাইভার",
+  "pdf_driver": "ড্রাইভার",
+  "pdf_mobile": "মোবাইল",
+  "pdf_voucher_no": "ভাউচার নম্বর",
+  "pdf_brand": "ব্র্যান্ড",
+  "pdf_total_weight": "মোট ওজন",
+  "pdf_quantity": "পরিমাণ",
+  "pdf_concrete_grade": "কংক্রিট গ্রেড",
+  "pdf_total_volume": "মোট আয়তন",
+  "pdf_structural_volume": "স্ট্রাকচারাল আয়তন",
+  "pdf_cement": "সিমেন্ট",
+  "pdf_sand": "বালি",
+  "pdf_sand_fine_agg": "বালি (সূক্ষ্ম খোয়া)",
+  "pdf_stone_chips": "পাথরের চিপস",
+  "pdf_code": "কোড",
+  "pdf_contractor_type": "ঠিকাদারের ধরন",
+  "pdf_contractor_name": "ঠিকাদারের নাম",
+  "pdf_phone": "ফোন",
+  "pdf_phone_number": "ফোন নম্বর",
+  "pdf_amount": "পরিমাণ (টাকা)",
+  "pdf_payment_amount": "পেমেন্টের পরিমাণ",
+  "pdf_payment_date": "পেমেন্টের তারিখ",
+  "pdf_comments": "মন্তব্য",
+  "pdf_grand_total": "সর্বমোট",
+  "pdf_grand_total_paid": "সর্বমোট পরিশোধিত",
+  "pdf_grand_total_payment": "সর্বমোট পেমেন্ট",
+  "pdf_final_volume": "চূড়ান্ত আয়তন",
+  "pdf_total_steel_weight": "মোট রডের ওজন",
+  "pdf_total_cement": "মোট সিমেন্ট",
+  "pdf_total_brick_qty": "মোট ইটের পরিমাণ",
+  "pdf_structural_volume_caps": "স্ট্রাকচারাল আয়তন",
+  "pdf_site_log": "সাইট লগ",
+  "pdf_report_date": "রিপোর্টের তারিখ",
+  "pdf_site_log_entries": "সাইট লগ এন্ট্রি",
+  "pdf_log_entry_col": "লগ এন্ট্রি",
+  "pdf_date_time_col": "তারিখ ও সময়",
+  "pdf_civil_suite": "CIVIL SUITE",
+  "pdf_ultimate_material_report": "আল্টিমেট এডিশন · ম্যাটেরিয়াল ও পেমেন্ট রিপোর্ট · BNBC 2020",
+  "pdf_ultimate_engineering_report": "আল্টিমেট এডিশন · ইঞ্জিনিয়ারিং রিপোর্ট",
+  "pdf_generated_by": "তৈরি করেছে Civil Suite Ultimate",
+  "pdf_version_label": "ভার্সন",
+  "pdf_developed_by": "ডেভেলপ করেছেন",
+  "pdf_prepared_by_label": "প্রস্তুতকারী:",
+  "pdf_prepared_by_sig": "প্রস্তুতকারী",
+  "pdf_verified_by": "যাচাইকারী",
+  "pdf_received_by": "গ্রহণকারী",
+  "pdf_print_save": "প্রিন্ট / পিডিএফ সংরক্ষণ করুন",
+  "pdf_ref": "রেফ.",
+  "pdf_type_sand": "বালি",
+  "pdf_type_chips": "পাথরের চিপস",
+  "pdf_type_steel": "রড",
+  "pdf_type_cement": "সিমেন্ট",
+  "pdf_type_brick": "ইট",
+  "pdf_type_rcc": "আরসিসি এস্টিমেটর",
+  "pdf_type_payment": "ঠিকাদার পেমেন্ট",
+  "pdf_w_entries": "এন্ট্রি",
+  "pdf_w_entry": "এন্ট্রি",
+  "pdf_w_records": "রেকর্ড",
+  "pdf_w_record": "রেকর্ড",
+  "pdf_w_payments": "পেমেন্ট",
+  "pdf_w_payment": "পেমেন্ট",
+  "pdf_w_bags": "ব্যাগ",
+  "pdf_w_truck": "ট্রাক",
+  "pdf_w_trucks": "ট্রাক",
+  "pdf_w_piece": "পিস",
+  "pdf_w_pieces": "পিস"
 }
 };
 
@@ -3145,6 +3415,9 @@ function applyLanguage(lang){
   if(typeof refreshBrickUnitLabel==='function') refreshBrickUnitLabel();
   if(typeof updateBrickTotal==='function'){var bq=document.getElementById('b_qty'); if(bq) updateBrickTotal();}
   var ptd=document.getElementById('pay-type-display'); if(ptd && typeof selectedCType!=='undefined') ptd.textContent=(lang==='bn'?CTYPE_LABELS_BN:CTYPE_LABELS)[selectedCType];
+  if(typeof initDateOverlays==='function') initDateOverlays();
+  if(typeof renderLogs==='function'){var ll=document.getElementById('log-list'); if(ll) renderLogs();}
+  if(typeof renderRecords==='function'){var rl=document.getElementById('rec-list'); if(rl) renderRecords();}
   var enBtn=document.getElementById('lang-en'), bnBtn=document.getElementById('lang-bn');
   if(enBtn) enBtn.classList.toggle('active', lang==='en');
   if(bnBtn) bnBtn.classList.toggle('active', lang==='bn');
@@ -3179,13 +3452,14 @@ function toggleDark(){
   localStorage.setItem('csu3_dark',isD?'1':'0');
 }
 // ── THEME-AWARE PDF HELPERS ───────────────────────────────────────
-function updateDateOverlay(input){var ov=document.getElementById('ov_'+input.id);if(!ov)return;if(input.value){ov.textContent=formatDate(input.value);ov.style.color='';}else{ov.textContent='DD/MM/YYYY';ov.style.color='var(--text-faint)';}}
+function updateDateOverlay(input){var ov=document.getElementById('ov_'+input.id);if(!ov)return;if(input.value){ov.textContent=localizeDateStr(formatDate(input.value));ov.style.color='';}else{ov.textContent='DD/MM/YYYY';ov.style.color='var(--text-faint)';}}
 function initDateOverlays(){var ids=['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','pay_date','log-date-inp'];ids.forEach(function(id){var el=document.getElementById(id);if(el)updateDateOverlay(el);});}
 
 
 // ── BRICK MODULE ──────────────────────────────────────────────────
 
 function saveBrickRecord(){
+  if(isLocked('brick'))return;
   var qty=parseFloat(document.getElementById('b_qty').value)||0;
   if(qty<=0){showToast(tr('toast_enter_brick_qty'));return;}
   saveRecord({id:genId(),createdAt:Date.now(),type:'brick',
@@ -3316,6 +3590,7 @@ function calcRCC(e){
 }
 function copyRCCReport(){if(!_rccReport){showToast(tr('toast_calc_first'));return;}navigator.clipboard?navigator.clipboard.writeText(_rccReport).then(function(){showToast(tr('toast_report_copied'));}).catch(function(){}):showToast(tr('toast_clipboard_unavailable'));}
 function saveRCCRecord(){
+  if(isLocked('rcc'))return;
   if(!window._lastRCC){showToast(tr('toast_calc_rcc_first'));return;}
   var lr=window._lastRCC;
   saveRecord({id:genId(),createdAt:Date.now(),type:'rcc',
@@ -3362,6 +3637,7 @@ function updatePayAmountPreview(){
   }
 }
 function savePaymentRecord(){
+  if(isLocked('payment'))return;
   var name=document.getElementById('pay_name').value.trim();
   var phone=document.getElementById('pay_phone').value.trim();
   var amount=parseFloat(document.getElementById('pay_amount').value)||0;
@@ -3495,7 +3771,7 @@ function renderRecords(){
       meta.appendChild(ctb);
     }
 
-    var date=document.createElement('div'); date.className='rec-date'; date.textContent=formatDate(r.date)||'';
+    var date=document.createElement('div'); date.className='rec-date'; date.textContent=localizeDateStr(formatDate(r.date))||'';
     hdr.appendChild(badge); hdr.appendChild(meta); hdr.appendChild(date); card.appendChild(hdr);
 
     var vals=document.createElement('div'); vals.className='rec-vals';
@@ -3559,7 +3835,8 @@ function renderRecords(){
   rl.appendChild(frag);
 }
 function deleteRecord(id){
-  if(!confirm('Delete this record?'))return;
+  if(isLocked('delrec_'+id,1500))return;
+  if(!confirm(tr('confirm_delete_record')))return;
   records=records.filter(function(r){return String(r.id)!==String(id);});
   NativeBridge.saveData(JSON.stringify(records));
   renderRecords(); updatePayDashboard(); updateHomeStats(); showToast(tr('toast_record_deleted'));
@@ -3569,6 +3846,7 @@ function deleteRecord(id){
 // BACKUP & RESTORE
 // ═══════════════════════════════════════════════════════
 function backupLocal(){
+  if(isLocked('backup'))return;
   var data={app:'Civil Suite Ultimate',v:'1.0',ts:Date.now(),records:records};
   var json=JSON.stringify(data,null,2);
   var today=new Date().toISOString().slice(0,10).replace(/-/g,'');
@@ -3580,13 +3858,14 @@ function backupLocal(){
 // to handle the <input type="file"> picker triggered by openFilePicker().
 // Without it, this function will silently do nothing in Android WebView.
 function restoreLocal(){
+  if(isLocked('restore'))return;
   NativeBridge.openFilePicker(function(file){
     var reader=new FileReader();
     reader.onload=function(ev){
       try{
         var data=JSON.parse(ev.target.result);
         if(!data.records||!Array.isArray(data.records))throw new Error('Invalid');
-        if(!confirm('Restore '+data.records.length+' records? This will replace your current records.'))return;
+        if(!confirm(tr('confirm_restore_prefix')+' '+pdfCount(data.records.length,'record',tr('pdf_w_record'))+tr('confirm_restore_suffix')))return;
         var incoming=data.records.map(normalizeRecord).filter(function(r){return r;});
         records=incoming;
         var ok=NativeBridge.saveData(JSON.stringify(records));
@@ -3600,7 +3879,8 @@ function restoreLocal(){
   });
 }
 function clearAllRecords(){
-  if(!confirm('Delete ALL '+records.length+' records permanently? This cannot be undone.'))return;
+  if(isLocked('clearall'))return;
+  if(!confirm(tr('confirm_delete_all_prefix')+' '+pdfCount(records.length,'record',tr('pdf_w_record'))+' '+tr('confirm_delete_all_suffix')))return;
   records=[];
   NativeBridge.saveData(JSON.stringify(records));
   renderRecords();updatePayDashboard();updateHomeStats();
@@ -3648,10 +3928,10 @@ function openLogDialog(editId){
   if(editId){
     var ex=siteLogs.find(function(l){return l.id===editId;});
     if(!ex)return;
-    titleEl.textContent='Edit Log #'+ex.serial;
+    titleEl.textContent=tr('lbl_edit_log_prefix')+ex.serial;
     textEl.value=ex.text; dateEl.value=ex.date; updateDateOverlay(dateEl); timeEl.value=ex.time;
   } else {
-    titleEl.textContent='Add Site Log';
+    titleEl.textContent=tr('lbl_add_site_log');
     textEl.value=''; dateEl.value=iso; updateDateOverlay(dateEl); timeEl.value=hhmm;
   }
   modal.style.display='flex';
@@ -3664,6 +3944,7 @@ function closeLogDialog(){
 }
 
 function saveLogEntry(){
+  if(isLocked('logsave'))return;
   var textEl=document.getElementById('log-text-inp');
   var dateEl=document.getElementById('log-date-inp');
   var timeEl=document.getElementById('log-time-inp');
@@ -3693,7 +3974,8 @@ function saveLogEntry(){
 }
 
 function deleteLog(id){
-  if(!confirm('Delete this log entry?'))return;
+  if(isLocked('dellog_'+id,1500))return;
+  if(!confirm(tr('confirm_delete_log')))return;
   siteLogs=siteLogs.filter(function(l){return l.id!==id;});
   siteLogs.forEach(function(l,i){l.serial=i+1;});
   saveSiteLogs();
@@ -3725,7 +4007,7 @@ function renderLogs(){
         '<div class="log-body">'+
           '<div class="log-text">'+esc(l.text)+'</div>'+
           '<div class="log-meta">'+
-            '<span class="log-date-chip"><span class="ms">calendar_today</span>'+formatDate(l.date)+'</span>'+
+            '<span class="log-date-chip"><span class="ms">calendar_today</span>'+localizeDateStr(formatDate(l.date))+'</span>'+
             '<span class="log-date-chip"><span class="ms">schedule</span>'+td+'</span>'+
           '</div>'+
         '</div>'+
@@ -3786,24 +4068,24 @@ function exportLogsPDF(){
     '</style>'+
     '</head><body>'+
     '<div class="hdr"><div class="hdr-icon">S</div>'+
-      '<div><div class="hdr-h1">SITE LOG</div>'+
+      '<div><div class="hdr-h1">'+tr('pdf_site_log')+'</div>'+
       '<div class="hdr-h2">Civil Suite Ultimate · BNBC 2020</div></div>'+
-      '<div class="hdr-date"><div class="hdr-date-lbl">Report Date</div><div class="hdr-date-val">'+today+'</div></div>'+
+      '<div class="hdr-date"><div class="hdr-date-lbl">'+tr('pdf_report_date')+'</div><div class="hdr-date-val">'+localizeDateStr(today)+'</div></div>'+
     '</div>'+
     '<div class="body">'+
-      '<div class="body-ttl">Site Log Entries ('+siteLogs.length+')</div>'+
+      '<div class="body-ttl">'+tr('pdf_site_log_entries')+' ('+(getCurrentLang()==='bn'?toBnDigits(siteLogs.length):siteLogs.length)+')</div>'+
       '<table>'+
         '<thead><tr>'+
-          '<th>#</th><th>Log Entry</th><th>Date &amp; Time</th>'+
+          '<th>#</th><th>'+tr('pdf_log_entry_col')+'</th><th>'+tr('pdf_date_time_col')+'</th>'+
         '</tr></thead>'+
         '<tbody>'+rows+'</tbody>'+
       '</table>'+
     '</div>'+
-    '<div class="footer"><div class="footer-l1">Generated by Civil Suite Ultimate</div>'+
-    '<div class="footer-l2">Version 1.0 · '+today+' at '+genTimeStr+' · K. M. Zaman · BNBC 2020</div>'+
-    '<div class="footer-l3">Prepared by: MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div></div>'+
+    '<div class="footer"><div class="footer-l1">'+tr('pdf_generated_by')+'</div>'+
+    '<div class="footer-l2">'+tr('pdf_version_label')+' 1.0 · '+localizeDateStr(today)+' at '+genTimeStr+' · K. M. Zaman · BNBC 2020</div>'+
+    '<div class="footer-l3">'+tr('pdf_prepared_by_label')+' MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div></div>'+
     '<div class="no-print" style="text-align:center;padding:16px">'+
-      '<button class="print-btn" onclick="window.print()">PRINT / SAVE AS PDF</button>'+
+      '<button class="print-btn" onclick="window.print()">'+tr('pdf_print_save')+'</button>'+
     '</div>'+
     '</body></html>';
   NativeBridge.generatePDF(html,function(){
@@ -3815,6 +4097,7 @@ function exportLogsPDF(){
 // ─────────────────────────────────────────────────────────
 
 function exportBulkPDF(materialFilter){
+  if(isLocked('bulkpdf_'+materialFilter,2000))return;
   var list=records.slice().sort(function(a,b){return (a.createdAt||a.ts||0)-(b.createdAt||b.ts||0);});
   if(materialFilter!=='all') list=list.filter(function(r){return r.type===materialFilter;});
   if(!list.length){showToast(tr('toast_no_records_type'));return;}
@@ -3823,7 +4106,7 @@ function exportBulkPDF(materialFilter){
   var SLATE='#2D3A52',SURFACE='#F6F8FB',TEXT='#1E2733',DIM='#5C6B7D',BORDER='#E2E7EE';
   var BRAND=themeColor('--amber');
 
-  var MNAME={sand:'Sand',chips:'Stone Chips',steel:'Steel Bars',cement:'Cement',brick:'Brick',rcc:'RCC Estimation',payment:'Contractor Payment'};
+  var MNAME={sand:tr('sand_name'),chips:tr('chips_name'),steel:tr('steel_name'),cement:tr('cement_name'),brick:tr('brick_name'),rcc:tr('pdf_rcc_estimation'),payment:tr('pdf_type_payment')};
   var MCOLOR={sand:themeColor('--amber'),chips:themeColor('--chips'),steel:themeColor('--steel-c'),cement:themeColor('--cement'),brick:themeColor('--brick'),rcc:themeColor('--blu'),payment:themeColor('--pay')};
 
   function escH(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -3838,76 +4121,76 @@ function exportBulkPDF(materialFilter){
     recs.forEach(function(r,i){
       var inner='';
       if(r.type==='sand'||r.type==='chips'){
-        if(r.category) inner+=tRow('Category',escH(r.category));
-        inner+=tRow('Volume (CFT)',mono((r.vol||0).toFixed(3)+' ft³'));
-        inner+=tRow('Volume (m³)',mono((r.volM3||0).toFixed(3)+' m³'));
-        inner+=tRow('Avg L / W / H',mono(escH(r.avgL)+' / '+escH(r.avgW)+' / '+escH(r.avgH)));
-        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—')+(r.drvMob?' · '+escH(r.drvMob):''));
-        if(r.voucher) inner+=tRow('Voucher No.',escH(r.voucher));
+        if(r.category) inner+=tRow(tr('pdf_category'),escH(r.category));
+        inner+=tRow(tr('pdf_volume_cft'),mono((r.vol||0).toFixed(3)+' ft³'));
+        inner+=tRow(tr('pdf_volume_m3'),mono((r.volM3||0).toFixed(3)+' m³'));
+        inner+=tRow(tr('pdf_avg_lwh'),mono(escH(r.avgL)+' / '+escH(r.avgW)+' / '+escH(r.avgH)));
+        if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—')+(r.drvMob?' · '+escH(r.drvMob):''));
+        if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
         grandVol+=parseFloat(r.vol)||0; grandVol3+=parseFloat(r.volM3)||0;
       } else if(r.type==='steel'){
-        if(r.brand) inner+=tRow('Brand',escH(r.brand));
-        inner+=tRow('Total Weight',mono((r.totalTon||r.totalKg/1000||0).toFixed(3)+' TON')+' <span style="color:'+DIM+';font-size:10px">('+(r.totalKg||0).toFixed(1)+' KG)</span>');
+        if(r.brand) inner+=tRow(tr('pdf_brand'),escH(r.brand));
+        inner+=tRow(tr('pdf_total_weight'),mono((r.totalTon||r.totalKg/1000||0).toFixed(3)+' TON')+' <span style="color:'+DIM+';font-size:10px">('+(r.totalKg||0).toFixed(1)+' KG)</span>');
         if(r.breakdown){Object.keys(r.breakdown).forEach(function(k){inner+=tRow(k.replace('d','')+'mm',mono(r.breakdown[k].toFixed(1)+' KG'));});}
-        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
-        if(r.voucher) inner+=tRow('Voucher No.',escH(r.voucher));
+        if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
+        if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
         grandKg+=parseFloat(r.totalKg)||0;
       } else if(r.type==='cement'){
-        if(r.brand) inner+=tRow('Brand',escH(r.brand));
-        inner+=tRow('Quantity',mono((r.bags||0)+' Bags')+' <span style="color:'+DIM+';font-size:10px">('+(r.totalKg||0).toLocaleString()+' KG)</span>');
-        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
-        if(r.voucher) inner+=tRow('Voucher No.',escH(r.voucher));
+        if(r.brand) inner+=tRow(tr('pdf_brand'),escH(r.brand));
+        inner+=tRow(tr('pdf_quantity'),mono((r.bags||0)+' '+tr('pdf_w_bags'))+' <span style="color:'+DIM+';font-size:10px">('+(r.totalKg||0).toLocaleString()+' KG)</span>');
+        if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
+        if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
         grandBags+=parseFloat(r.bags)||0; grandKgC+=parseFloat(r.totalKg)||0;
       } else if(r.type==='brick'){
-        inner+=tRow('Category',escH(r.category||'—'));
-        inner+=tRow('Quantity',mono((r.qty||0).toLocaleString()+' '+escH(r.unit||'')+((r.qty===1)?'':'s')));
-        if(r.vehNum||r.drvName) inner+=tRow('Vehicle / Driver',escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
-        if(r.voucher) inner+=tRow('Voucher No.',escH(r.voucher));
+        inner+=tRow(tr('pdf_category'),escH(r.category||'—'));
+        inner+=tRow(tr('pdf_quantity'),mono((r.qty||0).toLocaleString()+' '+escH(tr(r.unit==='Truck'?(r.qty===1?'pdf_w_truck':'pdf_w_trucks'):(r.qty===1?'pdf_w_piece':'pdf_w_pieces')))));
+        if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
+        if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
         if(r.unit==='Truck') grandTrucks+=parseFloat(r.qty)||0; else grandPieces+=parseFloat(r.qty)||0;
       } else if(r.type==='rcc'){
-        inner+=tRow('Concrete Grade',escH(r.grade||'—'));
-        inner+=tRow('Structural Volume',mono((r.vol||0).toFixed(2)+(r.unit==='cft'?' ft³':' m³')));
-        inner+=tRow('Cement',escH(r.cement||'—'));
-        inner+=tRow('Sand',mono((parseFloat(r.sand)||0).toFixed(2)+' ft³'));
-        inner+=tRow('Stone Chips',mono((parseFloat(r.agg)||0).toFixed(2)+' ft³'));
+        inner+=tRow(tr('pdf_concrete_grade'),escH(r.grade||'—'));
+        inner+=tRow(tr('pdf_structural_volume'),mono((r.vol||0).toFixed(2)+(r.unit==='cft'?' ft³':' m³')));
+        inner+=tRow(tr('pdf_cement'),escH(r.cement||'—'));
+        inner+=tRow(tr('pdf_sand'),mono((parseFloat(r.sand)||0).toFixed(2)+' ft³'));
+        inner+=tRow(tr('pdf_stone_chips'),mono((parseFloat(r.agg)||0).toFixed(2)+' ft³'));
         grandVol+=parseFloat(r.vol)||0;
         grandBags+=parseFloat(r.cement)||0; // r.cement is like "30 bags" — parseFloat extracts the leading number
         grandKgC+=parseFloat(r.sand)||0;    // reuse grandKgC accumulator for sand ft³
         grandAmt+=parseFloat(r.agg)||0;     // reuse grandAmt accumulator for chips ft³
       } else if(r.type==='payment'){
-        inner+=tRow('Contractor Type',escH(r.cTypeLabel||r.cType||'—'));
-        inner+=tRow('Contractor Name',escH(r.contractorName||'—'));
-        inner+=tRow('Phone',r.phone?'<a href="tel:'+escH(r.phone)+'" style="color:'+color+'">'+mono(escH(r.phone))+'</a>':'—');
-        inner+=tRow('Amount',mono('৳ '+(r.amount||0).toLocaleString('en-BD',{minimumFractionDigits:2})));
-        if(r.comments) inner+=tRow('Remarks',escH(r.comments));
+        inner+=tRow(tr('pdf_contractor_type'),escH(r.cTypeLabel||r.cType||'—'));
+        inner+=tRow(tr('pdf_contractor_name'),escH(r.contractorName||'—'));
+        inner+=tRow(tr('pdf_phone'),r.phone?'<a href="tel:'+escH(r.phone)+'" style="color:'+color+'">'+mono(escH(r.phone))+'</a>':'—');
+        inner+=tRow(tr('pdf_amount'),mono('৳ '+(r.amount||0).toLocaleString('en-BD',{minimumFractionDigits:2})));
+        if(r.comments) inner+=tRow(tr('pdf_remarks'),escH(r.comments));
         grandAmt+=parseFloat(r.amount)||0;
       }
       entries+='<div class="entry">'+
         '<div class="entry-hdr" style="background:'+color+'">'+
         '<span class="entry-no">#'+(i+1)+' — '+escH(r.projName||r.proj||'Unnamed')+'</span>'+
-        '<span class="entry-date">'+escH(formatDate(r.date)||'')+'</span></div>'+
+        '<span class="entry-date">'+escH(pdfDate(r.date)||'')+'</span></div>'+
         (r.projAddr||r.addr?'<div class="entry-addr">'+escH(r.projAddr||r.addr||'')+'</div>':'')+
         '<table class="entry-table">'+inner+'</table></div>';
     });
 
     // Grand total summary panel
     var gt='';
-    if(type==='sand'||type==='chips') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</div></div><div class="summary-val" style="color:'+color+'">'+grandVol.toFixed(3)+' ft³<span class="summary-ref">(ref. '+grandVol3.toFixed(3)+' m³)</span></div></div>';
-    else if(type==='steel') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</div></div><div class="summary-val" style="color:'+color+'">'+(grandKg/1000).toFixed(3)+' TON<span class="summary-ref">('+grandKg.toFixed(1)+' KG)</span></div></div>';
-    else if(type==='cement') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</div></div><div class="summary-val" style="color:'+color+'">'+grandBags.toFixed(0)+' Bags<span class="summary-ref">(ref. '+grandKgC.toFixed(0)+' KG)</span></div></div>';
+    if(type==='sand'||type==='chips') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+grandVol.toFixed(3)+' ft³<span class="summary-ref">('+tr('pdf_ref')+' '+grandVol3.toFixed(3)+' m³)</span></div></div>';
+    else if(type==='steel') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+(grandKg/1000).toFixed(3)+' TON<span class="summary-ref">('+grandKg.toFixed(1)+' KG)</span></div></div>';
+    else if(type==='cement') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+grandBags.toFixed(0)+' '+tr('pdf_w_bags')+'<span class="summary-ref">('+tr('pdf_ref')+' '+grandKgC.toFixed(0)+' KG)</span></div></div>';
     else if(type==='brick'){
       var brickParts=[];
-      if(grandTrucks>0) brickParts.push(grandTrucks.toLocaleString()+' Truck'+(grandTrucks===1?'':'s'));
-      if(grandPieces>0) brickParts.push(grandPieces.toLocaleString()+' Piece'+(grandPieces===1?'':'s'));
-      gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">GRAND TOTAL ('+recs.length+' entr'+(recs.length!==1?'ies':'y')+')</div></div><div class="summary-val" style="color:'+color+'">'+(brickParts.join(' <span class="summary-sep">/</span> ')||'0')+'</div></div>';
+      if(grandTrucks>0) brickParts.push(pdfCount(grandTrucks,'Truck',tr('pdf_w_truck')));
+      if(grandPieces>0) brickParts.push(pdfCount(grandPieces,'Piece',tr('pdf_w_piece')));
+      gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+(brickParts.join(' <span class="summary-sep">/</span> ')||'0')+'</div></div>';
     }
-    else if(type==='rcc') gt='<div class="summary-grid" style="border-color:'+color+'"><div class="summary-grid-ttl">GRAND TOTAL ('+recs.length+' record'+(recs.length!==1?'s':'')+')</div><div class="summary-grid-cells"><div><div class="sg-lbl">Structural Volume</div><div class="sg-val" style="color:'+color+'">'+grandVol.toFixed(2)+' ft³</div></div><div><div class="sg-lbl">Cement</div><div class="sg-val" style="color:'+color+'">'+grandBags.toFixed(0)+' bags</div></div><div><div class="sg-lbl">Sand</div><div class="sg-val" style="color:'+color+'">'+grandKgC.toFixed(2)+' ft³</div></div><div><div class="sg-lbl">Stone Chips</div><div class="sg-val" style="color:'+color+'">'+grandAmt.toFixed(2)+' ft³</div></div></div></div>';
-    else if(type==='payment') gt='<div class="summary summary-pay"><div class="summary-meta"><div class="summary-lbl">GRAND TOTAL PAID ('+recs.length+' payment'+(recs.length!==1?'s':'')+')</div></div><div class="summary-val mono" style="color:'+color+'">৳ '+grandAmt.toLocaleString('en-BD',{minimumFractionDigits:2})+'</div></div>';
+    else if(type==='rcc') gt='<div class="summary-grid" style="border-color:'+color+'"><div class="summary-grid-ttl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'record',tr('pdf_w_record'))+')</div><div class="summary-grid-cells"><div><div class="sg-lbl">'+tr('pdf_structural_volume')+'</div><div class="sg-val" style="color:'+color+'">'+grandVol.toFixed(2)+' ft³</div></div><div><div class="sg-lbl">'+tr('pdf_cement')+'</div><div class="sg-val" style="color:'+color+'">'+grandBags.toFixed(0)+' '+tr('pdf_w_bags').toLowerCase()+'</div></div><div><div class="sg-lbl">'+tr('pdf_sand')+'</div><div class="sg-val" style="color:'+color+'">'+grandKgC.toFixed(2)+' ft³</div></div><div><div class="sg-lbl">'+tr('pdf_stone_chips')+'</div><div class="sg-val" style="color:'+color+'">'+grandAmt.toFixed(2)+' ft³</div></div></div></div>';
+    else if(type==='payment') gt='<div class="summary summary-pay"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total_paid')+' ('+pdfCount(recs.length,'payment',tr('pdf_w_payment'))+')</div></div><div class="summary-val mono" style="color:'+color+'">৳ '+grandAmt.toLocaleString('en-BD',{minimumFractionDigits:2})+'</div></div>';
 
     return '<div class="section" style="'+(isFirst?'':'page-break-before:always;')+'">'+
       '<div class="section-hdr"><div class="section-tab" style="background:'+color+'"></div>'+
-      '<h2 class="section-ttl" style="color:'+color+'">'+mname.toUpperCase()+'</h2>'+
-      '<span class="section-count">'+recs.length+' record'+(recs.length!==1?'s':'')+'</span></div>'+
+      '<h2 class="section-ttl" style="color:'+color+'">'+(typeof mname==='string'?mname.toUpperCase():mname)+'</h2>'+
+      '<span class="section-count">'+pdfCount(recs.length,'record',tr('pdf_w_record'))+'</span></div>'+
       entries+gt+'</div>';
   }
 
@@ -3976,19 +4259,19 @@ function exportBulkPDF(materialFilter){
     '</head><body>'+
     '<div class="hdr"><div class="hdr-row">'+
         '<div class="hdr-icon">⚙</div>'+
-        '<div><div class="hdr-h1">CIVIL SUITE</div>'+
-          '<div class="hdr-h2">Ultimate Edition · Material &amp; Payment Report · BNBC 2020</div>'+
+        '<div><div class="hdr-h1">'+tr('pdf_civil_suite')+'</div>'+
+          '<div class="hdr-h2">'+tr('pdf_ultimate_material_report')+'</div>'+
         '</div>'+
-        '<div class="hdr-date"><div class="hdr-date-lbl">Report Date</div><div class="hdr-date-val">'+today+'</div></div>'+
+        '<div class="hdr-date"><div class="hdr-date-lbl">'+tr('pdf_report_date')+'</div><div class="hdr-date-val">'+localizeDateStr(today)+'</div></div>'+
       '</div>'+
     '</div>'+
     '<div class="body">'+sections+'</div>'+
-    '<div class="footer"><div class="footer-l1">Generated by Civil Suite Ultimate</div>'+
-      '<div class="footer-l2">Version 1.0 · '+today+' at '+genTimeStr+' · Developed by K. M. Zaman · BNBC 2020</div>'+
-      '<div class="footer-l3">Prepared by: MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div>'+
+    '<div class="footer"><div class="footer-l1">'+tr('pdf_generated_by')+'</div>'+
+      '<div class="footer-l2">'+tr('pdf_version_label')+' 1.0 · '+localizeDateStr(today)+' at '+genTimeStr+' · '+tr('pdf_developed_by')+' K. M. Zaman · BNBC 2020</div>'+
+      '<div class="footer-l3">'+tr('pdf_prepared_by_label')+' MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div>'+
     '</div>'+
     '<div class="no-print" style="text-align:center;padding:16px">'+
-      '<button class="print-btn" onclick="window.print()">PRINT / SAVE AS PDF</button>'+
+      '<button class="print-btn" onclick="window.print()">'+tr('pdf_print_save')+'</button>'+
     '</div>'+
     '</body></html>';
 
@@ -4006,10 +4289,11 @@ function exportBulkPDF(materialFilter){
 var _pdfRec=null;
 function openPDFModal(rec){
   _pdfRec=rec;
-  document.getElementById('pdf-modal-sub').textContent='Export '+rec.type.toUpperCase()+' record to PDF';
+  var typeKey={sand:'sand_name',chips:'chips_name',steel:'steel_name',cement:'cement_name',brick:'brick_name',rcc:'rcc_name',payment:'lbl_payment_short'}[rec.type];
+  document.getElementById('pdf-modal-sub').textContent=tr('lbl_export_record_to_pdf').replace('{type}', typeKey?tr(typeKey):rec.type.toUpperCase());
   var opts=document.getElementById('pdf-opts-container'); opts.innerHTML='';
-  opts.appendChild(makePDFOpt('picture_as_pdf','var(--amber-bg)','var(--amber)','Standard Report','Full details, vehicle info, signature lines',function(){generatePDF(_pdfRec,'standard');}));
-  opts.appendChild(makePDFOpt('summarize','var(--blu-bg)','var(--blu)','Summary Only','Compact one-page summary',function(){generatePDF(_pdfRec,'summary');}));
+  opts.appendChild(makePDFOpt('picture_as_pdf','var(--amber-bg)','var(--amber)',tr('lbl_standard_report'),tr('lbl_standard_report_sub'),function(){generatePDF(_pdfRec,'standard');}));
+  opts.appendChild(makePDFOpt('summarize','var(--blu-bg)','var(--blu)',tr('lbl_summary_only'),tr('lbl_summary_only_sub'),function(){generatePDF(_pdfRec,'summary');}));
   document.getElementById('pdf-modal').classList.add('open');
 }
 function makePDFOpt(icon,bg,col,title,sub,fn){
@@ -4022,11 +4306,12 @@ function closePDFModal(e){if(e.target===document.getElementById('pdf-modal'))clo
 function closePDFModalDirect(){document.getElementById('pdf-modal').classList.remove('open');}
 
 function generatePDF(rec,mode){
+  if(isLocked('gpdf_'+(rec&&rec.id)+'_'+mode,2000))return;
   closePDFModalDirect();
   var accentMap={sand:themeColor('--amber'),chips:themeColor('--chips'),steel:themeColor('--steel-c'),cement:themeColor('--cement'),brick:themeColor('--brick'),rcc:themeColor('--blu'),payment:themeColor('--pay')};
   var ctAccentMap={rod:themeColor('--ct-rod'),sanitary:themeColor('--ct-sanitary'),electric:themeColor('--ct-electric'),paint:themeColor('--ct-paint'),tiles:themeColor('--ct-tiles')};
   var accent=rec.type==='payment'?(ctAccentMap[rec.cType]||themeColor('--pay')):accentMap[rec.type]||themeColor('--amber');
-  var typeLabel={sand:'SAND',chips:'STONE CHIPS',steel:'STEEL BARS',cement:'CEMENT',brick:'BRICK',rcc:'RCC ESTIMATOR',payment:'CONTRACTOR PAYMENT'}[rec.type]||rec.type.toUpperCase();
+  var typeLabel={sand:tr('pdf_type_sand'),chips:tr('pdf_type_chips'),steel:tr('pdf_type_steel'),cement:tr('pdf_type_cement'),brick:tr('pdf_type_brick'),rcc:tr('pdf_type_rcc'),payment:tr('pdf_type_payment')}[rec.type]||rec.type.toUpperCase();
 
   // ── Professional engineering report palette ──
   // Slate Blue / Soft Grey base, never pure black — calm and print-friendly.
@@ -4045,84 +4330,84 @@ function generatePDF(rec,mode){
   var PREPARED_BY='MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.)<br>Site Engineer, Amin Group';
 
   var rows='';
-  rows+=section('PROJECT INFORMATION');
-  rows+=row('Project',esc(rec.projName||rec.proj||'—'));
-  rows+=row('Address',esc(rec.projAddr||rec.addr||'—'));
-  rows+=row('Date','<span class="mono">'+esc(formatDate(rec.date)||'—')+'</span>');
+  rows+=section(tr('pdf_project_info'));
+  rows+=row(tr('pdf_project'),esc(rec.projName||rec.proj||'—'));
+  rows+=row(tr('pdf_address'),esc(rec.projAddr||rec.addr||'—'));
+  rows+=row(tr('pdf_date'),'<span class="mono">'+esc(pdfDate(rec.date)||'—')+'</span>');
 
   if(rec.type==='sand'||rec.type==='chips'){
-    rows+=section('VOLUME MEASUREMENT');
-    if(rec.category) rows+=row('Category',esc(rec.category));
-    rows+=row('Volume (CFT)','<span class="mono">'+rec.vol.toFixed(3)+' ft³</span>');
-    rows+=row('Volume (m³)','<span class="mono">'+rec.volM3.toFixed(3)+' m³</span>');
-    rows+=row('Avg Length','<span class="mono">'+esc(rec.avgL)+'</span>');
-    rows+=row('Avg Width','<span class="mono">'+esc(rec.avgW)+'</span>');
-    rows+=row('Avg Height','<span class="mono">'+esc(rec.avgH)+'</span>');
-    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));if(rec.voucher)rows+=row('Voucher No.',esc(rec.voucher));}
+    rows+=section(tr('pdf_volume_measurement'));
+    if(rec.category) rows+=row(tr('pdf_category'),esc(rec.category));
+    rows+=row(tr('pdf_volume_cft'),'<span class="mono">'+rec.vol.toFixed(3)+' ft³</span>');
+    rows+=row(tr('pdf_volume_m3'),'<span class="mono">'+rec.volM3.toFixed(3)+' m³</span>');
+    rows+=row(tr('pdf_avg_length'),'<span class="mono">'+esc(rec.avgL)+'</span>');
+    rows+=row(tr('pdf_avg_width'),'<span class="mono">'+esc(rec.avgW)+'</span>');
+    rows+=row(tr('pdf_avg_height'),'<span class="mono">'+esc(rec.avgH)+'</span>');
+    if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
   } else if(rec.type==='steel'){
-    rows+=section('STEEL INVENTORY');
-    rows+=row('Brand',esc(rec.brand||'—'));
-    rows+=row('Total Weight','<span class="mono">'+(rec.totalTon||rec.totalKg/1000).toFixed(3)+' TON</span> <span style="color:'+dim+';font-size:10px">('+rec.totalKg.toFixed(1)+' KG)</span>');
-    if(rec.breakdown){rows+=section('DIAMETER BREAKDOWN');Object.keys(rec.breakdown).forEach(function(k){rows+=row(k.replace('d','')+'mm','<span class="mono">'+rec.breakdown[k].toFixed(1)+' KG</span>');});}
-    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));if(rec.voucher)rows+=row('Voucher No.',esc(rec.voucher));}
+    rows+=section(tr('pdf_steel_inventory'));
+    rows+=row(tr('pdf_brand'),esc(rec.brand||'—'));
+    rows+=row(tr('pdf_total_weight'),'<span class="mono">'+(rec.totalTon||rec.totalKg/1000).toFixed(3)+' TON</span> <span style="color:'+dim+';font-size:10px">('+rec.totalKg.toFixed(1)+' KG)</span>');
+    if(rec.breakdown){rows+=section(tr('pdf_diameter_breakdown'));Object.keys(rec.breakdown).forEach(function(k){rows+=row(k.replace('d','')+'mm','<span class="mono">'+rec.breakdown[k].toFixed(1)+' KG</span>');});}
+    if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
   } else if(rec.type==='cement'){
-    rows+=section('CEMENT DETAILS');
-    rows+=row('Brand',esc(rec.brand||'—'));
-    rows+=row('Quantity','<span class="mono">'+rec.bags+' Bags</span> <span style="color:'+dim+';font-size:10px">('+rec.totalKg.toLocaleString()+' KG)</span>');
-    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));if(rec.voucher)rows+=row('Voucher No.',esc(rec.voucher));}
+    rows+=section(tr('pdf_cement_details'));
+    rows+=row(tr('pdf_brand'),esc(rec.brand||'—'));
+    rows+=row(tr('pdf_quantity'),'<span class="mono">'+rec.bags+' '+tr('pdf_w_bags')+'</span> <span style="color:'+dim+';font-size:10px">('+rec.totalKg.toLocaleString()+' KG)</span>');
+    if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
   } else if(rec.type==='brick'){
-    rows+=section('BRICK DETAILS');
-    rows+=row('Category',esc(rec.category||'—'));
-    rows+=row('Quantity','<span class="mono">'+(rec.qty||0).toLocaleString()+' '+esc(rec.unit||'')+((rec.qty===1)?'':'s')+'</span>');
-    if(mode==='standard'){rows+=section('VEHICLE INFORMATION');rows+=row('Vehicle No.',esc(rec.vehNum||'—'));rows+=row('Driver',esc(rec.drvName||'—'));rows+=row('Mobile',esc(rec.drvMob||'—'));if(rec.voucher)rows+=row('Voucher No.',esc(rec.voucher));}
+    rows+=section(tr('pdf_brick_details'));
+    rows+=row(tr('pdf_category'),esc(rec.category||'—'));
+    rows+=row(tr('pdf_quantity'),'<span class="mono">'+(rec.qty||0).toLocaleString()+' '+esc(tr(rec.unit==='Truck'?(rec.qty===1?'pdf_w_truck':'pdf_w_trucks'):(rec.qty===1?'pdf_w_piece':'pdf_w_pieces')))+'</span>');
+    if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
   } else if(rec.type==='rcc'){
-    rows+=section('RCC ESTIMATION');
-    rows+=row('Concrete Grade',esc(rec.grade));
-    rows+=row('Total Volume','<span class="mono">'+rec.vol.toFixed(3)+(rec.unit==='cft'?' ft³':' m³')+'</span>');
-    rows+=row('Cement',esc(rec.cement));
-    rows+=row('Sand (Fine Agg.)','<span class="mono">'+(parseFloat(rec.sand)||0).toFixed(2)+' ft³</span>');
-    rows+=row('Stone Chips','<span class="mono">'+(parseFloat(rec.agg)||0).toFixed(2)+' ft³</span>');
-    rows+=section('STANDARDS'); rows+=row('Code','BNBC 2020');
+    rows+=section(tr('pdf_rcc_estimation'));
+    rows+=row(tr('pdf_concrete_grade'),esc(rec.grade));
+    rows+=row(tr('pdf_total_volume'),'<span class="mono">'+rec.vol.toFixed(3)+(rec.unit==='cft'?' ft³':' m³')+'</span>');
+    rows+=row(tr('pdf_cement'),esc(rec.cement));
+    rows+=row(tr('pdf_sand_fine_agg'),'<span class="mono">'+(parseFloat(rec.sand)||0).toFixed(2)+' ft³</span>');
+    rows+=row(tr('pdf_stone_chips'),'<span class="mono">'+(parseFloat(rec.agg)||0).toFixed(2)+' ft³</span>');
+    rows+=section(tr('pdf_standards')); rows+=row(tr('pdf_code'),'BNBC 2020');
   } else if(rec.type==='payment'){
-    rows+=section('CONTRACTOR INFORMATION');
-    rows+=row('Contractor Type',esc(rec.cTypeLabel||'—'));
-    rows+=row('Contractor Name',esc(rec.contractorName||'—'));
-    rows+=row('Phone Number','<span class="mono">'+esc(rec.phone||'—')+'</span>');
-    rows+=section('PAYMENT DETAILS');
-    rows+=row('Payment Amount','<span class="mono">৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2})+'</span>');
-    rows+=row('Payment Date','<span class="mono">'+esc(formatDate(rec.date)||'—')+'</span>');
-    if(rec.comments){rows+=section('REMARKS');rows+=row('Comments',esc(rec.comments));}
+    rows+=section(tr('pdf_contractor_info'));
+    rows+=row(tr('pdf_contractor_type'),esc(rec.cTypeLabel||'—'));
+    rows+=row(tr('pdf_contractor_name'),esc(rec.contractorName||'—'));
+    rows+=row(tr('pdf_phone_number'),'<span class="mono">'+esc(rec.phone||'—')+'</span>');
+    rows+=section(tr('pdf_payment_details'));
+    rows+=row(tr('pdf_payment_amount'),'<span class="mono">৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2})+'</span>');
+    rows+=row(tr('pdf_payment_date'),'<span class="mono">'+esc(pdfDate(rec.date)||'—')+'</span>');
+    if(rec.comments){rows+=section(tr('pdf_remarks'));rows+=row(tr('pdf_comments'),esc(rec.comments));}
   }
 
   var summaryPanel='';
   if(rec.type==='payment'){
     summaryPanel='<div class="summary">'+
-      '<div class="summary-meta"><div class="summary-lbl">GRAND TOTAL PAYMENT</div>'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total_payment')+'</div>'+
       '<div class="summary-sub">'+esc(rec.cTypeLabel||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
       '<div class="summary-val">৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2})+'</div></div>';
   } else if(rec.type==='sand'||rec.type==='chips'){
     summaryPanel='<div class="summary">'+
-      '<div class="summary-meta"><div class="summary-lbl">FINAL VOLUME</div>'+
-      '<div class="summary-sub">'+esc(typeLabel)+' · '+esc(rec.projName||rec.proj||'')+' · (ref. '+rec.volM3.toFixed(3)+' m³)</div></div>'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_final_volume')+'</div>'+
+      '<div class="summary-sub">'+esc(typeLabel)+' · '+esc(rec.projName||rec.proj||'')+' · ('+tr('pdf_ref')+' '+rec.volM3.toFixed(3)+' m³)</div></div>'+
       '<div class="summary-val">'+rec.vol.toFixed(3)+' <span class="summary-unit">ft³</span></div></div>';
   } else if(rec.type==='steel'){
     summaryPanel='<div class="summary">'+
-      '<div class="summary-meta"><div class="summary-lbl">TOTAL STEEL WEIGHT</div>'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_total_steel_weight')+'</div>'+
       '<div class="summary-sub">'+esc(rec.projName||rec.proj||'')+' · ('+rec.totalKg.toFixed(1)+' KG)</div></div>'+
       '<div class="summary-val">'+(rec.totalTon||rec.totalKg/1000).toFixed(3)+' <span class="summary-unit">TON</span></div></div>';
   } else if(rec.type==='cement'){
     summaryPanel='<div class="summary">'+
-      '<div class="summary-meta"><div class="summary-lbl">TOTAL CEMENT</div>'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_total_cement')+'</div>'+
       '<div class="summary-sub">'+esc(rec.projName||rec.proj||'')+' · ('+rec.totalKg.toLocaleString()+' KG)</div></div>'+
-      '<div class="summary-val">'+rec.bags+' <span class="summary-unit">Bags</span></div></div>';
+      '<div class="summary-val">'+rec.bags+' <span class="summary-unit">'+tr('pdf_w_bags')+'</span></div></div>';
   } else if(rec.type==='brick'){
     summaryPanel='<div class="summary">'+
-      '<div class="summary-meta"><div class="summary-lbl">TOTAL BRICK QUANTITY</div>'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_total_brick_qty')+'</div>'+
       '<div class="summary-sub">'+esc(rec.category||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
-      '<div class="summary-val">'+(rec.qty||0).toLocaleString()+' <span class="summary-unit">'+esc(rec.unit||'')+((rec.qty===1)?'':'s')+'</span></div></div>';
+      '<div class="summary-val">'+(rec.qty||0).toLocaleString()+' <span class="summary-unit">'+esc(tr(rec.unit==='Truck'?(rec.qty===1?'pdf_w_truck':'pdf_w_trucks'):(rec.qty===1?'pdf_w_piece':'pdf_w_pieces')))+'</span></div></div>';
   } else if(rec.type==='rcc'){
     summaryPanel='<div class="summary">'+
-      '<div class="summary-meta"><div class="summary-lbl">STRUCTURAL VOLUME</div>'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_structural_volume_caps')+'</div>'+
       '<div class="summary-sub">'+esc(rec.grade||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
       '<div class="summary-val">'+rec.vol.toFixed(2)+' <span class="summary-unit">'+(rec.unit==='cft'?'ft³':'m³')+'</span></div></div>';
   }
@@ -4130,7 +4415,7 @@ function generatePDF(rec,mode){
   var sigSection='';
   if(mode==='standard'){
     sigSection='<div class="sig-row">'+
-      sigLine('Prepared By',PREPARED_BY)+sigLine('Verified By')+sigLine('Received By')+
+      sigLine(tr('pdf_prepared_by_sig'),PREPARED_BY)+sigLine(tr('pdf_verified_by'))+sigLine(tr('pdf_received_by'))+
       '</div>';
   }
 
@@ -4169,13 +4454,13 @@ function generatePDF(rec,mode){
     '@media print{body{padding:18px;max-width:none}.hdr,.summary{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
     '</style></head><body>'+
     '<div class="hdr"><div class="hdr-icon">⚙</div>'+
-    '<div><div class="h1">CIVIL <span style="color:#fff">SUITE</span></div><div class="h2">Ultimate Edition · Engineering Report</div></div>'+
+    '<div><div class="h1">CIVIL <span style="color:#fff">SUITE</span></div><div class="h2">'+tr('pdf_ultimate_engineering_report')+'</div></div>'+
     '<div class="badge">'+esc(typeLabel)+'</div></div>'+
     '<table>'+rows+'</table>'+
     summaryPanel+sigSection+
-    '<div class="footer"><div class="footer-l1">Generated by Civil Suite Ultimate</div>'+
-    '<div class="footer-l2">Version 1.0 · '+todayFormatted()+' at '+genTimeStr+' · K. M. Zaman · BNBC 2020</div>'+
-    '<div class="footer-l3">Prepared by: MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div></div>'+
+    '<div class="footer"><div class="footer-l1">'+tr('pdf_generated_by')+'</div>'+
+    '<div class="footer-l2">'+tr('pdf_version_label')+' 1.0 · '+localizeDateStr(todayFormatted())+' at '+genTimeStr+' · K. M. Zaman · BNBC 2020</div>'+
+    '<div class="footer-l3">'+tr('pdf_prepared_by_label')+' MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div></div>'+
     '</body></html>';
 
   NativeBridge.generatePDF(html, function(){
