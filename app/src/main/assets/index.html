@@ -63,6 +63,12 @@
   --mat-cement:#4C86D6;  --mat-cement-bg:rgba(76,134,214,.16);
   --mat-brick:#C05A2E;   --mat-brick-bg:rgba(192,90,46,.16);
   --mat-rcc:#8B7CD6;     --mat-rcc-bg:rgba(139,124,214,.16);
+  --qa-records:#3F9E63;  --qa-records-bg:rgba(63,158,99,.16);
+  --qa-payment:#E0793B;  --qa-payment-bg:rgba(224,121,59,.16);
+  --qa-log:#B0592E;      --qa-log-bg:rgba(176,89,46,.16);
+  --qa-pdf:#D64545;      --qa-pdf-bg:rgba(214,69,69,.16);
+  --qa-backup:#2FA37A;   --qa-backup-bg:rgba(47,163,122,.16);
+  --qa-more:#6C7480;     --qa-more-bg:rgba(108,116,128,.16);
   --amber:var(--ios-red-d);      --amber-d:#D11A22;  --amber-l:#FF8080;  --amber-bg:rgba(255,59,59,.14);
   --chips:#9E9E9E;               --chips-d:#7A7A7A;  --chips-l:#C7C7C7;  --chips-bg:rgba(158,158,158,.14);
   --steel-c:var(--ios-red-d);   --steel-cd:#D11A22; --steel-cl:#FF8080; --steel-cbg:rgba(255,59,59,.14);
@@ -326,23 +332,23 @@ nav{
 .launcher-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 4px;margin-bottom:8px}
 .launcher-item{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring);padding-top:3px}
 .launcher-item:active{transform:scale(.90)}
-.launcher-icon{width:58px;height:58px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 3px 10px rgba(0,0,0,.20);transition:box-shadow .14s}
-.launcher-item:active .launcher-icon{box-shadow:0 1px 4px rgba(0,0,0,.20)}
-.launcher-icon .ms{font-size:27px;color:#fff;font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
+.launcher-icon{width:58px;height:58px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:7px;background:var(--ic-bg);border:1.5px solid var(--ic);box-shadow:0 0 16px var(--ic-bg),0 0 0 3px var(--ic-bg);transition:box-shadow .14s,transform .14s}
+.launcher-item:active .launcher-icon{box-shadow:0 0 6px var(--ic-bg)}
+.launcher-icon .ms{font-size:26px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24}
 .launcher-name{font:700 11.5px/1.2 -apple-system;color:var(--text);letter-spacing:-.1px}
 .launcher-desc{font:400 8.5px/1.2 -apple-system;color:var(--label);margin-top:1px}
-.launcher-item.m-sand .launcher-icon{background:linear-gradient(155deg,var(--mat-sand),rgba(0,0,0,.38))}
-.launcher-item.m-chips .launcher-icon{background:linear-gradient(155deg,var(--mat-chips),rgba(0,0,0,.38))}
-.launcher-item.m-steel .launcher-icon{background:linear-gradient(155deg,var(--mat-steel),rgba(0,0,0,.38))}
-.launcher-item.m-cement .launcher-icon{background:linear-gradient(155deg,var(--mat-cement),rgba(0,0,0,.38))}
-.launcher-item.m-brick .launcher-icon{background:linear-gradient(155deg,var(--mat-brick),rgba(0,0,0,.38))}
-.launcher-item.m-rcc .launcher-icon{background:linear-gradient(155deg,var(--mat-rcc),rgba(0,0,0,.38))}
-.launcher-item.q-records .launcher-icon{background:linear-gradient(155deg,var(--ios-green-d),rgba(0,0,0,.38))}
-.launcher-item.q-payment .launcher-icon{background:linear-gradient(155deg,var(--ios-orange-d),rgba(0,0,0,.38))}
-.launcher-item.q-log .launcher-icon{background:linear-gradient(155deg,#B0592E,rgba(0,0,0,.38))}
-.launcher-item.q-pdf .launcher-icon{background:linear-gradient(155deg,var(--amber),rgba(0,0,0,.38))}
-.launcher-item.q-backup .launcher-icon{background:linear-gradient(155deg,#3F9E7A,rgba(0,0,0,.38))}
-.launcher-item.q-more .launcher-icon{background:linear-gradient(155deg,#6C7480,rgba(0,0,0,.38))}
+.launcher-item.m-sand{--ic:var(--mat-sand);--ic-bg:var(--mat-sand-bg)}
+.launcher-item.m-chips{--ic:var(--mat-chips);--ic-bg:var(--mat-chips-bg)}
+.launcher-item.m-steel{--ic:var(--mat-steel);--ic-bg:var(--mat-steel-bg)}
+.launcher-item.m-cement{--ic:var(--mat-cement);--ic-bg:var(--mat-cement-bg)}
+.launcher-item.m-brick{--ic:var(--mat-brick);--ic-bg:var(--mat-brick-bg)}
+.launcher-item.m-rcc{--ic:var(--mat-rcc);--ic-bg:var(--mat-rcc-bg)}
+.launcher-item.q-records{--ic:var(--qa-records);--ic-bg:var(--qa-records-bg)}
+.launcher-item.q-payment{--ic:var(--qa-payment);--ic-bg:var(--qa-payment-bg)}
+.launcher-item.q-log{--ic:var(--qa-log);--ic-bg:var(--qa-log-bg)}
+.launcher-item.q-pdf{--ic:var(--qa-pdf);--ic-bg:var(--qa-pdf-bg)}
+.launcher-item.q-backup{--ic:var(--qa-backup);--ic-bg:var(--qa-backup-bg)}
+.launcher-item.q-more{--ic:var(--qa-more);--ic-bg:var(--qa-more-bg)}
 
 /* ── DESTINATION SUB-PAGES (opened from Home cards / More rows) ── */
 /* display is handled by the shared .panel / .panel.active rules below */
