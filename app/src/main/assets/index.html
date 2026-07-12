@@ -323,29 +323,26 @@ nav{
 .home-stat-lbl{font:600 10px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase}
 .home-stat-val{font:800 22px/1 -apple-system;color:var(--text);margin-top:6px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
 .home-sec-lbl{font:700 13px/1 -apple-system;color:var(--text);letter-spacing:-.1px;margin:18px 0 10px;display:flex;align-items:center;gap:7px}
-.mod-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:8px}
-.mod-card{position:relative;background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);padding:11px 8px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring),box-shadow .16s;box-shadow:var(--sh-card);overflow:hidden;min-height:88px;display:flex;flex-direction:column;justify-content:flex-start;text-align:center;align-items:center}
-.mod-card:active{transform:scale(.95)}
-.mod-card-strip{position:absolute;top:0;left:0;width:100%;height:3px;border-radius:0}
-.mod-card-icon{width:34px;height:34px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-bottom:7px}
-.mod-card-icon .ms{font-size:18px;font-variation-settings:"FILL" 0,"wght" 250,"GRAD" 0,"opsz" 24}
-.mod-card-name{font:700 11.5px/1.15 -apple-system;color:var(--text);letter-spacing:-.1px}
-.mod-card-desc{font:400 9px/1.3 -apple-system;color:var(--label);margin-top:2px}
-.mod-card-badge{position:absolute;top:12px;right:12px;font:700 10px/1 -apple-system;padding:3px 8px;border-radius:var(--r-pill)}
-.mod-card.m-rcc{grid-column:1/-1;flex-direction:row;text-align:left;align-items:center;gap:12px;padding:13px 14px;min-height:0}
-.mod-card.m-rcc .mod-card-icon{margin-bottom:0}
-/* Module accent mapping for Home cards — fixed identity colours, theme-independent */
-.mod-card.m-sand .mod-card-strip{background:var(--mat-sand)}.mod-card.m-sand .mod-card-icon{background:var(--mat-sand-bg)}.mod-card.m-sand .mod-card-icon .ms{color:var(--mat-sand)}.mod-card.m-sand .mod-card-badge{background:var(--mat-sand-bg);color:var(--mat-sand)}
-.mod-card.m-chips .mod-card-strip{background:var(--mat-chips)}.mod-card.m-chips .mod-card-icon{background:var(--mat-chips-bg)}.mod-card.m-chips .mod-card-icon .ms{color:var(--mat-chips)}.mod-card.m-chips .mod-card-badge{background:var(--mat-chips-bg);color:var(--mat-chips)}
-.mod-card.m-steel .mod-card-strip{background:var(--mat-steel)}.mod-card.m-steel .mod-card-icon{background:var(--mat-steel-bg)}.mod-card.m-steel .mod-card-icon .ms{color:var(--mat-steel)}.mod-card.m-steel .mod-card-badge{background:var(--mat-steel-bg);color:var(--mat-steel)}
-.mod-card.m-cement .mod-card-strip{background:var(--mat-cement)}.mod-card.m-cement .mod-card-icon{background:var(--mat-cement-bg)}.mod-card.m-cement .mod-card-icon .ms{color:var(--mat-cement)}.mod-card.m-cement .mod-card-badge{background:var(--mat-cement-bg);color:var(--mat-cement)}
-.mod-card.m-rcc .mod-card-strip{background:var(--mat-rcc)}.mod-card.m-rcc .mod-card-icon{background:var(--mat-rcc-bg)}.mod-card.m-rcc .mod-card-icon .ms{color:var(--mat-rcc)}.mod-card.m-rcc .mod-card-badge{background:var(--mat-rcc-bg);color:var(--mat-rcc)}
-.mod-card.m-brick .mod-card-strip{background:var(--mat-brick)}.mod-card.m-brick .mod-card-icon{background:var(--mat-brick-bg)}.mod-card.m-brick .mod-card-icon .ms{color:var(--mat-brick)}.mod-card.m-brick .mod-card-badge{background:var(--mat-brick-bg);color:var(--mat-brick)}
-.home-quick-row{display:flex;gap:10px;margin-bottom:6px}
-.home-quick-btn{flex:1;display:flex;align-items:center;gap:9px;padding:13px 14px;background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .13s,transform .12s var(--spring)}
-.home-quick-btn:active{opacity:.7;transform:scale(.97)}
-.home-quick-btn .ms{font-size:19px}
-.home-quick-lbl{font:600 12.5px/1 -apple-system;color:var(--text)}
+.launcher-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 4px;margin-bottom:8px}
+.launcher-item{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring);padding-top:3px}
+.launcher-item:active{transform:scale(.90)}
+.launcher-icon{width:58px;height:58px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:7px;box-shadow:0 3px 10px rgba(0,0,0,.20);transition:box-shadow .14s}
+.launcher-item:active .launcher-icon{box-shadow:0 1px 4px rgba(0,0,0,.20)}
+.launcher-icon .ms{font-size:27px;color:#fff;font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24}
+.launcher-name{font:700 11.5px/1.2 -apple-system;color:var(--text);letter-spacing:-.1px}
+.launcher-desc{font:400 8.5px/1.2 -apple-system;color:var(--label);margin-top:1px}
+.launcher-item.m-sand .launcher-icon{background:linear-gradient(155deg,var(--mat-sand),rgba(0,0,0,.38))}
+.launcher-item.m-chips .launcher-icon{background:linear-gradient(155deg,var(--mat-chips),rgba(0,0,0,.38))}
+.launcher-item.m-steel .launcher-icon{background:linear-gradient(155deg,var(--mat-steel),rgba(0,0,0,.38))}
+.launcher-item.m-cement .launcher-icon{background:linear-gradient(155deg,var(--mat-cement),rgba(0,0,0,.38))}
+.launcher-item.m-brick .launcher-icon{background:linear-gradient(155deg,var(--mat-brick),rgba(0,0,0,.38))}
+.launcher-item.m-rcc .launcher-icon{background:linear-gradient(155deg,var(--mat-rcc),rgba(0,0,0,.38))}
+.launcher-item.q-records .launcher-icon{background:linear-gradient(155deg,var(--ios-green-d),rgba(0,0,0,.38))}
+.launcher-item.q-payment .launcher-icon{background:linear-gradient(155deg,var(--ios-orange-d),rgba(0,0,0,.38))}
+.launcher-item.q-log .launcher-icon{background:linear-gradient(155deg,#B0592E,rgba(0,0,0,.38))}
+.launcher-item.q-pdf .launcher-icon{background:linear-gradient(155deg,var(--amber),rgba(0,0,0,.38))}
+.launcher-item.q-backup .launcher-icon{background:linear-gradient(155deg,#3F9E7A,rgba(0,0,0,.38))}
+.launcher-item.q-more .launcher-icon{background:linear-gradient(155deg,#6C7480,rgba(0,0,0,.38))}
 
 /* ── DESTINATION SUB-PAGES (opened from Home cards / More rows) ── */
 /* display is handled by the shared .panel / .panel.active rules below */
@@ -887,43 +884,65 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   </div>
 
   <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">grid_view</span><span data-i18n="home_sec_calc">Calculators</span></div>
-  <div class="mod-grid">
-    <div class="mod-card m-sand" onclick="openSubPage('sand')">
-      <div class="mod-card-strip"></div>
-      <div class="mod-card-icon"><span class="ms">water</span></div>
-      <div><div class="mod-card-name" data-i18n="sand_name">Sand</div><div class="mod-card-desc" data-i18n="sand_desc">Volume · CFT</div></div>
+  <div class="launcher-grid">
+    <div class="launcher-item m-sand" onclick="openSubPage('sand')">
+      <div class="launcher-icon"><span class="ms">water</span></div>
+      <div class="launcher-name" data-i18n="sand_name">Sand</div>
+      <div class="launcher-desc" data-i18n="sand_desc">Volume · CFT</div>
     </div>
-    <div class="mod-card m-chips" onclick="openSubPage('chips')">
-      <div class="mod-card-strip"></div>
-      <div class="mod-card-icon"><span class="ms">landscape</span></div>
-      <div><div class="mod-card-name" data-i18n="chips_name">Stone Chips</div><div class="mod-card-desc" data-i18n="chips_desc">Volume · CFT</div></div>
+    <div class="launcher-item m-chips" onclick="openSubPage('chips')">
+      <div class="launcher-icon"><span class="ms">landscape</span></div>
+      <div class="launcher-name" data-i18n="chips_name">Stone Chips</div>
+      <div class="launcher-desc" data-i18n="chips_desc">Volume · CFT</div>
     </div>
-    <div class="mod-card m-steel" onclick="openSubPage('steel')">
-      <div class="mod-card-strip"></div>
-      <div class="mod-card-icon"><span class="ms">linear_scale</span></div>
-      <div><div class="mod-card-name" data-i18n="steel_name">Steel Bars</div><div class="mod-card-desc" data-i18n="steel_desc">KG · Tonnage</div></div>
+    <div class="launcher-item m-steel" onclick="openSubPage('steel')">
+      <div class="launcher-icon"><span class="ms">linear_scale</span></div>
+      <div class="launcher-name" data-i18n="steel_name">Steel Bars</div>
+      <div class="launcher-desc" data-i18n="steel_desc">KG · Tonnage</div>
     </div>
-    <div class="mod-card m-cement" onclick="openSubPage('cement')">
-      <div class="mod-card-strip"></div>
-      <div class="mod-card-icon"><span class="ms">inventory_2</span></div>
-      <div><div class="mod-card-name" data-i18n="cement_name">Cement</div><div class="mod-card-desc" data-i18n="cement_desc">Bags · 50kg</div></div>
+    <div class="launcher-item m-cement" onclick="openSubPage('cement')">
+      <div class="launcher-icon"><span class="ms">inventory_2</span></div>
+      <div class="launcher-name" data-i18n="cement_name">Cement</div>
+      <div class="launcher-desc" data-i18n="cement_desc">Bags · 50kg</div>
     </div>
-    <div class="mod-card m-brick" onclick="openSubPage('brick')">
-      <div class="mod-card-strip"></div>
-      <div class="mod-card-icon"><span class="ms">domain</span></div>
-      <div><div class="mod-card-name" data-i18n="brick_name">Brick</div><div class="mod-card-desc" data-i18n="brick_desc">Class · Count</div></div>
+    <div class="launcher-item m-brick" onclick="openSubPage('brick')">
+      <div class="launcher-icon"><span class="ms">domain</span></div>
+      <div class="launcher-name" data-i18n="brick_name">Brick</div>
+      <div class="launcher-desc" data-i18n="brick_desc">Class · Count</div>
     </div>
-    <div class="mod-card m-rcc" onclick="openSubPage('rcc')">
-      <div class="mod-card-strip"></div>
-      <div class="mod-card-icon"><span class="ms">foundation</span></div>
-      <div><div class="mod-card-name" data-i18n="rcc_name">RCC Estimator</div><div class="mod-card-desc" data-i18n="rcc_desc">BNBC 2020 · multi-element · mix comparison</div></div>
+    <div class="launcher-item m-rcc" onclick="openSubPage('rcc')">
+      <div class="launcher-icon"><span class="ms">foundation</span></div>
+      <div class="launcher-name" data-i18n="rcc_name_short">RCC</div>
+      <div class="launcher-desc" data-i18n="rcc_desc_short">Estimator</div>
     </div>
   </div>
 
   <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">bolt</span><span data-i18n="home_sec_quick">Quick Actions</span></div>
-  <div class="home-quick-row">
-    <div class="home-quick-btn" onclick="switchDest('records')"><span class="ms" style="color:var(--ios-green-d)">folder_open</span><span class="home-quick-lbl" data-i18n="home_view_records">View Records</span></div>
-    <div class="home-quick-btn" onclick="switchDest('payment')"><span class="ms" style="color:var(--ios-orange-d)">handshake</span><span class="home-quick-lbl" data-i18n="home_new_payment">New Payment</span></div>
+  <div class="launcher-grid">
+    <div class="launcher-item q-records" onclick="switchDest('records')">
+      <div class="launcher-icon"><span class="ms">folder_open</span></div>
+      <div class="launcher-name" data-i18n="home_view_records">View Records</div>
+    </div>
+    <div class="launcher-item q-payment" onclick="switchDest('payment')">
+      <div class="launcher-icon"><span class="ms">handshake</span></div>
+      <div class="launcher-name" data-i18n="home_new_payment">New Payment</div>
+    </div>
+    <div class="launcher-item q-log" onclick="openSubPage('log')">
+      <div class="launcher-icon"><span class="ms">article</span></div>
+      <div class="launcher-name" data-i18n="lbl_site_log_keeper">Site Log</div>
+    </div>
+    <div class="launcher-item q-pdf" onclick="exportBulkPDF('all')">
+      <div class="launcher-icon"><span class="ms">picture_as_pdf</span></div>
+      <div class="launcher-name" data-i18n="lbl_export_pdf">Export PDF</div>
+    </div>
+    <div class="launcher-item q-backup" onclick="backupLocal()">
+      <div class="launcher-icon"><span class="ms">cloud_upload</span></div>
+      <div class="launcher-name" data-i18n="lbl_export_backup">Backup</div>
+    </div>
+    <div class="launcher-item q-more" onclick="switchDest('more')">
+      <div class="launcher-icon"><span class="ms">menu</span></div>
+      <div class="launcher-name" data-i18n="nav_more">More</div>
+    </div>
   </div>
 </div>
 
@@ -2898,6 +2917,7 @@ var I18N={
   "toast_restored": "Restored",
   "toast_records_suffix": "records",
   "toast_copied": "Copied:",
+  "rcc_desc_short": "Estimator",
   "ph_driver_name": "Driver's full name",
   "ph_contractor_name": "Full name of contractor",
   "lbl_avg_prefix": "AVG:",
@@ -3283,6 +3303,7 @@ var I18N={
   "toast_restored": "পুনরুদ্ধার হয়েছে",
   "toast_records_suffix": "টি রেকর্ড",
   "toast_copied": "কপি হয়েছে:",
+  "rcc_desc_short": "এস্টিমেটর",
   "ph_driver_name": "ড্রাইভারের পূর্ণ নাম",
   "ph_contractor_name": "ঠিকাদারের পূর্ণ নাম",
   "lbl_avg_prefix": "গড়:",
