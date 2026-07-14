@@ -316,27 +316,66 @@ nav{
 .home-stat{background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);padding:14px 16px}
 .home-stat-lbl{font:600 10px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase}
 .home-stat-val{font:800 22px/1 -apple-system;color:var(--text);margin-top:6px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
-.home-sec-lbl{font:700 13px/1 -apple-system;color:var(--text);letter-spacing:-.1px;margin:18px 0 10px;display:flex;align-items:center;gap:7px}
-.launcher-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px 4px;margin-bottom:8px}
+.home-sec-lbl{font:700 13px/1 -apple-system;color:var(--text);letter-spacing:-.1px;margin:22px 0 10px;display:flex;align-items:center;gap:7px}
+
+/* Compact hero */
+.home-hero-v2{padding:16px 0 2px}
+.home-hero-kicker{font:700 21px/1.25 -apple-system;color:var(--text);letter-spacing:-.4px}
+.home-hero-badges{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
+.home-hero-badge{display:inline-flex;align-items:center;gap:4px;font:600 10.5px/1 -apple-system;color:var(--label);background:var(--fill);border:.5px solid var(--sep);padding:6px 11px;border-radius:99px}
+.home-hero-badge .ms{font-size:13px;color:var(--grn)}
+
+/* Dashboard overview */
+.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 4px}
+.dash-card{background:var(--bg-card);border:.5px solid var(--sep);border-radius:20px;padding:15px 16px;box-shadow:0 1px 4px rgba(0,0,0,.05);transition:transform .16s var(--spring);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.dash-card:active{transform:scale(.97)}
+.dash-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.dash-card-icon{width:32px;height:32px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:var(--ic-bg)}
+.dash-card-icon .ms{font-size:17px;color:var(--ic)}
+.dash-card-val{font:800 25px/1 -apple-system;color:var(--text);letter-spacing:-.6px;font-variant-numeric:tabular-nums}
+.dash-card-lbl{font:600 10.5px/1 -apple-system;color:var(--label);letter-spacing:.04em;text-transform:uppercase;margin-top:6px}
+
+/* Recent activity */
+.recent-list{display:flex;flex-direction:column;gap:7px;margin-bottom:4px}
+.recent-item{display:flex;align-items:center;gap:11px;background:var(--bg-card);border:.5px solid var(--sep);border-radius:16px;padding:10px 13px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring)}
+.recent-item:active{transform:scale(.97)}
+.recent-icon{width:36px;height:36px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--ic-bg)}
+.recent-icon .ms{font-size:17px;color:var(--ic)}
+.recent-body{flex:1;min-width:0}
+.recent-title{font:700 12.5px/1.25 -apple-system;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent-sub{font:400 10.5px/1.3 -apple-system;color:var(--label);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.recent-time{font:600 9.5px/1 -apple-system;color:var(--label);flex-shrink:0;white-space:nowrap;margin-left:4px}
+
+/* Module cards — larger, elevated, tactile (primary hierarchy) */
+.module-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px}
+.module-card{position:relative;background:var(--bg-card);border:.5px solid var(--sep);border-radius:22px;padding:16px 8px 13px;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s var(--spring),box-shadow .16s;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.module-card:active{transform:scale(.94);box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.module-icon{width:50px;height:50px;border-radius:17px;display:flex;align-items:center;justify-content:center;margin-bottom:9px;background:var(--ic-bg);box-shadow:inset 0 0 0 1.5px var(--ic)}
+.module-icon .ms{font-size:23px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24}
+.module-name{font:700 12px/1.2 -apple-system;color:var(--text);letter-spacing:-.1px}
+.module-desc{font:400 9px/1.3 -apple-system;color:var(--label);margin-top:2px}
+
+/* Quick actions — compact, secondary hierarchy (unchanged launcher style) */
+.launcher-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px 4px;margin-bottom:8px}
 .launcher-item{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring);padding-top:3px}
 .launcher-item:active{transform:scale(.90)}
-.launcher-icon{width:58px;height:58px;border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:7px;background:var(--ic-bg);border:1.5px solid var(--ic);box-shadow:0 0 16px var(--ic-bg),0 0 0 3px var(--ic-bg);transition:box-shadow .14s,transform .14s}
+.launcher-icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;background:var(--ic-bg);border:1.5px solid var(--ic);transition:box-shadow .14s,transform .14s}
 .launcher-item:active .launcher-icon{box-shadow:0 0 6px var(--ic-bg)}
-.launcher-icon .ms{font-size:26px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24}
-.launcher-name{font:700 11.5px/1.2 -apple-system;color:var(--text);letter-spacing:-.1px}
+.launcher-icon .ms{font-size:22px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24}
+.launcher-name{font:600 10.5px/1.2 -apple-system;color:var(--text-dim);letter-spacing:-.1px}
 .launcher-desc{font:400 8.5px/1.2 -apple-system;color:var(--label);margin-top:1px}
-.launcher-item.m-sand{--ic:var(--mat-sand);--ic-bg:var(--mat-sand-bg)}
-.launcher-item.m-chips{--ic:var(--mat-chips);--ic-bg:var(--mat-chips-bg)}
-.launcher-item.m-steel{--ic:var(--mat-steel);--ic-bg:var(--mat-steel-bg)}
-.launcher-item.m-cement{--ic:var(--mat-cement);--ic-bg:var(--mat-cement-bg)}
-.launcher-item.m-brick{--ic:var(--mat-brick);--ic-bg:var(--mat-brick-bg)}
-.launcher-item.m-rcc{--ic:var(--mat-rcc);--ic-bg:var(--mat-rcc-bg)}
-.launcher-item.q-records{--ic:var(--qa-records);--ic-bg:var(--qa-records-bg)}
-.launcher-item.q-payment{--ic:var(--qa-payment);--ic-bg:var(--qa-payment-bg)}
-.launcher-item.q-log{--ic:var(--qa-log);--ic-bg:var(--qa-log-bg)}
-.launcher-item.q-pdf{--ic:var(--qa-pdf);--ic-bg:var(--qa-pdf-bg)}
-.launcher-item.q-backup{--ic:var(--qa-backup);--ic-bg:var(--qa-backup-bg)}
-.launcher-item.q-more{--ic:var(--qa-more);--ic-bg:var(--qa-more-bg)}
+.m-sand{--ic:var(--mat-sand);--ic-bg:var(--mat-sand-bg)}
+.m-chips{--ic:var(--mat-chips);--ic-bg:var(--mat-chips-bg)}
+.m-steel{--ic:var(--mat-steel);--ic-bg:var(--mat-steel-bg)}
+.m-cement{--ic:var(--mat-cement);--ic-bg:var(--mat-cement-bg)}
+.m-brick{--ic:var(--mat-brick);--ic-bg:var(--mat-brick-bg)}
+.m-rcc{--ic:var(--mat-rcc);--ic-bg:var(--mat-rcc-bg)}
+.q-records{--ic:var(--qa-records);--ic-bg:var(--qa-records-bg)}
+.q-payment{--ic:var(--qa-payment);--ic-bg:var(--qa-payment-bg)}
+.q-log{--ic:var(--qa-log);--ic-bg:var(--qa-log-bg)}
+.q-pdf{--ic:var(--qa-pdf);--ic-bg:var(--qa-pdf-bg)}
+.q-backup{--ic:var(--qa-backup);--ic-bg:var(--qa-backup-bg)}
+.q-more{--ic:var(--qa-more);--ic-bg:var(--qa-more-bg)}
 
 /* ── DESTINATION SUB-PAGES (opened from Home cards / More rows) ── */
 /* display is handled by the shared .panel / .panel.active rules below */
@@ -862,52 +901,64 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- ═══ DESTINATION: HOME (Engineering Dashboard) ═══ -->
 <div class="panel dest active" id="d-home" role="tabpanel">
-  <div class="home-hero">
-    <div class="home-hero-title" data-i18n="home_title">Engineering Tools</div>
-    <div class="home-hero-sub" data-i18n="home_sub">Tap a calculator to start a new entry</div>
-  </div>
-  <div class="home-stats-row">
-    <div class="home-stat">
-      <div class="home-stat-lbl" data-i18n="home_stat_records">Saved Records</div>
-      <div class="home-stat-val" id="home-stat-records">0</div>
-    </div>
-    <div class="home-stat">
-      <div class="home-stat-lbl" data-i18n="home_stat_paid">Total Paid</div>
-      <div class="home-stat-val" id="home-stat-paid">৳ 0</div>
+  <div class="home-hero-v2">
+    <div class="home-hero-kicker" data-i18n="home_kicker">Professional Engineering Toolkit</div>
+    <div class="home-hero-badges">
+      <span class="home-hero-badge"><span class="ms">verified</span><span data-i18n="home_badge_bnbc">BNBC 2020 Ready</span></span>
+      <span class="home-hero-badge" data-i18n="home_badge_version">Version 1.0</span>
     </div>
   </div>
 
-  <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">grid_view</span><span data-i18n="home_sec_calc">Calculators</span></div>
-  <div class="launcher-grid">
-    <div class="launcher-item m-sand" onclick="openSubPage('sand')">
-      <div class="launcher-icon"><span class="ms">water</span></div>
-      <div class="launcher-name" data-i18n="sand_name">Sand</div>
-      <div class="launcher-desc" data-i18n="sand_desc">Volume · CFT</div>
+  <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">dashboard</span><span data-i18n="home_sec_overview">Overview</span></div>
+  <div class="dash-grid">
+    <div class="dash-card q-records" onclick="switchDest('records')">
+      <div class="dash-card-top"><div class="dash-card-icon"><span class="ms">folder_open</span></div></div>
+      <div class="dash-card-val" id="home-stat-records">0</div>
+      <div class="dash-card-lbl" data-i18n="home_stat_records">Saved Records</div>
     </div>
-    <div class="launcher-item m-chips" onclick="openSubPage('chips')">
-      <div class="launcher-icon"><span class="ms">landscape</span></div>
-      <div class="launcher-name" data-i18n="chips_name">Stone Chips</div>
-      <div class="launcher-desc" data-i18n="chips_desc">Volume · CFT</div>
+    <div class="dash-card q-payment" onclick="switchDest('payment')">
+      <div class="dash-card-top"><div class="dash-card-icon"><span class="ms">handshake</span></div></div>
+      <div class="dash-card-val" id="home-stat-paid">৳ 0</div>
+      <div class="dash-card-lbl" data-i18n="home_stat_paid">Total Paid</div>
     </div>
-    <div class="launcher-item m-steel" onclick="openSubPage('steel')">
-      <div class="launcher-icon"><span class="ms">linear_scale</span></div>
-      <div class="launcher-name" data-i18n="steel_name">Steel Bars</div>
-      <div class="launcher-desc" data-i18n="steel_desc">KG · Tonnage</div>
+  </div>
+
+  <div id="recent-sec" style="display:none">
+    <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">history</span><span data-i18n="home_sec_recent">Recent Activity</span></div>
+    <div class="recent-list" id="recent-list"></div>
+  </div>
+
+  <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">grid_view</span><span data-i18n="home_sec_calc">Engineering Modules</span></div>
+  <div class="module-grid">
+    <div class="module-card m-sand" onclick="openSubPage('sand')">
+      <div class="module-icon"><span class="ms">water</span></div>
+      <div class="module-name" data-i18n="sand_name">Sand</div>
+      <div class="module-desc" data-i18n="sand_desc">Volume · CFT</div>
     </div>
-    <div class="launcher-item m-cement" onclick="openSubPage('cement')">
-      <div class="launcher-icon"><span class="ms">inventory_2</span></div>
-      <div class="launcher-name" data-i18n="cement_name">Cement</div>
-      <div class="launcher-desc" data-i18n="cement_desc">Bags · 50kg</div>
+    <div class="module-card m-chips" onclick="openSubPage('chips')">
+      <div class="module-icon"><span class="ms">landscape</span></div>
+      <div class="module-name" data-i18n="chips_name">Stone Chips</div>
+      <div class="module-desc" data-i18n="chips_desc">Volume · CFT</div>
     </div>
-    <div class="launcher-item m-brick" onclick="openSubPage('brick')">
-      <div class="launcher-icon"><span class="ms">domain</span></div>
-      <div class="launcher-name" data-i18n="brick_name">Brick</div>
-      <div class="launcher-desc" data-i18n="brick_desc">Class · Count</div>
+    <div class="module-card m-steel" onclick="openSubPage('steel')">
+      <div class="module-icon"><span class="ms">linear_scale</span></div>
+      <div class="module-name" data-i18n="steel_name">Steel Bars</div>
+      <div class="module-desc" data-i18n="steel_desc">KG · Tonnage</div>
     </div>
-    <div class="launcher-item m-rcc" onclick="openSubPage('rcc')">
-      <div class="launcher-icon"><span class="ms">foundation</span></div>
-      <div class="launcher-name" data-i18n="rcc_name_short">RCC</div>
-      <div class="launcher-desc" data-i18n="rcc_desc_short">Estimator</div>
+    <div class="module-card m-cement" onclick="openSubPage('cement')">
+      <div class="module-icon"><span class="ms">inventory_2</span></div>
+      <div class="module-name" data-i18n="cement_name">Cement</div>
+      <div class="module-desc" data-i18n="cement_desc">Bags · 50kg</div>
+    </div>
+    <div class="module-card m-brick" onclick="openSubPage('brick')">
+      <div class="module-icon"><span class="ms">domain</span></div>
+      <div class="module-name" data-i18n="brick_name">Brick</div>
+      <div class="module-desc" data-i18n="brick_desc">Class · Count</div>
+    </div>
+    <div class="module-card m-rcc" onclick="openSubPage('rcc')">
+      <div class="module-icon"><span class="ms">foundation</span></div>
+      <div class="module-name" data-i18n="rcc_name_short">RCC</div>
+      <div class="module-desc" data-i18n="rcc_desc_short">Estimator</div>
     </div>
   </div>
 
@@ -2211,6 +2262,49 @@ function updateHomeStats(){
     var total=records.filter(function(r){return r.type==='payment';}).reduce(function(s,r){return s+(parseFloat(r.amount)||0);},0);
     pEl.textContent='৳ '+total.toLocaleString('en-BD',{maximumFractionDigits:0});
   }
+  renderRecentActivity();
+}
+
+// ─── RECENT ACTIVITY (Home dashboard) — reads only existing saved records, never fabricated ───
+function relativeTimeShort(ts){
+  if(!ts) return '';
+  var diff=Date.now()-ts;
+  var mins=Math.floor(diff/60000);
+  if(mins<1) return tr('recent_time_now');
+  if(mins<60) return mins+'m';
+  var hrs=Math.floor(mins/60);
+  if(hrs<24) return hrs+'h';
+  var days=Math.floor(hrs/24);
+  if(days===1) return tr('recent_time_yesterday');
+  if(days<7) return days+'d';
+  return localizeDateStr(formatDate(new Date(ts).toISOString()));
+}
+function renderRecentActivity(){
+  var sec=document.getElementById('recent-sec');
+  var list=document.getElementById('recent-list');
+  if(!sec||!list) return;
+  if(!records.length){ sec.style.display='none'; list.innerHTML=''; return; }
+  var recent=records.slice().sort(function(a,b){return (b.createdAt||b.ts||0)-(a.createdAt||a.ts||0);}).slice(0,3);
+  var icons={sand:'water',chips:'landscape',steel:'linear_scale',cement:'inventory_2',brick:'domain',rcc:'foundation',payment:'handshake'};
+  var typeClass={sand:'m-sand',chips:'m-chips',steel:'m-steel',cement:'m-cement',brick:'m-brick',rcc:'m-rcc',payment:'q-payment'};
+  var typeKey={sand:'sand_name',chips:'chips_name',steel:'steel_name',cement:'cement_name',brick:'brick_name',rcc:'rcc_name_short',payment:'lbl_payment_short'};
+  list.innerHTML=recent.map(function(r){
+    var val='';
+    if(r.type==='sand'||r.type==='chips') val=(r.vol||0).toFixed(2)+' CFT';
+    else if(r.type==='steel') val=(r.totalTon||(r.totalKg?r.totalKg/1000:0)||0).toFixed(2)+' TON';
+    else if(r.type==='cement') val=(r.bags||0)+' '+tr('pdf_w_bags');
+    else if(r.type==='brick') val=(r.qty||0).toLocaleString()+' '+esc(r.unit||'');
+    else if(r.type==='rcc') val=(r.vol||0).toFixed(2)+(r.unit==='cft'?' CFT':' m³');
+    else if(r.type==='payment') val='৳ '+(r.amount||0).toLocaleString('en-BD');
+    var proj=esc(r.projName||r.proj||r.contractorName||'');
+    return '<div class="recent-item '+(typeClass[r.type]||'')+'" onclick="switchDest(\'records\')">'+
+      '<div class="recent-icon"><span class="ms">'+(icons[r.type]||'description')+'</span></div>'+
+      '<div class="recent-body"><div class="recent-title">'+esc(tr(typeKey[r.type])||r.type)+' · '+val+'</div>'+
+      (proj?'<div class="recent-sub">'+proj+'</div>':'')+'</div>'+
+      '<div class="recent-time">'+relativeTimeShort(r.createdAt||r.ts)+'</div>'+
+    '</div>';
+  }).join('');
+  sec.style.display='block';
 }
 
 // ─── CLEAR ALL ───
@@ -2635,8 +2729,6 @@ function contrastText(hex){try{hex=(hex||'#000').replace('#','');if(hex.length==
 function updateThemeMeta(){var isD=document.documentElement.classList.contains('dark');var t=THEMES.find(function(x){return x.id===getCurrentTheme();})||THEMES[0];var m=document.getElementById('theme-meta');if(m)m.content=isD?t.metaDark:t.metaLight;}
 var I18N={
   en:{
-  "home_title": "Engineering Tools",
-  "home_sub": "Tap a calculator to start a new entry",
   "home_stat_records": "Saved Records",
   "home_stat_paid": "Total Paid",
   "home_sec_calc": "Calculators",
@@ -2911,6 +3003,14 @@ var I18N={
   "toast_restored": "Restored",
   "toast_records_suffix": "records",
   "toast_copied": "Copied:",
+  "home_kicker": "Professional Engineering Toolkit",
+  "home_badge_bnbc": "BNBC 2020 Ready",
+  "home_badge_version": "Version 1.0",
+  "home_sec_overview": "Overview",
+  "home_sec_recent": "Recent Activity",
+  "recent_time_now": "Just now",
+  "recent_time_today": "Today",
+  "recent_time_yesterday": "Yesterday",
   "rcc_desc_short": "Estimator",
   "ph_driver_name": "Driver's full name",
   "ph_contractor_name": "Full name of contractor",
@@ -3021,8 +3121,6 @@ var I18N={
   "pdf_w_pieces": "Pieces"
 },
   bn:{
-  "home_title": "ইঞ্জিনিয়ারিং টুলস",
-  "home_sub": "নতুন এন্ট্রি শুরু করতে একটি ক্যালকুলেটরে ট্যাপ করুন",
   "home_stat_records": "সংরক্ষিত রেকর্ড",
   "home_stat_paid": "মোট পরিশোধিত",
   "home_sec_calc": "ক্যালকুলেটর",
@@ -3297,6 +3395,14 @@ var I18N={
   "toast_restored": "পুনরুদ্ধার হয়েছে",
   "toast_records_suffix": "টি রেকর্ড",
   "toast_copied": "কপি হয়েছে:",
+  "home_kicker": "প্রফেশনাল ইঞ্জিনিয়ারিং টুলকিট",
+  "home_badge_bnbc": "BNBC 2020 প্রস্তুত",
+  "home_badge_version": "ভার্সন ১.০",
+  "home_sec_overview": "সংক্ষিপ্ত বিবরণ",
+  "home_sec_recent": "সাম্প্রতিক কার্যক্রম",
+  "recent_time_now": "এইমাত্র",
+  "recent_time_today": "আজ",
+  "recent_time_yesterday": "গতকাল",
   "rcc_desc_short": "এস্টিমেটর",
   "ph_driver_name": "ড্রাইভারের পূর্ণ নাম",
   "ph_contractor_name": "ঠিকাদারের পূর্ণ নাম",
@@ -3433,6 +3539,7 @@ function applyLanguage(lang){
   if(typeof initDateOverlays==='function') initDateOverlays();
   if(typeof renderLogs==='function'){var ll=document.getElementById('log-list'); if(ll) renderLogs();}
   if(typeof renderRecords==='function'){var rl=document.getElementById('rec-list'); if(rl) renderRecords();}
+  if(typeof renderRecentActivity==='function') renderRecentActivity();
   var enBtn=document.getElementById('lang-en'), bnBtn=document.getElementById('lang-bn');
   if(enBtn) enBtn.classList.toggle('active', lang==='en');
   if(bnBtn) bnBtn.classList.toggle('active', lang==='bn');
