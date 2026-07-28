@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="oxygenos">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,viewport-fit=cover,user-scalable=no">
-<meta name="theme-color" content="#0E1116" id="theme-meta">
+<meta name="theme-color" content="#0B0F1B" id="theme-meta">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="format-detection" content="address=no,email=no">
-<title>Civil Suite Ultimate v1.0</title>
-<!-- OxygenOS Engineering theme uses system fonts: -apple-system, BlinkMacSystemFont, SF Pro -->
+<title>Civil Suite Ultimate · CSDL v1.0</title>
 <script>
   (function(){
     var _d=localStorage.getItem('csu3_dark');
-    var _t=localStorage.getItem('csu3_theme')||'oxygenos';
     var h=document.documentElement;
-    h.setAttribute('data-theme',_t);
     if(_d==='1') h.classList.add('dark'); else h.classList.add('light');
   })();
 </script>
@@ -36,147 +33,132 @@
 </style>
 <style>
 /* ═══════════════════════════════════════════════════════════
-   CIVIL SUITE v1.0 — OxygenOS Engineering Theme
-   Deep Engineering Blue primary · Calm, professional surfaces
-   Light & Dark modes only · Floating pill tab bar
+   CIVIL SUITE ULTIMATE — CSDL (Civil Suite Design Language)
+   Engineering Blue primary · Precision dark surfaces
+   Single polished theme · Light & Dark modes only
 ═══════════════════════════════════════════════════════════ */
 
-/* ── OXYGENOS ENGINEERING THEME — SYSTEM COLORS ── */
-/* OxygenOS (default dark) */
+/* ── CSDL CORE VARIABLES (Dark Mode — default) ── */
 :root{
-  --ios-blue:#9E9E9E;    --ios-blue-d:#B0B0B0;
-  --ios-green:#5FB87A;   --ios-green-d:#6FCF97;
-  --ios-orange:#EB1E28;  --ios-orange-d:#FF3B3B;
-  --ios-red:#EB1E28;     --ios-red-d:#FF3B3B;
-  --ios-purple:#9E9E9E;  --ios-purple-d:#B0B0B0;
-  --ios-teal:#9E9E9E;    --ios-teal-d:#B0B0B0;
-  --ios-indigo:#8A8A8A;  --ios-indigo-d:#9E9E9E;
-  --ios-pink:#EB1E28;    --ios-pink-d:#FF3B3B;
-  --ios-yellow:#EB1E28;  --ios-yellow-d:#FF3B3B;
-  --ios-cyan:#9E9E9E;    --ios-cyan-d:#B0B0B0;
-  --ios-mint:#9E9E9E;    --ios-mint-d:#B0B0B0;
-  /* Fixed material identity colours — constant across all themes so each
-     material is always recognisable by colour, independent of OEM theme */
+  /* Fixed material identity colours — constant, recognisable across all modes */
   --mat-sand:#E0A639;    --mat-sand-bg:rgba(224,166,57,.16);
   --mat-chips:#6E93B5;   --mat-chips-bg:rgba(110,147,181,.16);
   --mat-steel:#E14B4B;   --mat-steel-bg:rgba(225,75,75,.16);
   --mat-cement:#4C86D6;  --mat-cement-bg:rgba(76,134,214,.16);
   --mat-brick:#C05A2E;   --mat-brick-bg:rgba(192,90,46,.16);
   --mat-rcc:#8B7CD6;     --mat-rcc-bg:rgba(139,124,214,.16);
-  /* Fixed contractor-type identity colours — previously only declared inside
-     the light-mode block, leaving them undefined (colourless chips) in dark
-     mode. Now defined once, theme- and mode-independent. */
+  /* Contractor type identity colours — mode-independent */
   --ct-rod:#3E6FBF;            --ct-rod-bg:rgba(62,111,191,.14);       --ct-rod-bd:rgba(62,111,191,.34);
   --ct-sanitary:#2A9D8F;       --ct-sanitary-bg:rgba(42,157,143,.14);  --ct-sanitary-bd:rgba(42,157,143,.34);
   --ct-electric:#C9911A;       --ct-electric-bg:rgba(201,145,26,.15);  --ct-electric-bd:rgba(201,145,26,.36);
   --ct-paint:#C03D93;          --ct-paint-bg:rgba(192,61,147,.14);     --ct-paint-bd:rgba(192,61,147,.34);
   --ct-tiles:#3F9E63;          --ct-tiles-bg:rgba(63,158,99,.14);      --ct-tiles-bd:rgba(63,158,99,.34);
-  --qa-records:#3F9E63;  --qa-records-bg:rgba(63,158,99,.16);
-  --qa-payment:#E0793B;  --qa-payment-bg:rgba(224,121,59,.16);
-  --qa-log:#B0592E;      --qa-log-bg:rgba(176,89,46,.16);
-  --qa-pdf:#D64545;      --qa-pdf-bg:rgba(214,69,69,.16);
-  --qa-backup:#2FA37A;   --qa-backup-bg:rgba(47,163,122,.16);
-  --qa-more:#6C7480;     --qa-more-bg:rgba(108,116,128,.16);
-  --amber:var(--ios-red-d);      --amber-d:#D11A22;  --amber-l:#FF8080;  --amber-bg:rgba(255,59,59,.14);
-  --chips:#9E9E9E;               --chips-d:#7A7A7A;  --chips-l:#C7C7C7;  --chips-bg:rgba(158,158,158,.14);
-  --steel-c:var(--ios-red-d);   --steel-cd:#D11A22; --steel-cl:#FF8080; --steel-cbg:rgba(255,59,59,.14);
-  --cement:#9E9E9E;              --cement-d:#7A7A7A; --cement-l:#C7C7C7; --cement-bg:rgba(158,158,158,.13);
-  --blu:#8A8A8A;                 --blu-d:#6B6B6B;    --blu-l:#BDBDBD;    --blu-bg:rgba(138,138,138,.13);
-  --grn:var(--ios-green-d);     --grn-bg:rgba(111,207,151,.12);
-  --red:var(--ios-red-d);       --red-d:#D11A22;    --red-l:#FF8080;    --red-bg:rgba(255,59,59,.12);
-  --warn:var(--ios-red-d);      --warn-bg:rgba(255,59,59,.12);
-  --purp:#9E9E9E;                --purp-bg:rgba(158,158,158,.12);
-  --pay:var(--ios-red-d);       --pay-d:#D11A22;    --pay-l:#FF8080;    --pay-bg:rgba(255,59,59,.14);
-  --teal:#9E9E9E;                --teal-bg:rgba(158,158,158,.12);
-  --brick:#C0562A;               --brick-bg:rgba(192,86,42,.14);
-  --bg:#0F0F0F;     --bg-card:#181818;  --bg-card-d:#202020; --bg-seg:#262626;
-  --text:#F5F5F5;   --text-dim:rgba(245,245,245,.62); --text-faint:rgba(245,245,245,.28); --label:#8C8C8C;
-  --border:rgba(255,255,255,.10); --border-d:rgba(255,255,255,.18);
-  --sep:rgba(255,255,255,.10);    --sep2:rgba(255,255,255,.06);
-  --fill:rgba(255,255,255,.06);   --fill2:rgba(255,255,255,.03);
-  --glass-bg:rgba(24,24,24,.50);  --glass-bg-nav:rgba(15,15,15,.50); --glass-border:rgba(255,255,255,.10);
+  /* Quick action colours */
+  --qa-records:#22C55E;  --qa-records-bg:rgba(34,197,94,.14);
+  --qa-payment:#F59E0B;  --qa-payment-bg:rgba(245,158,11,.14);
+  --qa-log:#8B5CF6;      --qa-log-bg:rgba(139,92,246,.14);
+  --qa-pdf:#EF4444;      --qa-pdf-bg:rgba(239,68,68,.14);
+  --qa-backup:#06B6D4;   --qa-backup-bg:rgba(6,182,212,.14);
+  --qa-more:#6B7A9A;     --qa-more-bg:rgba(107,122,154,.14);
+  /* Semantic colour shortcuts — CSDL palette */
+  --amber:#F59E0B;        --amber-d:#D97706;  --amber-l:#FCD34D;  --amber-bg:rgba(245,158,11,.14);
+  --chips:#06B6D4;        --chips-d:#0891B2;  --chips-l:#67E8F9;  --chips-bg:rgba(6,182,212,.13);
+  --steel-c:#EF4444;      --steel-cd:#DC2626; --steel-cl:#FCA5A5; --steel-cbg:rgba(239,68,68,.14);
+  --cement:#3B82F6;       --cement-d:#2563EB; --cement-l:#93C5FD; --cement-bg:rgba(59,130,246,.13);
+  --blu:#7C3AED;          --blu-d:#6D28D9;    --blu-l:#C4B5FD;    --blu-bg:rgba(124,58,237,.13);
+  --grn:#22C55E;          --grn-bg:rgba(34,197,94,.12);
+  --red:#EF4444;          --red-d:#DC2626;    --red-l:#FCA5A5;    --red-bg:rgba(239,68,68,.12);
+  --warn:#F59E0B;         --warn-bg:rgba(245,158,11,.12);
+  --purp:#8B5CF6;         --purp-bg:rgba(139,92,246,.12);
+  --pay:#F59E0B;          --pay-d:#D97706;    --pay-l:#FCD34D;    --pay-bg:rgba(245,158,11,.14);
+  --teal:#06B6D4;         --teal-bg:rgba(6,182,212,.12);
+  --brick:#EA580C;        --brick-l:#FDBA74;  --brick-bg:rgba(234,88,12,.14);
+  /* Legacy ios-* variable names remapped to CSDL palette
+     Components use these names — redefining values here updates all of them */
+  --ios-blue:#3A63BE;     --ios-blue-d:#4C78D4;
+  --ios-orange:#2B4FA8;   --ios-orange-d:#3A63BE;
+  --ios-green:#16A34A;    --ios-green-d:#22C55E;
+  --ios-red:#DC2626;      --ios-red-d:#EF4444;
+  --ios-teal:#0891B2;     --ios-teal-d:#06B6D4;
+  --ios-indigo:#6D28D9;   --ios-indigo-d:#7C3AED;
+  --ios-purple:#7C3AED;   --ios-purple-d:#8B5CF6;
+  --ios-pink:#DB2777;     --ios-pink-d:#EC4899;
+  --ios-yellow:#D97706;   --ios-yellow-d:#F59E0B;
+  --ios-cyan:#0891B2;     --ios-cyan-d:#06B6D4;
+  --ios-mint:#16A34A;     --ios-mint-d:#22C55E;
+  /* ── Dark surfaces ── */
+  --bg:#0D1117;     --bg-card:#161B27;  --bg-card-d:#1E2535; --bg-seg:#242E44;
+  --text:#E8EDF8;   --text-dim:rgba(232,237,248,.62); --text-faint:rgba(232,237,248,.26); --label:#6A7899;
+  --border:rgba(255,255,255,.08); --border-d:rgba(255,255,255,.16);
+  --sep:rgba(255,255,255,.08);    --sep2:rgba(255,255,255,.04);
+  --fill:rgba(255,255,255,.05);   --fill2:rgba(255,255,255,.025);
+  --glass-bg:rgba(20,25,38,.72);  --glass-bg-nav:rgba(13,17,23,.92); --glass-border:rgba(255,255,255,.10);
   --glass-blur:blur(40px) saturate(180%);
-  --sh:0 1px 0 rgba(0,0,0,.30);  --sh-card:0 4px 20px rgba(0,0,0,.55);
-  --sh-btn:0 4px 16px rgba(0,0,0,.40); --sh-glass:0 8px 32px rgba(0,0,0,.50);
+  --sh:0 1px 0 rgba(0,0,0,.30);  --sh-card:0 4px 24px rgba(0,0,0,.60);
+  --sh-btn:0 4px 16px rgba(0,0,0,.45); --sh-glass:0 8px 32px rgba(0,0,0,.50);
   --r:12px;--r-lg:16px;--r-xl:20px;--r-pill:100px;--r-nav:32px;--r-nav-item:24px;
   --spring:cubic-bezier(.34,1.56,.64,1); --ease-out:cubic-bezier(.2,0,0,1); --ease-std:cubic-bezier(.4,0,.2,1);
   --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
   --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
 }
 html{color-scheme:dark} html.light{color-scheme:light}
-html[data-theme="classic"]{--bg:#000000;--bg-card:#1C1C1E;--bg-card-d:#2C2C2E;--bg-seg:#3A3A3C;--text:#FFFFFF;--text-dim:rgba(235,235,245,.60);--text-faint:rgba(235,235,245,.30);--label:#8E8E93;--border:rgba(255,255,255,.10);--border-d:rgba(255,255,255,.18);--sep:rgba(60,60,67,.36);--sep2:rgba(60,60,67,.18);--fill:rgba(120,120,128,.20);--fill2:rgba(120,120,128,.10);--glass-bg:rgba(28,28,30,.50);--glass-bg-nav:rgba(0,0,0,.50);--glass-border:rgba(255,255,255,.10);--sh-card:0 4px 20px rgba(0,0,0,.60);--amber:#0A84FF;--amber-bg:rgba(10,132,255,.14);--chips:#5AC8FA;--chips-bg:rgba(90,200,250,.13);--steel-c:#FF453A;--steel-cbg:rgba(255,69,58,.13);--cement:#64D2FF;--cement-bg:rgba(100,210,255,.13);--blu:#6E6CF0;--blu-bg:rgba(110,108,240,.13);--grn:#30D158;--grn-bg:rgba(48,209,88,.12);--red:#FF453A;--red-bg:rgba(255,69,58,.12);--warn:#FF9F0A;--warn-bg:rgba(255,159,10,.12);--purp:#BF5AF2;--purp-bg:rgba(191,90,242,.12);--pay:#FF9F0A;--pay-bg:rgba(255,159,10,.13);--teal:#66D4CF;--teal-bg:rgba(102,212,207,.12);--brick:#D4814A;--brick-bg:rgba(212,129,74,.14);}
-html[data-theme="classic"].light{--bg:#F2F2F7;--bg-card:#FFFFFF;--bg-card-d:#F2F2F7;--bg-seg:#E5E5EA;--text:#000000;--text-dim:rgba(60,60,67,.60);--text-faint:rgba(60,60,67,.30);--label:#8E8E93;--border:rgba(60,60,67,.12);--border-d:rgba(60,60,67,.22);--sep:rgba(60,60,67,.20);--sep2:rgba(60,60,67,.10);--fill:rgba(120,120,128,.12);--fill2:rgba(120,120,128,.06);--glass-bg:rgba(255,255,255,.50);--glass-bg-nav:rgba(242,242,247,.50);--glass-border:rgba(0,0,0,.08);--sh-card:0 2px 12px rgba(0,0,0,.10);--amber:#007AFF;--amber-bg:rgba(0,122,255,.12);--chips:#32ADE6;--chips-bg:rgba(50,173,230,.10);--steel-c:#FF3B30;--steel-cbg:rgba(255,59,48,.10);--cement:#0A84FF;--cement-bg:rgba(10,132,255,.10);--blu:#5856D6;--blu-bg:rgba(88,86,214,.10);--grn:#34C759;--grn-bg:rgba(52,199,89,.10);--red:#FF3B30;--red-bg:rgba(255,59,48,.10);--warn:#FF9500;--warn-bg:rgba(255,149,0,.10);--purp:#AF52DE;--purp-bg:rgba(175,82,222,.10);--pay:#FF9500;--pay-bg:rgba(255,149,0,.12);--teal:#00C7BE;--teal-bg:rgba(0,199,190,.10);--brick:#B85D2E;--brick-bg:rgba(184,93,46,.10);}
-html[data-theme="nothing"]{--bg:#000000;--bg-card:#121212;--bg-card-d:#1A1A1A;--bg-seg:#242424;--text:#FFFFFF;--text-dim:rgba(255,255,255,.65);--text-faint:rgba(255,255,255,.28);--label:#787878;--border:rgba(255,255,255,.10);--border-d:rgba(255,255,255,.18);--sep:rgba(255,255,255,.12);--sep2:rgba(255,255,255,.07);--fill:rgba(255,255,255,.05);--fill2:rgba(255,255,255,.025);--glass-bg:rgba(18,18,18,.50);--glass-bg-nav:rgba(0,0,0,.50);--glass-border:rgba(255,255,255,.10);--sh-card:0 4px 20px rgba(0,0,0,.55);--amber:#D71921;--amber-bg:rgba(215,25,33,.14);--chips:#9E9E9E;--chips-bg:rgba(158,158,158,.13);--steel-c:#D71921;--steel-cbg:rgba(215,25,33,.14);--cement:#9E9E9E;--cement-bg:rgba(158,158,158,.13);--blu:#7A7A7A;--blu-bg:rgba(122,122,122,.13);--grn:#6FCF97;--grn-bg:rgba(111,207,151,.12);--red:#D71921;--red-bg:rgba(215,25,33,.12);--warn:#D71921;--warn-bg:rgba(215,25,33,.12);--purp:#9E9E9E;--purp-bg:rgba(158,158,158,.12);--pay:#D71921;--pay-bg:rgba(215,25,33,.14);--teal:#9E9E9E;--teal-bg:rgba(158,158,158,.12);--brick:#D71921;--brick-bg:rgba(215,25,33,.14);}
-html[data-theme="nothing"].light{--bg:#FAFAFA;--bg-card:#FFFFFF;--bg-card-d:#F0F0F0;--bg-seg:#E8E8E8;--text:#0A0A0A;--text-dim:rgba(10,10,10,.65);--text-faint:rgba(10,10,10,.28);--label:#6E6E6E;--border:rgba(10,10,10,.08);--border-d:rgba(10,10,10,.16);--sep:rgba(10,10,10,.10);--sep2:rgba(10,10,10,.06);--fill:rgba(10,10,10,.05);--fill2:rgba(10,10,10,.025);--glass-bg:rgba(255,255,255,.50);--glass-bg-nav:rgba(250,250,250,.50);--glass-border:rgba(10,10,10,.07);--sh-card:0 2px 12px rgba(0,0,0,.08);--amber:#C8141C;--amber-bg:rgba(200,20,28,.10);--chips:#6B6B6B;--chips-bg:rgba(107,107,107,.09);--steel-c:#C8141C;--steel-cbg:rgba(200,20,28,.10);--cement:#6B6B6B;--cement-bg:rgba(107,107,107,.09);--blu:#5A5A5A;--blu-bg:rgba(90,90,90,.09);--grn:#2E9E5B;--grn-bg:rgba(46,158,91,.09);--red:#C8141C;--red-bg:rgba(200,20,28,.09);--warn:#C8141C;--warn-bg:rgba(200,20,28,.09);--purp:#6B6B6B;--purp-bg:rgba(107,107,107,.09);--pay:#C8141C;--pay-bg:rgba(200,20,28,.10);--teal:#6B6B6B;--teal-bg:rgba(107,107,107,.09);--brick:#C8141C;--brick-bg:rgba(200,20,28,.10);}
-/* ── LIGHT MODE (calm engineering paper — soft grey on white) ── */
+/* ── CSDL LIGHT MODE ── */
 html.light{
-  --bg:#F4F6F9;
+  --bg:#F0F4FB;
   --bg-card:#FFFFFF;
-  --bg-card-d:#EEF1F5;
-  --bg-seg:#E5E9EF;
+  --bg-card-d:#E4ECF7;
+  --bg-seg:#D6E0EE;
 
-  --text:#10141B;
-  --text-dim:rgba(16,20,27,.64);
-  --text-faint:rgba(16,20,27,.28);
-  --label:#6B7587;
+  --text:#0F172A;
+  --text-dim:rgba(15,23,42,.64);
+  --text-faint:rgba(15,23,42,.28);
+  --label:#64748B;
 
-  --border:rgba(16,20,27,.08);
-  --border-d:rgba(16,20,27,.16);
-  --sep:rgba(16,20,27,.10);
-  --sep2:rgba(16,20,27,.06);
+  --border:rgba(15,23,42,.08);
+  --border-d:rgba(15,23,42,.16);
+  --sep:rgba(15,23,42,.10);
+  --sep2:rgba(15,23,42,.06);
 
-  --fill:rgba(16,20,27,.05);
-  --fill2:rgba(16,20,27,.03);
+  --fill:rgba(15,23,42,.05);
+  --fill2:rgba(15,23,42,.03);
 
-  --glass-bg:rgba(255,255,255,.86);
-  --glass-bg-nav:rgba(244,246,249,.90);
-  --glass-border:rgba(16,20,27,.08);
+  --glass-bg:rgba(255,255,255,.88);
+  --glass-bg-nav:rgba(240,244,251,.94);
+  --glass-border:rgba(15,23,42,.08);
 
   --sh:0 1px 0 rgba(0,0,0,.05);
-  --sh-card:0 2px 12px rgba(16,20,27,.08);
-  --sh-btn:0 3px 12px rgba(16,20,27,.14);
-  --sh-glass:0 8px 32px rgba(16,20,27,.10);
+  --sh-card:0 2px 16px rgba(15,23,42,.10);
+  --sh-btn:0 3px 12px rgba(0,0,0,.20);
+  --sh-glass:0 8px 32px rgba(15,23,42,.10);
 
-  --ios-blue:#B0B0B0;     --ios-blue-d:#787878;
-  --ios-orange:#DC141E;   --ios-orange-d:#DC141E;
-  --ios-green:#268A4E;    --ios-green-d:#268A4E;
-  --ios-red:#DC141E;      --ios-red-d:#DC141E;
-  --ios-purple:#B0B0B0;   --ios-purple-d:#787878;
-  --ios-teal:#B0B0B0;     --ios-teal-d:#787878;
-  --ios-indigo:#B0B0B0;   --ios-indigo-d:#787878;
-  --ios-pink:#B0B0B0;     --ios-pink-d:#787878;
-  --ios-yellow:#B0B0B0;   --ios-yellow-d:#787878;
-  --ios-cyan:#B0B0B0;     --ios-cyan-d:#787878;
-  --ios-mint:#B0B0B0;     --ios-mint-d:#787878;
+  --ios-blue:#1E3E8F;     --ios-blue-d:#2B52B8;
+  --ios-orange:#1E3E8F;   --ios-orange-d:#2B52B8;
+  --ios-green:#15803D;    --ios-green-d:#16A34A;
+  --ios-red:#B91C1C;      --ios-red-d:#DC2626;
+  --ios-teal:#0E7490;     --ios-teal-d:#0891B2;
+  --ios-indigo:#5B21B6;   --ios-indigo-d:#6D28D9;
+  --ios-purple:#6D28D9;   --ios-purple-d:#7C3AED;
+  --ios-pink:#BE185D;     --ios-pink-d:#DB2777;
+  --ios-yellow:#B45309;   --ios-yellow-d:#D97706;
+  --ios-cyan:#0E7490;     --ios-cyan-d:#0891B2;
+  --ios-mint:#15803D;     --ios-mint-d:#16A34A;
 
-  --amber:#DC141E;        --amber-bg:rgba(220,20,30,.10);
-  --chips:#6B6B6B;        --chips-bg:rgba(107,107,107,.09);
-  --steel-c:#DC141E;      --steel-cbg:rgba(220,20,30,.10);
-  --cement:#6B6B6B;       --cement-bg:rgba(107,107,107,.09);
-  --brick:#A8401A;        --brick-bg:rgba(168,64,26,.10);
-  --blu:#5A5A5A;          --blu-bg:rgba(90,90,90,.09);
-  --grn:#2E9E5B;          --grn-bg:rgba(46,158,91,.09);
-  --red:#DC141E;          --red-bg:rgba(220,20,30,.09);
-  --warn:#DC141E;         --warn-bg:rgba(220,20,30,.09);
-  --purp:#6B6B6B;         --purp-bg:rgba(107,107,107,.09);
-  --pay:#DC141E;          --pay-bg:rgba(220,20,30,.10);
-  --teal:#6B6B6B;         --teal-bg:rgba(107,107,107,.09);
+  --amber:#D97706;        --amber-d:#B45309;  --amber-l:#FCD34D;  --amber-bg:rgba(217,119,6,.12);
+  --chips:#0891B2;        --chips-d:#0E7490;  --chips-l:#67E8F9;  --chips-bg:rgba(8,145,178,.10);
+  --steel-c:#DC2626;      --steel-cd:#B91C1C; --steel-cl:#FCA5A5; --steel-cbg:rgba(220,38,38,.10);
+  --cement:#2563EB;       --cement-d:#1D4ED8; --cement-l:#93C5FD; --cement-bg:rgba(37,99,235,.10);
+  --blu:#6D28D9;          --blu-d:#5B21B6;    --blu-l:#C4B5FD;    --blu-bg:rgba(109,40,217,.10);
+  --grn:#16A34A;          --grn-bg:rgba(22,163,74,.10);
+  --red:#DC2626;          --red-d:#B91C1C;    --red-l:#FCA5A5;    --red-bg:rgba(220,38,38,.10);
+  --warn:#D97706;         --warn-bg:rgba(217,119,6,.10);
+  --purp:#7C3AED;         --purp-bg:rgba(124,58,237,.10);
+  --pay:#D97706;          --pay-d:#B45309;    --pay-l:#FCD34D;    --pay-bg:rgba(217,119,6,.12);
+  --teal:#0891B2;         --teal-bg:rgba(8,145,178,.10);
+  --brick:#C2410C;        --brick-l:#FDBA74;  --brick-bg:rgba(194,65,12,.10);
 }
 
 
-/* ── LIGHT MODE COMPONENT OVERRIDES ── */
-html.light input[type=number],html.light input[type=text],html.light input[type=tel],html.light input[type=date],html.light select,html.light textarea{background:rgba(120,120,128,.12);color:#000}
-html.light input::placeholder,html.light textarea::placeholder{color:rgba(60,60,67,.30)}
-html.light .seg{background:rgba(120,120,128,.16)}
-html.light .seg-item.active{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.12)}
-html.light .grp-card{background:#fff}
-html.light .toggle-row{background:#fff}
-html.light nav{background:var(--glass-bg-nav);border-color:var(--glass-border)}
-html.light .toast{background:rgba(50,50,52,.95);color:#fff}
-html.light .rec-card{background:#fff}
-html.light .proj-input{background:rgba(120,120,128,.12);color:#000}
-html.light .pay-search-inp{background:rgba(120,120,128,.12);color:#000}
-html.light .steel-dia-inp{background:rgba(120,120,128,.12);color:#000}
+/* ── LIGHT MODE COMPONENT OVERRIDES (now in CSDL block) ── */
 
 /* ── REDUCED MOTION ── */
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
@@ -188,12 +170,12 @@ input,textarea,select{user-select:auto;-webkit-user-select:auto}
 /* ── HTML & BODY ── */
 html{scroll-behavior:smooth}
 body{
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif;
   background-color:var(--bg);
   color:var(--text);
   min-height:100vh;min-height:100dvh;height:auto;
   /* Extra bottom padding for the flush bottom tab bar */
-  padding-bottom:calc(94px + var(--safe-bottom));
+  padding-bottom:calc(62px + var(--safe-bottom));
   padding-left:var(--safe-left);padding-right:var(--safe-right);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;overflow-y:auto;
@@ -207,15 +189,15 @@ body.nav-hidden{padding-bottom:calc(24px + var(--safe-bottom));
 }
 
 /* ── MATERIAL SYMBOLS ── */
-.ms{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24;display:inline-block;user-select:none;letter-spacing:0;transition:font-variation-settings .20s,color .15s}
+.ms{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 24;display:inline-block;user-select:none;letter-spacing:0;transition:font-variation-settings .20s,color .15s}
 .ms-sm{font-size:16px}
-.ms-xl{font-family:"Material Symbols Rounded";font-size:26px;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 48;color:rgba(255,255,255,.95)}
+.ms-xl{font-family:"Material Symbols Rounded";font-size:26px;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 48;color:rgba(255,255,255,.95)}
 
 /* ── SPLASH ── */
 #splash{position:fixed;inset:0;background-color:var(--bg);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:calc(56px + var(--safe-top)) 24px calc(44px + var(--safe-bottom));overflow:hidden;transition:opacity .4s var(--ease-std)}
 #splash.hiding{opacity:0;pointer-events:none}
-.sp-icon{width:88px;height:88px;border-radius:22px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 12px 40px rgba(255,59,59,.44);animation:hdrPop .55s var(--spring) .05s both}
-.sp-icon .ms{font-size:40px;color:#fff;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 48}
+.sp-icon{width:88px;height:88px;border-radius:22px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 12px 40px rgba(29,78,216,.50);animation:hdrPop .55s var(--spring) .05s both}
+.sp-icon .ms{font-size:40px;color:#fff;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 48}
 .sp-h1{font:-apple-system-headline bold 1.9rem/1 -apple-system;font-size:1.9rem;font-weight:700;letter-spacing:-.5px;color:var(--text);text-align:center;animation:slideDown .4s var(--ease-out) .15s both}
 .sp-h1 span{color:var(--ios-orange-d)}
 .sp-sub{font:500 10px/1 -apple-system;font-size:10px;color:var(--label);margin-top:9px;letter-spacing:2px;text-transform:uppercase;text-align:center;animation:slideDown .4s var(--ease-out) .2s both}
@@ -229,10 +211,10 @@ body.nav-hidden{padding-bottom:calc(24px + var(--safe-bottom));
 .sp-pill:nth-child(6){animation-delay:.55s}
 .sp-pill:nth-child(7){animation-delay:.60s}
 .sp-pill.a{background:var(--amber-bg);color:var(--amber);border-color:var(--amber-bg)}
-.sp-pill.b{background:var(--chips-bg);color:var(--chips);border-color:rgba(63,194,187,.25)}
+.sp-pill.b{background:var(--chips-bg);color:var(--chips);border-color:rgba(6,182,212,.28)}
 .sp-pill.c{background:var(--steel-cbg);color:var(--steel-c);border-color:var(--steel-cbg)}
-.sp-pill.d{background:var(--grn-bg);color:var(--grn);border-color:rgba(66,184,115,.25)}
-.sp-pill.e{background:var(--blu-bg);color:var(--blu);border-color:rgba(124,138,232,.25)}
+.sp-pill.d{background:var(--grn-bg);color:var(--grn);border-color:rgba(34,197,94,.28)}
+.sp-pill.e{background:var(--blu-bg);color:var(--blu);border-color:rgba(124,58,237,.25)}
 .sp-pill.f{background:var(--pay-bg);color:var(--pay);border-color:var(--pay-bg)}
 .sp-feats{width:100%;background:var(--glass-bg);backdrop-filter:var(--glass-blur);-webkit-backdrop-filter:var(--glass-blur);border:1px solid var(--glass-border);border-radius:var(--r-xl);padding:14px;animation:slideDown .4s var(--ease-out) .3s both;margin-top:13px}
 .sp-feat-ttl{font:600 9px/1 -apple-system;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--label);margin-bottom:10px}
@@ -250,7 +232,7 @@ body.nav-hidden{padding-bottom:calc(24px + var(--safe-bottom));
 .sp-dev-by{font:600 9px/1 -apple-system;font-size:9px;color:var(--label);letter-spacing:.20em;text-transform:uppercase;margin-bottom:5px}
 .sp-dev-n{font:700 14px/1 -apple-system;font-size:14px;color:var(--ios-orange-d);margin-bottom:4px}
 .sp-dev-r{font:400 10px/1 -apple-system;font-size:10px;color:var(--label);letter-spacing:.08em;text-transform:uppercase}
-.sp-enter{width:100%;padding:17px;border:none;border-radius:var(--r-pill);background:var(--ios-orange-d);color:#fff;font:600 15px/1 -apple-system;font-size:15px;cursor:pointer;letter-spacing:-.2px;animation:slideDown .4s var(--ease-out) 1.02s both;box-shadow:0 4px 24px rgba(255,59,59,.40);transition:transform .12s var(--spring),filter .10s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
+.sp-enter{width:100%;padding:17px;border:none;border-radius:var(--r-pill);background:var(--ios-orange-d);color:#fff;font:600 15px/1 Inter,-apple-system;font-size:15px;cursor:pointer;letter-spacing:-.2px;animation:slideDown .4s var(--ease-out) 1.02s both;box-shadow:0 4px 24px rgba(29,78,216,.44);transition:transform .12s var(--spring),filter .10s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
 .sp-enter:active{transform:scale(.96);filter:brightness(.90)}
 
 /* ── HEADER (compact horizontal layout) ── */
@@ -266,7 +248,7 @@ header{
   z-index:500;
 }
 .hdr-top{display:flex;align-items:center;gap:10px}
-.hdr-icon{width:40px;height:40px;border-radius:12px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(255,59,59,.36);animation:hdrPop .5s var(--spring) .05s both}
+.hdr-icon{width:40px;height:40px;border-radius:12px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 4px 14px rgba(29,78,216,.44);animation:hdrPop .5s var(--spring) .05s both}
 .hdr-icon .ms{font-size:20px;color:#fff;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
 .hdr-titles{flex:1;min-width:0;text-align:left}
 header h1{font:700 1.05rem/1.15 -apple-system;font-size:1.05rem;letter-spacing:-.3px;color:var(--text);text-align:left;animation:slideRight .3s var(--ease-out) .1s both}
@@ -281,37 +263,32 @@ nav{
   position:fixed;
   bottom:0;
   left:0;right:0;
-  border-radius:var(--r-nav) var(--r-nav) 0 0;
+  border-radius:0;
   background:var(--glass-bg-nav);
   backdrop-filter:var(--glass-blur);
   -webkit-backdrop-filter:var(--glass-blur);
-  border:1px solid var(--glass-border);
-  border-bottom:none;
-  padding:10px 4px calc(10px + var(--safe-bottom));
+  border-top:1px solid var(--glass-border);
+  padding:5px 4px calc(5px + var(--safe-bottom));
   display:flex;
   z-index:1000;
-  box-shadow:0 -8px 24px rgba(0,0,0,.16);
+  box-shadow:0 -2px 12px rgba(0,0,0,.14);
   transition:background .3s;
 }
-.ni{flex:1;padding:7px 2px;border-radius:var(--r-nav-item);display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .20s var(--ease-std),transform .13s var(--spring);min-width:0}
+.ni{flex:1;padding:5px 2px;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .20s var(--ease-std),transform .13s var(--spring);min-width:0}
 .ni:active{animation:tapWiggle .32s var(--spring)}
-.ni-icon{font-family:"Material Symbols Rounded";font-size:22px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--spring)}
-.ni.active .ni-icon{font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24;transform:scale(1.1)}
-.ni-lbl{font:600 10px/1 -apple-system;font-size:10px;color:var(--label);letter-spacing:.1px;transition:color .18s;white-space:nowrap}
+.ni-icon{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--spring)}
+.ni.active .ni-icon{font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24;transform:scale(1.04)}
+.ni-lbl{font:500 9px/1 Inter,-apple-system,sans-serif;color:var(--label);letter-spacing:.08px;transition:color .18s;white-space:nowrap}
 /* Destination accent colours for active tab — Home/Records/Payments/More */
-.ni.d-home.active .ni-icon,.ni.d-home.active .ni-lbl{color:var(--ios-orange-d)}
-.ni.d-home.active{background:rgba(255,59,59,.14)}
-.ni.d-records.active .ni-icon,.ni.d-records.active .ni-lbl{color:var(--ios-green-d)}
-.ni.d-records.active{background:rgba(66,184,115,.14)}
-.ni.d-payment.active .ni-icon,.ni.d-payment.active .ni-lbl{color:var(--ios-orange-d)}
-.ni.d-payment.active{background:rgba(255,59,59,.14)}
-.ni.d-more.active .ni-icon,.ni.d-more.active .ni-lbl{color:var(--ios-purple-d)}
-.ni.d-more.active{background:rgba(176,176,176,.14)}
+.ni.d-home.active{background:rgba(255,255,255,.07)}
+.ni.d-records.active{background:rgba(255,255,255,.07)}
+.ni.d-payment.active{background:rgba(255,255,255,.07)}
+.ni.d-more.active{background:rgba(255,255,255,.07)}
 
 /* ── HOME DASHBOARD ── */
 .home-hero{padding:18px 0 6px}
-.home-hero-title{font:700 22px/1.2 -apple-system;color:var(--text);letter-spacing:-.4px}
-.home-hero-sub{font:400 13px/1.4 -apple-system;color:var(--label);margin-top:4px}
+
+
 .home-stats-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0}
 .home-stat{background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);padding:14px 16px}
 .home-stat-lbl{font:600 10px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase}
@@ -319,14 +296,9 @@ nav{
 .home-sec-lbl{font:700 13px/1 -apple-system;color:var(--text);letter-spacing:-.1px;margin:22px 0 10px;display:flex;align-items:center;gap:7px}
 
 /* Compact hero */
-.home-hero-v2{padding:16px 0 2px}
-.home-hero-kicker{font:700 21px/1.25 -apple-system;color:var(--text);letter-spacing:-.4px}
-.home-hero-badges{display:flex;gap:8px;margin-top:9px;flex-wrap:wrap}
-.home-hero-badge{display:inline-flex;align-items:center;gap:4px;font:600 10.5px/1 -apple-system;color:var(--label);background:var(--fill);border:.5px solid var(--sep);padding:6px 11px;border-radius:99px}
-.home-hero-badge .ms{font-size:13px;color:var(--grn)}
+
 
 /* Dashboard overview */
-.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0 4px}
 .dash-card{background:var(--bg-card);border:.5px solid var(--sep);border-radius:20px;padding:15px 16px;box-shadow:0 1px 4px rgba(0,0,0,.05);transition:transform .16s var(--spring);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .dash-card:active{transform:scale(.97)}
 .dash-card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -347,23 +319,17 @@ nav{
 .recent-time{font:600 9.5px/1 -apple-system;color:var(--label);flex-shrink:0;white-space:nowrap;margin-left:4px}
 
 /* Module cards — larger, elevated, tactile (primary hierarchy) */
-.module-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:6px}
+.module-grid{display:flex;flex-direction:column;background:var(--bg-card);border-radius:14px;overflow:hidden;border:.5px solid var(--sep);margin-bottom:4px}
 .module-card{position:relative;background:var(--bg-card);border:.5px solid var(--sep);border-radius:22px;padding:16px 8px 13px;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .16s var(--spring),box-shadow .16s;box-shadow:0 1px 4px rgba(0,0,0,.05)}
 .module-card:active{transform:scale(.94);box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .module-icon{width:50px;height:50px;border-radius:17px;display:flex;align-items:center;justify-content:center;margin-bottom:9px;background:var(--ic-bg);box-shadow:inset 0 0 0 1.5px var(--ic)}
-.module-icon .ms{font-size:23px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24}
-.module-name{font:700 12px/1.2 -apple-system;color:var(--text);letter-spacing:-.1px}
+.module-icon .ms{font-size:19px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 24}
+.module-name{font:600 14px/1.2 Inter,sans-serif;color:var(--text);letter-spacing:-.1px}
 .module-desc{font:400 9px/1.3 -apple-system;color:var(--label);margin-top:2px}
 
 /* Quick actions — compact, secondary hierarchy (unchanged launcher style) */
-.launcher-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px 4px;margin-bottom:8px}
-.launcher-item{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .14s var(--spring);padding-top:3px}
 .launcher-item:active{transform:scale(.90)}
-.launcher-icon{width:48px;height:48px;border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;background:var(--ic-bg);border:1.5px solid var(--ic);transition:box-shadow .14s,transform .14s}
-.launcher-item:active .launcher-icon{box-shadow:0 0 6px var(--ic-bg)}
-.launcher-icon .ms{font-size:22px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 400,"GRAD" 0,"opsz" 24}
-.launcher-name{font:600 10.5px/1.2 -apple-system;color:var(--text-dim);letter-spacing:-.1px}
-.launcher-desc{font:400 8.5px/1.2 -apple-system;color:var(--label);margin-top:1px}
+.launcher-item:active .launcher-desc{font:400 8.5px/1.2 -apple-system;color:var(--label);margin-top:1px}
 .m-sand{--ic:var(--mat-sand);--ic-bg:var(--mat-sand-bg)}
 .m-chips{--ic:var(--mat-chips);--ic-bg:var(--mat-chips-bg)}
 .m-steel{--ic:var(--mat-steel);--ic-bg:var(--mat-steel-bg)}
@@ -388,12 +354,12 @@ nav{
 .th-back:active{opacity:.6;transform:scale(.90)}
 .th-back .ms{font-size:20px;color:var(--text)}
 .th-icon{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;animation:thIconIn .38s var(--spring) .05s both}
-.th-icon.t1{background:var(--ios-orange-d);box-shadow:0 4px 16px rgba(255,59,59,.36)}.th-icon.t1 .ms-xl{color:#fff}
-.th-icon.t2{background:var(--ios-teal-d);box-shadow:0 4px 16px rgba(63,194,187,.34)}.th-icon.t2 .ms-xl{color:#fff}
-.th-icon.t3{background:var(--ios-red-d);box-shadow:0 4px 16px rgba(255,59,59,.34)}
-.th-icon.t4{background:var(--ios-blue-d);box-shadow:0 4px 16px rgba(63,194,187,.34)}
-.th-icon.t5{background:var(--ios-indigo-d);box-shadow:0 4px 16px rgba(124,138,232,.34)}
-.th-icon.t6{background:var(--brick);box-shadow:0 4px 16px rgba(217,118,77,.34)}
+.th-icon.t1{background:var(--ios-orange-d);box-shadow:0 4px 16px rgba(29,78,216,.44)}.th-icon.t1 .ms-xl{color:#fff}
+.th-icon.t2{background:var(--ios-teal-d);box-shadow:0 4px 16px rgba(6,182,212,.40)}.th-icon.t2 .ms-xl{color:#fff}
+.th-icon.t3{background:var(--ios-red-d);box-shadow:0 4px 16px rgba(239,68,68,.40)}
+.th-icon.t4{background:var(--ios-blue-d);box-shadow:0 4px 16px rgba(59,130,246,.40)}
+.th-icon.t5{background:var(--ios-indigo-d);box-shadow:0 4px 16px rgba(124,58,237,.42)}
+.th-icon.t6{background:var(--brick);box-shadow:0 4px 16px rgba(234,88,12,.40)}
 .th-title{font:700 18px/1 -apple-system;font-size:18px;letter-spacing:-.3px;color:var(--text);animation:slideRight .3s var(--ease-out) .12s both}
 .th-sub{font:400 12px/1 -apple-system;font-size:12px;color:var(--label);margin-top:3px;animation:slideRight .3s var(--ease-out) .18s both}
 
@@ -411,41 +377,35 @@ nav{
   transition:border-color .2s;
 }
 /* Scoped focus glow */
-#p-sand .grp-card:focus-within{border-color:rgba(255,59,59,.40)}
-#p-chips .grp-card:focus-within{border-color:rgba(63,194,187,.40)}
-#p-steel .grp-card:focus-within{border-color:rgba(255,59,59,.40)}
-#p-cement .grp-card:focus-within{border-color:rgba(63,194,187,.40)}
-#p-rcc .grp-card:focus-within{border-color:rgba(124,138,232,.40)}
-#p-payment .grp-card:focus-within{border-color:rgba(255,59,59,.40)}
+#p-sand .grp-card:focus-within{border-color:rgba(29,78,216,.40)}
+#p-chips .grp-card:focus-within{border-color:rgba(6,182,212,.40)}
+#p-steel .grp-card:focus-within{border-color:rgba(239,68,68,.40)}
+#p-cement .grp-card:focus-within{border-color:rgba(59,130,246,.40)}
+#p-rcc .grp-card:focus-within{border-color:rgba(124,58,237,.40)}
+#p-payment .grp-card:focus-within{border-color:rgba(245,158,11,.40)}
 
 /* ── iOS SEGMENTED CONTROL ── */
 .seg-wrap{padding:10px 12px 8px}
 .seg{display:flex;background:rgba(120,120,128,.18);padding:2px;border-radius:var(--r-pill);gap:2px}
 .seg-item{flex:1;padding:8px 3px;text-align:center;font:500 11px/1 -apple-system;font-size:11px;color:var(--text-dim);border-radius:var(--r-pill);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .16s var(--ease-std),color .14s,transform .14s var(--spring)}
 .seg-item.active{background:var(--bg-card);color:var(--text);box-shadow:0 2px 8px rgba(0,0,0,.28);transform:scale(1.02)}
-#fmt-mode-seg .seg-item.active,#fmt-cnt-seg .seg-item.active{color:var(--ios-orange-d)}
-#chips-mode-seg .seg-item.active,#chips-cnt-seg .seg-item.active{color:var(--ios-teal-d)}
-#grade-seg .seg-item.active,#dvf-seg .seg-item.active,#waste-seg .seg-item.active,#rcc-unit-seg .seg-item.active{color:var(--ios-indigo-d)}
-#brick-cat-seg .seg-item.active,#brick-unit-seg .seg-item.active{color:var(--brick)}
-#steel-mode-seg .seg-item.active{color:var(--text-dim)}
 #rec-filter-seg{overflow-x:auto;flex-wrap:nowrap;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 #rec-filter-seg::-webkit-scrollbar{display:none}
-#rec-filter-seg .seg-item.active{color:var(--ios-green-d)}
 
 /* ── CHIPS ── */
 .chips-row{display:flex;gap:6px;padding:0 12px 12px;flex-wrap:wrap}
 .chip{padding:6px 14px;border-radius:var(--r-pill);font:500 12px/1 -apple-system;font-size:12px;background:var(--fill);color:var(--text-dim);cursor:pointer;border:1px solid transparent;-webkit-tap-highlight-color:transparent;transition:background .14s var(--ease-std),color .14s,transform .12s var(--spring)}
-.chip.active{background:var(--amber-bg);color:var(--ios-orange-d);border-color:rgba(255,59,59,.28)}
+.chip.active{background:var(--amber-bg);color:var(--ios-orange-d);border-color:rgba(29,78,216,.28)}
 .chip:active{transform:scale(.88)}
-#p-rcc .chip.active{background:var(--blu-bg);color:var(--ios-indigo-d);border-color:rgba(124,138,232,.28)}
+#p-rcc .chip.active{background:var(--blu-bg);color:var(--ios-indigo-d);border-color:rgba(124,58,237,.28)}
 
 /* ── iOS LIST ROWS ── */
 .row{display:flex;align-items:center;gap:12px;padding:12px 16px;min-height:52px;position:relative;transition:background .08s}
 .row:active{background:var(--fill2)}
 .row+.row::before{content:"";position:absolute;top:0;left:52px;right:0;height:.5px;background:var(--sep)}
 .row-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ri-l{background:rgba(255,59,59,.18)}.ri-w{background:rgba(63,194,187,.18)}.ri-h{background:rgba(63,194,187,.18)}
-.ri-v{background:rgba(63,194,187,.18)}.ri-o{background:rgba(255,59,59,.18)}.ri-g{background:var(--fill)}
+.ri-l{background:rgba(29,78,216,.14)}.ri-w{background:rgba(6,182,212,.14)}.ri-h{background:rgba(34,197,94,.14)}
+.ri-v{background:rgba(124,58,237,.14)}.ri-o{background:rgba(245,158,11,.14)}.ri-g{background:var(--fill)}
 .row-lbl{font:500 15px/1 -apple-system;font-size:15px;color:var(--text);flex-shrink:0}
 .inp-row{flex:1;display:flex;gap:6px}
 .inp-col{flex:1;display:flex;flex-direction:column;gap:4px}
@@ -460,10 +420,10 @@ input[type=number],input[type=text],input[type=tel],input[type=date]{
 }
 input[type=number]{font:500 17px/1 ui-monospace,"SF Mono",monospace;text-align:center;font-variant-numeric:tabular-nums}
 input::placeholder{color:var(--text-faint);font-size:15px}
-input[type=number]:focus{border-color:var(--ios-orange-d);background:rgba(255,59,59,.08);box-shadow:0 0 0 4px rgba(255,59,59,.18);transform:scale(1.015)}
-input[type=text]:focus,input[type=tel]:focus,input[type=date]:focus{border-color:var(--ios-blue-d);background:rgba(63,194,187,.06);box-shadow:0 0 0 4px rgba(63,194,187,.14);transform:scale(1.015)}
-#p-rcc input[type=number]:focus{border-color:var(--ios-indigo-d);background:rgba(124,138,232,.08);box-shadow:0 0 0 4px rgba(124,138,232,.18)}
-#p-payment input[type=text]:focus,#p-payment input[type=tel]:focus,#p-payment input[type=date]:focus,#p-payment textarea:focus,#p-payment input[type=number]:focus{border-color:var(--ios-orange-d);background:rgba(255,59,59,.07);box-shadow:0 0 0 4px rgba(255,59,59,.16)}
+input[type=number]:focus{border-color:var(--ios-orange-d);background:rgba(29,78,216,.08);box-shadow:0 0 0 4px rgba(29,78,216,.18);transform:scale(1.015)}
+input[type=text]:focus,input[type=tel]:focus,input[type=date]:focus{border-color:var(--ios-blue-d);background:rgba(37,99,235,.06);box-shadow:0 0 0 4px rgba(37,99,235,.14);transform:scale(1.015)}
+#p-rcc input[type=number]:focus{border-color:var(--ios-indigo-d);background:rgba(124,58,237,.08);box-shadow:0 0 0 4px rgba(124,58,237,.18)}
+#p-payment input[type=text]:focus,#p-payment input[type=tel]:focus,#p-payment input[type=date]:focus,#p-payment textarea:focus,#p-payment input[type=number]:focus{border-color:var(--amber);background:rgba(245,158,11,.07);box-shadow:0 0 0 4px rgba(245,158,11,.16)}
 input[type=number].invalid{border-color:var(--ios-red-d)!important;animation:shake .3s ease}
 input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none}
 select{width:100%;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1 -apple-system;font-size:15px;padding:11px 14px;outline:none;-webkit-appearance:none;transition:border-color .18s}
@@ -473,11 +433,11 @@ select{width:100%;background:var(--fill);border:.5px solid transparent;border-ra
 .theme-dd-select{flex:1;background:var(--bg-card);border:1px solid var(--sep);border-radius:var(--r-lg);padding:12px 34px 12px 14px;font:600 14px/1.3 Sora,sans-serif;color:var(--text);-webkit-appearance:none;appearance:none;cursor:pointer;transition:border-color .18s,transform .12s var(--spring)}
 .theme-dd-select:active{transform:scale(.98)}
 .theme-dd-chev{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--label);font-size:20px;pointer-events:none}
-select:focus{border-color:var(--ios-indigo-d);box-shadow:0 0 0 4px rgba(124,138,232,.16)}
+select:focus{border-color:var(--ios-indigo-d);box-shadow:0 0 0 4px rgba(124,58,237,.16)}
 textarea{width:100%;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;font-size:15px;padding:11px 14px;outline:none;-webkit-appearance:none;resize:vertical;min-height:88px;transition:border-color .18s,background .18s,box-shadow .18s}
 textarea::placeholder{color:var(--text-faint)}
 .proj-input{width:100%;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1 -apple-system;font-size:15px;padding:11px 14px;outline:none;-webkit-appearance:none;transition:border-color .18s,background .18s}
-.proj-input:focus{border-color:var(--ios-blue-d);background:rgba(63,194,187,.06);box-shadow:0 0 0 4px rgba(63,194,187,.14)}
+.proj-input:focus{border-color:var(--ios-blue-d);background:rgba(37,99,235,.06);box-shadow:0 0 0 4px rgba(37,99,235,.14)}
 
 /* ── iOS TOGGLE SWITCH ── */
 .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:transparent;border-radius:0;margin:0;border:none;gap:16px;min-height:52px}
@@ -487,7 +447,7 @@ textarea::placeholder{color:var(--text-faint)}
 .switch{position:relative;display:inline-block;width:51px;height:31px;flex-shrink:0}
 .switch input{opacity:0;width:0;height:0}
 .slider{position:absolute;cursor:pointer;inset:0;background:var(--sep);transition:.28s var(--ease-std);border-radius:31px}
-html.light .slider{background:#E5E5EA}
+
 .slider::before{position:absolute;content:"";height:27px;width:27px;left:2px;bottom:2px;background:#fff;transition:.28s var(--ease-std);border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,.28)}
 input:checked+.slider{background:var(--ios-green-d)}
 input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rgba(0,0,0,.22)}
@@ -499,13 +459,12 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 /* ── iOS BUTTONS ── */
 .btn-row{padding:8px 12px 12px}
 .btn{width:100%;padding:15px 20px;border:none;border-radius:var(--r-pill);color:#fff;font:600 16px/1 -apple-system;font-size:16px;letter-spacing:-.2px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;position:relative;overflow:hidden;transition:transform .12s var(--spring),filter .10s,box-shadow .14s;box-shadow:var(--sh-btn);-webkit-tap-highlight-color:transparent}
-.btn.t1{background:var(--ios-orange-d);box-shadow:0 4px 18px rgba(255,59,59,.38)}
-.btn.t2{background:var(--ios-teal-d);box-shadow:0 4px 18px rgba(63,194,187,.36)}
-.btn.t3{background:var(--ios-red-d);box-shadow:0 4px 18px rgba(255,59,59,.36)}
-.btn.t4{background:var(--ios-blue-d);box-shadow:0 4px 18px rgba(63,194,187,.38)}
-.btn.t5{background:var(--ios-indigo-d);box-shadow:0 4px 18px rgba(124,138,232,.38)}
-.btn.t6{background:var(--brick);box-shadow:0 4px 18px rgba(217,118,77,.38)}
-.btn.t6{background:var(--ios-orange-d);box-shadow:0 4px 18px rgba(255,59,59,.38)}
+.btn.t1{background:var(--ios-orange-d);box-shadow:0 4px 18px rgba(29,78,216,.44)}
+.btn.t2{background:var(--ios-teal-d);box-shadow:0 4px 18px rgba(6,182,212,.40)}
+.btn.t3{background:var(--ios-red-d);box-shadow:0 4px 18px rgba(239,68,68,.40)}
+.btn.t4{background:var(--ios-blue-d);box-shadow:0 4px 18px rgba(59,130,246,.40)}
+.btn.t5{background:var(--ios-indigo-d);box-shadow:0 4px 18px rgba(124,58,237,.42)}
+.btn.t6{background:var(--brick);box-shadow:0 4px 18px rgba(234,88,12,.40)}
 .btn.dark{background:var(--fill);border:1px solid var(--border);color:var(--text-dim);box-shadow:none}
 .btn:active{transform:scale(.95);filter:brightness(.90)}
 .btn:disabled{opacity:.45;pointer-events:none}
@@ -517,9 +476,8 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .btn-save.t2{background:var(--ios-teal-d);color:#fff}
 .btn-save.t3{background:var(--ios-red-d);color:#fff}
 .btn-save.t4{background:var(--ios-blue-d);color:#fff}
-.btn-save.t5{background:var(--ios-indigo-d);color:#fff;box-shadow:0 4px 18px rgba(124,138,232,.38)}
-.btn-save.t6{background:var(--brick);color:#fff;box-shadow:0 4px 18px rgba(217,118,77,.38)}
-.btn-save.t6{background:var(--ios-orange-d);color:#fff;box-shadow:0 4px 18px rgba(255,59,59,.38)}
+.btn-save.t5{background:var(--ios-indigo-d);color:#fff;box-shadow:0 4px 18px rgba(124,58,237,.42)}
+.btn-save.t6{background:var(--brick);color:#fff;box-shadow:0 4px 18px rgba(234,88,12,.40)}
 
 /* ── DEV ROWS ── */
 .dev-row{display:flex;align-items:center;gap:12px;padding:12px 16px;position:relative}
@@ -551,38 +509,38 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .res.show{display:block;animation:resIn .30s var(--spring) both}
 @keyframes resIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 .res-bar{height:4px}
-.res-bar.t1{background:linear-gradient(90deg,var(--amber-l),var(--ios-orange-d))}.res-bar.t2{background:linear-gradient(90deg,var(--chips-l),var(--ios-teal-d))}.res-bar.t3{background:linear-gradient(90deg,var(--steel-cl),var(--ios-red-d))}.res-bar.t5{background:linear-gradient(90deg,var(--blu-l),var(--ios-indigo-d))}
+.res-bar.t1{background:linear-gradient(90deg,var(--ios-orange-d),rgba(37,99,235,.80))}.res-bar.t2{background:linear-gradient(90deg,var(--chips-l),var(--ios-teal-d))}.res-bar.t3{background:linear-gradient(90deg,var(--steel-cl),var(--ios-red-d))}.res-bar.t5{background:linear-gradient(90deg,var(--blu-l),var(--ios-indigo-d))}
 .res-hero{padding:22px 18px 16px;display:flex;align-items:flex-start;gap:14px;position:relative}
 .res-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,var(--fill),transparent 70%);pointer-events:none;z-index:0}
 .res-hicon{width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:1;box-shadow:0 2px 10px rgba(0,0,0,.12)}
-.res-hicon.t1{background:rgba(255,59,59,.18)}.res-hicon.t1 .ms{color:var(--ios-orange-d)}
-.res-hicon.t2{background:rgba(63,194,187,.16)}.res-hicon.t2 .ms{color:var(--ios-teal-d)}
+.res-hicon.t1{background:rgba(29,78,216,.16)}.res-hicon.t1 .ms{color:var(--ios-orange-d)}
+.res-hicon.t2{background:rgba(6,182,212,.16)}.res-hicon.t2 .ms{color:var(--chips)}
 .res-hicon.t3{background:rgba(255,59,59,.16)}.res-hicon.t3 .ms{color:var(--ios-red-d)}
-.res-hicon.t5{background:rgba(124,138,232,.16)}.res-hicon.t5 .ms{color:var(--ios-indigo-d)}
+.res-hicon.t5{background:rgba(124,58,237,.16)}.res-hicon.t5 .ms{color:var(--ios-indigo-d)}
 .res-hicon .ms{font-size:28px;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" 0,"opsz" 24}
 .res-hmeta{flex:1;min-width:0;position:relative;z-index:1}
 @keyframes slideU{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 .res-eye{font:700 11px/1 -apple-system;font-size:11px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:7px;animation:slideU .22s ease .08s both}
-.res-eye.t1{color:var(--ios-orange-d)}.res-eye.t2{color:var(--ios-teal-d)}.res-eye.t3{color:var(--ios-red-d)}.res-eye.t5{color:var(--ios-indigo-d)}
+.res-eye.t1{color:var(--ios-orange-d)}.res-eye.t2{color:var(--chips)}.res-eye.t3{color:var(--ios-red-d)}.res-eye.t5{color:var(--ios-indigo-d)}
 .res-big{font:800 52px/1 -apple-system;font-size:52px;letter-spacing:-2.2px;color:var(--text);font-variant-numeric:tabular-nums;animation:slideU .24s ease .12s both;display:inline}
 .res-big-u{font:500 16px/1 -apple-system;font-size:16px;color:var(--text-dim);margin-left:2px}
 .res-line{font:400 12.5px/1.4 -apple-system;font-size:12.5px;color:var(--label);margin-top:7px;animation:slideU .22s ease .18s both}
 .res-badge{font:600 11px/1 -apple-system;font-size:11px;padding:5px 11px;border-radius:var(--r-pill);align-self:flex-start;flex-shrink:0;animation:slideU .22s ease .20s both}
-.res-badge.t1{background:rgba(255,59,59,.18);color:var(--ios-orange-d)}.res-badge.t2{background:rgba(63,194,187,.16);color:var(--ios-teal-d)}.res-badge.t3{background:rgba(255,59,59,.16);color:var(--ios-red-d)}.res-badge.t5{background:rgba(124,138,232,.16);color:var(--ios-indigo-d)}
+.res-badge.t1{background:rgba(29,78,216,.18);color:var(--ios-orange-d)}.res-badge.t2{background:rgba(6,182,212,.16);color:var(--ios-teal-d)}.res-badge.t3{background:rgba(239,68,68,.16);color:var(--ios-red-d)}.res-badge.t5{background:rgba(124,58,237,.16);color:var(--ios-indigo-d)}
 .copy-btn{display:inline-flex;align-items:center;gap:4px;font:600 12px/1 -apple-system;font-size:12px;border:.5px solid var(--sep);padding:7px 11px;border-radius:9px;cursor:pointer;margin-top:8px;animation:slideU .22s ease .22s both;transition:opacity .13s,transform .12s var(--spring)}
 .copy-btn:active{opacity:.6;transform:scale(.93)}.copy-btn .ms{font-size:14px}
-.copy-btn.t1{color:var(--ios-orange-d);background:rgba(255,59,59,.14);border-color:rgba(255,59,59,.22)}
-.copy-btn.t2{color:var(--ios-teal-d);background:rgba(63,194,187,.14);border-color:rgba(63,194,187,.22)}
-.copy-btn.t5{color:var(--ios-indigo-d);background:rgba(124,138,232,.14);border-color:rgba(124,138,232,.22)}
+.copy-btn.t1{color:var(--ios-orange-d);background:var(--primary-bg,rgba(29,78,216,.14));border-color:rgba(29,78,216,.28)}
+.copy-btn.t2{color:var(--chips);background:var(--chips-bg);border-color:rgba(6,182,212,.28)}
+.copy-btn.t5{color:var(--ios-indigo-d);background:rgba(124,58,237,.14);border-color:rgba(124,58,237,.28)}
 
 /* ── STAT GRID ── */
 .sgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px 12px}
 .scell{background:var(--fill);border:.5px solid var(--sep);border-radius:var(--r);padding:11px 12px;opacity:0;animation:cellIn .20s var(--ease-out) forwards}
 .scell:nth-child(1){animation-delay:.03s}.scell:nth-child(2){animation-delay:.06s}.scell:nth-child(3){animation-delay:.09s}.scell:nth-child(4){animation-delay:.12s}.scell:nth-child(5){animation-delay:.15s}.scell:nth-child(6){animation-delay:.18s}
 @keyframes cellIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
-.scell.hi{background:rgba(66,184,115,.12);border-color:rgba(66,184,115,.20)}.scell.lo{background:rgba(255,59,59,.12);border-color:rgba(255,59,59,.20)}.scell.acc{background:rgba(124,138,232,.12);border-color:rgba(124,138,232,.20)}.scell.warn{background:rgba(255,59,59,.12);border-color:rgba(255,59,59,.20)}
+.scell.hi{background:rgba(34,197,94,.12);border-color:rgba(34,197,94,.20)}.scell.lo{background:rgba(239,68,68,.12);border-color:rgba(239,68,68,.20)}.scell.acc{background:rgba(124,58,237,.12);border-color:rgba(124,58,237,.20)}.scell.warn{background:rgba(245,158,11,.12);border-color:rgba(245,158,11,.20)}
 .sc-lbl{font:600 10px/1 -apple-system;font-size:10px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;color:var(--label)}
-.scell.hi .sc-lbl{color:var(--ios-green-d)}.scell.lo .sc-lbl{color:var(--ios-red-d)}.scell.acc .sc-lbl{color:var(--ios-indigo-d)}.scell.warn .sc-lbl{color:var(--ios-orange-d)}
+.scell.hi .sc-lbl{color:var(--grn)}.scell.lo .sc-lbl{color:var(--ios-red-d)}.scell.acc .sc-lbl{color:var(--ios-indigo-d)}.scell.warn .sc-lbl{color:var(--warn)}
 .sc-val{font:700 15px/1.2 -apple-system;font-size:15px;color:var(--text);font-variant-numeric:tabular-nums}.sc-sub{font:400 11px/1 -apple-system;font-size:11px;color:var(--label);margin-top:2px}
 
 /* ── DIMENSION DISPLAY ── */
@@ -591,7 +549,7 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .rdim{display:flex;align-items:center;gap:10px;opacity:0;animation:slideR .24s var(--ease-out) forwards}
 .rdim:nth-child(1){animation-delay:.04s}.rdim:nth-child(2){animation-delay:.08s}.rdim:nth-child(3){animation-delay:.12s}
 .rdim-chip{min-width:56px;padding:5px 9px;border-radius:7px;flex-shrink:0;font:600 10px/1 -apple-system;font-size:10px;text-align:center}
-.ch-l{background:rgba(255,59,59,.16);color:var(--ios-red-d)}.ch-w{background:rgba(63,194,187,.16);color:var(--ios-blue-d)}.ch-h{background:rgba(66,184,115,.16);color:var(--ios-green-d)}
+.ch-l{background:rgba(29,78,216,.16);color:var(--ios-orange-d)}.ch-w{background:rgba(6,182,212,.16);color:var(--chips)}.ch-h{background:rgba(34,197,94,.16);color:var(--grn)}
 .rdim-main{font:700 15px/1 -apple-system;font-size:15px;color:var(--text);flex:1}.rdim-dec{font:400 12px/1 -apple-system;font-size:12px;color:var(--label)}
 
 /* ── COLLAPSIBLE ── */
@@ -604,18 +562,18 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .units-row{display:flex;gap:8px;padding:0 12px 12px}
 .unit-cell{flex:1;border-radius:var(--r);padding:11px 8px;text-align:center;background:var(--fill);border:.5px solid var(--sep)}
 .uc-val{font:700 15px/1.2 -apple-system;font-size:15px;letter-spacing:-.3px;margin-bottom:3px}.uc-lbl{font:600 9px/1 -apple-system;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--label)}
-.uc-sky{background:rgba(63,194,187,.14);border-color:rgba(63,194,187,.20)}.uc-sky .uc-val{color:var(--ios-teal-d)}
-.uc-ora{background:rgba(255,59,59,.14);border-color:rgba(255,59,59,.20)}.uc-ora .uc-val{color:var(--ios-orange-d)}
-.uc-grn{background:rgba(66,184,115,.14);border-color:rgba(66,184,115,.20)}.uc-grn .uc-val{color:var(--ios-green-d)}
+.uc-sky{background:rgba(6,182,212,.14);border-color:rgba(6,182,212,.20)}.uc-sky .uc-val{color:var(--chips)}
+.uc-ora{background:rgba(29,78,216,.14);border-color:rgba(29,78,216,.20)}.uc-ora .uc-val{color:var(--ios-orange-d)}
+.uc-grn{background:rgba(34,197,94,.14);border-color:rgba(34,197,94,.20)}.uc-grn .uc-val{color:var(--grn)}
 
 /* ── FMT DIM BLOCKS ── */
 .fmt-dim-block{padding:10px 12px 6px}.fmt-dim-block+.fmt-dim-block{border-top:.5px solid var(--sep)}
 .fmt-dim-hdr{display:flex;align-items:center;gap:7px;margin-bottom:7px}.fmt-dim-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
 .fmt-dim-title{font:600 10px/1 -apple-system;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--label);flex:1}
 .fmt-avg-chip{font:600 11px/1 -apple-system;font-size:11px;padding:4px 10px;border-radius:7px;transition:background .18s,color .18s,opacity .18s;background:var(--fill);color:var(--text-faint);opacity:.4;border:.5px solid transparent}
-.fmt-avg-chip.ok{background:rgba(255,59,59,.16);color:var(--ios-orange-d);opacity:1;border-color:rgba(255,59,59,.28);animation:chipBounce .3s var(--spring) both}
-.fmt-avg-chip.ok-chips{background:rgba(63,194,187,.16);color:var(--ios-teal-d);opacity:1;border-color:rgba(63,194,187,.28);animation:chipBounce .3s var(--spring) both}
-.fmt-avg-chip.warn{background:rgba(255,59,59,.16);color:var(--ios-orange-d);opacity:1;border-color:rgba(255,59,59,.28);animation:chipBounce .3s var(--spring) both}
+.fmt-avg-chip.ok{background:rgba(29,78,216,.16);color:var(--ios-orange-d);opacity:1;border-color:rgba(29,78,216,.28);animation:chipBounce .3s var(--spring) both}
+.fmt-avg-chip.ok-chips{background:rgba(6,182,212,.16);color:var(--chips);opacity:1;border-color:rgba(6,182,212,.28);animation:chipBounce .3s var(--spring) both}
+.fmt-avg-chip.warn{background:rgba(245,158,11,.16);color:var(--warn);opacity:1;border-color:rgba(245,158,11,.28);animation:chipBounce .3s var(--spring) both}
 .fmt-m-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
 .fmt-m-num{width:22px;height:22px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font:700 10px/1 ui-monospace,"SF Mono",monospace;font-size:10px;color:#fff}
 
@@ -624,7 +582,7 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .steel-dia-cell{display:flex;flex-direction:column;gap:4px}
 .steel-dia-lbl{font:600 11px/1 -apple-system;font-size:11px;color:var(--text-dim);text-align:center}
 .steel-dia-inp{text-align:center;background:var(--fill);border:.5px solid transparent;border-radius:10px;color:var(--text);font:700 15px/1 ui-monospace,"SF Mono",monospace;font-size:15px;padding:9px 4px;width:100%;outline:none;-webkit-appearance:none;transition:border-color .14s,background .14s}
-.steel-dia-inp:focus{border-color:var(--ios-red-d);background:rgba(255,59,59,.08);box-shadow:0 0 0 4px rgba(255,59,59,.16)}
+.steel-dia-inp:focus{border-color:var(--ios-red-d);background:rgba(239,68,68,.08);box-shadow:0 0 0 4px rgba(239,68,68,.16)}
 .steel-dia-unit{font:500 9px/1 -apple-system;font-size:9px;color:var(--label);text-align:center;letter-spacing:.06em;text-transform:uppercase}
 .steel-dia-inp::-webkit-outer-spin-button,.steel-dia-inp::-webkit-inner-spin-button{-webkit-appearance:none}
 .grand-total-bar{background:var(--fill);border:.5px solid var(--sep);border-radius:var(--r);padding:14px 16px;margin:0 0 8px;display:flex;align-items:center;justify-content:space-between}
@@ -637,15 +595,15 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .el-row+.el-row::before{content:"";position:absolute;top:0;left:12px;right:0;height:.5px;background:var(--sep)}
 .el-top{display:flex;align-items:center;gap:8px;margin-bottom:8px}
 .el-type-sel{flex:1;background:var(--fill);border:.5px solid transparent;border-radius:10px;font:500 15px/1 -apple-system;font-size:15px;color:var(--text);padding:8px 12px;outline:none;-webkit-appearance:none}
-.el-del{width:30px;height:30px;border-radius:8px;background:rgba(255,59,59,.16);border:.5px solid rgba(255,59,59,.22);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .16s var(--spring)}
+.el-del{width:30px;height:30px;border-radius:8px;background:rgba(239,68,68,.16);border:.5px solid rgba(239,68,68,.22);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:transform .16s var(--spring)}
 .el-del:active{transform:scale(.80)}.el-del .ms{font-size:16px;color:var(--ios-red-d)}
 .el-dims3{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;padding-top:2px}
 .el-dim-col{display:flex;flex-direction:column;gap:4px}
 .el-dim-head{font:600 12px/1 -apple-system;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--text-dim);text-align:center;padding:4px 0;background:var(--fill);border-radius:7px;border:.5px solid var(--sep)}
 .el-d{display:flex;flex-direction:column;gap:3px}.el-d-lbl{font:600 9px/1 -apple-system;font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--label);padding-left:3px}
 .el-d input{font-size:14px;height:36px;padding:0 6px}
-.add-el{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;cursor:pointer;font:600 14px/1 -apple-system;font-size:14px;color:var(--ios-blue-d);border-top:.5px solid var(--sep);-webkit-tap-highlight-color:transparent;transition:background .10s}
-.add-el:active{background:var(--fill2)}.add-el .ms{font-size:18px;color:var(--ios-blue-d)}
+.add-el{display:flex;align-items:center;justify-content:center;gap:6px;padding:12px;cursor:pointer;font:600 14px/1 Inter,-apple-system;font-size:14px;color:var(--ios-indigo-d);border-top:.5px solid var(--sep);-webkit-tap-highlight-color:transparent;transition:background .10s}
+.add-el:active{background:var(--fill2)}.add-el .ms{font-size:18px;color:var(--ios-indigo-d)}
 
 /* ── MATERIAL ROWS ── */
 .mat-rows{display:flex;flex-direction:column}
@@ -653,21 +611,21 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .mat-row:nth-child(1){animation-delay:.04s}.mat-row:nth-child(2){animation-delay:.08s}.mat-row:nth-child(3){animation-delay:.12s}.mat-row:nth-child(4){animation-delay:.16s}
 .mat-row+.mat-row::before{content:"";position:absolute;top:0;left:16px;right:16px;height:.5px;background:var(--sep)}
 .mat-ico{width:42px;height:42px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.mat-ico.mc{background:rgba(255,59,59,.16)}.mat-ico.msa{background:rgba(255,59,59,.16)}.mat-ico.ma{background:rgba(124,138,232,.16)}.mat-ico.mw{background:rgba(66,184,115,.16)}
+.mat-ico.mc{background:rgba(239,68,68,.16)}.mat-ico.msa{background:rgba(245,158,11,.16)}.mat-ico.ma{background:rgba(124,58,237,.16)}.mat-ico.mw{background:rgba(34,197,94,.16)}
 .mat-ico .ms{font-size:20px;font-variation-settings:"FILL" 0,"wght" 300,"GRAD" 0,"opsz" 24}
-.mat-ico.mc .ms{color:var(--ios-red-d)}.mat-ico.msa .ms{color:var(--ios-orange-d)}.mat-ico.ma .ms{color:var(--ios-indigo-d)}.mat-ico.mw .ms{color:var(--ios-green-d)}
+.mat-ico.mc .ms{color:var(--steel-c)}.mat-ico.msa .ms{color:var(--amber)}.mat-ico.ma .ms{color:var(--blu)}.mat-ico.mw .ms{color:var(--grn)}
 .mat-inf{flex:1;min-width:0}
 .mat-n{font:500 11px/1 -apple-system;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--label);margin-bottom:3px}
 .mat-v{font:800 28px/1 -apple-system;font-size:28px;letter-spacing:-1.1px;color:var(--text);font-variant-numeric:tabular-nums}
 .mat-u{font:400 12px/1 -apple-system;font-size:12px;color:var(--text-dim);margin-left:3px}.mat-s{font:400 11px/1.4 -apple-system;font-size:11px;color:var(--label);margin-top:2px}
 .mat-bar-wrap{position:absolute;bottom:0;left:16px;right:16px;height:2px;background:var(--sep2);border-radius:99px;overflow:hidden}
 .mat-bar-fill{height:100%;border-radius:99px;width:0;transition:width .75s var(--ease-out)}
-.mbf-c{background:linear-gradient(90deg,var(--steel-cl),var(--ios-red-d))}.mbf-s{background:linear-gradient(90deg,var(--amber-l),var(--ios-orange-d))}.mbf-a{background:linear-gradient(90deg,var(--blu-l),var(--ios-indigo-d))}.mbf-w{background:linear-gradient(90deg,var(--ios-green-d),var(--ios-green-d))}
+.mbf-c{background:linear-gradient(90deg,var(--steel-cl),var(--steel-c))}.mbf-s{background:linear-gradient(90deg,var(--amber-l),var(--amber))}.mbf-a{background:linear-gradient(90deg,var(--blu-l),var(--blu))}.mbf-w{background:linear-gradient(90deg,var(--grn),#22C55E)}
 
 /* ── ELB ── */
 .elb-list{padding:0 12px 12px;display:flex;flex-direction:column;gap:6px}
 .elb-row{display:flex;align-items:center;gap:10px;background:var(--fill);border:.5px solid var(--sep);border-radius:10px;padding:9px 12px;opacity:0;animation:slideR .24s var(--ease-out) forwards}
-.elb-badge{width:24px;height:24px;border-radius:7px;background:rgba(124,138,232,.16);color:var(--ios-indigo-d);font:600 10px/1 ui-monospace,monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.elb-badge{width:24px;height:24px;border-radius:7px;background:rgba(124,58,237,.16);color:var(--ios-indigo-d);font:600 10px/1 ui-monospace,monospace;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .elb-type{font:600 10px/1 -apple-system;font-size:10px;letter-spacing:.06em;text-transform:uppercase;min-width:50px;color:var(--label)}
 .elb-dims{font:400 12px/1.3 -apple-system;font-size:12px;color:var(--text);flex:1}.elb-pct{font:500 10px/1 -apple-system;font-size:10px;color:var(--text-dim);background:var(--fill);border-radius:6px;padding:3px 7px;flex-shrink:0}
 
@@ -696,7 +654,7 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .rec-bar.sand{background:linear-gradient(90deg,var(--amber-l),var(--ios-orange-d))}.rec-bar.chips{background:linear-gradient(90deg,var(--chips-l),var(--ios-teal-d))}.rec-bar.steel{background:linear-gradient(90deg,var(--steel-cl),var(--ios-red-d))}.rec-bar.cement{background:linear-gradient(90deg,var(--cement-l),var(--ios-blue-d))}.rec-bar.brick{background:linear-gradient(90deg,var(--brick-l),var(--brick))}.rec-bar.rcc{background:linear-gradient(90deg,var(--blu-l),var(--ios-indigo-d))}.rec-bar.payment{background:linear-gradient(90deg,var(--pay-l),var(--ios-orange-d))}
 .rec-header{display:flex;align-items:flex-start;gap:10px;padding:13px 13px 9px}
 .rec-badge{padding:4px 11px;border-radius:var(--r-pill);font:600 10px/1 -apple-system;font-size:10px;letter-spacing:.04em;flex-shrink:0;margin-top:1px}
-.rec-badge.sand{background:rgba(255,59,59,.16);color:var(--ios-orange-d)}.rec-badge.chips{background:rgba(63,194,187,.14);color:var(--ios-teal-d)}.rec-badge.steel{background:rgba(255,59,59,.14);color:var(--ios-red-d)}.rec-badge.cement{background:rgba(63,194,187,.14);color:var(--ios-blue-d)}.rec-badge.brick{background:var(--brick-bg);color:var(--brick)}.rec-badge.rcc{background:rgba(124,138,232,.14);color:var(--ios-indigo-d)}.rec-badge.payment{background:rgba(255,59,59,.16);color:var(--ios-orange-d)}
+.rec-badge.sand{background:var(--amber-bg);color:var(--amber)}.rec-badge.chips{background:rgba(6,182,212,.14);color:var(--ios-teal-d)}.rec-badge.steel{background:rgba(255,59,59,.14);color:var(--ios-red-d)}.rec-badge.cement{background:rgba(6,182,212,.14);color:var(--ios-blue-d)}.rec-badge.brick{background:var(--brick-bg);color:var(--brick)}.rec-badge.rcc{background:rgba(124,58,237,.14);color:var(--ios-indigo-d)}.rec-badge.payment{background:var(--pay-bg);color:var(--pay)}
 .ct-badge{padding:3px 10px;border-radius:var(--r-pill);font:600 9px/1 -apple-system;font-size:9px;letter-spacing:.04em;text-transform:uppercase;flex-shrink:0}
 .ct-badge.rod{background:var(--ct-rod-bg);color:var(--ct-rod)}.ct-badge.sanitary{background:var(--ct-sanitary-bg);color:var(--ct-sanitary)}.ct-badge.electric{background:var(--ct-electric-bg);color:var(--ct-electric)}.ct-badge.paint{background:var(--ct-paint-bg);color:var(--ct-paint)}.ct-badge.tiles{background:var(--ct-tiles-bg);color:var(--ct-tiles)}
 .rec-proj{font:600 15px/1.2 -apple-system;font-size:15px;color:var(--text);flex:1}.rec-addr{font:400 12px/1 -apple-system;font-size:12px;color:var(--label);margin-top:3px}.rec-date{font:400 12px/1 -apple-system;font-size:12px;color:var(--label);flex-shrink:0;margin-top:2px}
@@ -721,16 +679,16 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .pay-dash-sub{font:400 11px/1 -apple-system;font-size:11px;color:var(--label)}
 
 /* ── PAYMENT AMOUNT PREVIEW ── */
-.pay-amount-preview{display:none;margin:4px 14px 10px;padding:13px 16px;background:rgba(255,59,59,.13);border:.5px solid rgba(255,59,59,.28);border-radius:var(--r);text-align:center;animation:resIn .25s var(--spring) both}
+.pay-amount-preview{display:none;margin:4px 14px 10px;padding:13px 16px;background:rgba(245,158,11,.13);border:.5px solid rgba(245,158,11,.28);border-radius:var(--r);text-align:center;animation:resIn .25s var(--spring) both}
 .pay-amount-preview.show{display:block}
-.pay-amount-preview-label{font:600 10px/1 -apple-system;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--ios-orange-d);opacity:.7;margin-bottom:7px}
+.pay-amount-preview-label{font:600 10px/1 Inter,-apple-system;font-size:10px;letter-spacing:.10em;text-transform:uppercase;color:var(--amber);opacity:.7;margin-bottom:7px}
 .pay-amount-preview-value{font:800 30px/1 ui-monospace,"SF Mono",monospace;font-size:30px;color:var(--ios-orange-d);font-variant-numeric:tabular-nums}
 
 /* ── CONTRACTOR TYPE ── */
 .ctype-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:12px}
 .ctype-chip{display:flex;flex-direction:column;align-items:center;gap:6px;padding:13px 4px 11px;border-radius:var(--r);background:var(--fill);border:.5px solid var(--sep);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .15s var(--ease-std),border-color .15s,transform .13s var(--spring)}
 .ctype-chip:active{transform:scale(.82)}
-.ctype-chip .ms{font-size:22px;color:var(--label);transition:color .15s,font-variation-settings .15s;font-variation-settings:"FILL" 0,"wght" 100,"GRAD" -25,"opsz" 24}
+.ctype-chip .ms{font-size:22px;color:var(--label);transition:color .15s,font-variation-settings .15s;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 24}
 .ctype-chip .ct-lbl{font:500 8px/1 -apple-system;font-size:8px;letter-spacing:.03em;text-transform:uppercase;color:var(--label);transition:color .15s}
 .ctype-chip.rod.active{background:var(--ct-rod-bg);border-color:var(--ct-rod-bd)}.ctype-chip.rod.active .ms{color:var(--ct-rod);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.rod.active .ct-lbl{color:var(--ct-rod)}
 .ctype-chip.sanitary.active{background:var(--ct-sanitary-bg);border-color:var(--ct-sanitary-bd)}.ctype-chip.sanitary.active .ms{color:var(--ct-sanitary);font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24}.ctype-chip.sanitary.active .ct-lbl{color:var(--ct-sanitary)}
@@ -741,7 +699,7 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 /* ── PAYMENT SEARCH ── */
 .pay-search-wrap{padding:10px 12px 12px;display:flex;flex-direction:column;gap:8px}
 .pay-search-inp{width:100%;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:400 16px/1 -apple-system;font-size:16px;padding:11px 14px 11px 40px;outline:none;-webkit-appearance:none;transition:border-color .18s,background .18s}
-.pay-search-inp:focus{border-color:var(--ios-orange-d);background:rgba(255,59,59,.07);box-shadow:0 0 0 4px rgba(255,59,59,.14)}
+.pay-search-inp:focus{border-color:var(--amber);background:rgba(245,158,11,.07);box-shadow:0 0 0 4px rgba(245,158,11,.14)}
 .pay-search-inp::placeholder{color:var(--text-faint)}
 .pay-search-row{position:relative}
 .pay-search-icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:17px;color:var(--label);pointer-events:none}
@@ -801,7 +759,7 @@ footer .h{color:var(--ios-red-d)}
 .panel.active{animation:pageSlide .34s var(--ease-out) both}
 .glow-name{
   display:inline-block;
-  background-image:linear-gradient(90deg,var(--amber) 0%,var(--amber) 35%,#fff 50%,var(--amber) 65%,var(--amber) 100%);
+  background-image:linear-gradient(90deg,var(--ios-orange-d) 0%,#60A5FA 35%,#fff 50%,#60A5FA 65%,var(--ios-orange-d) 100%);
   background-size:250% 100%;
   -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
   animation:nameShimmer 2.6s linear infinite;
@@ -825,7 +783,7 @@ footer .h{color:var(--ios-red-d)}
 /* ── SITE LOG CARDS ── */
 .log-card{background:var(--bg-card);border:.5px solid var(--sep);border-radius:var(--r-lg);overflow:hidden;margin-bottom:10px;animation:grpIn .25s var(--ease-out) both}
 .log-card-inner{display:flex;gap:0}
-.log-serial-col{display:flex;flex-direction:column;align-items:center;padding:14px 12px;background:rgba(255,59,59,.10);border-right:.5px solid var(--sep);min-width:48px;gap:4px}
+.log-serial-col{display:flex;flex-direction:column;align-items:center;padding:14px 12px;background:rgba(29,78,216,.10);border-right:.5px solid var(--sep);min-width:48px;gap:4px}
 .log-serial-num{font:700 18px/1 -apple-system;font-size:18px;color:var(--ios-orange-d);font-variant-numeric:tabular-nums}
 .log-serial-lbl{font:500 8px/1 -apple-system;font-size:8px;color:var(--label);letter-spacing:.08em;text-transform:uppercase}
 .log-body{flex:1;padding:12px 14px;min-width:0}
@@ -854,11 +812,144 @@ input[type=time]{
   outline:none;-webkit-appearance:none;
   transition:border-color .18s,background .18s,box-shadow .18s;
 }
-input[type=time]:focus{border-color:var(--ios-orange-d);background:rgba(255,59,59,.08);box-shadow:0 0 0 4px rgba(255,59,59,.18)}
+input[type=time]:focus{border-color:var(--ios-orange-d);background:rgba(29,78,216,.08);box-shadow:0 0 0 4px rgba(29,78,216,.18)}
 html.light input[type=time]{background:rgba(120,120,128,.12);color:#000}
 
 /* Shared transitions */
 body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.notebox,.elb-row,.scell,.unit-cell,.cmp-cell,.btn-glass,.dark-toggle,.rec-card{transition:background .28s var(--ease-std),color .22s,border-color .22s}
+
+/* ══════════════════════════════════════════════════════════
+   CSDL ADDITIONS — Civil Suite Design Language v1.0
+══════════════════════════════════════════════════════════ */
+
+/* ── Inter universal application (all text inherits from body) ── */
+body *{font-family:inherit}
+/* Material Symbols always override */
+.ms,.ms-sm,.ms-xl,.ni-icon{font-family:'Material Symbols Rounded'!important}
+/* JetBrains Mono for numbers/code */
+.res-big,.mat-v,.dash-card-val,.home-stat-val,.pay-amount-preview-value,
+.grand-total-bar .gt-val,.sc-val,.uc-val,.dev-num,.pay-dash-val,
+input[type=number],.steel-dia-inp,.elb-badge{
+  font-family:'JetBrains Mono',ui-monospace,'SF Mono',monospace!important}
+/* Sora for display headings */
+header h1,.sp-h1,.th-title,.more-logo-ttl{
+  font-family:'Sora','Inter',sans-serif!important}
+
+
+/1 'JetBrains Mono',ui-monospace,monospace;
+  letter-spacing:-1px;
+  font-variant-numeric:tabular-nums
+}
+.dash-card-lbl{
+  font:600 10.5px/1 'Inter',sans-serif;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+  margin-top:5px
+}
+
+/* ── CSDL Module card improvements ── */
+.module-card{display:flex;align-items:center;gap:14px;padding:13px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .14s;border-bottom:.5px solid var(--sep2)}
+.module-card:last-child{border-bottom:none}
+.module-card:active{background:var(--fill)}
+.module-chev{font-size:15px;color:var(--text-faint)}
+.module-icon{border-radius:16px;box-shadow:none}
+.module-name{font-family:'Inter',sans-serif;font-weight:700}
+
+/* ── CSDL Stat List (home overview) ── */
+.stat-list{background:var(--bg-card);border-radius:14px;overflow:hidden;border:.5px solid var(--sep);margin-bottom:4px}
+.stat-row{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:background .14s;border-bottom:.5px solid var(--sep2)}
+.stat-row:last-child{border-bottom:none}
+.stat-row:active{background:var(--fill)}
+.stat-row-icon{width:34px;height:34px;border-radius:9px;background:var(--ic-bg,rgba(29,78,216,.12));display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stat-row-icon .ms{font-size:17px;color:var(--ic,var(--ios-orange-d))}
+.stat-row-body{flex:1;min-width:0}
+.stat-row-lbl{font:500 13px/1 'Inter',sans-serif;color:var(--text)}
+.stat-row-val{font:600 13.5px/1 'JetBrains Mono',ui-monospace,monospace;color:var(--text);text-align:right;flex-shrink:0;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.stat-row-chev{font-size:16px;color:var(--text-faint);font-variation-settings:"FILL" 0,"wght" 300,"GRAD" -25,"opsz" 20}
+.stat-row-icon.q-records{--ic:var(--ios-green-d);--ic-bg:var(--grn-bg)}
+.stat-row-icon.q-payment{--ic:var(--amber);--ic-bg:var(--amber-bg)}
+
+/* ── CSDL Section labels ── */
+.home-sec-lbl{
+  font:700 12px/1 'Inter',sans-serif;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--label);
+  margin:20px 0 10px;
+  display:flex;align-items:center;gap:7px
+}
+
+/* ── CSDL Header improvements ── */
+header h1{font:700 1.05rem/1.15 'Sora','Inter',sans-serif;letter-spacing:-.3px}
+header h1 span{color:var(--ios-orange-d)}
+header p{font:500 .58rem/1 'Inter',sans-serif;letter-spacing:1.2px;text-transform:uppercase}
+.hdr-icon{background:var(--ios-orange-d);border-radius:14px}
+.btn-glass{font-family:'Inter',sans-serif;border-radius:var(--r-pill)}
+
+/* ── CSDL Nav improvements ── */
+
+/* ── CSDL Splash improvements ── */
+.sp-h1{font:700 2rem/1 'Sora','Inter',sans-serif;letter-spacing:-.6px}
+.sp-h1 span{color:var(--ios-orange-d)}
+.sp-sub{font:600 9px/1 'Inter',sans-serif;letter-spacing:1.8px}
+
+/* ── CSDL Result card numbers ── */
+.res-big{font:800 52px/1 'JetBrains Mono',ui-monospace,monospace;letter-spacing:-2px}
+.res-eye{font:700 11px/1 'Inter',sans-serif;letter-spacing:.10em}
+
+/* ── CSDL Toast ── */
+.toast{font-family:'Inter',sans-serif;font-weight:500;border-radius:var(--r-pill)}
+
+/* ── CSDL Group labels ── */
+.grp-lbl{font:600 11px/1 'Inter',sans-serif;letter-spacing:.06em}
+.grp-card{border-radius:var(--r-lg);border:.5px solid var(--sep)}
+
+/* ── CSDL Records card improvements ── */
+.rec-bar.sand{background:linear-gradient(90deg,var(--amber-l,#FCD34D),var(--amber))}
+.rec-bar.chips{background:linear-gradient(90deg,var(--chips-l,#67E8F9),var(--chips))}
+.rec-bar.steel{background:linear-gradient(90deg,var(--steel-cl,#FCA5A5),var(--steel-c))}
+.rec-bar.cement{background:linear-gradient(90deg,var(--cement-l,#93C5FD),var(--cement))}
+.rec-bar.brick{background:linear-gradient(90deg,var(--brick-l,#FDBA74),var(--brick))}
+.rec-bar.rcc{background:linear-gradient(90deg,var(--blu-l,#C4B5FD),var(--blu))}
+.rec-bar.payment{background:linear-gradient(90deg,var(--pay-l,#FCD34D),var(--pay))}
+
+/* ── Light mode body background ── */
+html.light body{background:#F0F4FB}
+html.light .toast{background:rgba(15,23,42,.92);color:#fff}
+html.light .grp-card{background:#fff}
+html.light .toggle-row{background:#fff}
+html.light .rec-card{background:#fff}
+html.light nav{background:var(--glass-bg-nav);border-color:var(--glass-border)}
+html.light input[type=number],html.light input[type=text],html.light input[type=tel],html.light input[type=date],html.light select,html.light textarea{background:rgba(15,23,42,.07);color:var(--text)}
+html.light input::placeholder,html.light textarea::placeholder{color:var(--text-faint)}
+html.light .seg{background:rgba(15,23,42,.10)}
+html.light .seg-item.active{background:#fff;box-shadow:0 2px 8px rgba(0,0,0,.10)}
+html.light .proj-input{background:rgba(15,23,42,.07);color:var(--text)}
+html.light .pay-search-inp{background:rgba(15,23,42,.07);color:var(--text)}
+html.light .steel-dia-inp{background:rgba(15,23,42,.07);color:var(--text)}
+
+/* ── Seg control CSDL accent colours ── */
+#fmt-mode-seg .seg-item.active,#fmt-cnt-seg .seg-item.active{color:var(--ios-orange-d)}
+#chips-mode-seg .seg-item.active,#chips-cnt-seg .seg-item.active{color:var(--chips)}
+#grade-seg .seg-item.active,#dvf-seg .seg-item.active,#waste-seg .seg-item.active,#rcc-unit-seg .seg-item.active{color:var(--blu)}
+#brick-cat-seg .seg-item.active,#brick-unit-seg .seg-item.active{color:var(--brick)}
+#steel-mode-seg .seg-item.active{color:var(--steel-c)}
+#rec-filter-seg .seg-item.active{color:var(--grn)}
+
+/* ── CSDL toggle switch primary colour ── */
+input:checked+.slider{background:var(--ios-orange-d)!important}
+html.light .slider{background:#D1D9E8}
+
+/* ── Scrollbar CSDL ── */
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--sep);border-radius:99px}
+
+/* ── Section header back btn ── */
+.th-back{border:1px solid var(--sep);background:var(--fill)}
+
+/* ── CSDL pay dashboard numbers ── */
+.pay-dash-val{color:var(--amber);font-family:'JetBrains Mono',ui-monospace,monospace}
 </style>
 <body>
 <!-- SPLASH -->
@@ -875,10 +966,10 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="sp-feat-ttl" data-i18n="lbl_capabilities">Capabilities</div>
       <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--amber-bg)"><span class="ms ms-sm" style="color:var(--amber)">straighten</span></div><div class="sp-feat-txt" data-i18n="feat_1">Multi-point field measurement with avg &amp; outlier detection</div></div>
       <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">bar_chart</span></div><div class="sp-feat-txt" data-i18n="feat_2">Steel bar inventory by diameter (8–32 mm)</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">inventory_2</span></div><div class="sp-feat-txt" data-i18n="feat_3">Cement bags entry with brand &amp; vehicle tracking</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--blu-bg)"><span class="ms ms-sm" style="color:var(--blu)">foundation</span></div><div class="sp-feat-txt" data-i18n="feat_4">BNBC 2020 RCC material estimation with mix comparison</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">handshake</span></div><div class="sp-feat-txt" data-i18n="feat_5">Contractor payment log by trade type with date &amp; remarks</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">picture_as_pdf</span></div><div class="sp-feat-txt" data-i18n="feat_6">PDF export per material with signature lines &amp; grand total</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">deployed_code</span></div><div class="sp-feat-txt" data-i18n="feat_3">Cement bags entry with brand &amp; vehicle tracking</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--blu-bg)"><span class="ms ms-sm" style="color:var(--blu)">account_balance</span></div><div class="sp-feat-txt" data-i18n="feat_4">BNBC 2020 RCC material estimation with mix comparison</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">receipt_long</span></div><div class="sp-feat-txt" data-i18n="feat_5">Contractor payment log by trade type with date &amp; remarks</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">file_present</span></div><div class="sp-feat-txt" data-i18n="feat_6">PDF export per material with signature lines &amp; grand total</div></div>
     </div>
   </div>
   <div class="sp-dev"><div class="sp-dev-by" data-i18n="lbl_developed_by">DEVELOPED BY</div><div class="sp-dev-n"><span class="glow-name">K. M. Zaman</span></div><div class="sp-dev-r" data-i18n="lbl_civil_engineer_dev">Civil Engineer · Developer</div></div>
@@ -892,114 +983,102 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <h1>CIVIL <span>SUITE</span></h1>
       <p data-i18n="lbl_header_sub">Ultimate Edition · BNBC 2020</p>
     </div>
-  </div>
-  <div class="hdr-row" id="hdr-row-default" style="margin-top:0;min-height:0"></div>
-  <div class="hdr-row" id="hdr-row-calc" style="display:none">
-    <button class="btn-glass" onclick="clearAll()"><span class="ms">delete_sweep</span>Clear All</button>
+    <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
+      <button class="btn-glass" id="hdr-dark-btn" onclick="toggleDark()" aria-label="Toggle dark mode" style="padding:8px;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center">
+        <span class="ms" id="dark-icon" style="font-size:18px">dark_mode</span>
+      </button>
+      <button class="btn-glass" id="hdr-clear-btn" onclick="clearAll()" style="display:none;padding:8px 13px;gap:5px">
+        <span class="ms" style="font-size:15px">restart_alt</span><span style="font-size:12px" data-i18n="btn_clear_all">Clear</span>
+      </button>
+    </div>
   </div>
 </header>
 
 <!-- ═══ DESTINATION: HOME (Engineering Dashboard) ═══ -->
 <div class="panel dest active" id="d-home" role="tabpanel">
-  <div class="home-hero-v2">
-    <div class="home-hero-kicker" data-i18n="home_kicker">Professional Engineering Toolkit</div>
-    <div class="home-hero-badges">
-      <span class="home-hero-badge"><span class="ms">verified</span><span data-i18n="home_badge_bnbc">BNBC 2020 Ready</span></span>
-      <span class="home-hero-badge" data-i18n="home_badge_version">Version 1.0</span>
+  <div class="home-sec-lbl" style="margin-top:14px"><span class="ms" style="font-size:15px;color:var(--label)">bar_chart</span><span data-i18n="home_sec_overview">Overview</span></div>
+  <div class="stat-list">
+    <div class="stat-row" onclick="switchDest('records')">
+      <div class="stat-row-icon q-records"><span class="ms">layers</span></div>
+      <div class="stat-row-body"><div class="stat-row-lbl" data-i18n="home_stat_records">Saved Records</div></div>
+      <div class="stat-row-val" id="home-stat-records">0</div>
+      <span class="ms stat-row-chev">chevron_right</span>
     </div>
-  </div>
-
-  <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">dashboard</span><span data-i18n="home_sec_overview">Overview</span></div>
-  <div class="dash-grid">
-    <div class="dash-card q-records" onclick="switchDest('records')">
-      <div class="dash-card-top"><div class="dash-card-icon"><span class="ms">folder_open</span></div></div>
-      <div class="dash-card-val" id="home-stat-records">0</div>
-      <div class="dash-card-lbl" data-i18n="home_stat_records">Saved Records</div>
+    <div class="stat-row" onclick="switchDest('payment')">
+      <div class="stat-row-icon q-payment"><span class="ms">receipt_long</span></div>
+      <div class="stat-row-body"><div class="stat-row-lbl" data-i18n="home_stat_paid">Total Paid</div></div>
+      <div class="stat-row-val" id="home-stat-paid">৳ 0</div>
+      <span class="ms stat-row-chev">chevron_right</span>
     </div>
-    <div class="dash-card q-payment" onclick="switchDest('payment')">
-      <div class="dash-card-top"><div class="dash-card-icon"><span class="ms">handshake</span></div></div>
-      <div class="dash-card-val" id="home-stat-paid">৳ 0</div>
-      <div class="dash-card-lbl" data-i18n="home_stat_paid">Total Paid</div>
+    <div class="stat-row" onclick="openSubPage('rcc')">
+      <div class="stat-row-icon" style="--ic:var(--ios-indigo-d);--ic-bg:var(--blu-bg)"><span class="ms">calculate</span></div>
+      <div class="stat-row-body"><div class="stat-row-lbl">Calculations</div></div>
+      <div class="stat-row-val" id="home-stat-calcs">0</div>
+      <span class="ms stat-row-chev">chevron_right</span>
+    </div>
+    <div class="stat-row" onclick="openSubPage('log')">
+      <div class="stat-row-icon" style="--ic:var(--grn);--ic-bg:var(--grn-bg)"><span class="ms">edit_note</span></div>
+      <div class="stat-row-body"><div class="stat-row-lbl">Site Log Entries</div></div>
+      <div class="stat-row-val" id="home-stat-logs">0</div>
+      <span class="ms stat-row-chev">chevron_right</span>
     </div>
   </div>
 
   <div id="recent-sec" style="display:none">
-    <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">history</span><span data-i18n="home_sec_recent">Recent Activity</span></div>
+    <div class="home-sec-lbl"><span class="ms" style="font-size:15px;color:var(--label)">history</span><span data-i18n="home_sec_recent">Recent Activity</span></div>
     <div class="recent-list" id="recent-list"></div>
   </div>
 
-  <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">grid_view</span><span data-i18n="home_sec_calc">Engineering Modules</span></div>
+  <div class="home-sec-lbl"><span class="ms" style="font-size:15px;color:var(--label)">apps</span><span data-i18n="home_sec_calc">Engineering Modules</span></div>
   <div class="module-grid">
     <div class="module-card m-sand" onclick="openSubPage('sand')">
-      <div class="module-icon"><span class="ms">water</span></div>
-      <div class="module-name" data-i18n="sand_name">Sand</div>
-      <div class="module-desc" data-i18n="sand_desc">Volume · CFT</div>
+      <div class="module-icon"><span class="ms">grain</span></div>
+      <div style="flex:1"><div class="module-name" data-i18n="sand_name">Sand</div>
+      <div class="module-desc" data-i18n="sand_desc">Volume · CFT</div></div>
+      <span class="ms" style="font-size:15px;color:var(--text-faint);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' -25,'opsz' 20">chevron_right</span>
     </div>
     <div class="module-card m-chips" onclick="openSubPage('chips')">
-      <div class="module-icon"><span class="ms">landscape</span></div>
-      <div class="module-name" data-i18n="chips_name">Stone Chips</div>
-      <div class="module-desc" data-i18n="chips_desc">Volume · CFT</div>
+      <div class="module-icon"><span class="ms">bubble_chart</span></div>
+      <div style="flex:1"><div class="module-name" data-i18n="chips_name">Stone Chips</div>
+      <div class="module-desc" data-i18n="chips_desc">Volume · CFT</div></div>
+      <span class="ms" style="font-size:15px;color:var(--text-faint);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' -25,'opsz' 20">chevron_right</span>
     </div>
     <div class="module-card m-steel" onclick="openSubPage('steel')">
-      <div class="module-icon"><span class="ms">linear_scale</span></div>
-      <div class="module-name" data-i18n="steel_name">Steel Bars</div>
-      <div class="module-desc" data-i18n="steel_desc">KG · Tonnage</div>
+      <div class="module-icon"><span class="ms">bar_chart_4_bars</span></div>
+      <div style="flex:1"><div class="module-name" data-i18n="steel_name">Steel Bars</div>
+      <div class="module-desc" data-i18n="steel_desc">KG · Tonnage</div></div>
+      <span class="ms" style="font-size:15px;color:var(--text-faint);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' -25,'opsz' 20">chevron_right</span>
     </div>
     <div class="module-card m-cement" onclick="openSubPage('cement')">
-      <div class="module-icon"><span class="ms">inventory_2</span></div>
-      <div class="module-name" data-i18n="cement_name">Cement</div>
-      <div class="module-desc" data-i18n="cement_desc">Bags · 50kg</div>
+      <div class="module-icon"><span class="ms">deployed_code</span></div>
+      <div style="flex:1"><div class="module-name" data-i18n="cement_name">Cement</div>
+      <div class="module-desc" data-i18n="cement_desc">Bags · 50kg</div></div>
+      <span class="ms" style="font-size:15px;color:var(--text-faint);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' -25,'opsz' 20">chevron_right</span>
     </div>
     <div class="module-card m-brick" onclick="openSubPage('brick')">
-      <div class="module-icon"><span class="ms">domain</span></div>
-      <div class="module-name" data-i18n="brick_name">Brick</div>
-      <div class="module-desc" data-i18n="brick_desc">Class · Count</div>
+      <div class="module-icon"><span class="ms">view_module</span></div>
+      <div style="flex:1"><div class="module-name" data-i18n="brick_name">Brick</div>
+      <div class="module-desc" data-i18n="brick_desc">Class · Count</div></div>
+      <span class="ms" style="font-size:15px;color:var(--text-faint);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' -25,'opsz' 20">chevron_right</span>
     </div>
     <div class="module-card m-rcc" onclick="openSubPage('rcc')">
-      <div class="module-icon"><span class="ms">foundation</span></div>
-      <div class="module-name" data-i18n="rcc_name_short">RCC</div>
-      <div class="module-desc" data-i18n="rcc_desc_short">Estimator</div>
+      <div class="module-icon"><span class="ms">account_balance</span></div>
+      <div style="flex:1"><div class="module-name" data-i18n="rcc_name_short">RCC</div>
+      <div class="module-desc" data-i18n="rcc_desc_short">Estimator</div></div>
+      <span class="ms" style="font-size:15px;color:var(--text-faint);font-variation-settings:'FILL' 0,'wght' 300,'GRAD' -25,'opsz' 20">chevron_right</span>
     </div>
   </div>
-
-  <div class="home-sec-lbl"><span class="ms" style="font-size:16px;color:var(--label)">bolt</span><span data-i18n="home_sec_quick">Quick Actions</span></div>
-  <div class="launcher-grid">
-    <div class="launcher-item q-records" onclick="switchDest('records')">
-      <div class="launcher-icon"><span class="ms">folder_open</span></div>
-      <div class="launcher-name" data-i18n="home_view_records">View Records</div>
-    </div>
-    <div class="launcher-item q-payment" onclick="switchDest('payment')">
-      <div class="launcher-icon"><span class="ms">handshake</span></div>
-      <div class="launcher-name" data-i18n="home_new_payment">New Payment</div>
-    </div>
-    <div class="launcher-item q-log" onclick="openSubPage('log')">
-      <div class="launcher-icon"><span class="ms">article</span></div>
-      <div class="launcher-name" data-i18n="lbl_site_log_keeper">Site Log</div>
-    </div>
-    <div class="launcher-item q-pdf" onclick="exportBulkPDF('all')">
-      <div class="launcher-icon"><span class="ms">picture_as_pdf</span></div>
-      <div class="launcher-name" data-i18n="lbl_export_pdf">Export PDF</div>
-    </div>
-    <div class="launcher-item q-backup" onclick="backupLocal()">
-      <div class="launcher-icon"><span class="ms">cloud_upload</span></div>
-      <div class="launcher-name" data-i18n="lbl_export_backup">Backup</div>
-    </div>
-    <div class="launcher-item q-more" onclick="switchDest('more')">
-      <div class="launcher-icon"><span class="ms">menu</span></div>
-      <div class="launcher-name" data-i18n="nav_more">More</div>
-    </div>
-  </div>
-</div>
+</div><!-- /#d-home -->
 
 <!-- PANEL 1: SAND -->
 
 <div class="panel subpage" id="p-sand" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t1"><span class="ms ms-xl">water</span></div><div><div class="th-title" data-i18n="sand_th_title">Sand Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t1"><span class="ms ms-xl">grain</span></div><div><div class="th-title" data-i18n="sand_th_title">Sand Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="f_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="f_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="f_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_f_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="f_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="f_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="f_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_f_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
@@ -1076,17 +1155,17 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       </div>
     </div>
   </div>
-  <div style="padding:0 0 8px"><button class="btn-save t1" id="sand-add-btn" onclick="saveSandRecord()" style="display:none"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
+  <div style="padding:0 0 8px"><button class="btn-save t1" id="sand-add-btn" onclick="saveSandRecord()" style="display:none"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
 </div>
 
 <!-- PANEL 2: STONE CHIPS -->
 <div class="panel subpage" id="p-chips" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t2"><span class="ms ms-xl">landscape</span></div><div><div class="th-title" data-i18n="chips_th_title">Stone Chips Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t2"><span class="ms ms-xl">bubble_chart</span></div><div><div class="th-title" data-i18n="chips_th_title">Stone Chips Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="c_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="c_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="c_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="c_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
       <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">category</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_category">Category</span><input type="text" class="proj-input" id="c_category" maxlength="120" placeholder="e.g. Tusha, Blackstone..."></div></div>
     </div>
   </div>
@@ -1144,17 +1223,17 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="rdim"><span class="rdim-chip ch-h" data-i18n="lbl_avg_h">Avg H</span><span class="rdim-main" id="c-bH">—</span><span class="rdim-dec" id="c-bHd">—</span></div>
     </div>
   </div>
-  <div style="padding:0 0 8px"><button class="btn-save t2" id="chips-add-btn" onclick="saveChipsRecord()" style="display:none"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
+  <div style="padding:0 0 8px"><button class="btn-save t2" id="chips-add-btn" onclick="saveChipsRecord()" style="display:none"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
 </div>
 
 <!-- PANEL 3: STEEL -->
 <div class="panel subpage" id="p-steel" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t3"><span class="ms ms-xl" style="color:#fff">linear_scale</span></div><div><div class="th-title" data-i18n="steel_th_title">Steel Bar Entry</div><div class="th-sub" data-i18n="steel_th_sub">Diameter-wise inventory · KG / TON</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t3"><span class="ms ms-xl" style="color:#fff">bar_chart_4_bars</span></div><div><div class="th-title" data-i18n="steel_th_title">Steel Bar Entry</div><div class="th-sub" data-i18n="steel_th_sub">Diameter-wise inventory · KG / TON</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="s_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="s_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="s_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_s_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="s_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="s_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="s_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_s_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
       <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="s_brand" maxlength="120" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
     </div>
   </div>
@@ -1182,9 +1261,9 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div style="padding:0 12px 14px">
         <div class="grand-total-bar">
           <div><div class="gt-lbl" data-i18n="lbl_grand_total">Grand Total</div></div>
-          <div><span class="gt-val t3" id="s-total-kg">0</span><span style="font:600 11px/1 Barlow,sans-serif;color:var(--label)"> KG</span>&nbsp;<span style="font:600 10px/1 Barlow,sans-serif;color:var(--label)">(<span id="s-total-ton">0.000</span> TON)</span></div>
+          <div><span class="gt-val t3" id="s-total-kg">0</span><span style="font:600 11px/1 Inter,sans-serif;color:var(--label)"> KG</span>&nbsp;<span style="font:600 10px/1 Inter,sans-serif;color:var(--label)">(<span id="s-total-ton">0.000</span> TON)</span></div>
         </div>
-        <button class="btn-save t3" onclick="saveSteelRecord()"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
+        <button class="btn-save t3" onclick="saveSteelRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
       </div>
     </div>
   </div>
@@ -1192,12 +1271,12 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL 4: CEMENT -->
 <div class="panel subpage" id="p-cement" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t4"><span class="ms ms-xl" style="color:#111">inventory_2</span></div><div><div class="th-title" data-i18n="cement_th_title">Cement Entry</div><div class="th-sub" data-i18n="cement_th_sub">Bags · 50 KG per bag</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t4"><span class="ms ms-xl" style="color:#111">deployed_code</span></div><div><div class="th-title" data-i18n="cement_th_title">Cement Entry</div><div class="th-sub" data-i18n="cement_th_sub">Bags · 50 KG per bag</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="m_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="m_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="m_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_m_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="m_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="m_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="m_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_m_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
       <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="m_brand" maxlength="120" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
     </div>
   </div>
@@ -1212,20 +1291,20 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_cement_qty">Cement Quantity</span></div>
     <div class="grp-card">
       <div class="row">
-        <div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">inventory_2</span></div>
+        <div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">deployed_code</span></div>
         <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="m_bags" min="0" placeholder="0" oninput="updateCementTotal()"></div></div>
         <div style="margin-left:6px;flex-shrink:0;text-align:center">
-          <div style="font:700 9px/1 Barlow,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px" data-i18n="lbl_unit">Unit</div>
+          <div style="font:700 9px/1 Inter,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px" data-i18n="lbl_unit">Unit</div>
           <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--cement)">Bags</div>
-          <div style="font:600 9px/1 Barlow,sans-serif;color:var(--label);margin-top:2px">50 kg/bag</div>
+          <div style="font:600 9px/1 Inter,sans-serif;color:var(--label);margin-top:2px">50 kg/bag</div>
         </div>
       </div>
       <div style="padding:0 12px 14px">
         <div class="grand-total-bar">
           <div><div class="gt-lbl" data-i18n="lbl_grand_total">Grand Total</div></div>
-          <div><span class="gt-val t4" id="m-total-bags">0</span><span style="font:600 11px/1 Barlow,sans-serif;color:var(--label)"> Bags</span>&nbsp;<span style="font:600 10px/1 Barlow,sans-serif;color:var(--label)">(<span id="m-total-kg">0</span> KG)</span></div>
+          <div><span class="gt-val t4" id="m-total-bags">0</span><span style="font:600 11px/1 Inter,sans-serif;color:var(--label)"> Bags</span>&nbsp;<span style="font:600 10px/1 Inter,sans-serif;color:var(--label)">(<span id="m-total-kg">0</span> KG)</span></div>
         </div>
-        <button class="btn-save t4" onclick="saveCementRecord()"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
+        <button class="btn-save t4" onclick="saveCementRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
       </div>
     </div>
   </div>
@@ -1233,12 +1312,12 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL: BRICK -->
 <div class="panel subpage" id="p-brick" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">domain</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class &amp; Picket · Truck / Piece</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">view_module</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class &amp; Picket · Truck / Piece</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="b_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="b_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_b_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="b_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="b_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_b_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
@@ -1264,15 +1343,15 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <div class="seg-item" onclick="setBrickUnit('Piece',this)"><span data-i18n="opt_piece">Piece</span></div>
       </div></div>
       <div class="row">
-        <div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">domain</span></div>
+        <div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">view_module</span></div>
         <div class="inp-row"><div class="inp-col"><span class="inp-unit" id="brick-qty-lbl">Quantity (Truck)</span><input type="number" inputmode="decimal" id="b_qty" min="0" placeholder="0" oninput="updateBrickTotal()"></div></div>
       </div>
       <div style="padding:0 12px 14px">
         <div class="grand-total-bar">
           <div><div class="gt-lbl" data-i18n="lbl_grand_total">Grand Total</div></div>
-          <div><span class="gt-val t6" id="b-total-qty">0</span><span style="font:600 11px/1 Barlow,sans-serif;color:var(--label)"> <span id="b-total-unit">Truck</span></span>&nbsp;<span style="font:600 10px/1 Barlow,sans-serif;color:var(--label)" id="b-total-cat-wrap">· <span id="b-total-cat">First Class</span></span></div>
+          <div><span class="gt-val t6" id="b-total-qty">0</span><span style="font:600 11px/1 Inter,sans-serif;color:var(--label)"> <span id="b-total-unit">Truck</span></span>&nbsp;<span style="font:600 10px/1 Inter,sans-serif;color:var(--label)" id="b-total-cat-wrap">· <span id="b-total-cat">First Class</span></span></div>
         </div>
-        <button class="btn-save t6" onclick="saveBrickRecord()"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
+        <button class="btn-save t6" onclick="saveBrickRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
       </div>
     </div>
   </div>
@@ -1280,7 +1359,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- PANEL 5: RCC -->
 <div class="panel subpage" id="p-rcc" role="tabpanel" aria-label="RCC Estimator">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t5"><span class="ms ms-xl" style="color:#fff">foundation</span></div><div><div class="th-title" data-i18n="rcc_name">RCC Estimator</div><div class="th-sub" data-i18n="rcc_th_sub">BNBC 2020 · Multi-element · Mix Comparison</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t5"><span class="ms ms-xl" style="color:#fff">account_balance</span></div><div><div class="th-title" data-i18n="rcc_name">RCC Estimator</div><div class="th-sub" data-i18n="rcc_th_sub">BNBC 2020 · Multi-element · Mix Comparison</div></div></div>
 
   <div class="grp">
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_structure_elements">Structure Elements</span></div>
@@ -1303,11 +1382,11 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="row" id="grade-info-row" style="padding-top:2px;padding-bottom:2px">
         <div class="row-icon ri-v"><span class="ms ms-sm" style="color:var(--blu)">water_drop</span></div>
         <div style="flex:1;min-width:0">
-          <div style="font:700 12px/1 Barlow,sans-serif;color:var(--text)" id="grade-wc-lbl">W/C = 0.50</div>
-          <div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim);margin-top:3px" id="grade-hint">M25 · fck 25 MPa · Hint mix 1:1:2</div>
+          <div style="font:700 12px/1 Inter,sans-serif;color:var(--text)" id="grade-wc-lbl">W/C = 0.50</div>
+          <div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim);margin-top:3px" id="grade-hint">M25 · fck 25 MPa · Hint mix 1:1:2</div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-          <span style="font:600 10px/1 Barlow,sans-serif;color:var(--text-dim)" id="wc-override-lbl" data-i18n="lbl_override">Override</span>
+          <span style="font:600 10px/1 Inter,sans-serif;color:var(--text-dim)" id="wc-override-lbl" data-i18n="lbl_override">Override</span>
           <label class="switch"><input type="checkbox" id="r_wc_override" onchange="toggleWCOverride()"><span class="slider"></span></label>
         </div>
       </div>
@@ -1390,7 +1469,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
           <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">category</span></div>
           <span class="row-lbl" style="min-width:80px" data-i18n="lbl_element_type">Element Type</span>
           <div class="inp-row"><div class="inp-col"><span class="inp-unit">type</span>
-            <select id="r_steel_elem_type" onchange="onSteelElemTypeChange()" style="width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font:700 13px/1 Barlow,sans-serif;padding:9px 10px;outline:none;-webkit-appearance:none">
+            <select id="r_steel_elem_type" onchange="onSteelElemTypeChange()" style="width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font:700 13px/1 Inter,sans-serif;padding:9px 10px;outline:none;-webkit-appearance:none">
               <option value="slab" data-i18n="opt_slab">Slab (80–120 kg/m³)</option>
               <option value="beam" data-i18n="opt_beam">Beam (120–180 kg/m³)</option>
               <option value="column" data-i18n="opt_column">Column (160–250 kg/m³)</option>
@@ -1437,7 +1516,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_compare_mix_b">Compare Mix B (Optional)</span></div>
     <div class="grp-card">
       <div class="mix-row">
-        <span style="font:600 12px/1 Barlow,sans-serif;color:var(--text-dim);min-width:38px" data-i18n="lbl_mix_b">Mix B</span>
+        <span style="font:600 12px/1 Inter,sans-serif;color:var(--text-dim);min-width:38px" data-i18n="lbl_mix_b">Mix B</span>
         <div class="inp-col"><span class="inp-unit" style="color:var(--red)">C</span><input id="r_mc2" type="number" inputmode="decimal" min="0" value="1"></div>
         <span class="mix-colon">:</span>
         <div class="inp-col"><span class="inp-unit" style="color:var(--red)">S</span><input id="r_ms2" type="number" inputmode="decimal" min="0" value="1.5"></div>
@@ -1455,7 +1534,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <div class="res" id="rcc-res" aria-live="polite">
     <div class="res-bar t5"></div>
     <div class="res-hero">
-      <div class="res-hicon t5"><span class="ms">foundation</span></div>
+      <div class="res-hicon t5"><span class="ms">account_balance</span></div>
       <div class="res-hmeta">
         <div class="res-eye t5" data-i18n="lbl_concrete_volume">Concrete Volume</div>
         <div><span class="res-big" id="r-vol">—</span><span class="res-big-u" id="r-vol-u"> ft³</span></div>
@@ -1468,12 +1547,12 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="coll-hdr open" id="chdr-els" onclick="toggleColl('els')"><span data-i18n="lbl_per_element_breakdown">Per-Element Breakdown</span><span class="ms ms-sm coll-chev">expand_more</span></div>
     <div class="coll-body open" id="cbody-els"><div class="elb-list" id="r-elb"></div></div>
     <div class="r-sep"></div>
-    <div class="r-sec" data-i18n="lbl_required_materials">Required Materials <span id="r-waste-lbl" style="font:400 10px/1 Barlow,sans-serif;color:var(--text-dim)"></span></div>
+    <div class="r-sec" data-i18n="lbl_required_materials">Required Materials <span id="r-waste-lbl" style="font:400 10px/1 Inter,sans-serif;color:var(--text-dim)"></span></div>
     <div class="mat-rows">
       <div class="mat-row"><div class="mat-ico mc"><span class="ms">water_drop</span></div><div class="mat-inf"><div class="mat-n" data-i18n="cement_name">Cement</div><div><span class="mat-v" id="r-bags">—</span><span class="mat-u">bags</span></div><div class="mat-s" id="r-bag-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-c" id="rb-c"></div></div></div>
       <div class="mat-row"><div class="mat-ico msa"><span class="ms">terrain</span></div><div class="mat-inf"><div class="mat-n" id="r-sand-lbl" data-i18n="lbl_sand_fine_agg">Sand (Fine Agg.)</div><div><span class="mat-v" id="r-sand">—</span><span class="mat-u" id="r-sand-u">cft</span></div><div class="mat-s" id="r-sand-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-s" id="rb-s"></div></div></div>
       <div class="mat-row"><div class="mat-ico ma"><span class="ms">blur_on</span></div><div class="mat-inf"><div class="mat-n" data-i18n="lbl_stone_chips">Stone / Chips</div><div><span class="mat-v" id="r-chips">—</span><span class="mat-u" id="r-chips-u">cft</span></div><div class="mat-s" id="r-chips-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-a" id="rb-a"></div></div></div>
-      <div class="mat-row"><div class="mat-ico mw"><span class="ms">water</span></div><div class="mat-inf"><div class="mat-n" data-i18n="lbl_water">Water</div><div><span class="mat-v" id="r-water">—</span><span class="mat-u">L</span></div><div class="mat-s" id="r-water-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-w" id="rb-w"></div></div></div>
+      <div class="mat-row"><div class="mat-ico mw"><span class="ms">grain</span></div><div class="mat-inf"><div class="mat-n" data-i18n="lbl_water">Water</div><div><span class="mat-v" id="r-water">—</span><span class="mat-u">L</span></div><div class="mat-s" id="r-water-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-w" id="rb-w"></div></div></div>
     </div>
     <div id="r-steel-wrap" style="display:none">
       <div class="r-sep"></div>
@@ -1490,7 +1569,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <div class="cmp-cell"><div class="cmp-title" id="cmp-ta" data-i18n="lbl_mix_a">Mix A</div><div class="cmp-r"><span class="cmp-rl" data-i18n="cement_name">Cement</span><span class="cmp-rv" id="cA-b">—</span></div><div class="cmp-r"><span class="cmp-rl" data-i18n="sand_name">Sand</span><span class="cmp-rv" id="cA-s">—</span></div><div class="cmp-r"><span class="cmp-rl" data-i18n="opt_chips_short">Chips</span><span class="cmp-rv" id="cA-a">—</span></div><div class="cmp-r"><span class="cmp-rl" data-i18n="lbl_water">Water</span><span class="cmp-rv" id="cA-w">—</span></div></div>
         <div class="cmp-cell"><div class="cmp-title" id="cmp-tb" data-i18n="lbl_mix_b">Mix B</div><div class="cmp-r"><span class="cmp-rl" data-i18n="cement_name">Cement</span><span class="cmp-rv" id="cB-b">—</span></div><div class="cmp-r"><span class="cmp-rl" data-i18n="sand_name">Sand</span><span class="cmp-rv" id="cB-s">—</span></div><div class="cmp-r"><span class="cmp-rl" data-i18n="opt_chips_short">Chips</span><span class="cmp-rv" id="cB-a">—</span></div><div class="cmp-r"><span class="cmp-rl" data-i18n="lbl_water">Water</span><span class="cmp-rv" id="cB-w">—</span></div></div>
       </div>
-      <div style="font:400 11px/1.5 Barlow,sans-serif;color:var(--text-dim);padding:0 13px 13px" id="cmp-note">—</div>
+      <div style="font:400 11px/1.5 Inter,sans-serif;color:var(--text-dim);padding:0 13px 13px" id="cmp-note">—</div>
     </div>
     <div class="r-sep"></div>
     <div style="padding:12px 14px"><button class="btn dark" onclick="copyRCCReport()"><span class="ms">content_copy</span><span data-i18n="btn_copy_full_report">Copy Full Report</span></button></div>
@@ -1500,14 +1579,14 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     </div>
   </div>
   <div style="padding:0 0 8px">
-    <button class="btn-save t5" id="rcc-add-btn" onclick="saveRCCRecord()" style="display:none"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
+    <button class="btn-save t5" id="rcc-add-btn" onclick="saveRCCRecord()" style="display:none"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
   </div>
 </div>
 
 <!-- ═══ DESTINATION: PAYMENTS ═══ -->
 <div class="panel dest" id="p-payment" role="tabpanel">
   <div class="th">
-    <div class="th-icon" style="background:var(--pay);box-shadow:0 4px 16px var(--pay-bg)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">handshake</span></div>
+    <div class="th-icon" style="background:var(--pay);box-shadow:0 4px 16px var(--pay-bg)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' -25,'opsz' 48">receipt_long</span></div>
     <div><div class="th-title" style="color:var(--text)" data-i18n="pay_th_title">Contractor Payment</div><div class="th-sub" data-i18n="pay_th_sub">Payment Log · By Trade Type</div></div>
   </div>
   <!-- Dashboard -->
@@ -1517,7 +1596,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
       <div class="pay-dash-val" id="dash-total">৳ 0</div>
       <div class="pay-dash-sub" id="dash-count">0 payments</div>
     </div>
-    <div class="pay-dash-cell" style="background:var(--grn-bg);border-color:rgba(66,184,115,.20)">
+    <div class="pay-dash-cell" style="background:var(--grn-bg);border-color:rgba(34,197,94,.20)">
       <div class="pay-dash-lbl" style="color:var(--grn)" data-i18n="lbl_this_month">This Month</div>
       <div class="pay-dash-val" style="color:var(--grn)" id="dash-month">৳ 0</div>
       <div class="pay-dash-sub" id="dash-month-count">0 payments</div>
@@ -1526,8 +1605,8 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <!-- Project Details -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_project_details">Project Details</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">apartment</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="pay_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">location_on</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="pay_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="pay_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="pay_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
     </div>
   </div>
   <!-- Contractor Type -->
@@ -1538,9 +1617,9 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <div class="ctype-chip sanitary" id="ct-sanitary" onclick="selectCType('sanitary',this)"><span class="ms">plumbing</span><span class="ct-lbl" data-i18n="opt_sanitary">Sanitary</span></div>
         <div class="ctype-chip electric" id="ct-electric" onclick="selectCType('electric',this)"><span class="ms">electric_bolt</span><span class="ct-lbl" data-i18n="opt_electric">Electric</span></div>
         <div class="ctype-chip paint" id="ct-paint" onclick="selectCType('paint',this)"><span class="ms">format_paint</span><span class="ct-lbl" data-i18n="opt_paint">Paint</span></div>
-        <div class="ctype-chip tiles" id="ct-tiles" onclick="selectCType('tiles',this)"><span class="ms">grid_view</span><span class="ct-lbl" data-i18n="opt_tiles">Tiles</span></div>
+        <div class="ctype-chip tiles" id="ct-tiles" onclick="selectCType('tiles',this)"><span class="ms">apps</span><span class="ct-lbl" data-i18n="opt_tiles">Tiles</span></div>
       </div>
-      <div style="padding:0 12px 12px"><div id="pay-type-confirm" style="display:flex;align-items:center;gap:8px;background:var(--red-bg);border:1px solid rgba(255,59,59,.30);border-radius:var(--r);padding:10px 12px"><span class="ms" style="color:var(--red);font-size:16px">check_circle</span><span style="font:600 12px/1 Barlow,sans-serif;color:var(--red)" id="pay-type-display">Rod Contractor</span></div></div>
+      <div style="padding:0 12px 12px"><div id="pay-type-confirm" style="display:flex;align-items:center;gap:8px;background:var(--red-bg);border:1px solid rgba(239,68,68,.30);border-radius:var(--r);padding:10px 12px"><span class="ms" style="color:var(--red);font-size:16px">check_circle</span><span style="font:600 12px/1 Inter,sans-serif;color:var(--red)" id="pay-type-display">Rod Contractor</span></div></div>
     </div>
   </div>
   <!-- Contractor Details -->
@@ -1558,14 +1637,14 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
           <div class="pay-amount-preview-value" id="pay-amount-preview-val">৳ 0.00</div>
         </div>
       </div>
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">calendar_today</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_payment_date">Payment Date</span><div class="date-wrap"><input type="date" class="proj-input" id="pay_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_pay_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_payment_date">Payment Date</span><div class="date-wrap"><input type="date" class="proj-input" id="pay_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_pay_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <!-- Comments -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_comments">Comments / Remarks</span></div>
     <div class="grp-card"><div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_additional_notes">Additional Notes</span><textarea id="pay-comments" rows="3" maxlength="500" placeholder="e.g. Payment for slab work on 3rd floor, labour cost only..."></textarea></div></div>
   </div>
-  <div style="padding:0 0 8px"><button class="btn-save t6" onclick="savePaymentRecord()"><span class="ms">save</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
+  <div style="padding:0 0 8px"><button class="btn-save t6" onclick="savePaymentRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
 </div>
 
 <!-- PANEL 7: RECORDS -->
@@ -1574,8 +1653,8 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 <div class="panel subpage" id="p-log" role="tabpanel">
   <div class="th">
     <div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div>
-    <div class="th-icon" style="background:var(--ios-orange-d);box-shadow:0 4px 16px rgba(255,59,59,.36)">
-      <span class="ms-xl ms">article</span>
+    <div class="th-icon" style="background:var(--ios-orange-d);box-shadow:0 4px 16px rgba(29,78,216,.40)">
+      <span class="ms-xl ms">edit_note</span>
     </div>
     <div>
       <div class="th-title" data-i18n="log_th_title">Site Log</div>
@@ -1601,7 +1680,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--ios-orange-d)"></span><span data-i18n="lbl_all_log_entries">All Log Entries</span></div>
     <div id="log-list-wrap">
       <div class="rec-empty" id="log-empty">
-        <span class="ms">article</span>
+        <span class="ms">edit_note</span>
         <div class="rec-empty-t" data-i18n="lbl_no_logs">No logs yet</div>
         <div class="rec-empty-s" data-i18n="lbl_no_logs_hint">Tap "Input Log" to add your first site diary entry</div>
       </div>
@@ -1631,14 +1710,14 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     </div>
     <div style="display:flex;gap:10px">
       <button onclick="closeLogDialog()" style="flex:1;padding:14px;border:none;border-radius:var(--r-lg);background:var(--fill);color:var(--text-dim);font:600 15px/1 -apple-system;cursor:pointer;-webkit-tap-highlight-color:transparent"><span data-i18n="btn_cancel">Cancel</span></button>
-      <button onclick="saveLogEntry()" style="flex:2;padding:14px;border:none;border-radius:var(--r-lg);background:var(--ios-orange-d);color:#fff;font:600 15px/1 -apple-system;cursor:pointer;box-shadow:0 4px 16px rgba(255,59,59,.38);-webkit-tap-highlight-color:transparent"><span data-i18n="btn_save_log">Save Log</span></button>
+      <button onclick="saveLogEntry()" style="flex:2;padding:14px;border:none;border-radius:var(--r-lg);background:var(--ios-orange-d);color:#fff;font:600 15px/1 -apple-system;cursor:pointer;box-shadow:0 4px 16px rgba(29,78,216,.42);-webkit-tap-highlight-color:transparent"><span data-i18n="btn_save_log">Save Log</span></button>
     </div>
   </div>
 </div>
 
 <!-- ═══ DESTINATION: RECORDS ═══ -->
 <div class="panel dest" id="p-records" role="tabpanel">
-  <div class="th"><div class="th-icon" style="background:var(--grn);box-shadow:0 4px 16px rgba(66,184,115,.36)"><span class="ms ms-xl" style="color:#000;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">folder_open</span></div><div><div class="th-title" data-i18n="rec_th_title">Records</div><div class="th-sub" data-i18n="rec_th_sub">All saved entries · Export PDF</div></div></div>
+  <div class="th"><div class="th-icon" style="background:var(--grn);box-shadow:0 4px 16px rgba(34,197,94,.40)"><span class="ms ms-xl" style="color:#000;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' -25,'opsz' 48">table_rows</span></div><div><div class="th-title" data-i18n="rec_th_title">Records</div><div class="th-sub" data-i18n="rec_th_sub">All saved entries · Export PDF</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span><span data-i18n="lbl_filter">Filter</span></div>
     <div class="grp-card"><div class="seg-wrap"><div class="seg" id="rec-filter-seg">
       <div class="seg-item active" onclick="filterRecords('all',this)"><span data-i18n="opt_all">All</span></div>
@@ -1669,28 +1748,28 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
     </div>
     </div>
   </div>
-  <div class="grp"><div id="rec-container"><div class="rec-empty"><span class="ms">folder_open</span><div class="rec-empty-t" data-i18n="lbl_no_records">No Records Yet</div><div class="rec-empty-s" data-i18n="lbl_no_records_hint">Add entries from each material tab.</div></div></div></div>
+  <div class="grp"><div id="rec-container"><div class="rec-empty"><span class="ms">table_rows</span><div class="rec-empty-t" data-i18n="lbl_no_records">No Records Yet</div><div class="rec-empty-s" data-i18n="lbl_no_records_hint">Add entries from each material tab.</div></div></div></div>
 </div>
 
 <!-- PANEL 8: ABOUT -->
 <!-- ═══ DESTINATION: MORE ═══ -->
 <div class="panel dest" id="d-more" role="tabpanel">
-  <div class="th"><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(63,194,187,.36)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">menu</span></div><div><div class="th-title" data-i18n="nav_more">More</div><div class="th-sub" data-i18n="more_th_sub">Logs · Backup · Settings · About</div></div></div>
+  <div class="th"><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(6,182,212,.40)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' -25,'opsz' 48">apps</span></div><div><div class="th-title" data-i18n="nav_more">More</div><div class="th-sub" data-i18n="more_th_sub">Logs · Backup · Settings · About</div></div></div>
 
   <!-- Profile / App identity -->
   <div class="grp">
     <div class="grp-card">
       <div style="padding:20px 16px;text-align:center;border-bottom:.5px solid var(--sep)">
-        <div style="width:68px;height:68px;border-radius:22px;background:var(--amber);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px var(--amber-bg)"><span class="ms" style="font-size:32px;color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48">engineering</span></div>
-        <div style="font:800 18px/1 Orbitron,sans-serif;letter-spacing:2px;color:var(--text);margin-bottom:6px">CIVIL <span style="color:var(--amber)">SUITE</span></div>
-        <div style="font:600 10px/1 Barlow,sans-serif;color:var(--label);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px" data-i18n="lbl_ultimate_edition">Ultimate Edition</div>
-        <div class="version-chip"><span class="ms ms-sm" style="color:var(--grn)">verified</span><span data-i18n="lbl_version">Version 1.0 · BNBC 2020</span></div>
+        <div style="width:68px;height:68px;border-radius:22px;background:var(--ios-orange-d);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:0 8px 28px var(--primary-bg,rgba(29,78,216,.28))"><span class="ms" style="font-size:32px;color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 48">engineering</span></div>
+        <div style="font:800 18px/1 Sora,Inter,sans-serif;letter-spacing:2px;color:var(--text);margin-bottom:6px">CIVIL <span style="color:var(--amber)">SUITE</span></div>
+        <div style="font:600 10px/1 Inter,sans-serif;color:var(--label);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px" data-i18n="lbl_ultimate_edition">Ultimate Edition</div>
+        <div class="version-chip"><span class="ms ms-sm" style="color:var(--grn)">task_alt</span><span data-i18n="lbl_version">Version 1.0 · BNBC 2020</span></div>
       </div>
       <div class="row" style="cursor:pointer" onclick="openSubPage('about')">
         <div class="row-icon" style="background:var(--purp-bg)"><span class="ms ms-sm" style="color:var(--purp)">info</span></div>
         <div style="flex:1">
           <div class="row-lbl" data-i18n="lbl_about_dev_info">About &amp; Developer Info</div>
-          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_about_dev_info_sub">Dev team · references · standards used</div>
+          <div style="font:400 10px/1 Inter,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_about_dev_info_sub">Dev team · references · standards used</div>
         </div>
         <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
       </div>
@@ -1698,13 +1777,13 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   </div>
 
   <!-- Site Log -->
-  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--ios-orange-d)"></span><span data-i18n="lbl_site_diary">Site Diary</span></div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span><span data-i18n="lbl_site_diary">Site Diary</span></div>
     <div class="grp-card">
       <div class="row" style="cursor:pointer" onclick="openSubPage('log')">
-        <div class="row-icon" style="background:var(--amber-bg)"><span class="ms ms-sm" style="color:var(--ios-orange-d)">article</span></div>
+        <div class="row-icon" style="background:var(--amber-bg)"><span class="ms ms-sm" style="color:var(--ios-orange-d)">edit_note</span></div>
         <div style="flex:1">
           <div class="row-lbl" data-i18n="lbl_site_log_keeper">Site Log Keeper</div>
-          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_site_log_keeper_sub">Construction diary with timestamped entries</div>
+          <div style="font:400 10px/1 Inter,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_site_log_keeper_sub">Construction diary with timestamped entries</div>
         </div>
         <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
       </div>
@@ -1713,23 +1792,13 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
   <!-- Appearance -->
 
-  <!-- Styles & Themes -->
   <div class="grp">
-    <div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_styles_themes">Styles &amp; Themes</span></div>
-    <div class="grp-card" style="padding:12px">
-      <div id="theme-picker-list"></div>
-      <div style="font:400 11px/1.5 Inter,sans-serif;color:var(--label);padding:6px 4px 0;text-align:center">
-        Select a theme to apply instantly · Works with Dark &amp; Light mode
-      </div>
-    </div>
-  </div>
-  <div class="grp">
-    <div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span>Appearance</div>
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--ios-orange-d)"></span>Appearance</div>
     <div class="grp-card">
       <div class="toggle-row">
         <div>
           <div class="toggle-lbl" data-i18n="lbl_dark_mode">Dark Mode</div>
-          <span class="toggle-sub" data-i18n="lbl_dark_mode_sub">OxygenOS Engineering Theme · Light &amp; Dark</span>
+          <span class="toggle-sub">CSDL · Civil Suite Design Language</span>
         </div>
         <label class="switch">
           <input type="checkbox" id="settings-dark-switch" onchange="toggleDark()">
@@ -1760,7 +1829,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <div class="row-icon" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">download</span></div>
         <div style="flex:1">
           <div class="row-lbl" data-i18n="lbl_export_backup">Export Backup File</div>
-          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_export_backup_sub">Save all records as a .json file to your device</div>
+          <div style="font:400 10px/1 Inter,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_export_backup_sub">Save all records as a .json file to your device</div>
         </div>
         <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
       </div>
@@ -1768,7 +1837,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <div class="row-icon" style="background:var(--blu-bg)"><span class="ms ms-sm" style="color:var(--blu)">upload</span></div>
         <div style="flex:1">
           <div class="row-lbl" data-i18n="lbl_import_backup">Import Backup File</div>
-          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_import_backup_sub">Restore records from a previously saved .json backup</div>
+          <div style="font:400 10px/1 Inter,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_import_backup_sub">Restore records from a previously saved .json backup</div>
         </div>
         <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
       </div>
@@ -1776,7 +1845,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
         <div class="row-icon" style="background:var(--red-bg)"><span class="ms ms-sm" style="color:var(--red)">delete_forever</span></div>
         <div style="flex:1">
           <div class="row-lbl" style="color:var(--red)" data-i18n="lbl_clear_all_records">Clear All Records</div>
-          <div style="font:400 10px/1 Barlow,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_clear_all_records_sub">Permanently delete every saved record — cannot be undone</div>
+          <div style="font:400 10px/1 Inter,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_clear_all_records_sub">Permanently delete every saved record — cannot be undone</div>
         </div>
         <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
       </div>
@@ -1787,25 +1856,25 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <div class="grp">
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_export_pdf">Export PDF</span></div>
     <div class="grp-card">
-      <div style="padding:10px 12px 4px;font:400 10px/1.5 Barlow,sans-serif;color:var(--label)" data-i18n="lbl_export_pdf_desc">Export all saved records for a material type as a single consolidated PDF report with grand totals.</div>
+      <div style="padding:10px 12px 4px;font:400 10px/1.5 Inter,sans-serif;color:var(--label)" data-i18n="lbl_export_pdf_desc">Export all saved records for a material type as a single consolidated PDF report with grand totals.</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:10px 12px 14px">
-        <button onclick="exportBulkPDF('sand')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--amber-bg);border:1px solid var(--amber-bg);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--amber);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--amber)">water</span><span data-i18n="sand_name">Sand</span></button>
-        <button onclick="exportBulkPDF('chips')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--chips-bg);border:1px solid rgba(63,194,187,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--chips);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--chips)">landscape</span><span data-i18n="opt_chips_short">Chips</span></button>
-        <button onclick="exportBulkPDF('steel')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--steel-cbg);border:1px solid var(--steel-cbg);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--steel-c);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--steel-c)">linear_scale</span><span data-i18n="opt_steel_short">Steel</span></button>
-        <button onclick="exportBulkPDF('cement')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--cement-bg);border:1px solid rgba(63,194,187,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--cement);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--cement)">inventory_2</span><span data-i18n="cement_name">Cement</span></button>
-        <button onclick="exportBulkPDF('brick')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--brick-bg);border:1px solid rgba(217,118,77,.30);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--brick);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--brick)">domain</span><span data-i18n="brick_name">Brick</span></button>
-        <button onclick="exportBulkPDF('rcc')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--blu-bg);border:1px solid rgba(124,138,232,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--blu);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--blu)">foundation</span>RCC</button>
-        <button onclick="exportBulkPDF('payment')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--pay-bg);border:1px solid var(--pay-bg);border-radius:var(--r);cursor:pointer;font:600 11px/1 Barlow,sans-serif;color:var(--pay);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--pay)">handshake</span><span data-i18n="lbl_payment_short">Payment</span></button>
+        <button onclick="exportBulkPDF('sand')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--amber-bg);border:1px solid var(--amber-bg);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--amber);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--amber)">grain</span><span data-i18n="sand_name">Sand</span></button>
+        <button onclick="exportBulkPDF('chips')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--chips-bg);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--chips);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--chips)">bubble_chart</span><span data-i18n="opt_chips_short">Chips</span></button>
+        <button onclick="exportBulkPDF('steel')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--steel-cbg);border:1px solid var(--steel-cbg);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--steel-c);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--steel-c)">bar_chart_4_bars</span><span data-i18n="opt_steel_short">Steel</span></button>
+        <button onclick="exportBulkPDF('cement')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--cement-bg);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--cement);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--cement)">deployed_code</span><span data-i18n="cement_name">Cement</span></button>
+        <button onclick="exportBulkPDF('brick')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--brick-bg);border:1px solid rgba(217,118,77,.30);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--brick);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--brick)">view_module</span><span data-i18n="brick_name">Brick</span></button>
+        <button onclick="exportBulkPDF('rcc')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--blu-bg);border:1px solid rgba(124,58,237,.28);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--blu);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--blu)">account_balance</span>RCC</button>
+        <button onclick="exportBulkPDF('payment')" style="display:flex;align-items:center;gap:7px;padding:11px 12px;background:var(--pay-bg);border:1px solid var(--pay-bg);border-radius:var(--r);cursor:pointer;font:600 11px/1 Inter,sans-serif;color:var(--pay);-webkit-tap-highlight-color:transparent;transition:filter .12s"><span class="ms ms-sm" style="color:var(--pay)">receipt_long</span><span data-i18n="lbl_payment_short">Payment</span></button>
       </div>
       <div style="padding:0 12px 14px">
         <!-- Site Log PDF Export -->
         <button onclick="exportLogsPDF()" style="width:100%;display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--fill);border:.5px solid var(--sep);border-radius:var(--r-lg);cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:10px;transition:filter .12s;outline:none" ontouchstart="">
-          <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,59,59,.18);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="ms" style="color:var(--ios-orange-d);font-size:20px">article</span></div>
+          <div style="width:40px;height:40px;border-radius:12px;background:rgba(29,78,216,.16);display:flex;align-items:center;justify-content:center;flex-shrink:0"><span class="ms" style="color:var(--ios-orange-d);font-size:20px">edit_note</span></div>
           <div style="flex:1;text-align:left"><div style="font:600 15px/1 -apple-system;color:var(--text)" data-i18n="lbl_export_site_logs_pdf">Export Site Logs PDF</div><div style="font:400 12px/1 -apple-system;color:var(--label);margin-top:3px" data-i18n="lbl_export_site_logs_pdf_sub">Print or save all log entries as PDF</div></div>
           <span class="ms" style="color:var(--label);font-size:18px">chevron_right</span>
         </button>
-        <button onclick="exportBulkPDF('all')" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:var(--amber);border:none;border-radius:var(--r-pill);cursor:pointer;font:700 12px/1 Barlow,sans-serif;color:#fff;letter-spacing:.06em;box-shadow:0 4px 18px var(--amber-bg);-webkit-tap-highlight-color:transparent;transition:filter .12s">
-          <span class="ms" style="font-size:18px;color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 20">description</span><span data-i18n="btn_export_all">EXPORT ALL RECORDS</span>
+        <button onclick="exportBulkPDF('all')" style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:14px;background:var(--ios-orange-d);border:none;border-radius:var(--r-pill);cursor:pointer;font:700 12px/1 Inter,sans-serif;color:#fff;letter-spacing:.06em;box-shadow:0 4px 18px rgba(29,78,216,.36);-webkit-tap-highlight-color:transparent;transition:filter .12s">
+          <span class="ms" style="font-size:18px;color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' 0,'opsz' 20">file_present</span><span data-i18n="btn_export_all">EXPORT ALL RECORDS</span>
         </button>
       </div>
     </div>
@@ -1816,7 +1885,7 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 
 <!-- ═══ SUB-PAGE: ABOUT (Dev Team / Modules / Standards) ═══ -->
 <div class="panel subpage" id="p-about" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(63,194,187,.36)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 100,'GRAD' -25,'opsz' 48">info</span></div><div><div class="th-title" data-i18n="about_th_title">About</div><div class="th-sub" data-i18n="about_th_sub">App Info · Dev Team · Version</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(6,182,212,.40)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' -25,'opsz' 48">info</span></div><div><div class="th-title" data-i18n="about_th_title">About</div><div class="th-sub" data-i18n="about_th_sub">App Info · Dev Team · Version</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span><span data-i18n="lbl_dev_team">Development Team</span></div>
     <div class="grp-card">
       <div class="dev-row">
@@ -1837,13 +1906,13 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span><span data-i18n="lbl_modules">Modules</span></div>
     <div class="grp-card">
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px">
-        <div style="background:var(--amber-bg);border:1px solid var(--amber-bg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--amber);margin-bottom:5px" data-i18n="sand_name">Sand</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_sand_desc">Multi-point measurement with avg, geometry &amp; unit conversion</div></div>
-        <div style="background:var(--chips-bg);border:1px solid rgba(63,194,187,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--chips);margin-bottom:5px" data-i18n="chips_name">Stone Chips</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_chips_desc">Same multi-point engine with chips-specific record format</div></div>
-        <div style="background:var(--steel-cbg);border:1px solid var(--steel-cbg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--steel-c);margin-bottom:5px" data-i18n="steel_name">Steel Bars</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_steel_desc">Diameter-wise KG entry (8–32mm) with grand total &amp; tonnage</div></div>
-        <div style="background:var(--cement-bg);border:1px solid rgba(63,194,187,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--cement);margin-bottom:5px" data-i18n="cement_name">Cement</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_cement_desc">Bag count with brand, vehicle tracking &amp; KG conversion</div></div>
-        <div style="background:var(--brick-bg);border:1px solid rgba(217,118,77,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--brick);margin-bottom:5px" data-i18n="brick_name">Brick</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_brick_desc">Class &amp; Picket category with Truck/Piece quantity tracking</div></div>
-        <div style="background:var(--blu-bg);border:1px solid rgba(124,138,232,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--blu);margin-bottom:5px" data-i18n="rcc_name">RCC</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_rcc_desc">BNBC 2020 multi-element estimator with mix comparison</div></div>
-        <div style="background:var(--pay-bg);border:1px solid var(--pay-bg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Barlow,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--pay);margin-bottom:5px" data-i18n="lbl_mod_pay_title">Contractor Pay</div><div style="font:400 10px/1.4 Barlow,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_pay_desc">Payment log by trade type with search, filter &amp; PDF export</div></div>
+        <div style="background:var(--amber-bg);border:1px solid var(--amber-bg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--amber);margin-bottom:5px" data-i18n="sand_name">Sand</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_sand_desc">Multi-point measurement with avg, geometry &amp; unit conversion</div></div>
+        <div style="background:var(--chips-bg);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--chips);margin-bottom:5px" data-i18n="chips_name">Stone Chips</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_chips_desc">Same multi-point engine with chips-specific record format</div></div>
+        <div style="background:var(--steel-cbg);border:1px solid var(--steel-cbg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--steel-c);margin-bottom:5px" data-i18n="steel_name">Steel Bars</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_steel_desc">Diameter-wise KG entry (8–32mm) with grand total &amp; tonnage</div></div>
+        <div style="background:var(--cement-bg);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--cement);margin-bottom:5px" data-i18n="cement_name">Cement</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_cement_desc">Bag count with brand, vehicle tracking &amp; KG conversion</div></div>
+        <div style="background:var(--brick-bg);border:1px solid rgba(217,118,77,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--brick);margin-bottom:5px" data-i18n="brick_name">Brick</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_brick_desc">Class &amp; Picket category with Truck/Piece quantity tracking</div></div>
+        <div style="background:var(--blu-bg);border:1px solid rgba(124,58,237,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--blu);margin-bottom:5px" data-i18n="rcc_name">RCC</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_rcc_desc">BNBC 2020 multi-element estimator with mix comparison</div></div>
+        <div style="background:var(--pay-bg);border:1px solid var(--pay-bg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--pay);margin-bottom:5px" data-i18n="lbl_mod_pay_title">Contractor Pay</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_pay_desc">Payment log by trade type with search, filter &amp; PDF export</div></div>
       </div>
     </div>
   </div>
@@ -1865,9 +1934,9 @@ body,header,nav,.grp-card,.res,input,select,textarea,.seg,.chip,.toggle-row,.not
 <!-- BOTTOM NAV -->
 <nav role="navigation" aria-label="Main Navigation">
   <div class="ni d-home active" onclick="switchDest('home')" role="tab" id="nav-home"><span class="ni-icon">home</span><span class="ni-lbl" data-i18n="nav_home">Home</span></div>
-  <div class="ni d-records" onclick="switchDest('records')" role="tab" id="nav-records"><span class="ni-icon">folder_open</span><span class="ni-lbl" data-i18n="nav_records">Records</span></div>
-  <div class="ni d-payment" onclick="switchDest('payment')" role="tab" id="nav-payment"><span class="ni-icon">handshake</span><span class="ni-lbl" data-i18n="nav_payments">Payments</span></div>
-  <div class="ni d-more" onclick="switchDest('more')" role="tab" id="nav-more"><span class="ni-icon">menu</span><span class="ni-lbl" data-i18n="nav_more">More</span></div>
+  <div class="ni d-records" onclick="switchDest('records')" role="tab" id="nav-records"><span class="ni-icon">table_rows</span><span class="ni-lbl" data-i18n="nav_records">Records</span></div>
+  <div class="ni d-payment" onclick="switchDest('payment')" role="tab" id="nav-payment"><span class="ni-icon">receipt_long</span><span class="ni-lbl" data-i18n="nav_payments">Payments</span></div>
+  <div class="ni d-more" onclick="switchDest('more')" role="tab" id="nav-more"><span class="ni-icon">apps</span><span class="ni-lbl" data-i18n="nav_more">More</span></div>
 </nav>
 
 
@@ -2150,7 +2219,6 @@ window.addEventListener('DOMContentLoaded',function(){
     var el=document.getElementById(id); if(el) el.value=today;
   });
   updateThemeMeta();
-  renderThemePicker();
   applyLanguage(getCurrentLang());
   initDateOverlays();
   var _dark=localStorage.getItem('csu3_dark')==='1';
@@ -2168,6 +2236,11 @@ window.addEventListener('DOMContentLoaded',function(){
 
 // ─── SPLASH ───
 function enterApp(){
+  /* sync dark icon on load */
+  var di=document.getElementById('dark-icon');
+  if(di) di.textContent=document.documentElement.classList.contains('dark')?'light_mode':'dark_mode';
+  var sw=document.getElementById('settings-dark-switch');
+  if(sw) sw.checked=document.documentElement.classList.contains('dark');
   var s=document.getElementById('splash');
   s.classList.add('hiding');
   setTimeout(function(){s.style.display='none';},420);
@@ -2188,6 +2261,8 @@ var _activeSubPage=null;
 var _navigatingViaPopstate=false;
 
 function switchDest(name){
+  /* CSDL: hide clear btn on main destinations */
+  var cb=document.getElementById('hdr-clear-btn'); if(cb) cb.style.display='none';
   _activeSubPage=null;
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   var id=DEST_PANEL[name];
@@ -2197,10 +2272,7 @@ function switchDest(name){
   var navEl=document.getElementById('nav-'+name);
   if(navEl) navEl.classList.add('active');
   _activeDest=name;
-  // Calculator "Clear All" only applies to a sub-page, so the default header
-  // row (badge) shows on every top-level destination.
-  document.getElementById('hdr-row-default').style.display='flex';
-  document.getElementById('hdr-row-calc').style.display='none';
+  /* CSDL: hdr-row-default/calc removed — hdr-clear-btn hidden by line above */
   showNav(true);
   window.scrollTo({top:0,behavior:'instant'});
   if(name==='records') renderRecords();
@@ -2208,8 +2280,12 @@ function switchDest(name){
 }
 
 // Sub-pages: sand, chips, steel, cement, rcc, log, about
-var SUBPAGE_HAS_CLEAR={sand:1,chips:1,steel:1,cement:1,rcc:1,brick:1};
+
 function openSubPage(name){
+  /* CSDL: show clear btn on calc sub-pages */
+  var cb=document.getElementById('hdr-clear-btn');
+  var calcPages=['sand','chips','steel','cement','brick','rcc'];
+  if(cb) cb.style.display=calcPages.indexOf(name)>=0?'flex':'none';
   document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
   var el=document.getElementById('p-'+name);
   if(el) el.classList.add('active');
@@ -2217,9 +2293,7 @@ function openSubPage(name){
   // The bottom nav and default header hide while a sub-page is open so the
   // back button is the single, unambiguous way to return.
   showNav(false);
-  var showClear=!!SUBPAGE_HAS_CLEAR[name];
-  document.getElementById('hdr-row-default').style.display=showClear?'none':'flex';
-  document.getElementById('hdr-row-calc').style.display=showClear?'flex':'none';
+  /* CSDL: header rows replaced by hdr-clear-btn (handled at top of this function) */
   window.scrollTo({top:0,behavior:'instant'});
   if(name==='log') renderLogs();
   // Push a history entry so the Android back gesture/button closes this
@@ -2228,6 +2302,7 @@ function openSubPage(name){
   if(!_navigatingViaPopstate) history.pushState({subpage:name},'',location.href);
 }
 function closeSubPage(){
+  var cb=document.getElementById('hdr-clear-btn'); if(cb) cb.style.display='none';
   var from=_activeSubPage;
   _activeSubPage=null;
   // Return to whichever destination was active before the sub-page opened —
@@ -2261,6 +2336,14 @@ function updateHomeStats(){
   if(pEl){
     var total=records.filter(function(r){return r.type==='payment';}).reduce(function(s,r){return s+(parseFloat(r.amount)||0);},0);
     pEl.textContent='৳ '+total.toLocaleString('en-BD',{maximumFractionDigits:0});
+  }
+  /* CSDL: calculation count (non-payment records) */
+  var cEl=document.getElementById('home-stat-calcs');
+  if(cEl) cEl.textContent=records.filter(function(r){return r.type!=='payment';}).length;
+  /* CSDL: site log entries count */
+  var lEl=document.getElementById('home-stat-logs');
+  if(lEl){
+    try{var logs=JSON.parse(localStorage.getItem('csu3_logs')||'[]');lEl.textContent=logs.length;}catch(e){lEl.textContent=0;}
   }
   renderRecentActivity();
 }
@@ -2719,14 +2802,11 @@ function updateBrickTotal(){
 
 // ── STYLES & THEMES ──────────────────────────────────────────────
 var THEMES=[
-  {id:'classic',name:'iOS 26',desc:'Apple Blue + Liquid Glass',swatch:'#000000',accent:'#0A84FF',icon:'blur_on',metaDark:'#000000',metaLight:'#F2F2F7'},
-  {id:'oxygenos',name:'OxygenOS',desc:'Monochrome + signature red',swatch:'#0F0F0F',accent:'#EB1E28',icon:'circle',metaDark:'#0F0F0F',metaLight:'#F7F7F7'},
-  {id:'nothing',name:'Nothing OS',desc:'Pure black/white, dot-red',swatch:'#000000',accent:'#D71921',icon:'radio_button_checked',metaDark:'#000000',metaLight:'#FAFAFA'}
+  {id:'csdl',name:'CSDL',desc:'Civil Suite Design Language',swatch:'#0D1117',accent:'#3A63BE',icon:'architecture',metaDark:'#0B0F1B',metaLight:'#F0F4FB'}
 ];
-function getCurrentTheme(){return document.documentElement.getAttribute('data-theme')||'oxygenos';}
 function themeColor(v){try{return getComputedStyle(document.documentElement).getPropertyValue(v).trim()||'#EB1E28';}catch(e){return'#EB1E28';}}
 function contrastText(hex){try{hex=(hex||'#000').replace('#','');if(hex.length===3)hex=hex.split('').map(function(c){return c+c;}).join('');var r=parseInt(hex.substr(0,2),16)/255,g=parseInt(hex.substr(2,2),16)/255,b=parseInt(hex.substr(4,2),16)/255;function lin(c){return c<=0.03928?c/12.92:Math.pow((c+0.055)/1.055,2.4);}return(0.2126*lin(r)+0.7152*lin(g)+0.0722*lin(b))>0.5?'#000':'#fff';}catch(e){return'#fff';}}
-function updateThemeMeta(){var isD=document.documentElement.classList.contains('dark');var t=THEMES.find(function(x){return x.id===getCurrentTheme();})||THEMES[0];var m=document.getElementById('theme-meta');if(m)m.content=isD?t.metaDark:t.metaLight;}
+function updateThemeMeta(){var isD=document.documentElement.classList.contains('dark');var m=document.getElementById('theme-meta');if(m)m.content=isD?'#0B0F1B':'#F0F4FB';}
 var I18N={
   en:{
   "home_stat_records": "Saved Records",
@@ -3098,6 +3178,7 @@ var I18N={
   "pdf_prepared_by_label": "Prepared by:",
   "pdf_prepared_by_sig": "Prepared By",
   "pdf_verified_by": "Verified By",
+  "pdf_approved_by": "Approved By",
   "pdf_received_by": "Received By",
   "pdf_print_save": "PRINT / SAVE AS PDF",
   "pdf_ref": "ref.",
@@ -3490,6 +3571,7 @@ var I18N={
   "pdf_prepared_by_label": "প্রস্তুতকারী:",
   "pdf_prepared_by_sig": "প্রস্তুতকারী",
   "pdf_verified_by": "যাচাইকারী",
+  "pdf_approved_by": "অনুমোদনকারী",
   "pdf_received_by": "গ্রহণকারী",
   "pdf_print_save": "প্রিন্ট / পিডিএফ সংরক্ষণ করুন",
   "pdf_ref": "রেফ.",
@@ -3550,21 +3632,7 @@ function setLanguage(lang){
   showToast(lang==='bn' ? 'ভাষা পরিবর্তন হয়েছে' : 'Language changed');
 }
 
-function applyTheme(id){document.documentElement.setAttribute('data-theme',id);localStorage.setItem('csu3_theme',id);updateThemeMeta();renderThemePicker();var t=THEMES.find(function(x){return x.id===id;});if(t)showToast(t.name+' '+tr('toast_applied'));}
-function renderThemePicker(){
-  var wrap=document.getElementById('theme-picker-list'); if(!wrap)return;
-  var current=getCurrentTheme();
-  var cur=THEMES.find(function(x){return x.id===current;})||THEMES[0];
-  var opts=THEMES.map(function(t){
-    return '<option value="'+t.id+'"'+(t.id===current?' selected':'')+'>'+t.name+' — '+t.desc+'</option>';
-  }).join('');
-  wrap.innerHTML=
-    '<div class="theme-dd-wrap">'+
-      '<div class="theme-dd-swatch" id="theme-dd-swatch" style="background:'+cur.swatch+'"><span class="theme-dd-dot" style="background:'+cur.accent+'"></span></div>'+
-      '<select id="theme-select" class="theme-dd-select" onchange="applyTheme(this.value)">'+opts+'</select>'+
-      '<span class="ms theme-dd-chev">expand_more</span>'+
-    '</div>';
-}
+
 function toggleDark(){
   var isD=document.documentElement.classList.toggle('dark');
   document.documentElement.classList.toggle('light',!isD);
@@ -3944,7 +4012,7 @@ function renderRecords(){
 
     var acts=document.createElement('div'); acts.className='rec-actions';
     var pdfBtn=document.createElement('button'); pdfBtn.className='rec-act-btn pdf';
-    pdfBtn.innerHTML='<span class="ms">picture_as_pdf</span>PDF';
+    pdfBtn.innerHTML='<span class="ms">file_present</span>PDF';
     pdfBtn.onclick=(function(rec){return function(){openPDFModal(rec);};})(r);
     var divider=document.createElement('div'); divider.className='rec-act-div';
     var delBtn=document.createElement('button'); delBtn.className='rec-act-btn del';
@@ -4129,7 +4197,7 @@ function renderLogs(){
         '<div class="log-body">'+
           '<div class="log-text">'+esc(l.text)+'</div>'+
           '<div class="log-meta">'+
-            '<span class="log-date-chip"><span class="ms">calendar_today</span>'+localizeDateStr(formatDate(l.date))+'</span>'+
+            '<span class="log-date-chip"><span class="ms">event</span>'+localizeDateStr(formatDate(l.date))+'</span>'+
             '<span class="log-date-chip"><span class="ms">schedule</span>'+td+'</span>'+
           '</div>'+
         '</div>'+
@@ -4202,12 +4270,6 @@ function exportLogsPDF(){
         '</tr></thead>'+
         '<tbody>'+rows+'</tbody>'+
       '</table>'+
-    '</div>'+
-    '<div class="footer"><div class="footer-l1">'+tr('pdf_generated_by')+'</div>'+
-    '<div class="footer-l2">'+tr('pdf_version_label')+' 1.0 · '+localizeDateStr(today)+' at '+genTimeStr+' · K. M. Zaman · BNBC 2020</div>'+
-    '<div class="footer-l3">'+tr('pdf_prepared_by_label')+' MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div></div>'+
-    '<div class="no-print" style="text-align:center;padding:16px">'+
-      '<button class="print-btn" onclick="window.print()">'+tr('pdf_print_save')+'</button>'+
     '</div>'+
     '</body></html>';
   NativeBridge.generatePDF(html,function(){
@@ -4537,53 +4599,49 @@ function generatePDF(rec,mode){
   var sigSection='';
   if(mode==='standard'){
     sigSection='<div class="sig-row">'+
-      sigLine(tr('pdf_prepared_by_sig'),PREPARED_BY)+sigLine(tr('pdf_verified_by'))+sigLine(tr('pdf_received_by'))+
+      sigLine(tr('pdf_prepared_by_sig'),PREPARED_BY)+sigLine(tr('pdf_verified_by'))+sigLine(tr('pdf_approved_by'))+
       '</div>';
   }
 
   var genStamp=new Date();
   var genTimeStr=String(genStamp.getHours()%12||12).padStart(2,'0')+':'+String(genStamp.getMinutes()).padStart(2,'0')+' '+(genStamp.getHours()>=12?'PM':'AM');
 
-  var html='<!DOCTYPE html><html><head><meta charset="UTF-8">'+
-    ''+
-    '<title>Civil Suite - '+esc(typeLabel)+'</title>'+
-    '<style>'+
-    '*{box-sizing:border-box;margin:0;padding:0}'+
-    'body{background:'+bg+';color:'+text+';font-family:Inter,Arial,sans-serif;font-size:13px;padding:36px 32px;max-width:760px;margin:0 auto;line-height:1.5}'+
-    '.hdr{display:flex;align-items:center;gap:16px;padding:18px 20px;border-radius:14px;background:'+slate+';margin-bottom:24px}'+
-    '.hdr-icon{width:48px;height:48px;border-radius:12px;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center;font:700 20px/1 Sora,sans-serif;color:#fff;flex-shrink:0}'+
-    '.h1{font:700 19px/1 Sora,sans-serif;color:#fff;letter-spacing:.3px}.h1 span{color:'+accent+'}'+
-    '.h2{font:500 10px/1 Inter,sans-serif;color:rgba(255,255,255,.62);letter-spacing:1.6px;text-transform:uppercase;margin-top:5px}'+
-    '.badge{display:inline-block;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.20);padding:5px 13px;border-radius:99px;font:700 10px/1 Inter,sans-serif;color:#fff;letter-spacing:.08em;margin-left:auto;white-space:nowrap}'+
-    'table{width:100%;border-collapse:collapse;background:'+surface+';border-radius:12px;overflow:hidden;border:1px solid '+border+'}'+
-    'td.lbl{padding:10px 16px;font:500 11.5px/1.4 Inter,sans-serif;color:'+dim+';border-bottom:1px solid '+border+';width:40%;vertical-align:top}'+
-    'td.val{padding:10px 16px;font:600 13px/1.4 Inter,sans-serif;color:'+text+';border-bottom:1px solid '+border+'}'+
-    'td.sec{padding:13px 16px 6px;font:700 9.5px/1 Sora,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:'+accent+';background:'+surface+'}'+
-    '.mono{font-family:"JetBrains Mono",monospace;font-weight:600;font-variant-numeric:tabular-nums}'+
-    'tr:last-child td{border-bottom:none!important}'+
-    '.summary{margin-top:22px;background:'+slate+';border-radius:14px;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px}'+
-    '.summary-lbl{font:700 9.5px/1 Sora,sans-serif;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.60)}'+
-    '.summary-sub{font:500 11px/1.4 Inter,sans-serif;color:rgba(255,255,255,.78);margin-top:5px}'+
-    '.summary-val{font:700 30px/1 "JetBrains Mono",monospace;color:#fff;letter-spacing:-.5px;flex-shrink:0;white-space:nowrap}'+
-    '.summary-unit{font:500 14px/1 Inter,sans-serif;color:rgba(255,255,255,.65)}'+
-    '.sig-row{margin-top:44px;display:flex;gap:32px;padding-top:8px}'+
-    '.sig{flex:1;text-align:center}.sig-line{height:1px;background:'+border+';margin-bottom:7px}'+
-    '.sig-name{font:600 9.5px/1.35 Inter,sans-serif;color:'+text+';margin-bottom:4px}'+
-    '.sig-lbl{font:600 10px/1 Inter,sans-serif;color:'+dim+';letter-spacing:.06em;text-transform:uppercase}'+
-    '.footer{margin-top:30px;padding-top:14px;border-top:1px solid '+border+';text-align:center}'+
-    '.footer-l1{font:700 10px/1 Sora,sans-serif;color:'+slate+';letter-spacing:.08em;text-transform:uppercase}'+
-    '.footer-l2{font:400 10px/1.6 Inter,sans-serif;color:'+dim+';margin-top:5px}'+'.footer-l3{font:600 9.5px/1.5 Inter,sans-serif;color:'+dim+';margin-top:8px;padding-top:8px;border-top:1px solid '+border+'}'+
-    '@media print{body{padding:18px;max-width:none}.hdr,.summary{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'+
-    '</style></head><body>'+
-    '<div class="hdr"><div class="hdr-icon">⚙</div>'+
-    '<div><div class="h1">CIVIL <span style="color:#fff">SUITE</span></div><div class="h2">'+tr('pdf_ultimate_engineering_report')+'</div></div>'+
-    '<div class="badge">'+esc(typeLabel)+'</div></div>'+
-    '<table>'+rows+'</table>'+
-    summaryPanel+sigSection+
-    '<div class="footer"><div class="footer-l1">'+tr('pdf_generated_by')+'</div>'+
-    '<div class="footer-l2">'+tr('pdf_version_label')+' 1.0 · '+localizeDateStr(todayFormatted())+' at '+genTimeStr+' · K. M. Zaman · BNBC 2020</div>'+
-    '<div class="footer-l3">'+tr('pdf_prepared_by_label')+' MD. Kamruzzaman, B.Sc. in Civil Engineering (O.G.), Site Engineer, Amin Group</div></div>'+
-    '</body></html>';
+  var html='<!DOCTYPE html><html><head><meta charset="UTF-8">'+'<title>Civil Suite \u2013 '+esc(typeLabel)+'</title>'+'<style>'+'*{box-sizing:border-box;margin:0;padding:0}'+'body{background:#fff;color:#1A2332;font-family:Inter,Arial,sans-serif;font-size:12px;padding:28px 28px 20px;max-width:720px;margin:0 auto;line-height:1.5}'
+
+  +'.doc-head{border-bottom:3px solid '+accent+';padding-bottom:14px;margin-bottom:18px;display:flex;justify-content:space-between;align-items:flex-end}'
+  +'.doc-title{font:700 19px/1 Sora,Arial,sans-serif;color:#1A2332;letter-spacing:-.2px}'
+  +'.doc-title span{color:'+accent+'}'
+  +'.doc-sub{font:500 9px/1 Inter,Arial,sans-serif;letter-spacing:1.4px;text-transform:uppercase;color:#6B7A8D;margin-top:4px}'
+  +'.doc-meta{text-align:right}'
+  +'.doc-badge{display:inline-block;background:'+accent+';color:#fff;padding:4px 12px;border-radius:2px;font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase}'
+  +'.doc-date{font:500 9px/1 Inter,sans-serif;color:#6B7A8D;margin-top:5px}'
+  +'table{width:100%;border-collapse:collapse;margin-bottom:20px}'
+  +'tr.hrow th{background:#E8EDF5;color:#3A4A5C;font:600 9px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;padding:7px 10px;text-align:left;border:1px solid #C8D4E0}'
+  +'tr.hrow th:first-child{width:38%}'
+  +'td.lbl{padding:7px 10px;font:400 11.5px/1.4 Inter,sans-serif;color:#5C6B7D;border:1px solid #D8E2EC;width:38%;vertical-align:top}'
+  +'td.val{padding:7px 10px;font:500 12px/1.4 Inter,sans-serif;color:#1A2332;border:1px solid #D8E2EC}'
+  +'tr:nth-child(even) td{background:#F7FAFD}'
+  +'td.sec{padding:8px 10px;font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:#fff;background:'+accent+';border:1px solid '+accent+'}'
+  +'.mono{font-family:"JetBrains Mono",Consolas,monospace;font-weight:600;font-variant-numeric:tabular-nums}'
+  +'.summary{margin:0 0 22px;background:#F0F5FC;border:1px solid #C8D4E0;border-left:4px solid '+accent+';padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px}'
+  +'.summary-lbl{font:700 9px/1 Inter,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:'+accent+'}'
+  +'.summary-sub{font:400 10.5px/1.4 Inter,sans-serif;color:#5C6B7D;margin-top:4px}'
+  +'.summary-val{font:700 26px/1 "JetBrains Mono",monospace;color:'+accent+';letter-spacing:-.5px;flex-shrink:0}'
+  +'.summary-unit{font:500 13px/1 Inter,sans-serif;color:#5C6B7D}'
+  +'.sig-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:36px;padding-top:14px;border-top:2px solid #C8D4E0}'
+  +'.sig{text-align:center}'
+  +'.sig-line{height:1px;background:#A0AEC0;margin:0 8px 6px}'
+  +'.sig-name{font:600 9px/1.35 Inter,sans-serif;color:#1A2332;margin-bottom:3px}'
+  +'.sig-lbl{font:700 9px/1 Inter,sans-serif;color:#5C6B7D;letter-spacing:.06em;text-transform:uppercase}'
+  +'@media print{body{padding:14px;max-width:none}.summary,.doc-head,.sig-row{-webkit-print-color-adjust:exact;print-color-adjust:exact}}'
+  +'</style></head><body>'
+  +'<div class="doc-head">'
+  +'<div><div class="doc-title">CIVIL <span>SUITE</span></div><div class="doc-sub">'+esc(typeLabel)+' \u00b7 '+esc(rec.projName||rec.proj||'')+'</div></div>'
+  +'<div class="doc-meta"><div class="doc-badge">'+esc(typeLabel)+'</div><div class="doc-date">'+localizeDateStr(todayFormatted())+'</div></div>'
+  +'</div>'
+  +'<table><tr class="hrow"><th>Field</th><th>Details</th></tr>'+rows+'</table>'
+  +summaryPanel+sigSection
+  +'</body></html>';
 
   NativeBridge.generatePDF(html, function(){
     // Web fallback: open in new tab and print
