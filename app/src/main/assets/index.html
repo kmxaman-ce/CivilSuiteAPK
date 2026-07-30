@@ -2256,6 +2256,12 @@ function enterApp(){
 // Each maps to one top-level ".dest" panel. Calculators, the Site Log, and the
 // About screen are secondary sub-pages reached from Home cards or More rows —
 // they're not on the bottom nav and are closed with a back button.
+// Base URL for history entries — strip any hash from a previous session
+var _baseURL=location.href.replace(/#.*/,'');
+// Initialise the base history state so the WebView always has a clean
+// 'home' entry to fall back to (prevents exit on first back press).
+history.replaceState({csu:'home'},'',_baseURL);
+
 var DEST_PANEL={home:'d-home',records:'p-records',payment:'p-payment',more:'d-more'};
 var _activeDest='home';
 var _activeSubPage=null;
@@ -2278,6 +2284,12 @@ function switchDest(name){
   window.scrollTo({top:0,behavior:'instant'});
   if(name==='records') renderRecords();
   if(name==='home') updateHomeStats();
+  // Destinations other than Home push a history entry so Android back
+  // returns the user to Home rather than exiting the app.
+  if(!_navigatingViaPopstate){
+    if(name==='home') history.replaceState({csu:'home'},'',_baseURL);
+    else history.pushState({csu:'dest',dest:name},'',_baseURL+'#'+name);
+  }
 }
 
 // Sub-pages: sand, chips, steel, cement, rcc, log, about
@@ -2300,7 +2312,9 @@ function openSubPage(name){
   // Push a history entry so the Android back gesture/button closes this
   // sub-page instead of falling through to the WebView's own history
   // (which would exit the app). See popstate handler below.
-  if(!_navigatingViaPopstate) history.pushState({subpage:name},'',location.href);
+  // Use a hash-changed URL so Android WebView.canGoBack() returns true.
+  // Pushing the same URL silently leaves canGoBack()=false on many devices.
+  if(!_navigatingViaPopstate) history.pushState({csu:'sub',subpage:name},'',_baseURL+'#sub-'+name);
 }
 function closeSubPage(){
   var cb=document.getElementById('hdr-clear-btn'); if(cb) cb.style.display='none';
@@ -2315,16 +2329,42 @@ function closeSubPage(){
   // gesture) — the browser has already moved back in that case.
   if(!_navigatingViaPopstate && from) history.back();
 }
-// Android back gesture / hardware back button fires a normal browser
-// popstate. If a sub-page is open, treat it exactly like tapping the
-// in-app back button instead of letting the gesture exit the app.
-window.addEventListener('popstate',function(){
+// Android back gesture / hardware back button fires a browser popstate.
+// Handle sub-pages AND destination tabs so back never exits unexpectedly.
+window.addEventListener('popstate',function(e){
+  var st=(e&&e.state)||{};
+  if(_activeSubPage){
+    // Inside a calculator / log / about sub-page — close it
+    _navigatingViaPopstate=true;
+    closeSubPage();
+    _navigatingViaPopstate=false;
+  } else if(_activeDest&&_activeDest!=='home'){
+    // On Records / Payments / More — return to Home
+    _navigatingViaPopstate=true;
+    switchDest('home');
+    _navigatingViaPopstate=false;
+  }
+  // Already on Home with no sub-page → let the WebView exit (correct)
+});
+// Fallback for Android Activities that call JS directly instead of
+// relying on WebView.goBack(). The Activity can call:
+//   webView.evaluateJavascript("window.androidBackHandler()", null)
+// Return value is irrelevant to JS; Android reads it via the callback.
+window.androidBackHandler=function(){
   if(_activeSubPage){
     _navigatingViaPopstate=true;
     closeSubPage();
     _navigatingViaPopstate=false;
+    return true;
   }
-});
+  if(_activeDest&&_activeDest!=='home'){
+    _navigatingViaPopstate=true;
+    switchDest('home');
+    _navigatingViaPopstate=false;
+    return true;
+  }
+  return false; // Already at Home root — let Android exit the app
+};
 function showNav(visible){
   var n=document.querySelector('nav');
   if(n) n.style.display=visible?'flex':'none';
