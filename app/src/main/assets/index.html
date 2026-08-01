@@ -321,15 +321,14 @@ nav{
 .module-grid{display:flex;flex-direction:column;background:var(--bg-card);border-radius:14px;overflow:hidden;border:.5px solid var(--sep);margin-bottom:4px}
 
 .module-card:active{background:var(--fill);transform:scale(.98)}
-.module-icon{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;background:var(--ic-bg,var(--fill));flex-shrink:0}
+.module-icon{width:32px!important;height:32px!important;min-width:32px!important;border-radius:8px;display:flex!important;align-items:center;justify-content:center;background:var(--ic-bg,var(--fill));flex-shrink:0!important;overflow:hidden}
 .module-icon .ms{font-size:15px;color:var(--ic);font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 20}
-.module-name{font:500 13.5px/1 Inter,sans-serif;color:var(--text);letter-spacing:-.1px;flex:1}
+.module-name{font:500 13.5px/1 Inter,sans-serif;color:var(--text);letter-spacing:-.1px;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .module-tag{font:500 11px/1 Inter,sans-serif;color:var(--label);text-align:right;flex-shrink:0;max-width:38%}
 
 
 /* Quick actions — compact, secondary hierarchy (unchanged launcher style) */
 
-.launcher-item:active 
 .m-sand{--ic:var(--mat-sand);--ic-bg:var(--mat-sand-bg)}
 .m-chips{--ic:var(--mat-chips);--ic-bg:var(--mat-chips-bg)}
 .m-steel{--ic:var(--mat-steel);--ic-bg:var(--mat-steel-bg)}
@@ -840,13 +839,9 @@ header h1,.sp-h1,.th-title,.more-logo-ttl{
   font-family:'Sora','Inter',sans-serif!important}
 
 
-/1 'JetBrains Mono',ui-monospace,monospace;
-  letter-spacing:-1px;
-  font-variant-numeric:tabular-nums
-}
 
 /* ── CSDL Module card improvements ── */
-.module-card{display:flex;flex-direction:row;align-items:center;gap:12px;padding:11px 14px;background:transparent;border:none;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .14s;border-bottom:.5px solid var(--sep2);text-align:left}
+.module-card{display:flex!important;flex-direction:row!important;align-items:center!important;flex-wrap:nowrap!important;gap:12px;padding:11px 14px;background:transparent;border:none;border-radius:0;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .14s;border-bottom:.5px solid var(--sep2);text-align:left}
 .module-card:last-child{border-bottom:none}
 .module-chev{font-size:15px;color:var(--text-faint)}
 
