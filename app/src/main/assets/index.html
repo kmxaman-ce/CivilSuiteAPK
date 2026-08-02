@@ -1957,7 +1957,7 @@ var NativeBridge = (function(){
   function generatePDF(htmlString, fallbackFn){
     if(_Droid && typeof _Droid.printHTML === 'function'){
       try{
-        var fname='CivilSuite_Report_'+new Date().toISOString().slice(0,10)+'.pdf';
+        var fname='CivilSuite_Report_'+todayISO()+'.pdf';  // local date
         _Droid.printHTML(htmlString, fname);
         return;
       }catch(e){}
@@ -2150,7 +2150,13 @@ function formatDate(isoDateStr){
   var mm=String(d.getMonth()+1).padStart(2,'0');
   return dd+'/'+mm+'/'+d.getFullYear();
 }
-function todayISO(){ return new Date().toISOString().split('T')[0]; }
+/* Returns the device's LOCAL calendar date (YYYY-MM-DD).
+   Using toISOString() returns UTC, which can be one day behind
+   for users in UTC+ timezones (e.g. Bangladesh UTC+6) after 18:00 UTC. */
+function todayISO(){
+  var n=new Date();
+  return n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');
+}
 
 function todayFormatted(){ return formatDate(todayISO()); }
 
@@ -2171,7 +2177,7 @@ function countUp(el,to,dec,ms,prefix,suffix){
 
 // ─── INIT ───
 window.addEventListener('DOMContentLoaded',function(){
-  var today=new Date().toISOString().split('T')[0];
+  var today=todayISO();
   ['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','pay_date'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value=today;
   });
@@ -2421,6 +2427,7 @@ function showToast(msg){
 function toggleColl(id){
   var h=document.getElementById('chdr-'+id);
   var b=document.getElementById('cbody-'+id);
+  if(!h||!b) return;
   h.classList.toggle('open'); b.classList.toggle('open');
 }
 
@@ -2578,7 +2585,7 @@ function saveSandRecord(){
   if(!vol||vol<=0){showToast(tr('toast_calc_first_ex'));return;}
   var volM3=vol/35.3147;
   saveRecord({id:genId(),createdAt:Date.now(),type:'sand',
-    date:document.getElementById('f_proj_date').value||new Date().toISOString().split('T')[0],
+    date:document.getElementById('f_proj_date').value||todayISO(),
     proj:document.getElementById('f_proj_name').value||'Unnamed',
     addr:document.getElementById('f_proj_addr').value||'',
     category:SAND_CAT,
@@ -2717,7 +2724,7 @@ function saveChipsRecord(){
   var vol=parseFloat(document.getElementById('c-vol').textContent)||0;
   if(!vol||vol<=0){showToast(tr('toast_calc_first_ex'));return;}
   saveRecord({id:genId(),createdAt:Date.now(),type:'chips',
-    date:document.getElementById('c_proj_date').value||new Date().toISOString().split('T')[0],
+    date:document.getElementById('c_proj_date').value||todayISO(),
     proj:document.getElementById('c_proj_name').value||'Unnamed',addr:document.getElementById('c_proj_addr').value||'',
     category:document.getElementById('c_category').value||'',
     vol:vol,volM3:parseFloat((vol/35.3147).toFixed(3)),
@@ -2744,7 +2751,7 @@ function saveSteelRecord(){
   if(total<=0){showToast(tr('toast_enter_diameter'));return;}
   dias.forEach(function(d){var v=parseFloat(document.getElementById('s_d'+d).value)||0;if(v>0)breakdown['d'+d]=v;});
   saveRecord({id:genId(),createdAt:Date.now(),type:'steel',
-    date:document.getElementById('s_proj_date').value||new Date().toISOString().split('T')[0],
+    date:document.getElementById('s_proj_date').value||todayISO(),
     proj:document.getElementById('s_proj_name').value||'Unnamed',addr:document.getElementById('s_proj_addr').value||'',
     brand:document.getElementById('s_brand').value||'',totalKg:total,totalTon:(total/1000),breakdown:breakdown,
     vehNum:document.getElementById('s_veh_num').value,drvName:document.getElementById('s_drv_name').value,drvMob:document.getElementById('s_drv_mob').value,voucher:document.getElementById('s_voucher').value
@@ -2764,7 +2771,7 @@ function saveCementRecord(){
   var bags=parseFloat(document.getElementById('m_bags').value)||0;
   if(bags<=0){showToast(tr('toast_enter_bags'));return;}
   saveRecord({id:genId(),createdAt:Date.now(),type:'cement',
-    date:document.getElementById('m_proj_date').value||new Date().toISOString().split('T')[0],
+    date:document.getElementById('m_proj_date').value||todayISO(),
     proj:document.getElementById('m_proj_name').value||'Unnamed',addr:document.getElementById('m_proj_addr').value||'',
     brand:document.getElementById('m_brand').value||'',bags:bags,totalKg:bags*50,
     vehNum:document.getElementById('m_veh_num').value,drvName:document.getElementById('m_drv_name').value,drvMob:document.getElementById('m_drv_mob').value,voucher:document.getElementById('m_voucher').value
@@ -3599,7 +3606,7 @@ function applyLanguage(lang){
   document.querySelectorAll('[data-i18n]').forEach(function(el){
     var key=el.getAttribute('data-i18n');
     var val=(I18N[lang] && I18N[lang][key]) || (I18N.en && I18N.en[key]);
-    if(val!==undefined) el.innerHTML=val;
+    if(val!==undefined) el.textContent=val;
   });
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el){
     var key=el.getAttribute('data-i18n-ph');
@@ -3645,7 +3652,7 @@ function saveBrickRecord(){
   var qty=parseFloat(document.getElementById('b_qty').value)||0;
   if(qty<=0){showToast(tr('toast_enter_brick_qty'));return;}
   saveRecord({id:genId(),createdAt:Date.now(),type:'brick',
-    date:document.getElementById('b_proj_date').value||new Date().toISOString().split('T')[0],
+    date:document.getElementById('b_proj_date').value||todayISO(),
     proj:document.getElementById('b_proj_name').value||'Unnamed',addr:document.getElementById('b_proj_addr').value||'',
     category:BRICK_CAT,qty:qty,unit:BRICK_UNIT,
     vehNum:document.getElementById('b_veh_num').value,drvName:document.getElementById('b_drv_name').value,drvMob:document.getElementById('b_drv_mob').value,voucher:document.getElementById('b_voucher').value
@@ -3775,7 +3782,7 @@ function saveRCCRecord(){
   if(!window._lastRCC){showToast(tr('toast_calc_rcc_first'));return;}
   var lr=window._lastRCC;
   saveRecord({id:genId(),createdAt:Date.now(),type:'rcc',
-    date:new Date().toISOString().split('T')[0],proj:'RCC Project',addr:'',
+    date:todayISO(),proj:'RCC Project',addr:'',
     grade:lr.grade,vol:parseFloat(lr.vol),unit:RCC_UNIT,
     cement:lr.bags+' bags',sand:lr.sand,agg:lr.chips
   });
@@ -3822,7 +3829,7 @@ function savePaymentRecord(){
   var name=document.getElementById('pay_name').value.trim();
   var phone=document.getElementById('pay_phone').value.trim();
   var amount=parseFloat(document.getElementById('pay_amount').value)||0;
-  var date=document.getElementById('pay_date').value||new Date().toISOString().split('T')[0];
+  var date=document.getElementById('pay_date').value||todayISO();
   var comments=document.getElementById('pay-comments').value.trim();
   var projName=document.getElementById('pay_proj_name').value.trim()||'Payment Record';
   var projAddr=document.getElementById('pay_proj_addr').value.trim()||'';
@@ -3838,7 +3845,7 @@ function savePaymentRecord(){
   document.getElementById('pay_phone').value='';
   document.getElementById('pay_amount').value='';
   document.getElementById('pay-comments').value='';
-  document.getElementById('pay_date').value=new Date().toISOString().split('T')[0];
+  document.getElementById('pay_date').value=todayISO();
   var _pd=document.getElementById('pay_date'); if(_pd) updateDateOverlay(_pd);
   document.getElementById('pay-amount-preview').classList.remove('show');
 }
@@ -4028,9 +4035,19 @@ function deleteRecord(id){
 // ═══════════════════════════════════════════════════════
 function backupLocal(){
   if(isLocked('backup'))return;
-  var data={app:'Civil Suite Ultimate',v:'1.0',ts:Date.now(),records:records};
+  // Collect site logs from localStorage
+  var logs=[];
+  try{ logs=JSON.parse(localStorage.getItem('csu3_logs')||'[]'); }catch(e){ logs=[]; }
+  // v1.1 format includes both records and site logs
+  var data={
+    app:'Civil Suite Ultimate',
+    v:'1.1',
+    ts:Date.now(),
+    records:records,
+    logs:logs
+  };
   var json=JSON.stringify(data,null,2);
-  var today=new Date().toISOString().slice(0,10).replace(/-/g,'');
+  var today=todayISO().replace(/-/g,'');  // local date for filename
   var filename='CivilSuite_Backup_'+today+'.json';
   // Toast is shown by Java AFTER file is actually written — do NOT call showToast here
   NativeBridge.downloadBackup(json, filename);
@@ -4044,17 +4061,34 @@ function restoreLocal(){
     var reader=new FileReader();
     reader.onload=function(ev){
       try{
-        var data=JSON.parse(ev.target.result);
-        if(!data.records||!Array.isArray(data.records))throw new Error('Invalid');
-        if(!confirm(tr('confirm_restore_prefix')+' '+pdfCount(data.records.length,'record',tr('pdf_w_record'))+tr('confirm_restore_suffix')))return;
+        var raw=ev.target.result;
+        var data;
+        try{ data=JSON.parse(raw); }catch(e){ showToast(tr('toast_invalid_backup')); return; }
+        // Validate: must be a Civil Suite backup with a records array
+        if(!data||typeof data!=='object'){ showToast(tr('toast_invalid_backup')); return; }
+        if(data.app&&data.app!=='Civil Suite Ultimate'){ showToast(tr('toast_invalid_backup')); return; }
+        if(!data.records||!Array.isArray(data.records)){ showToast(tr('toast_invalid_backup')); return; }
+        // Build confirmation message
+        var hasLogs=(data.logs&&Array.isArray(data.logs)&&data.logs.length>0);
+        var confirmMsg=tr('confirm_restore_prefix')+' '
+          +pdfCount(data.records.length,'record',tr('pdf_w_record'))
+          +(hasLogs?' + '+data.logs.length+' log(s)':'')
+          +tr('confirm_restore_suffix');
+        if(!confirm(confirmMsg))return;
+        // Restore records
         var incoming=data.records.map(normalizeRecord).filter(function(r){return r;});
         records=incoming;
         var ok=NativeBridge.saveData(JSON.stringify(records));
         if(!ok) showToast(tr('toast_storage_full_memory'));
+        // Restore site logs (v1.1+)
+        if(data.logs&&Array.isArray(data.logs)){
+          try{ localStorage.setItem('csu3_logs',JSON.stringify(data.logs)); }catch(e){}
+        }
         renderRecords();updatePayDashboard();updateHomeStats();
-        showToast(tr('toast_restored')+' '+records.length+' '+tr('toast_records_suffix')+' ✓');
+        var logMsg=hasLogs?' + '+data.logs.length+' logs':'';
+        showToast(tr('toast_restored')+' '+records.length+' '+tr('toast_records_suffix')+logMsg+' ✓');
         switchDest('records');
-      }catch(ex){showToast(tr('toast_invalid_backup'));}
+      }catch(ex){ showToast(tr('toast_invalid_backup')); }
     };
     reader.readAsText(file);
   });
@@ -4104,7 +4138,7 @@ function openLogDialog(editId){
   var dateEl=document.getElementById('log-date-inp');
   var timeEl=document.getElementById('log-time-inp');
   var now=new Date();
-  var iso=now.toISOString().split('T')[0];
+  var iso=todayISO();  // local date, not UTC
   var hhmm=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
   if(editId){
     var ex=siteLogs.find(function(l){return l.id===editId;});
@@ -4131,7 +4165,7 @@ function saveLogEntry(){
   var timeEl=document.getElementById('log-time-inp');
   var text=textEl.value.trim();
   if(!text){showToast(tr('toast_enter_log_entry'));textEl.focus();return;}
-  var date=dateEl.value||new Date().toISOString().split('T')[0];
+  var date=dateEl.value||todayISO();
   var time=timeEl.value||(function(){var n=new Date();return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');})();
   if(_editingLogId){
     var idx=siteLogs.findIndex(function(l){return l.id===_editingLogId;});
