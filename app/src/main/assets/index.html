@@ -173,8 +173,8 @@ body{
   background-color:var(--bg);
   color:var(--text);
   min-height:100vh;min-height:100dvh;height:auto;
-  /* Extra bottom padding for the flush bottom tab bar */
-  padding-bottom:calc(62px + var(--safe-bottom));
+  /* Extra bottom padding for the floating tab bar */
+  padding-bottom:calc(96px + var(--safe-bottom));
   padding-left:var(--safe-left);padding-right:var(--safe-right);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;overflow-y:auto;
@@ -257,32 +257,32 @@ header p{font:500 .58rem/1 Inter,-apple-system;font-size:.58rem;color:var(--labe
 .btn-glass{display:flex;align-items:center;gap:5px;font:500 12px/1 Inter,-apple-system,sans-serif;font-size:12px;color:var(--text-dim);background:var(--fill);border:1px solid var(--border);padding:7px 12px;border-radius:var(--r-pill);cursor:pointer;transition:opacity .14s,transform .12s var(--spring)}
 .btn-glass .ms{font-size:13px}.btn-glass:active{opacity:.7;transform:scale(.94)}
 
-/* ── FLOATING PILL NAV BAR (iOS 26 style) ── */
+/* ── FLOATING MATERIAL 3 NAVIGATION BAR ── */
 nav{
   position:fixed;
-  bottom:0;
-  left:0;right:0;
-  border-radius:0;
+  bottom:calc(14px + var(--safe-bottom));
+  left:14px;right:14px;
+  border-radius:28px;
   background:var(--glass-bg-nav);
   backdrop-filter:var(--glass-blur);
   -webkit-backdrop-filter:var(--glass-blur);
-  border-top:1px solid var(--glass-border);
-  padding:5px 4px calc(5px + var(--safe-bottom));
+  border:1px solid var(--glass-border);
+  padding:8px 10px;
   display:flex;
+  gap:4px;
   z-index:1000;
-  box-shadow:0 -2px 12px rgba(0,0,0,.14);
-  transition:background .3s;
+  box-shadow:0 6px 20px rgba(0,0,0,.22),0 1.5px 4px rgba(0,0,0,.16);
+  transition:background .3s,transform .18s var(--spring),opacity .18s;
 }
-.ni{flex:1;padding:5px 2px;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .20s var(--ease-std),transform .13s var(--spring);min-width:0}
+nav.hide{transform:translateY(calc(100% + 24px + var(--safe-bottom)));opacity:0;pointer-events:none}
+.ni{flex:1;padding:8px 2px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .22s var(--ease-std),transform .13s var(--spring);min-width:0}
 .ni:active{animation:tapWiggle .32s var(--spring)}
-.ni-icon{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 200,"GRAD" -25,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--spring)}
-.ni.active .ni-icon{font-variation-settings:"FILL" 1,"wght" 300,"GRAD" 0,"opsz" 24;transform:scale(1.04)}
-.ni-lbl{font:500 9px/1 Inter,-apple-system,sans-serif;color:var(--label);letter-spacing:.08px;transition:color .18s;white-space:nowrap}
-/* Destination accent colours for active tab — Home/Records/Payments/More */
-.ni.d-home.active{background:rgba(255,255,255,.07)}
-.ni.d-records.active{background:rgba(255,255,255,.07)}
-.ni.d-payment.active{background:rgba(255,255,255,.07)}
-.ni.d-more.active{background:rgba(255,255,255,.07)}
+.ni-icon-wrap{display:flex;align-items:center;justify-content:center;padding:2px 14px;border-radius:16px;transition:background .22s var(--ease-std)}
+.ni.active .ni-icon-wrap{background:var(--ios-orange-d);box-shadow:0 2px 8px rgba(29,78,216,.35)}
+.ni-icon{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 300,"GRAD" 0,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--spring)}
+.ni.active .ni-icon{font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24;color:#fff;transform:scale(1.04)}
+.ni-lbl{font:600 10px/1 Inter,-apple-system,sans-serif;color:var(--label);letter-spacing:.08px;transition:color .18s;white-space:nowrap}
+.ni.active .ni-lbl{color:var(--ios-orange-d)}
 
 /* ── HOME DASHBOARD ── */
 .home-hero{padding:18px 0 6px}
@@ -731,7 +731,7 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .pdf-cancel:active{background:rgba(255,59,59,.12)}
 
 /* ── iOS TOAST ── */
-.toast{position:fixed;bottom:calc(88px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(8px);font-family:Inter,-apple-system,sans-serif;font-weight:500;border-radius:var(--r-pill);background:rgba(20,24,36,.95);color:#fff;padding:11px 20px;border-radius:var(--r-pill);font:500 14px/1 Inter,-apple-system;font-size:14px;opacity:0;transition:opacity .20s var(--ease-std),transform .22s var(--ease-out);z-index:2000;pointer-events:none;white-space:nowrap;border:.5px solid rgba(255,255,255,.10);letter-spacing:-.1px;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);box-shadow:0 8px 24px rgba(0,0,0,.40)}
+.toast{position:fixed;bottom:calc(112px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(8px);font-family:Inter,-apple-system,sans-serif;font-weight:500;border-radius:var(--r-pill);background:rgba(20,24,36,.95);color:#fff;padding:11px 20px;border-radius:var(--r-pill);font:500 14px/1 Inter,-apple-system;font-size:14px;opacity:0;transition:opacity .20s var(--ease-std),transform .22s var(--ease-out);z-index:2000;pointer-events:none;white-space:nowrap;border:.5px solid rgba(255,255,255,.10);letter-spacing:-.1px;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);box-shadow:0 8px 24px rgba(0,0,0,.40)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── FOOTER ── */
@@ -983,13 +983,13 @@ html.light .slider{background:#D1D9E8}
     </div>
     <div class="stat-row" onclick="openSubPage('rcc')">
       <div class="stat-row-icon" style="--ic:var(--ios-indigo-d);--ic-bg:var(--blu-bg)"><span class="ms">calculate</span></div>
-      <div class="stat-row-body"><div class="stat-row-lbl">Calculations</div></div>
+      <div class="stat-row-body"><div class="stat-row-lbl" data-i18n="home_stat_calcs">Calculations</div></div>
       <div class="stat-row-val" id="home-stat-calcs">0</div>
       <span class="ms stat-row-chev">chevron_right</span>
     </div>
     <div class="stat-row" onclick="openSubPage('log')">
       <div class="stat-row-icon" style="--ic:var(--grn);--ic-bg:var(--grn-bg)"><span class="ms">edit_note</span></div>
-      <div class="stat-row-body"><div class="stat-row-lbl">Site Log Entries</div></div>
+      <div class="stat-row-body"><div class="stat-row-lbl" data-i18n="home_stat_logs">Site Log Entries</div></div>
       <div class="stat-row-val" id="home-stat-logs">0</div>
       <span class="ms stat-row-chev">chevron_right</span>
     </div>
@@ -1260,14 +1260,14 @@ html.light .slider{background:#D1D9E8}
         <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="m_bags" min="0" placeholder="0" oninput="updateCementTotal()"></div></div>
         <div style="margin-left:6px;flex-shrink:0;text-align:center">
           <div style="font:700 9px/1 Inter,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px" data-i18n="lbl_unit">Unit</div>
-          <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--cement)">Bags</div>
+          <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--cement)" data-i18n="opt_bags">Bags</div>
           <div style="font:600 9px/1 Inter,sans-serif;color:var(--label);margin-top:2px">50 kg/bag</div>
         </div>
       </div>
       <div style="padding:0 12px 14px">
         <div class="grand-total-bar">
           <div><div class="gt-lbl" data-i18n="lbl_grand_total">Grand Total</div></div>
-          <div><span class="gt-val t4" id="m-total-bags">0</span><span style="font:600 11px/1 Inter,sans-serif;color:var(--label)"> Bags</span>&nbsp;<span style="font:600 10px/1 Inter,sans-serif;color:var(--label)">(<span id="m-total-kg">0</span> KG)</span></div>
+          <div><span class="gt-val t4" id="m-total-bags">0</span><span style="font:600 11px/1 Inter,sans-serif;color:var(--label)"> <span data-i18n="opt_bags">Bags</span></span>&nbsp;<span style="font:600 10px/1 Inter,sans-serif;color:var(--label)">(<span id="m-total-kg">0</span> KG)</span></div>
         </div>
         <button class="btn-save t4" onclick="saveCementRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
       </div>
@@ -1342,7 +1342,7 @@ html.light .slider{background:#D1D9E8}
         <div class="seg-item" onclick="setGrade('M20',this)">M20</div>
         <div class="seg-item active" onclick="setGrade('M25',this)">M25</div>
         <div class="seg-item" onclick="setGrade('M30',this)">M30</div>
-        <div class="seg-item" onclick="setGrade('Custom',this)">Custom</div>
+        <div class="seg-item" onclick="setGrade('Custom',this)" data-i18n="opt_custom">Custom</div>
       </div></div>
       <div class="row" id="grade-info-row" style="padding-top:2px;padding-bottom:2px">
         <div class="row-icon ri-v"><span class="ms ms-sm" style="color:var(--blu)">water_drop</span></div>
@@ -1391,12 +1391,12 @@ html.light .slider{background:#D1D9E8}
         <div class="seg-item" onclick="setDVF(1.52,this)">1.52</div>
         <div class="seg-item active" onclick="setDVF(1.54,this)">1.54</div>
         <div class="seg-item" onclick="setDVF(1.57,this)">1.57</div>
-        <div class="seg-item" onclick="setDVF(-1,this)">Custom</div>
+        <div class="seg-item" onclick="setDVF(-1,this)" data-i18n="opt_custom">Custom</div>
       </div></div>
       <div id="dvf-custom-row" class="row" style="display:none;padding-top:4px">
         <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--blu)">tune</span></div>
         <span class="row-lbl" data-i18n="lbl_custom_factor">Custom Factor</span>
-        <div class="inp-row"><div class="inp-col"><span class="inp-unit">factor</span><input id="r_dvf_custom" type="number" inputmode="decimal" min="1.3" max="1.7" step="0.01" placeholder="1.54"></div></div>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit">factor</span><input id="r_dvf_custom" type="number" inputmode="decimal" min="1.3" max="1.7" step="0.01" placeholder="1.54" oninput="onDVFCustomInput()"></div></div>
       </div>
     </div>
     <div class="grp-note" data-i18n="hint_dvf">BNBC range: 1.52–1.57 · Default 1.54 (most common). Lower = denser mix.</div>
@@ -1512,7 +1512,7 @@ html.light .slider{background:#D1D9E8}
     <div class="coll-hdr open" id="chdr-els" onclick="toggleColl('els')"><span data-i18n="lbl_per_element_breakdown">Per-Element Breakdown</span><span class="ms ms-sm coll-chev">expand_more</span></div>
     <div class="coll-body open" id="cbody-els"><div class="elb-list" id="r-elb"></div></div>
     <div class="r-sep"></div>
-    <div class="r-sec" data-i18n="lbl_required_materials">Required Materials <span id="r-waste-lbl" style="font:400 10px/1 Inter,sans-serif;color:var(--text-dim)"></span></div>
+    <div class="r-sec"><span data-i18n="lbl_required_materials">Required Materials</span> <span id="r-waste-lbl" style="font:400 10px/1 Inter,sans-serif;color:var(--text-dim)"></span></div>
     <div class="mat-rows">
       <div class="mat-row"><div class="mat-ico mc"><span class="ms">water_drop</span></div><div class="mat-inf"><div class="mat-n" data-i18n="cement_name">Cement</div><div><span class="mat-v" id="r-bags">—</span><span class="mat-u">bags</span></div><div class="mat-s" id="r-bag-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-c" id="rb-c"></div></div></div>
       <div class="mat-row"><div class="mat-ico msa"><span class="ms">terrain</span></div><div class="mat-inf"><div class="mat-n" id="r-sand-lbl" data-i18n="lbl_sand_fine_agg">Sand (Fine Agg.)</div><div><span class="mat-v" id="r-sand">—</span><span class="mat-u" id="r-sand-u">cft</span></div><div class="mat-s" id="r-sand-sub">—</div></div><div class="mat-bar-wrap"><div class="mat-bar-fill mbf-s" id="rb-s"></div></div></div>
@@ -1760,7 +1760,7 @@ html.light .slider{background:#D1D9E8}
   <!-- Appearance -->
 
   <div class="grp">
-    <div class="grp-lbl"><span class="grp-dot" style="background:var(--ios-orange-d)"></span>Appearance</div>
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--ios-orange-d)"></span><span data-i18n="lbl_appearance">Appearance</span></div>
     <div class="grp-card">
       <div class="toggle-row">
         <div>
@@ -1847,7 +1847,7 @@ html.light .slider{background:#D1D9E8}
     </div>
   </div>
 
-  <footer>Made with <span class="h">♥</span> by <span class="glow-name">K. M. Zaman</span> · <span data-i18n="lbl_footer_civil_suite">Civil Suite v1.0</span></footer>
+  <footer><span data-i18n="lbl_made_with">Made with</span> <span class="h">♥</span> <span data-i18n="lbl_by">by</span> <span class="glow-name">K. M. Zaman</span> · <span data-i18n="lbl_footer_civil_suite">Civil Suite v1.0</span></footer>
 </div>
 
 <!-- ═══ SUB-PAGE: ABOUT (Dev Team / Modules / Standards) ═══ -->
@@ -1895,15 +1895,15 @@ html.light .slider{background:#D1D9E8}
       </div>
     </div>
   </div>
-  <footer>Made with <span class="h">♥</span> by <span class="glow-name">K. M. Zaman</span> · <span data-i18n="lbl_footer_civil_suite">Civil Suite v1.0</span></footer>
+  <footer><span data-i18n="lbl_made_with">Made with</span> <span class="h">♥</span> <span data-i18n="lbl_by">by</span> <span class="glow-name">K. M. Zaman</span> · <span data-i18n="lbl_footer_civil_suite">Civil Suite v1.0</span></footer>
 </div>
 
 <!-- BOTTOM NAV -->
 <nav role="navigation" aria-label="Main Navigation">
-  <div class="ni d-home active" onclick="switchDest('home')" role="tab" id="nav-home"><span class="ni-icon">home</span><span class="ni-lbl" data-i18n="nav_home">Home</span></div>
-  <div class="ni d-records" onclick="switchDest('records')" role="tab" id="nav-records"><span class="ni-icon">table_rows</span><span class="ni-lbl" data-i18n="nav_records">Records</span></div>
-  <div class="ni d-payment" onclick="switchDest('payment')" role="tab" id="nav-payment"><span class="ni-icon">receipt_long</span><span class="ni-lbl" data-i18n="nav_payments">Payments</span></div>
-  <div class="ni d-more" onclick="switchDest('more')" role="tab" id="nav-more"><span class="ni-icon">apps</span><span class="ni-lbl" data-i18n="nav_more">More</span></div>
+  <div class="ni d-home active" onclick="switchDest('home')" role="tab" id="nav-home"><span class="ni-icon-wrap"><span class="ni-icon">home</span></span><span class="ni-lbl" data-i18n="nav_home">Home</span></div>
+  <div class="ni d-records" onclick="switchDest('records')" role="tab" id="nav-records"><span class="ni-icon-wrap"><span class="ni-icon">table_rows</span></span><span class="ni-lbl" data-i18n="nav_records">Records</span></div>
+  <div class="ni d-payment" onclick="switchDest('payment')" role="tab" id="nav-payment"><span class="ni-icon-wrap"><span class="ni-icon">receipt_long</span></span><span class="ni-lbl" data-i18n="nav_payments">Payments</span></div>
+  <div class="ni d-more" onclick="switchDest('more')" role="tab" id="nav-more"><span class="ni-icon-wrap"><span class="ni-icon">apps</span></span><span class="ni-lbl" data-i18n="nav_more">More</span></div>
 </nav>
 
 
@@ -2030,6 +2030,18 @@ var NativeBridge = (function(){
 // CIVIL SUITE v1.0 — CORE ENGINE
 // ═══════════════════════════════════════════════════════
 // ─── SAFE STORAGE: parsing, corruption recovery, record normalization ───
+// Returns the cement bag count for an RCC record, however it was stored —
+// the current numeric `cementBags` field, or the legacy "NN bags" string
+// once saved in the `cement` field by older builds.
+function rccBags(r){
+  if(typeof r.cementBags==='number' && !isNaN(r.cementBags)) return r.cementBags;
+  var n=parseFloat(r.cement);
+  return isNaN(n)?0:n;
+}
+function numOr(v,fallback){
+  var n=(typeof v==='number')?v:parseFloat(v);
+  return isNaN(n)?(fallback||0):n;
+}
 function normalizeRecord(r){
   // Each saved record must be a plain object with a known type and an id.
   // Anything else (null, string, number, malformed object) is dropped.
@@ -2038,15 +2050,37 @@ function normalizeRecord(r){
   if(!VALID_TYPES[r.type]) return null;
   if(!r.id) r.id=genId();
   if(!r.createdAt) r.createdAt=r.ts||Date.now();
+  // Coerce every field a renderer or PDF calls .toFixed()/.toLocaleString('en-IN') on
+  // to an actual number — a backup with these stored as strings (or missing)
+  // used to crash the whole app on load instead of just that one record.
+  if(r.type==='sand'||r.type==='chips'){
+    r.vol=numOr(r.vol); r.volM3=numOr(r.volM3);
+  } else if(r.type==='steel'){
+    r.totalKg=numOr(r.totalKg); r.totalTon=numOr(r.totalTon,r.totalKg/1000);
+    if(r.breakdown && typeof r.breakdown==='object'){
+      var bd={}; for(var k in r.breakdown){ bd[k]=numOr(r.breakdown[k]); } r.breakdown=bd;
+    } else r.breakdown={};
+  } else if(r.type==='cement'){
+    r.bags=numOr(r.bags); r.totalKg=numOr(r.totalKg,r.bags*50);
+  } else if(r.type==='brick'){
+    r.qty=numOr(r.qty);
+  } else if(r.type==='rcc'){
+    r.vol=numOr(r.vol); r.sand=numOr(r.sand); r.agg=numOr(r.agg);
+    if(typeof r.cementBags!=='number') r.cementBags=rccBags(r);
+    delete r.cement;
+  } else if(r.type==='payment'){
+    r.amount=numOr(r.amount);
+  }
   return r;
 }
+var _recordsLoadFailed=false;
 function safeParseRecords(raw){
   var parsed;
   try{ parsed=JSON.parse(raw||'[]'); }
-  catch(e){ console.warn('Civil Suite: records JSON corrupted, resetting.',e); return []; }
+  catch(e){ console.warn('Civil Suite: records JSON corrupted.',e); _recordsLoadFailed=true; return null; }
   if(!Array.isArray(parsed)){
-    console.warn('Civil Suite: records payload was not an array, resetting.');
-    return [];
+    console.warn('Civil Suite: records payload was not an array.');
+    _recordsLoadFailed=true; return null;
   }
   var clean=[];
   for(var i=0;i<parsed.length;i++){
@@ -2056,10 +2090,18 @@ function safeParseRecords(raw){
   return clean;
 }
 var records = (function(){
-  var clean=safeParseRecords(NativeBridge.loadData());
-  // Persist the normalized version so a corrupted/partial payload is
-  // self-healed on disk rather than re-triggering recovery every load.
-  try{ NativeBridge.saveData(JSON.stringify(clean)); }catch(e){}
+  var raw=NativeBridge.loadData();
+  var clean=safeParseRecords(raw);
+  if(clean===null){
+    // The stored payload could not be read as valid JSON/array. Do NOT
+    // overwrite whatever is on disk — a transient read glitch shouldn't
+    // permanently destroy real data. Start this session with an empty
+    // list and let the user know, rather than silently wiping storage.
+    return [];
+  }
+  // Persist the normalized version only when parsing actually succeeded,
+  // so a partially-invalid payload is self-healed on disk.
+  if(JSON.stringify(clean)!==raw){ try{ NativeBridge.saveData(JSON.stringify(clean)); }catch(e){} }
   return clean;
 })();
 var fmtMode='ftin', fmtCount=3;
@@ -2079,7 +2121,9 @@ var CTYPE_LABELS_BN={
 
 // ─── HTML ESCAPE ───
 function esc(v){
-  return String(v||'')
+  // v==null (not v||'') so falsy-but-real values like 0 or false still render
+  // instead of silently disappearing.
+  return String(v==null?'':v)
     .replace(/&/g,'&amp;')
     .replace(/</g,'&lt;')
     .replace(/>/g,'&gt;')
@@ -2209,6 +2253,9 @@ function enterApp(){
   setTimeout(function(){s.style.display='none';},420);
   // Land on Home with the bottom nav's Home item active
   switchDest('home');
+  if(_recordsLoadFailed){
+    setTimeout(function(){showToast(tr('toast_records_unreadable'));},700);
+  }
 }
 
 // ─── DARK / LIGHT MODE ───
@@ -2228,6 +2275,39 @@ var DEST_PANEL={home:'d-home',records:'p-records',payment:'p-payment',more:'d-mo
 var _activeDest='home';
 var _activeSubPage=null;
 var _navigatingViaPopstate=false;
+// Whether the WebView history stack currently holds one entry beyond the
+// base 'home' entry. Tab-hopping (Records → Payments → More) replaces that
+// one entry instead of stacking a new one each time, so a single hardware
+// back press always returns to Home no matter how many tabs were visited —
+// and a further press then exits, instead of requiring one press per tab.
+var _awayFromHome=false;
+var _modalOpen=null; // 'log' | 'pdf' | null — a modal open over the current screen
+
+// Pushes (or, if we're already one level away from Home, replaces) a
+// history entry for a screen change; consumeNavState() below undoes it.
+// Both are no-ops while replaying a popstate (the browser already moved).
+function pushNavState(state,hash,isDest){
+  if(_navigatingViaPopstate) return;
+  if(isDest){
+    if(_awayFromHome) history.replaceState(state,'',_baseURL+hash);
+    else { history.pushState(state,'',_baseURL+hash); _awayFromHome=true; }
+  } else {
+    history.pushState(state,'',_baseURL+hash);
+  }
+}
+function consumeNavState(){
+  if(_navigatingViaPopstate) return;
+  _navigatingViaPopstate=true;
+  history.back();
+  // The flag is cleared when the resulting popstate event actually
+  // arrives (see the listener below) — not on a fixed timer, since a
+  // timer can race the real (async) popstate and fire first, making the
+  // handler misread our own self-triggered back() as a real hardware
+  // back press. This timeout is only a safety net for the edge case
+  // where history.back() has nothing to go back to and no popstate
+  // ever fires.
+  setTimeout(function(){_navigatingViaPopstate=false;},600);
+}
 
 function switchDest(name){
   /* CSDL: hide clear btn on main destinations */
@@ -2246,11 +2326,11 @@ function switchDest(name){
   window.scrollTo({top:0,behavior:'instant'});
   if(name==='records') renderRecords();
   if(name==='home') updateHomeStats();
-  // Destinations other than Home push a history entry so Android back
-  // returns the user to Home rather than exiting the app.
+  // Destinations other than Home push (or replace) a history entry so
+  // Android back returns the user to Home rather than exiting the app.
   if(!_navigatingViaPopstate){
-    if(name==='home') history.replaceState({csu:'home'},'',_baseURL);
-    else history.pushState({csu:'dest',dest:name},'',_baseURL+'#'+name);
+    if(name==='home'){ history.replaceState({csu:'home'},'',_baseURL); _awayFromHome=false; }
+    else pushNavState({csu:'dest',dest:name},'#'+name,true);
   }
 }
 
@@ -2276,7 +2356,7 @@ function openSubPage(name){
   // (which would exit the app). See popstate handler below.
   // Use a hash-changed URL so Android WebView.canGoBack() returns true.
   // Pushing the same URL silently leaves canGoBack()=false on many devices.
-  if(!_navigatingViaPopstate) history.pushState({csu:'sub',subpage:name},'',_baseURL+'#sub-'+name);
+  pushNavState({csu:'sub',subpage:name},'#sub-'+name,false);
 }
 function closeSubPage(){
   var cb=document.getElementById('hdr-clear-btn'); if(cb) cb.style.display='none';
@@ -2287,32 +2367,58 @@ function closeSubPage(){
   var backTo=(from==='about')?'more':'home';
   switchDest(backTo);
   // Consume the history entry pushed in openSubPage so the stack stays in
-  // sync. Skip this when we were called *from* a popstate event (back
-  // gesture) — the browser has already moved back in that case.
-  if(!_navigatingViaPopstate && from) history.back();
+  // sync. Guarded so the history.back() this triggers doesn't also re-fire
+  // the popstate handler and immediately bounce back to Home again.
+  if(from) consumeNavState();
+}
+function closeAnyModal(){
+  if(_modalOpen==='log'){
+    document.getElementById('log-modal').style.display='none';
+    _editingLogId=null; _modalOpen=null; return true;
+  }
+  if(_modalOpen==='pdf'){
+    document.getElementById('pdf-modal').classList.remove('open');
+    _modalOpen=null; return true;
+  }
+  return false;
 }
 // Android back gesture / hardware back button fires a browser popstate.
-// Handle sub-pages AND destination tabs so back never exits unexpectedly.
+// Handle modals, sub-pages, AND destination tabs so back never exits
+// unexpectedly and never leaves a modal stranded over the wrong screen.
 window.addEventListener('popstate',function(e){
   var st=(e&&e.state)||{};
-  if(_activeSubPage){
-    // Inside a calculator / log / about sub-page — close it
-    _navigatingViaPopstate=true;
-    closeSubPage();
+  if(_navigatingViaPopstate){
+    // This popstate is the delayed echo of our own consumeNavState() call
+    // (openSubPage/openLogDialog/openPDFModal's Back was tapped in-app,
+    // not via the hardware/gesture back) — the matching UI change was
+    // already applied synchronously by whoever called consumeNavState().
+    // Just clear the guard; reacting again here would double-navigate.
     _navigatingViaPopstate=false;
+    return;
+  }
+  // A genuine hardware/gesture back press from the user.
+  _navigatingViaPopstate=true;
+  if(_modalOpen){
+    closeAnyModal();
+  } else if(_activeSubPage){
+    // Inside a calculator / log / about sub-page — close it
+    closeSubPage();
   } else if(_activeDest&&_activeDest!=='home'){
     // On Records / Payments / More — return to Home
-    _navigatingViaPopstate=true;
     switchDest('home');
-    _navigatingViaPopstate=false;
   }
-  // Already on Home with no sub-page → let the WebView exit (correct)
+  // Already on Home with no sub-page/modal → let the WebView exit (correct)
+  _navigatingViaPopstate=false;
 });
 // Fallback for Android Activities that call JS directly instead of
 // relying on WebView.goBack(). The Activity can call:
 //   webView.evaluateJavascript("window.androidBackHandler()", null)
 // Return value is irrelevant to JS; Android reads it via the callback.
 window.androidBackHandler=function(){
+  if(_modalOpen){
+    closeAnyModal(); consumeNavState();
+    return true;
+  }
   if(_activeSubPage){
     _navigatingViaPopstate=true;
     closeSubPage();
@@ -2329,7 +2435,7 @@ window.androidBackHandler=function(){
 };
 function showNav(visible){
   var n=document.querySelector('nav');
-  if(n) n.style.display=visible?'flex':'none';
+  if(n) n.classList.toggle('hide',!visible);
   document.body.classList.toggle('nav-hidden',!visible);
 }
 function updateHomeStats(){
@@ -2338,7 +2444,7 @@ function updateHomeStats(){
   var pEl=document.getElementById('home-stat-paid');
   if(pEl){
     var total=records.filter(function(r){return r.type==='payment';}).reduce(function(s,r){return s+(parseFloat(r.amount)||0);},0);
-    pEl.textContent='৳ '+total.toLocaleString('en-BD',{maximumFractionDigits:0});
+    pEl.textContent='৳ '+total.toLocaleString('en-IN',{maximumFractionDigits:0});
   }
   /* CSDL: calculation count (non-payment records) */
   var cEl=document.getElementById('home-stat-calcs');
@@ -2379,9 +2485,9 @@ function renderRecentActivity(){
     if(r.type==='sand'||r.type==='chips') val=(r.vol||0).toFixed(2)+' CFT';
     else if(r.type==='steel') val=(r.totalTon||(r.totalKg?r.totalKg/1000:0)||0).toFixed(2)+' TON';
     else if(r.type==='cement') val=(r.bags||0)+' '+tr('pdf_w_bags');
-    else if(r.type==='brick') val=(r.qty||0).toLocaleString()+' '+esc(r.unit||'');
+    else if(r.type==='brick') val=(r.qty||0).toLocaleString('en-IN')+' '+esc(r.unit||'');
     else if(r.type==='rcc') val=(r.vol||0).toFixed(2)+(r.unit==='cft'?' CFT':' m³');
-    else if(r.type==='payment') val='৳ '+(r.amount||0).toLocaleString('en-BD');
+    else if(r.type==='payment') val='৳ '+(r.amount||0).toLocaleString('en-IN');
     var proj=esc(r.projName||r.proj||r.contractorName||'');
     return '<div class="recent-item '+(typeClass[r.type]||'')+'" onclick="switchDest(\'records\')">'+
       '<div class="recent-icon"><span class="ms">'+(icons[r.type]||'description')+'</span></div>'+
@@ -2411,6 +2517,18 @@ function clearAll(){
   panel.querySelectorAll('textarea').forEach(function(t){t.value='';});
   var pr=document.getElementById('pay-amount-preview');
   if(pr) pr.classList.remove('show');
+  // A previous calculation's result card, its "Add to Records" button and
+  // its average-dimension chips used to stay on screen — visually still
+  // matching numbers that were just cleared. Reset all of them for
+  // whichever calculator panel is currently open.
+  panel.querySelectorAll('.res.show').forEach(function(r){r.classList.remove('show');});
+  panel.querySelectorAll('[id$="-add-btn"]').forEach(function(b){b.style.display='none';});
+  panel.querySelectorAll('.fmt-avg-chip').forEach(function(c){c.textContent=tr('lbl_avg_prefix')+' —';c.className='fmt-avg-chip';});
+  if(typeof updateFMTAverages==='function'&&panel.id==='p-sand') updateFMTAverages();
+  if(typeof updateChipsAverages==='function'&&panel.id==='p-chips') updateChipsAverages();
+  if(typeof updateSteelTotal==='function'&&panel.id==='p-steel') updateSteelTotal();
+  if(typeof updateCementTotal==='function'&&panel.id==='p-cement') updateCementTotal();
+  if(typeof updateBrickTotal==='function'&&panel.id==='p-brick') updateBrickTotal();
   showToast(tr('toast_measurements_cleared'));
 }
 
@@ -2435,6 +2553,10 @@ function toggleColl(id){
 function toFt(val,mode){
   if(isNaN(val)||val===''||val===null)return NaN;
   val=parseFloat(val);
+  // A dimension can't be negative — clamp rather than let a stray minus
+  // sign (or a pasted negative number) silently flip volumes/areas negative
+  // downstream.
+  if(val<0)val=0;
   if(mode==='ftin'||mode==='decft')return val;
   if(mode==='inch')return val/12;
   if(mode==='meter')return val*3.28084;
@@ -2461,6 +2583,11 @@ function setFMTCount(n,el){
   el.classList.add('active'); buildFMTCard();
 }
 function buildFMTCard(){
+  // Rebuilding the input rows means any previously shown result no longer
+  // matches what's on screen — hide it (and the Add-to-Records button)
+  // until the user recalculates.
+  var _res=document.getElementById('fmt-res'); if(_res) _res.classList.remove('show');
+  var _btn=document.getElementById('sand-add-btn'); if(_btn) _btn.style.display='none';
   var dims=['L','W','H'],dimColors=['#4D86E8','#3FC2BB','#42B873'];
   var card=document.getElementById('fmt-card'); card.innerHTML='';
   dims.forEach(function(d,di){
@@ -2492,6 +2619,10 @@ function buildFMTCard(){
     }
     card.appendChild(block);
   });
+  // Inputs were just rebuilt (mode/count change) — (re)bind the
+  // long-press-to-clear gesture to the new elements; bindLP() itself
+  // skips inputs it has already wired up.
+  if(typeof bindLP==='function') bindLP();
 }
 function updateFMTAverages(){
   var dims=['L','W','H'];
@@ -2500,8 +2631,8 @@ function updateFMTAverages(){
     for(var m=0;m<fmtCount;m++){
       var v;
       if(fmtMode==='ftin'){
-        var ft=parseFloat((document.getElementById('f_'+d+'_'+m+'_ft')||{}).value)||0;
-        var inch=parseFloat((document.getElementById('f_'+d+'_'+m+'_in')||{}).value)||0;
+        var ft=Math.max(0,parseFloat((document.getElementById('f_'+d+'_'+m+'_ft')||{}).value)||0);
+        var inch=Math.max(0,parseFloat((document.getElementById('f_'+d+'_'+m+'_in')||{}).value)||0);
         if(ft>0||inch>0) v=ft+inch/12;
       } else {
         var raw=(document.getElementById('f_'+d+'_'+m)||{}).value;
@@ -2543,8 +2674,8 @@ function calcFMT(){
     for(var m=0;m<fmtCount;m++){
       var v;
       if(fmtMode==='ftin'){
-        var ft=parseFloat((document.getElementById('f_'+d+'_'+m+'_ft')||{}).value)||0;
-        var inch=parseFloat((document.getElementById('f_'+d+'_'+m+'_in')||{}).value)||0;
+        var ft=Math.max(0,parseFloat((document.getElementById('f_'+d+'_'+m+'_ft')||{}).value)||0);
+        var inch=Math.max(0,parseFloat((document.getElementById('f_'+d+'_'+m+'_in')||{}).value)||0);
         if(ft>0||inch>0) v=ft+inch/12;
       } else {
         var raw=(document.getElementById('f_'+d+'_'+m)||{}).value;
@@ -2565,8 +2696,8 @@ function calcFMT(){
   document.getElementById('f-vol').textContent=vol.toFixed(3);
   document.getElementById('f-vol-line').textContent=tr('lbl_avg_lwh_eq')+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
   document.getElementById('f-vol-m3').textContent=(vol/35.3147).toFixed(3);
-  document.getElementById('f-vol-in3').textContent=Math.round(vol*1728).toLocaleString();
-  document.getElementById('f-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString();
+  document.getElementById('f-vol-in3').textContent=Math.round(vol*1728).toLocaleString('en-IN');
+  document.getElementById('f-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString('en-IN');
   document.getElementById('f-bL').textContent=fmtFt(avgs[0]); document.getElementById('f-bLd').textContent=fmtDecFt(avgs[0]);
   document.getElementById('f-bW').textContent=fmtFt(avgs[1]); document.getElementById('f-bWd').textContent=fmtDecFt(avgs[1]);
   document.getElementById('f-bH').textContent=fmtFt(avgs[2]); document.getElementById('f-bHd').textContent=fmtDecFt(avgs[2]);
@@ -2611,6 +2742,8 @@ function setChipsCount(n,el){
   el.classList.add('active'); buildChipsCard();
 }
 function buildChipsCard(){
+  var _res=document.getElementById('chips-res'); if(_res) _res.classList.remove('show');
+  var _btn=document.getElementById('chips-add-btn'); if(_btn) _btn.style.display='none';
   var dims=['L','W','H'],dimColors=['#4D86E8','#3FC2BB','#42B873'];
   var card=document.getElementById('chips-card'); card.innerHTML='';
   dims.forEach(function(d,di){
@@ -2641,6 +2774,7 @@ function buildChipsCard(){
     }
     card.appendChild(block);
   });
+  if(typeof bindLP==='function') bindLP();
 }
 function updateChipsAverages(){
   var dims=['L','W','H'];
@@ -2649,8 +2783,8 @@ function updateChipsAverages(){
     for(var m=0;m<chipsCount;m++){
       var v;
       if(chipsMode==='ftin'){
-        var ft=parseFloat((document.getElementById('ch_'+d+'_'+m+'_ft')||{}).value)||0;
-        var inch=parseFloat((document.getElementById('ch_'+d+'_'+m+'_in')||{}).value)||0;
+        var ft=Math.max(0,parseFloat((document.getElementById('ch_'+d+'_'+m+'_ft')||{}).value)||0);
+        var inch=Math.max(0,parseFloat((document.getElementById('ch_'+d+'_'+m+'_in')||{}).value)||0);
         if(ft>0||inch>0) v=ft+inch/12;
       } else {
         var raw=(document.getElementById('ch_'+d+'_'+m)||{}).value;
@@ -2690,8 +2824,8 @@ function calcChips(){
     for(var m=0;m<chipsCount;m++){
       var v;
       if(chipsMode==='ftin'){
-        var ft=parseFloat((document.getElementById('ch_'+d+'_'+m+'_ft')||{}).value)||0;
-        var inch=parseFloat((document.getElementById('ch_'+d+'_'+m+'_in')||{}).value)||0;
+        var ft=Math.max(0,parseFloat((document.getElementById('ch_'+d+'_'+m+'_ft')||{}).value)||0);
+        var inch=Math.max(0,parseFloat((document.getElementById('ch_'+d+'_'+m+'_in')||{}).value)||0);
         if(ft>0||inch>0) v=ft+inch/12;
       } else {
         var raw=(document.getElementById('ch_'+d+'_'+m)||{}).value;
@@ -2712,8 +2846,8 @@ function calcChips(){
   document.getElementById('c-vol').textContent=vol.toFixed(3);
   document.getElementById('c-vol-line').textContent=tr('lbl_avg_lwh_eq')+avgs[0].toFixed(3)+'×'+avgs[1].toFixed(3)+'×'+avgs[2].toFixed(3)+' ft';
   document.getElementById('c-vol-m3').textContent=(vol/35.3147).toFixed(3);
-  document.getElementById('c-vol-in3').textContent=Math.round(vol*1728).toLocaleString();
-  document.getElementById('c-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString();
+  document.getElementById('c-vol-in3').textContent=Math.round(vol*1728).toLocaleString('en-IN');
+  document.getElementById('c-vol-cm3').textContent=Math.round(vol*28316.8).toLocaleString('en-IN');
   document.getElementById('c-bL').textContent=fmtFt(avgs[0]); document.getElementById('c-bLd').textContent=fmtDecFt(avgs[0]);
   document.getElementById('c-bW').textContent=fmtFt(avgs[1]); document.getElementById('c-bWd').textContent=fmtDecFt(avgs[1]);
   document.getElementById('c-bH').textContent=fmtFt(avgs[2]); document.getElementById('c-bHd').textContent=fmtDecFt(avgs[2]);
@@ -2740,7 +2874,7 @@ function saveChipsRecord(){
 // ═══════════════════════════════════════════════════════
 function updateSteelTotal(){
   var dias=[8,10,12,16,20,22,25,28,32],total=0;
-  dias.forEach(function(d){total+=parseFloat(document.getElementById('s_d'+d).value)||0;});
+  dias.forEach(function(d){total+=Math.max(0,parseFloat(document.getElementById('s_d'+d).value)||0);});
   document.getElementById('s-total-kg').textContent=total.toFixed(1);
   document.getElementById('s-total-ton').textContent=(total/1000).toFixed(3);
 }
@@ -2749,7 +2883,7 @@ function saveSteelRecord(){
   var dias=[8,10,12,16,20,22,25,28,32],breakdown={};
   var total=parseFloat(document.getElementById('s-total-kg').textContent)||0;
   if(total<=0){showToast(tr('toast_enter_diameter'));return;}
-  dias.forEach(function(d){var v=parseFloat(document.getElementById('s_d'+d).value)||0;if(v>0)breakdown['d'+d]=v;});
+  dias.forEach(function(d){var v=Math.max(0,parseFloat(document.getElementById('s_d'+d).value)||0);if(v>0)breakdown['d'+d]=v;});
   saveRecord({id:genId(),createdAt:Date.now(),type:'steel',
     date:document.getElementById('s_proj_date').value||todayISO(),
     proj:document.getElementById('s_proj_name').value||'Unnamed',addr:document.getElementById('s_proj_addr').value||'',
@@ -2762,9 +2896,9 @@ function saveSteelRecord(){
 // CEMENT MODULE
 // ═══════════════════════════════════════════════════════
 function updateCementTotal(){
-  var bags=parseFloat(document.getElementById('m_bags').value)||0;
+  var bags=Math.max(0,parseFloat(document.getElementById('m_bags').value)||0);
   document.getElementById('m-total-bags').textContent=bags;
-  document.getElementById('m-total-kg').textContent=(bags*50).toLocaleString();
+  document.getElementById('m-total-kg').textContent=(bags*50).toLocaleString('en-IN');
 }
 function saveCementRecord(){
   if(isLocked('cement'))return;
@@ -2798,8 +2932,8 @@ function setBrickUnit(unit,el){
   updateBrickTotal();
 }
 function updateBrickTotal(){
-  var qty=parseFloat(document.getElementById('b_qty').value)||0;
-  document.getElementById('b-total-qty').textContent=qty.toLocaleString();
+  var qty=Math.max(0,parseFloat(document.getElementById('b_qty').value)||0);
+  document.getElementById('b-total-qty').textContent=qty.toLocaleString('en-IN');
   var uKey=(BRICK_UNIT==='Truck')?'opt_truck':'opt_piece';
   document.getElementById('b-total-unit').textContent=tr(uKey)+((getCurrentLang()==='en')?(qty===1?'':'s'):'');
 }
@@ -2810,6 +2944,8 @@ var I18N={
   en:{
   "home_stat_records": "Saved Records",
   "home_stat_paid": "Total Paid",
+  "home_stat_calcs": "Calculations",
+  "home_stat_logs": "Site Log Entries",
   "home_sec_calc": "Calculators",
   "sand_name": "Sand",
   "sand_desc": "Volume · CFT",
@@ -2983,6 +3119,11 @@ var I18N={
   "lbl_standards_refs": "Standards &amp; References",
   "lbl_show_refs": "Show References",
   "lbl_footer_civil_suite": "Civil Suite v1.0",
+  "lbl_made_with": "Made with",
+  "lbl_by": "by",
+  "lbl_appearance": "Appearance",
+  "opt_custom": "Custom",
+  "opt_bags": "Bags",
   "lbl_developed_by": "DEVELOPED BY",
   "lbl_civil_engineer_dev": "Civil Engineer · Developer",
   "btn_enter_app": "ENTER APP",
@@ -3077,6 +3218,7 @@ var I18N={
   "toast_report_copied": "Report copied!",
   "toast_storage_full_backup": "Storage full \u2014 backup your data!",
   "toast_storage_full_memory": "Storage full \u2014 records loaded in memory only",
+  "toast_records_unreadable": "Saved records could not be read \u2014 starting with an empty list",
   "toast_vol_gt_zero": "Volume must be greater than zero",
   "toast_applied": "applied",
   "toast_restored": "Restored",
@@ -3203,6 +3345,8 @@ var I18N={
   bn:{
   "home_stat_records": "সংরক্ষিত রেকর্ড",
   "home_stat_paid": "মোট পরিশোধিত",
+  "home_stat_calcs": "হিসাব",
+  "home_stat_logs": "সাইট লগ এন্ট্রি",
   "home_sec_calc": "ক্যালকুলেটর",
   "sand_name": "বালি",
   "sand_desc": "আয়তন · সিএফটি",
@@ -3376,6 +3520,11 @@ var I18N={
   "lbl_standards_refs": "মানদণ্ড ও রেফারেন্স",
   "lbl_show_refs": "রেফারেন্স দেখুন",
   "lbl_footer_civil_suite": "Civil Suite ভার্সন ১.০",
+  "lbl_made_with": "তৈরি করা হয়েছে",
+  "lbl_by": "কর্তৃক",
+  "lbl_appearance": "থিম",
+  "opt_custom": "কাস্টম",
+  "opt_bags": "ব্যাগ",
   "lbl_developed_by": "ডেভেলপ করেছেন",
   "lbl_civil_engineer_dev": "সিভিল ইঞ্জিনিয়ার · ডেভেলপার",
   "btn_enter_app": "অ্যাপে প্রবেশ করুন",
@@ -3470,6 +3619,7 @@ var I18N={
   "toast_report_copied": "রিপোর্ট কপি হয়েছে!",
   "toast_storage_full_backup": "স্টোরেজ পূর্ণ — আপনার ডেটা ব্যাকআপ করুন!",
   "toast_storage_full_memory": "স্টোরেজ পূর্ণ — রেকর্ড শুধু মেমোরিতে লোড হয়েছে",
+  "toast_records_unreadable": "সংরক্ষিত রেকর্ড পড়া যায়নি — খালি তালিকা দিয়ে শুরু হচ্ছে",
   "toast_vol_gt_zero": "আয়তন অবশ্যই শূন্যের চেয়ে বেশি হতে হবে",
   "toast_applied": "প্রয়োগ হয়েছে",
   "toast_restored": "পুনরুদ্ধার হয়েছে",
@@ -3694,7 +3844,13 @@ function setGrade(grade,el){
   else{var g=GRADE_DATA[grade];if(ir)ir.style.display='flex';if(ol)ol.innerText='Override';if(!WC_OVERRIDE&&mr)mr.style.display='none';if(g){var wl=document.getElementById('grade-wc-lbl');if(wl)wl.innerText='W/C = '+g.wc;var ht=document.getElementById('grade-hint');if(ht)ht.innerText=g.desc;}}
 }
 function toggleWCOverride(){var cb=document.getElementById('r_wc_override');WC_OVERRIDE=cb?cb.checked:false;lsSave('rcc_wc_override',WC_OVERRIDE?'1':'0');var mr=document.getElementById('wc-manual-row');if(mr)mr.style.display=(WC_OVERRIDE&&CONCRETE_GRADE!=='Custom')?'flex':'none';}
-function setDVF(val,el){activateSeg('dvf-seg',el);var cr=document.getElementById('dvf-custom-row');if(val===-1){if(cr)cr.style.display='flex';DVF=parseFloat((document.getElementById('r_dvf_custom')||{}).value)||1.54;}else{if(cr)cr.style.display='none';DVF=val;lsSave('rcc_dvf',val);}}
+var _DVF_CUSTOM=false;
+function setDVF(val,el){activateSeg('dvf-seg',el);var cr=document.getElementById('dvf-custom-row');if(val===-1){_DVF_CUSTOM=true;if(cr)cr.style.display='flex';DVF=parseFloat((document.getElementById('r_dvf_custom')||{}).value)||1.54;}else{_DVF_CUSTOM=false;if(cr)cr.style.display='none';DVF=val;lsSave('rcc_dvf',val);}}
+function onDVFCustomInput(){
+  if(!_DVF_CUSTOM)return;
+  var v=parseFloat((document.getElementById('r_dvf_custom')||{}).value);
+  if(!isNaN(v)) DVF=v;
+}
 function setSteelMode(mode,el){STEEL_MODE=mode;activateSeg('steel-mode-seg',el);lsSave('steel_mode',mode);var es=document.getElementById('steel-elem-section'),ks=document.getElementById('steel-kgm3-section');if(es)es.style.display=mode==='elem'?'block':'none';if(ks)ks.style.display=mode==='kgm3'?'block':'none';}
 function onSteelElemTypeChange(){var sel=document.getElementById('r_steel_elem_type');if(!sel)return;var r=STEEL_ELEM_RANGES[sel.value];if(!r)return;var inp=document.getElementById('r_steel_kgm3');if(inp&&(inp.value===''||inp._autoFilled)){inp.value=r.mid;inp._autoFilled=true;}var rc=document.getElementById('steel-range-chip'),mc=document.getElementById('steel-mid-chip');if(rc)rc.innerText='Range: '+r.min+'–'+r.max+' kg/m³';if(mc)mc.innerText='Midpoint: '+r.mid;}
 function setSteelElemPreset(elemType,kgm3,el){var sel=document.getElementById('r_steel_elem_type');if(sel){for(var i=0;i<sel.options.length;i++){if(sel.options[i].value===elemType){sel.selectedIndex=i;break;}}}var inp=document.getElementById('r_steel_kgm3');if(inp){inp.value=kgm3;inp._autoFilled=false;}activateChip(document.getElementById('steel-elem-chips'),el);onSteelElemTypeChange();}
@@ -3712,7 +3868,7 @@ function addEl(){
 }
 function removeEl(id){var el=document.getElementById(id);if(!el)return;el.style.transition='opacity .2s';el.style.opacity='0';setTimeout(function(){el.remove();EL_IDS=EL_IDS.filter(function(e){return e!==id;});},200);}
 function getElVol(id){
-  function g(sid){var e=document.getElementById(sid);return e?(parseFloat(e.value)||0):0;}
+  function g(sid){var e=document.getElementById(sid);return e?Math.max(0,parseFloat(e.value)||0):0;}
   var l=g(id+'_lft')+g(id+'_lin')/12,w=g(id+'_wft')+g(id+'_win')/12,h=g(id+'_hft')+g(id+'_hin')/12;
   var typeEl=document.getElementById(id+'_type');
   return{l:l,w:w,h:h,vol:l*w*h,type:typeEl?typeEl.value:'Element'};
@@ -3773,7 +3929,8 @@ function calcRCC(e){
   var noteLines=elData.map(function(d){return d.type+': '+d3(d.vol)+' ft³';}).join('\n');
   var noteEl=document.getElementById('r-note');if(noteEl)noteEl.innerText=noteLines+'\n────────────────────\nGrade = '+CONCRETE_GRADE+' · W/C = '+wc+'\nStruct.Vol = '+d3(totalWet)+' ft³\nDry Vol = '+d3(R.dry)+' ft³\nCement = '+d2(bagsRaw)+' → '+bagsCeil+' bags\nSand = '+d3(finalSand)+' cft\nChips = '+d3(R.chips)+' cft\nWater = '+d2(bagsRaw)+'×50×'+wc+' = '+d1(R.water)+' L';
   _rccReport=noteEl?noteEl.innerText:'';
-  window._lastRCC={vol:d2(totalWet),bags:bagsCeil,sand:d2(finalSand),chips:d2(R.chips),water:d1(R.water),mix:mc+':'+ms+':'+ma,grade:CONCRETE_GRADE,wc:wc};
+  var _unitOut=RCC_UNIT,_volOut=(_unitOut==='m3'?totalWet*FT3_M3:totalWet),_sandOut=(_unitOut==='m3'?finalSand*FT3_M3:finalSand),_chipsOut=(_unitOut==='m3'?R.chips*FT3_M3:R.chips);
+  window._lastRCC={vol:_volOut,bags:bagsCeil,sand:_sandOut,chips:_chipsOut,water:parseFloat(d1(R.water)),mix:mc+':'+ms+':'+ma,grade:CONCRETE_GRADE,wc:wc,unit:_unitOut};
   var addBtn=document.getElementById('rcc-add-btn');if(addBtn)addBtn.style.display='flex';
 }
 function copyRCCReport(){if(!_rccReport){showToast(tr('toast_calc_first'));return;}navigator.clipboard?navigator.clipboard.writeText(_rccReport).then(function(){showToast(tr('toast_report_copied'));}).catch(function(){}):showToast(tr('toast_clipboard_unavailable'));}
@@ -3783,8 +3940,8 @@ function saveRCCRecord(){
   var lr=window._lastRCC;
   saveRecord({id:genId(),createdAt:Date.now(),type:'rcc',
     date:todayISO(),proj:'RCC Project',addr:'',
-    grade:lr.grade,vol:parseFloat(lr.vol),unit:RCC_UNIT,
-    cement:lr.bags+' bags',sand:lr.sand,agg:lr.chips
+    grade:lr.grade,vol:lr.vol,unit:lr.unit,
+    cementBags:lr.bags,sand:lr.sand,agg:lr.chips
   });
   window._lastRCC=null;
   var addBtn=document.getElementById('rcc-add-btn');if(addBtn)addBtn.style.display='none';
@@ -3819,7 +3976,7 @@ function updatePayAmountPreview(){
   var display=document.getElementById('pay-amount-preview-val');
   if(val>0){
     preview.classList.add('show');
-    display.textContent='৳ '+val.toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2});
+    display.textContent='৳ '+val.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
   } else {
     preview.classList.remove('show');
   }
@@ -3855,12 +4012,12 @@ function updatePayDashboard(){
   var totalEl=document.getElementById('dash-total');
   var countEl=document.getElementById('dash-count');
   if(totalEl){
-    totalEl.textContent='৳ '+total.toLocaleString('en-BD',{minimumFractionDigits:0});
+    totalEl.textContent='৳ '+total.toLocaleString('en-IN',{minimumFractionDigits:0});
     if(total>0){
       countUp(totalEl,total,0,700,'৳ ','');
       // After animation finishes, re-apply locale formatting
       setTimeout(function(){
-        if(totalEl) totalEl.textContent='৳ '+total.toLocaleString('en-BD',{minimumFractionDigits:0});
+        if(totalEl) totalEl.textContent='৳ '+total.toLocaleString('en-IN',{minimumFractionDigits:0});
       },730);
     }
   }
@@ -3870,7 +4027,7 @@ function updatePayDashboard(){
   var monthTotal=monthRecs.reduce(function(s,r){return s+(r.amount||0);},0);
   var monthEl=document.getElementById('dash-month');
   var monthCountEl=document.getElementById('dash-month-count');
-  if(monthEl) monthEl.textContent='৳ '+monthTotal.toLocaleString('en-BD',{minimumFractionDigits:0});
+  if(monthEl) monthEl.textContent='৳ '+monthTotal.toLocaleString('en-IN',{minimumFractionDigits:0});
   if(monthCountEl) monthCountEl.textContent=monthRecs.length+' payment'+(monthRecs.length!==1?'s':'');
 }
 
@@ -3964,11 +4121,11 @@ function renderRecords(){
 
     var vals=document.createElement('div'); vals.className='rec-vals';
     if(r.type==='sand'||r.type==='chips'){
-      vals.innerHTML='<span class="rec-val-chip">Vol: <b>'+r.vol.toFixed(3)+' ft³</b></span>'+
-        '<span class="rec-val-chip">'+r.volM3.toFixed(3)+' m³</span>'+
-        '<span class="rec-val-chip">L: <b>'+r.avgL+'</b></span>'+
-        '<span class="rec-val-chip">W: <b>'+r.avgW+'</b></span>'+
-        '<span class="rec-val-chip">H: <b>'+r.avgH+'</b></span>'+
+      vals.innerHTML='<span class="rec-val-chip">Vol: <b>'+(r.vol||0).toFixed(3)+' ft³</b></span>'+
+        '<span class="rec-val-chip">'+(r.volM3||0).toFixed(3)+' m³</span>'+
+        '<span class="rec-val-chip">L: <b>'+esc(r.avgL)+'</b></span>'+
+        '<span class="rec-val-chip">W: <b>'+esc(r.avgW)+'</b></span>'+
+        '<span class="rec-val-chip">H: <b>'+esc(r.avgH)+'</b></span>'+
         (r.category?'<span class="rec-val-chip">'+esc(r.category)+'</span>':'');
     } else if(r.type==='steel'){
       vals.innerHTML='<span class="rec-val-chip">Total: <b>'+r.totalKg.toFixed(1)+' KG</b></span>'+
@@ -3976,18 +4133,18 @@ function renderRecords(){
         (r.brand?'<span class="rec-val-chip">'+esc(r.brand)+'</span>':'');
     } else if(r.type==='cement'){
       vals.innerHTML='<span class="rec-val-chip">Bags: <b>'+r.bags+'</b></span>'+
-        '<span class="rec-val-chip"><b>'+r.totalKg.toLocaleString()+' KG</b></span>'+
+        '<span class="rec-val-chip"><b>'+r.totalKg.toLocaleString('en-IN')+' KG</b></span>'+
         (r.brand?'<span class="rec-val-chip">'+esc(r.brand)+'</span>':'');
     } else if(r.type==='brick'){
       vals.innerHTML='<span class="rec-val-chip">Category: <b>'+esc(r.category||'—')+'</b></span>'+
-        '<span class="rec-val-chip">Qty: <b>'+(r.qty||0).toLocaleString()+' '+esc(r.unit||'')+(r.qty===1?'':'s')+'</b></span>';
+        '<span class="rec-val-chip">Qty: <b>'+(r.qty||0).toLocaleString('en-IN')+' '+esc(r.unit||'')+(r.qty===1?'':'s')+'</b></span>';
     } else if(r.type==='rcc'){
       vals.innerHTML='<span class="rec-val-chip">Grade: <b>'+r.grade+'</b></span>'+
-        '<span class="rec-val-chip">Vol: <b>'+r.vol.toFixed(2)+' '+(r.unit==='cft'?'ft³':'m³')+'</b></span>'+
-        '<span class="rec-val-chip">Cement: <b>'+r.cement+' bags</b></span>';
+        '<span class="rec-val-chip">Vol: <b>'+(r.vol||0).toFixed(2)+' '+(r.unit==='cft'?'ft³':'m³')+'</b></span>'+
+        '<span class="rec-val-chip">Cement: <b>'+rccBags(r)+' bags</b></span>';
     } else if(r.type==='payment'){
       vals.innerHTML='<span class="rec-val-chip">Contractor: <b>'+esc(r.contractorName)+'</b></span>'+
-        '<span class="rec-val-chip">Amount: <b>৳ '+r.amount.toLocaleString('en-BD',{minimumFractionDigits:2,maximumFractionDigits:2})+'</b></span>'+
+        '<span class="rec-val-chip">Amount: <b>৳ '+r.amount.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+'</b></span>'+
         (r.comments?'<span class="rec-val-chip" style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+esc(r.comments.substring(0,50))+(r.comments.length>50?'…':'')+'</span>':'');
     }
     card.appendChild(vals);
@@ -4080,11 +4237,23 @@ function restoreLocal(){
         records=incoming;
         var ok=NativeBridge.saveData(JSON.stringify(records));
         if(!ok) showToast(tr('toast_storage_full_memory'));
-        // Restore site logs (v1.1+)
+        // Restore site logs (v1.1+) — update the in-memory siteLogs array,
+        // not just localStorage, or the Site Log screen keeps showing the
+        // pre-restore entries until the next add/edit/delete overwrites them.
         if(data.logs&&Array.isArray(data.logs)){
-          try{ localStorage.setItem('csu3_logs',JSON.stringify(data.logs)); }catch(e){}
+          var incomingLogs=[];
+          data.logs.forEach(function(l){
+            if(l&&typeof l==='object'&&l.text){
+              incomingLogs.push({id:l.id||genId(),serial:0,text:String(l.text),date:l.date||todayISO(),time:l.time||'00:00',createdAt:l.createdAt||Date.now()});
+            }
+          });
+          incomingLogs.sort(function(a,b){return (a.date+'T'+a.time)<(b.date+'T'+b.time)?-1:1;});
+          incomingLogs.forEach(function(l,i){l.serial=i+1;});
+          siteLogs=incomingLogs;
+          saveSiteLogs();
         }
         renderRecords();updatePayDashboard();updateHomeStats();
+        var ll=document.getElementById('log-list'); if(ll) renderLogs();
         var logMsg=hasLogs?' + '+data.logs.length+' logs':'';
         showToast(tr('toast_restored')+' '+records.length+' '+tr('toast_records_suffix')+logMsg+' ✓');
         switchDest('records');
@@ -4150,12 +4319,15 @@ function openLogDialog(editId){
     textEl.value=''; dateEl.value=iso; updateDateOverlay(dateEl); timeEl.value=hhmm;
   }
   modal.style.display='flex';
+  _modalOpen='log';
+  pushNavState({csu:'modal',modal:'log'},(location.hash||''),false);
   setTimeout(function(){textEl.focus();},200);
 }
 
 function closeLogDialog(){
   document.getElementById('log-modal').style.display='none';
   _editingLogId=null;
+  if(_modalOpen==='log'){ _modalOpen=null; consumeNavState(); }
 }
 
 function saveLogEntry(){
@@ -4206,34 +4378,45 @@ function renderLogs(){
   var emptyEl=document.getElementById('log-empty');
   var listEl=document.getElementById('log-list');
   if(!listEl)return;
-  if(filtered.length===0){emptyEl.style.display='flex';listEl.style.display='none';listEl.innerHTML='';return;}
+  if(filtered.length===0){emptyEl.style.display='block';listEl.style.display='none';listEl.innerHTML='';return;}
   emptyEl.style.display='none';listEl.style.display='block';
-  listEl.innerHTML=filtered.map(function(l,i){
+  // Built via DOM nodes with bound closures — not string-concatenated
+  // onclick attributes — so a hostile log id/date/time from a restored
+  // backup can never break out of an HTML attribute and run script.
+  listEl.innerHTML='';
+  var logFrag=document.createDocumentFragment();
+  filtered.forEach(function(l,i){
     var tp=(l.time||'00:00').split(':');
     var hh=parseInt(tp[0]);var mm=tp[1]||'00';
     var ampm=hh>=12?'PM':'AM';var h12=hh%12||12;
     var td=h12+':'+mm+' '+ampm;
-    return '<div class="log-card" style="animation-delay:'+(i*0.04)+'s">'+
-      '<div class="log-card-inner">'+
+    var card=document.createElement('div'); card.className='log-card'; card.style.animationDelay=(i*0.04)+'s';
+    card.innerHTML='<div class="log-card-inner">'+
         '<div class="log-serial-col">'+
-          '<span class="log-serial-num">'+l.serial+'</span>'+
-          '<span class="log-serial-lbl">#'+l.serial+'</span>'+
+          '<span class="log-serial-num">'+esc(l.serial)+'</span>'+
+          '<span class="log-serial-lbl">#'+esc(l.serial)+'</span>'+
         '</div>'+
         '<div class="log-body">'+
           '<div class="log-text">'+esc(l.text)+'</div>'+
           '<div class="log-meta">'+
-            '<span class="log-date-chip"><span class="ms">event</span>'+localizeDateStr(formatDate(l.date))+'</span>'+
-            '<span class="log-date-chip"><span class="ms">schedule</span>'+td+'</span>'+
+            '<span class="log-date-chip"><span class="ms">event</span>'+esc(localizeDateStr(formatDate(l.date)))+'</span>'+
+            '<span class="log-date-chip"><span class="ms">schedule</span>'+esc(td)+'</span>'+
           '</div>'+
         '</div>'+
-      '</div>'+
-      '<div class="log-actions">'+
-        '<button class="log-act-btn edit" onclick="openLogDialog(\'' + l.id + '\')"><span class="ms">edit</span>Edit</button>'+
-        '<div class="log-act-div"></div>'+
-        '<button class="log-act-btn del" onclick="deleteLog(\'' + l.id + '\')"><span class="ms">delete</span>Delete</button>'+
-      '</div>'+
-    '</div>';
-  }).join('');
+      '</div>';
+    var acts=document.createElement('div'); acts.className='log-actions';
+    var editBtn=document.createElement('button'); editBtn.className='log-act-btn edit';
+    editBtn.innerHTML='<span class="ms">edit</span>Edit';
+    editBtn.onclick=(function(id){return function(){openLogDialog(id);};})(l.id);
+    var divider=document.createElement('div'); divider.className='log-act-div';
+    var delBtn=document.createElement('button'); delBtn.className='log-act-btn del';
+    delBtn.innerHTML='<span class="ms">delete</span>Delete';
+    delBtn.onclick=(function(id){return function(){deleteLog(id);};})(l.id);
+    acts.appendChild(editBtn); acts.appendChild(divider); acts.appendChild(delBtn);
+    card.appendChild(acts);
+    logFrag.appendChild(card);
+  });
+  listEl.appendChild(logFrag);
 }
 
 function exportLogsPDF(){
@@ -4318,7 +4501,7 @@ function exportBulkPDF(materialFilter){
   var MNAME={sand:tr('sand_name'),chips:tr('chips_name'),steel:tr('steel_name'),cement:tr('cement_name'),brick:tr('brick_name'),rcc:tr('pdf_rcc_estimation'),payment:tr('pdf_type_payment')};
   var MCOLOR={sand:themeColor('--amber'),chips:themeColor('--chips'),steel:themeColor('--steel-c'),cement:themeColor('--cement'),brick:themeColor('--brick'),rcc:themeColor('--blu'),payment:themeColor('--pay')};
 
-  function escH(v){return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function escH(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function tRow(l,v){return '<tr><td class="lbl">'+escH(l)+'</td><td class="val">'+v+'</td></tr>';}
   function mono(v){return '<span class="mono">'+v+'</span>';}
 
@@ -4346,31 +4529,31 @@ function exportBulkPDF(materialFilter){
         grandKg+=parseFloat(r.totalKg)||0;
       } else if(r.type==='cement'){
         if(r.brand) inner+=tRow(tr('pdf_brand'),escH(r.brand));
-        inner+=tRow(tr('pdf_quantity'),mono((r.bags||0)+' '+tr('pdf_w_bags'))+' <span style="color:'+DIM+';font-size:10px">('+(r.totalKg||0).toLocaleString()+' KG)</span>');
+        inner+=tRow(tr('pdf_quantity'),mono((r.bags||0)+' '+tr('pdf_w_bags'))+' <span style="color:'+DIM+';font-size:10px">('+(r.totalKg||0).toLocaleString('en-IN')+' KG)</span>');
         if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
         if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
         grandBags+=parseFloat(r.bags)||0; grandKgC+=parseFloat(r.totalKg)||0;
       } else if(r.type==='brick'){
         inner+=tRow(tr('pdf_category'),escH(r.category||'—'));
-        inner+=tRow(tr('pdf_quantity'),mono((r.qty||0).toLocaleString()+' '+escH(tr(r.unit==='Truck'?(r.qty===1?'pdf_w_truck':'pdf_w_trucks'):(r.qty===1?'pdf_w_piece':'pdf_w_pieces')))));
+        inner+=tRow(tr('pdf_quantity'),mono((r.qty||0).toLocaleString('en-IN')+' '+escH(tr(r.unit==='Truck'?(r.qty===1?'pdf_w_truck':'pdf_w_trucks'):(r.qty===1?'pdf_w_piece':'pdf_w_pieces')))));
         if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—'));
         if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
         if(r.unit==='Truck') grandTrucks+=parseFloat(r.qty)||0; else grandPieces+=parseFloat(r.qty)||0;
       } else if(r.type==='rcc'){
         inner+=tRow(tr('pdf_concrete_grade'),escH(r.grade||'—'));
         inner+=tRow(tr('pdf_structural_volume'),mono((r.vol||0).toFixed(2)+(r.unit==='cft'?' ft³':' m³')));
-        inner+=tRow(tr('pdf_cement'),escH(r.cement||'—'));
+        inner+=tRow(tr('pdf_cement'),escH(rccBags(r)+' '+tr('pdf_w_bags')));
         inner+=tRow(tr('pdf_sand'),mono((parseFloat(r.sand)||0).toFixed(2)+' ft³'));
         inner+=tRow(tr('pdf_stone_chips'),mono((parseFloat(r.agg)||0).toFixed(2)+' ft³'));
         grandVol+=parseFloat(r.vol)||0;
-        grandBags+=parseFloat(r.cement)||0; // r.cement is like "30 bags" — parseFloat extracts the leading number
+        grandBags+=rccBags(r);
         grandKgC+=parseFloat(r.sand)||0;    // reuse grandKgC accumulator for sand ft³
         grandAmt+=parseFloat(r.agg)||0;     // reuse grandAmt accumulator for chips ft³
       } else if(r.type==='payment'){
         inner+=tRow(tr('pdf_contractor_type'),escH(r.cTypeLabel||r.cType||'—'));
         inner+=tRow(tr('pdf_contractor_name'),escH(r.contractorName||'—'));
         inner+=tRow(tr('pdf_phone'),r.phone?'<a href="tel:'+escH(r.phone)+'" style="color:'+color+'">'+mono(escH(r.phone))+'</a>':'—');
-        inner+=tRow(tr('pdf_amount'),mono('৳ '+(r.amount||0).toLocaleString('en-BD',{minimumFractionDigits:2})));
+        inner+=tRow(tr('pdf_amount'),mono('৳ '+(r.amount||0).toLocaleString('en-IN',{minimumFractionDigits:2})));
         if(r.comments) inner+=tRow(tr('pdf_remarks'),escH(r.comments));
         grandAmt+=parseFloat(r.amount)||0;
       }
@@ -4394,7 +4577,7 @@ function exportBulkPDF(materialFilter){
       gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+(brickParts.join(' <span class="summary-sep">/</span> ')||'0')+'</div></div>';
     }
     else if(type==='rcc') gt='<div class="summary-grid" style="border-color:'+color+'"><div class="summary-grid-ttl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'record',tr('pdf_w_record'))+')</div><div class="summary-grid-cells"><div><div class="sg-lbl">'+tr('pdf_structural_volume')+'</div><div class="sg-val" style="color:'+color+'">'+grandVol.toFixed(2)+' ft³</div></div><div><div class="sg-lbl">'+tr('pdf_cement')+'</div><div class="sg-val" style="color:'+color+'">'+grandBags.toFixed(0)+' '+tr('pdf_w_bags').toLowerCase()+'</div></div><div><div class="sg-lbl">'+tr('pdf_sand')+'</div><div class="sg-val" style="color:'+color+'">'+grandKgC.toFixed(2)+' ft³</div></div><div><div class="sg-lbl">'+tr('pdf_stone_chips')+'</div><div class="sg-val" style="color:'+color+'">'+grandAmt.toFixed(2)+' ft³</div></div></div></div>';
-    else if(type==='payment') gt='<div class="summary summary-pay"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total_paid')+' ('+pdfCount(recs.length,'payment',tr('pdf_w_payment'))+')</div></div><div class="summary-val mono" style="color:'+color+'">৳ '+grandAmt.toLocaleString('en-BD',{minimumFractionDigits:2})+'</div></div>';
+    else if(type==='payment') gt='<div class="summary summary-pay"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total_paid')+' ('+pdfCount(recs.length,'payment',tr('pdf_w_payment'))+')</div></div><div class="summary-val mono" style="color:'+color+'">৳ '+grandAmt.toLocaleString('en-IN',{minimumFractionDigits:2})+'</div></div>';
 
     return '<div class="section" style="'+(isFirst?'':'page-break-before:always;')+'">'+
       '<div class="section-hdr"><div class="section-tab" style="background:'+color+'"></div>'+
@@ -4504,6 +4687,8 @@ function openPDFModal(rec){
   opts.appendChild(makePDFOpt('picture_as_pdf','var(--amber-bg)','var(--amber)',tr('lbl_standard_report'),tr('lbl_standard_report_sub'),function(){generatePDF(_pdfRec,'standard');}));
   opts.appendChild(makePDFOpt('summarize','var(--blu-bg)','var(--blu)',tr('lbl_summary_only'),tr('lbl_summary_only_sub'),function(){generatePDF(_pdfRec,'summary');}));
   document.getElementById('pdf-modal').classList.add('open');
+  _modalOpen='pdf';
+  pushNavState({csu:'modal',modal:'pdf'},(location.hash||''),false);
 }
 function makePDFOpt(icon,bg,col,title,sub,fn){
   var d=document.createElement('div'); d.className='pdf-opt'; d.onclick=fn;
@@ -4512,7 +4697,10 @@ function makePDFOpt(icon,bg,col,title,sub,fn){
   return d;
 }
 function closePDFModal(e){if(e.target===document.getElementById('pdf-modal'))closePDFModalDirect();}
-function closePDFModalDirect(){document.getElementById('pdf-modal').classList.remove('open');}
+function closePDFModalDirect(){
+  document.getElementById('pdf-modal').classList.remove('open');
+  if(_modalOpen==='pdf'){ _modalOpen=null; consumeNavState(); }
+}
 
 function generatePDF(rec,mode){
   if(isLocked('gpdf_'+(rec&&rec.id)+'_'+mode,2000))return;
@@ -4562,18 +4750,18 @@ function generatePDF(rec,mode){
   } else if(rec.type==='cement'){
     rows+=section(tr('pdf_cement_details'));
     rows+=row(tr('pdf_brand'),esc(rec.brand||'—'));
-    rows+=row(tr('pdf_quantity'),'<span class="mono">'+rec.bags+' '+tr('pdf_w_bags')+'</span> <span style="color:'+dim+';font-size:10px">('+rec.totalKg.toLocaleString()+' KG)</span>');
+    rows+=row(tr('pdf_quantity'),'<span class="mono">'+rec.bags+' '+tr('pdf_w_bags')+'</span> <span style="color:'+dim+';font-size:10px">('+rec.totalKg.toLocaleString('en-IN')+' KG)</span>');
     if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
   } else if(rec.type==='brick'){
     rows+=section(tr('pdf_brick_details'));
     rows+=row(tr('pdf_category'),esc(rec.category||'—'));
-    rows+=row(tr('pdf_quantity'),'<span class="mono">'+(rec.qty||0).toLocaleString()+' '+esc(tr(rec.unit==='Truck'?(rec.qty===1?'pdf_w_truck':'pdf_w_trucks'):(rec.qty===1?'pdf_w_piece':'pdf_w_pieces')))+'</span>');
+    rows+=row(tr('pdf_quantity'),'<span class="mono">'+(rec.qty||0).toLocaleString('en-IN')+' '+esc(tr(rec.unit==='Truck'?(rec.qty===1?'pdf_w_truck':'pdf_w_trucks'):(rec.qty===1?'pdf_w_piece':'pdf_w_pieces')))+'</span>');
     if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
   } else if(rec.type==='rcc'){
     rows+=section(tr('pdf_rcc_estimation'));
     rows+=row(tr('pdf_concrete_grade'),esc(rec.grade));
     rows+=row(tr('pdf_total_volume'),'<span class="mono">'+rec.vol.toFixed(3)+(rec.unit==='cft'?' ft³':' m³')+'</span>');
-    rows+=row(tr('pdf_cement'),esc(rec.cement));
+    rows+=row(tr('pdf_cement'),esc(rccBags(rec)+' '+tr('pdf_w_bags')));
     rows+=row(tr('pdf_sand_fine_agg'),'<span class="mono">'+(parseFloat(rec.sand)||0).toFixed(2)+' ft³</span>');
     rows+=row(tr('pdf_stone_chips'),'<span class="mono">'+(parseFloat(rec.agg)||0).toFixed(2)+' ft³</span>');
     rows+=section(tr('pdf_standards')); rows+=row(tr('pdf_code'),'BNBC 2020');
@@ -4583,7 +4771,7 @@ function generatePDF(rec,mode){
     rows+=row(tr('pdf_contractor_name'),esc(rec.contractorName||'—'));
     rows+=row(tr('pdf_phone_number'),'<span class="mono">'+esc(rec.phone||'—')+'</span>');
     rows+=section(tr('pdf_payment_details'));
-    rows+=row(tr('pdf_payment_amount'),'<span class="mono">৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2})+'</span>');
+    rows+=row(tr('pdf_payment_amount'),'<span class="mono">৳ '+rec.amount.toLocaleString('en-IN',{minimumFractionDigits:2})+'</span>');
     rows+=row(tr('pdf_payment_date'),'<span class="mono">'+esc(pdfDate(rec.date)||'—')+'</span>');
     if(rec.comments){rows+=section(tr('pdf_remarks'));rows+=row(tr('pdf_comments'),esc(rec.comments));}
   }
@@ -4593,7 +4781,7 @@ function generatePDF(rec,mode){
     summaryPanel='<div class="summary">'+
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total_payment')+'</div>'+
       '<div class="summary-sub">'+esc(rec.cTypeLabel||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
-      '<div class="summary-val">৳ '+rec.amount.toLocaleString('en-BD',{minimumFractionDigits:2})+'</div></div>';
+      '<div class="summary-val">৳ '+rec.amount.toLocaleString('en-IN',{minimumFractionDigits:2})+'</div></div>';
   } else if(rec.type==='sand'||rec.type==='chips'){
     summaryPanel='<div class="summary">'+
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_final_volume')+'</div>'+
@@ -4607,13 +4795,13 @@ function generatePDF(rec,mode){
   } else if(rec.type==='cement'){
     summaryPanel='<div class="summary">'+
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_total_cement')+'</div>'+
-      '<div class="summary-sub">'+esc(rec.projName||rec.proj||'')+' · ('+rec.totalKg.toLocaleString()+' KG)</div></div>'+
+      '<div class="summary-sub">'+esc(rec.projName||rec.proj||'')+' · ('+rec.totalKg.toLocaleString('en-IN')+' KG)</div></div>'+
       '<div class="summary-val">'+rec.bags+' <span class="summary-unit">'+tr('pdf_w_bags')+'</span></div></div>';
   } else if(rec.type==='brick'){
     summaryPanel='<div class="summary">'+
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_total_brick_qty')+'</div>'+
       '<div class="summary-sub">'+esc(rec.category||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
-      '<div class="summary-val">'+(rec.qty||0).toLocaleString()+' <span class="summary-unit">'+esc(tr(rec.unit==='Truck'?(rec.qty===1?'pdf_w_truck':'pdf_w_trucks'):(rec.qty===1?'pdf_w_piece':'pdf_w_pieces')))+'</span></div></div>';
+      '<div class="summary-val">'+(rec.qty||0).toLocaleString('en-IN')+' <span class="summary-unit">'+esc(tr(rec.unit==='Truck'?(rec.qty===1?'pdf_w_truck':'pdf_w_trucks'):(rec.qty===1?'pdf_w_piece':'pdf_w_pieces')))+'</span></div></div>';
   } else if(rec.type==='rcc'){
     summaryPanel='<div class="summary">'+
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_structural_volume_caps')+'</div>'+
