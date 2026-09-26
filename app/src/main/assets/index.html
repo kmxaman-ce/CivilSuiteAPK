@@ -97,7 +97,19 @@
   --sh:0 1px 0 rgba(0,0,0,.30);  --sh-card:0 4px 24px rgba(0,0,0,.60);
   --sh-btn:0 4px 16px rgba(0,0,0,.45); --sh-glass:0 8px 32px rgba(0,0,0,.50);
   --r:12px;--r-lg:16px;--r-xl:20px;--r-pill:100px;--r-nav:32px;
-  --spring:cubic-bezier(.34,1.56,.64,1); --ease-out:cubic-bezier(.2,0,0,1); --ease-std:cubic-bezier(.4,0,.2,1);
+  /* Updated to Material 3 Expressive's spring/emphasized curves (current
+     Android system-UI motion) — every existing var(--spring)/var(--ease-out)/
+     var(--ease-std) transition and animation across the app inherits the
+     refreshed feel from this one change. */
+  --spring:cubic-bezier(.42,1.67,.21,.90); --ease-out:cubic-bezier(.05,.7,.1,1); --ease-std:cubic-bezier(.2,0,0,1);
+  /* Material 3 Expressive motion tokens (current Android system-UI curves) —
+     used for nav/segment/modal/panel transitions so they match native
+     Android 15/16+ spring-physics motion instead of generic CSS easing. */
+  --m3-spring:cubic-bezier(.42,1.67,.21,.90);
+  --m3-spring-fast:cubic-bezier(.31,1.14,.28,1.02);
+  --m3-emphasized:cubic-bezier(.05,.7,.1,1);
+  --m3-emphasized-accel:cubic-bezier(.3,0,.8,.15);
+  --m3-standard:cubic-bezier(.2,0,0,1);
   --safe-top:env(safe-area-inset-top,0px); --safe-bottom:env(safe-area-inset-bottom,0px);
   --safe-left:env(safe-area-inset-left,0px); --safe-right:env(safe-area-inset-right,0px);
 }
@@ -174,7 +186,7 @@ body{
   color:var(--text);
   min-height:100vh;min-height:100dvh;height:auto;
   /* Extra bottom padding for the floating tab bar */
-  padding-bottom:calc(96px + var(--safe-bottom));
+  padding-bottom:calc(58px + var(--safe-bottom));
   padding-left:var(--safe-left);padding-right:var(--safe-right);
   -webkit-font-smoothing:antialiased;
   overflow-x:hidden;overflow-y:auto;
@@ -257,31 +269,31 @@ header p{font:500 .58rem/1 Inter,-apple-system;font-size:.58rem;color:var(--labe
 .btn-glass{display:flex;align-items:center;gap:5px;font:500 12px/1 Inter,-apple-system,sans-serif;font-size:12px;color:var(--text-dim);background:var(--fill);border:1px solid var(--border);padding:7px 12px;border-radius:var(--r-pill);cursor:pointer;transition:opacity .14s,transform .12s var(--spring)}
 .btn-glass .ms{font-size:13px}.btn-glass:active{opacity:.7;transform:scale(.94)}
 
-/* ── FLOATING MATERIAL 3 NAVIGATION BAR ── */
+/* ── MATERIAL 3 NAVIGATION BAR (flush bottom, compact height) ── */
 nav{
   position:fixed;
-  bottom:calc(14px + var(--safe-bottom));
-  left:14px;right:14px;
-  border-radius:28px;
+  bottom:0;
+  left:0;right:0;
+  border-radius:0;
   background:var(--glass-bg-nav);
   backdrop-filter:var(--glass-blur);
   -webkit-backdrop-filter:var(--glass-blur);
-  border:1px solid var(--glass-border);
-  padding:8px 10px;
+  border-top:1px solid var(--glass-border);
+  padding:4px 6px calc(4px + var(--safe-bottom));
   display:flex;
-  gap:4px;
+  gap:2px;
   z-index:1000;
-  box-shadow:0 6px 20px rgba(0,0,0,.22),0 1.5px 4px rgba(0,0,0,.16);
-  transition:background .3s,transform .18s var(--spring),opacity .18s;
+  box-shadow:0 -2px 10px rgba(0,0,0,.14);
+  transition:background .3s,transform .18s var(--m3-spring,var(--spring)),opacity .18s;
 }
-nav.hide{transform:translateY(calc(100% + 24px + var(--safe-bottom)));opacity:0;pointer-events:none}
-.ni{flex:1;padding:8px 2px;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .22s var(--ease-std),transform .13s var(--spring);min-width:0}
-.ni:active{animation:tapWiggle .32s var(--spring)}
-.ni-icon-wrap{display:flex;align-items:center;justify-content:center;padding:2px 14px;border-radius:16px;transition:background .22s var(--ease-std)}
+nav.hide{transform:translateY(100%);opacity:0;pointer-events:none}
+.ni{flex:1;padding:4px 2px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .22s var(--ease-std),transform .13s var(--m3-spring,var(--spring));min-width:0}
+.ni:active{animation:tapWiggle .32s var(--m3-spring,var(--spring))}
+.ni-icon-wrap{display:flex;align-items:center;justify-content:center;padding:2px 14px;border-radius:14px;transition:background .26s var(--m3-emphasized,var(--ease-std)),transform .26s var(--m3-emphasized,var(--ease-std))}
 .ni.active .ni-icon-wrap{background:var(--ios-orange-d);box-shadow:0 2px 8px rgba(29,78,216,.35)}
-.ni-icon{font-family:"Material Symbols Rounded";font-size:20px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 300,"GRAD" 0,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--spring)}
+.ni-icon{font-family:"Material Symbols Rounded";font-size:19px;line-height:1;display:block;font-style:normal;font-weight:normal;font-variation-settings:"FILL" 0,"wght" 300,"GRAD" 0,"opsz" 24;color:var(--label);transition:font-variation-settings .22s,color .18s,transform .22s var(--m3-spring,var(--spring))}
 .ni.active .ni-icon{font-variation-settings:"FILL" 1,"wght" 400,"GRAD" 0,"opsz" 24;color:#fff;transform:scale(1.04)}
-.ni-lbl{font:600 10px/1 Inter,-apple-system,sans-serif;color:var(--label);letter-spacing:.08px;transition:color .18s;white-space:nowrap}
+.ni-lbl{font:600 9.5px/1 Inter,-apple-system,sans-serif;color:var(--label);letter-spacing:.08px;transition:color .18s;white-space:nowrap}
 .ni.active .ni-lbl{color:var(--ios-orange-d)}
 
 /* ── HOME DASHBOARD ── */
@@ -478,16 +490,6 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .btn-save.t5{background:var(--ios-indigo-d);color:#fff;box-shadow:0 4px 18px rgba(124,58,237,.42)}
 .btn-save.t6{background:var(--brick);color:#fff;box-shadow:0 4px 18px rgba(234,88,12,.40)}
 
-/* ── DEV ROWS ── */
-.dev-row{display:flex;align-items:center;gap:12px;padding:12px 16px;position:relative}
-.dev-row+.dev-row::before{content:"";position:absolute;top:0;left:54px;right:0;height:.5px;background:var(--sep)}
-.dev-num{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font:600 11px/1 ui-monospace,"SF Mono",monospace;font-size:11px;flex-shrink:0}
-.dev-num.n1{background:var(--amber-bg);color:var(--ios-orange-d)}.dev-num.n2{background:var(--purp-bg);color:var(--ios-purple-d)}.dev-num.n3{background:var(--grn-bg);color:var(--ios-green-d)}.dev-num.n4{background:var(--chips-bg);color:var(--ios-teal-d)}
-.dev-name{font:600 16px/1 Inter,-apple-system;font-size:16px;color:var(--text);flex:1}
-.dev-role{font:400 12px/1 Inter,-apple-system;font-size:12px;color:var(--label);margin-top:3px}
-.dev-fb{width:34px;height:34px;border-radius:10px;background:#1877F2;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;text-decoration:none;transition:transform .14s var(--spring),filter .12s,box-shadow .14s;-webkit-tap-highlight-color:transparent;box-shadow:0 2px 8px rgba(24,119,242,.36)}
-.dev-fb:active{transform:scale(.82);filter:brightness(.88)}
-.dev-fb svg{display:block}
 
 /* ── MODULE RESET ── */
 .module-reset{display:flex;align-items:center;justify-content:center;gap:5px;padding:10px 16px;font:500 14px/1 Inter,-apple-system;font-size:14px;color:var(--ios-red-d);cursor:pointer;border:none;border-top:.5px solid var(--sep);-webkit-appearance:none;background:transparent;width:100%;border-radius:0;-webkit-tap-highlight-color:transparent;transition:background .12s;outline:none}
@@ -731,7 +733,7 @@ input:checked+.slider::before{transform:translateX(20px);box-shadow:0 2px 6px rg
 .pdf-cancel:active{background:rgba(255,59,59,.12)}
 
 /* ── iOS TOAST ── */
-.toast{position:fixed;bottom:calc(112px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(8px);font-family:Inter,-apple-system,sans-serif;font-weight:500;border-radius:var(--r-pill);background:rgba(20,24,36,.95);color:#fff;padding:11px 20px;border-radius:var(--r-pill);font:500 14px/1 Inter,-apple-system;font-size:14px;opacity:0;transition:opacity .20s var(--ease-std),transform .22s var(--ease-out);z-index:2000;pointer-events:none;white-space:nowrap;border:.5px solid rgba(255,255,255,.10);letter-spacing:-.1px;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);box-shadow:0 8px 24px rgba(0,0,0,.40)}
+.toast{position:fixed;bottom:calc(72px + var(--safe-bottom));left:50%;transform:translateX(-50%) translateY(8px);font-family:Inter,-apple-system,sans-serif;font-weight:500;border-radius:var(--r-pill);background:rgba(20,24,36,.95);color:#fff;padding:11px 20px;border-radius:var(--r-pill);font:500 14px/1 Inter,-apple-system;font-size:14px;opacity:0;transition:opacity .20s var(--ease-std),transform .22s var(--ease-out);z-index:2000;pointer-events:none;white-space:nowrap;border:.5px solid rgba(255,255,255,.10);letter-spacing:-.1px;backdrop-filter:blur(30px);-webkit-backdrop-filter:blur(30px);box-shadow:0 8px 24px rgba(0,0,0,.40)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 /* ── FOOTER ── */
@@ -831,7 +833,7 @@ body *{font-family:inherit}
 .ms,.ms-sm,.ms-xl,.ni-icon{font-family:'Material Symbols Rounded'!important}
 /* JetBrains Mono for numbers/code */
 .res-big,.mat-v,.dash-card-val,.home-stat-val,.pay-amount-preview-value,
-.grand-total-bar .gt-val,.sc-val,.uc-val,.dev-num,.pay-dash-val,
+.grand-total-bar .gt-val,.sc-val,.uc-val,.pay-dash-val,
 input[type=number],.steel-dia-inp,.elb-badge{
   font-family:'JetBrains Mono',ui-monospace,'SF Mono',monospace!important}
 /* Sora for display headings */
@@ -931,16 +933,16 @@ html.light .slider{background:#D1D9E8}
     <p class="sp-sub" data-i18n="lbl_splash_sub">Ultimate Edition · v1.0 · BNBC 2020</p>
     <div class="sp-pills">
       <span class="sp-pill a" data-i18n="sand_name">Sand</span><span class="sp-pill b" data-i18n="chips_name">Stone Chips</span><span class="sp-pill c" data-i18n="steel_name">Steel Bars</span>
-      <span class="sp-pill d" data-i18n="cement_name">Cement</span><span class="sp-pill e" data-i18n="rcc_name_short">RCC</span><span class="sp-pill f" data-i18n="lbl_contractor_pay">Contractor Pay</span><span class="sp-pill d" data-i18n="lbl_records_pdf">Records &amp; PDF</span>
+      <span class="sp-pill d" data-i18n="cement_name">Cement</span><span class="sp-pill e" data-i18n="rcc_name_short">RCC</span><span class="sp-pill f" data-i18n="lbl_contractor_pay">Contractor Pay</span><span class="sp-pill d" data-i18n="lbl_records_pdf">Records & PDF</span>
     </div>
     <div class="sp-feats">
       <div class="sp-feat-ttl" data-i18n="lbl_capabilities">Capabilities</div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--amber-bg)"><span class="ms ms-sm" style="color:var(--amber)">straighten</span></div><div class="sp-feat-txt" data-i18n="feat_1">Multi-point field measurement with avg &amp; outlier detection</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--amber-bg)"><span class="ms ms-sm" style="color:var(--amber)">straighten</span></div><div class="sp-feat-txt" data-i18n="feat_1">Multi-point field measurement with avg & outlier detection</div></div>
       <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">bar_chart</span></div><div class="sp-feat-txt" data-i18n="feat_2">Steel bar inventory by diameter (8–32 mm)</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">deployed_code</span></div><div class="sp-feat-txt" data-i18n="feat_3">Cement bags entry with brand &amp; vehicle tracking</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">deployed_code</span></div><div class="sp-feat-txt" data-i18n="feat_3">Cement bags entry with brand & vehicle tracking</div></div>
       <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--blu-bg)"><span class="ms ms-sm" style="color:var(--blu)">account_balance</span></div><div class="sp-feat-txt" data-i18n="feat_4">BNBC 2020 RCC material estimation with mix comparison</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">receipt_long</span></div><div class="sp-feat-txt" data-i18n="feat_5">Contractor payment log by trade type with date &amp; remarks</div></div>
-      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">file_present</span></div><div class="sp-feat-txt" data-i18n="feat_6">PDF export per material with signature lines &amp; grand total</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">receipt_long</span></div><div class="sp-feat-txt" data-i18n="feat_5">Contractor payment log by trade type with date & remarks</div></div>
+      <div class="sp-feat-row"><div class="sp-feat-ic" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">file_present</span></div><div class="sp-feat-txt" data-i18n="feat_6">PDF export per material with signature lines & grand total</div></div>
     </div>
   </div>
   <div class="sp-dev"><div class="sp-dev-by" data-i18n="lbl_developed_by">DEVELOPED BY</div><div class="sp-dev-n"><span class="glow-name">K. M. Zaman</span></div><div class="sp-dev-r" data-i18n="lbl_civil_engineer_dev">Civil Engineer · Developer</div></div>
@@ -1064,7 +1066,7 @@ html.light .slider{background:#D1D9E8}
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_input_mode">Input Mode</span></div>
     <div class="grp-card"><div class="seg-wrap"><div class="seg" id="fmt-mode-seg">
-      <div class="seg-item active" onclick="setFMTMode('ftin',this)"><span data-i18n="opt_ftin">ft &amp; in</span></div>
+      <div class="seg-item active" onclick="setFMTMode('ftin',this)"><span data-i18n="opt_ftin">ft & in</span></div>
       <div class="seg-item" onclick="setFMTMode('decft',this)"><span data-i18n="opt_decft">Dec ft</span></div>
       <div class="seg-item" onclick="setFMTMode('inch',this)"><span data-i18n="opt_inches">Inches</span></div>
       <div class="seg-item" onclick="setFMTMode('meter',this)"><span data-i18n="opt_meter">Meter</span></div>
@@ -1144,7 +1146,7 @@ html.light .slider{background:#D1D9E8}
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_input_mode">Input Mode</span></div>
     <div class="grp-card"><div class="seg-wrap"><div class="seg" id="chips-mode-seg">
-      <div class="seg-item active" onclick="setChipsMode('ftin',this)"><span data-i18n="opt_ftin">ft &amp; in</span></div>
+      <div class="seg-item active" onclick="setChipsMode('ftin',this)"><span data-i18n="opt_ftin">ft & in</span></div>
       <div class="seg-item" onclick="setChipsMode('decft',this)"><span data-i18n="opt_decft">Dec ft</span></div>
       <div class="seg-item" onclick="setChipsMode('inch',this)"><span data-i18n="opt_inches">Inches</span></div>
       <div class="seg-item" onclick="setChipsMode('meter',this)"><span data-i18n="opt_meter">Meter</span></div>
@@ -1277,7 +1279,7 @@ html.light .slider{background:#D1D9E8}
 
 <!-- PANEL: BRICK -->
 <div class="panel subpage" id="p-brick" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">view_module</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class &amp; Picket · Truck / Piece</div></div></div>
+  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">view_module</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class & Picket · Truck / Piece</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
       <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
@@ -1336,7 +1338,7 @@ html.light .slider{background:#D1D9E8}
   </div>
 
   <div class="grp">
-    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_grade_wc">Concrete Grade &amp; W/C Ratio</span></div>
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_grade_wc">Concrete Grade & W/C Ratio</span></div>
     <div class="grp-card">
       <div class="seg-wrap"><div class="seg" id="grade-seg">
         <div class="seg-item" onclick="setGrade('M20',this)">M20</div>
@@ -1732,14 +1734,6 @@ html.light .slider{background:#D1D9E8}
         <div style="font:600 10px/1 Inter,sans-serif;color:var(--label);letter-spacing:2.5px;text-transform:uppercase;margin-bottom:12px" data-i18n="lbl_ultimate_edition">Ultimate Edition</div>
         <div class="version-chip"><span data-i18n="lbl_version">Version 1.0 · BNBC 2020</span></div>
       </div>
-      <div class="row" style="cursor:pointer" onclick="openSubPage('about')">
-        <div class="row-icon" style="background:var(--purp-bg)"><span class="ms ms-sm" style="color:var(--purp)">info</span></div>
-        <div style="flex:1">
-          <div class="row-lbl" data-i18n="lbl_about_dev_info">About &amp; Developer Info</div>
-          <div style="font:400 10px/1 Inter,sans-serif;color:var(--label);margin-top:3px" data-i18n="lbl_about_dev_info_sub">Dev team · references · standards used</div>
-        </div>
-        <span class="ms ms-sm" style="color:var(--label)">chevron_right</span>
-      </div>
     </div>
   </div>
 
@@ -1779,10 +1773,11 @@ html.light .slider{background:#D1D9E8}
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="sec_language">Language</span></div>
     <div class="grp-card" style="padding:12px">
       <div class="seg-wrap"><div class="seg" id="lang-seg">
+        <div class="seg-item" id="lang-system" onclick="setLanguageMode('system')" data-i18n="opt_system_default">System</div>
         <div class="seg-item" id="lang-en" onclick="setLanguage('en')">English</div>
         <div class="seg-item" id="lang-bn" onclick="setLanguage('bn')">বাংলা</div>
       </div></div>
-      <div style="font:400 11px/1.5 Inter,sans-serif;color:var(--label);padding:6px 4px 0;text-align:center" data-i18n="lang_hint">
+      <div style="font:400 11px/1.5 Inter,sans-serif;color:var(--label);padding:6px 4px 0;text-align:center" data-i18n="lang_hint" id="lang-hint-txt">
         Switch the app's language instantly
       </div>
     </div>
@@ -1790,7 +1785,7 @@ html.light .slider{background:#D1D9E8}
 
   <!-- Data & Backup -->
   <div class="grp">
-    <div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span><span data-i18n="lbl_data_backup">Data &amp; Backup</span></div>
+    <div class="grp-lbl"><span class="grp-dot" style="background:var(--grn)"></span><span data-i18n="lbl_data_backup">Data & Backup</span></div>
     <div class="grp-card">
       <div class="row" style="cursor:pointer" onclick="backupLocal()">
         <div class="row-icon" style="background:var(--grn-bg)"><span class="ms ms-sm" style="color:var(--grn)">download</span></div>
@@ -1847,54 +1842,6 @@ html.light .slider{background:#D1D9E8}
     </div>
   </div>
 
-  <footer><span data-i18n="lbl_made_with">Made with</span> <span class="h">♥</span> <span data-i18n="lbl_by">by</span> <span class="glow-name">K. M. Zaman</span> · <span data-i18n="lbl_footer_civil_suite">Civil Suite v1.0</span></footer>
-</div>
-
-<!-- ═══ SUB-PAGE: ABOUT (Dev Team / Modules / Standards) ═══ -->
-<div class="panel subpage" id="p-about" role="tabpanel">
-  <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon" style="background:var(--purp);box-shadow:0 4px 16px rgba(6,182,212,.40)"><span class="ms ms-xl" style="color:#fff;font-variation-settings:'FILL' 0,'wght' 200,'GRAD' -25,'opsz' 48">info</span></div><div><div class="th-title" data-i18n="about_th_title">About</div><div class="th-sub" data-i18n="about_th_sub">App Info · Dev Team · Version</div></div></div>
-  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span><span data-i18n="lbl_dev_team">Development Team</span></div>
-    <div class="grp-card">
-      <div class="dev-row">
-        <div class="dev-num n1">01</div>
-        <div style="flex:1">
-          <div class="dev-name"><span class="glow-name">K. M. Zaman</span></div>
-          <div class="dev-role" data-i18n="lbl_dev_role_zaman">Lead Developer · Project Owner · Civil Engineer</div>
-        </div>
-        <a class="dev-fb" href="https://www.facebook.com/km.zaman.1996" target="_blank" rel="noopener" title="Facebook Profile">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.413c0-3.025 1.792-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.887v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-        </a>
-      </div>
-      <div class="dev-row"><div class="dev-num n2">02</div><div><div class="dev-name">Claude (Anthropic)</div><div class="dev-role" data-i18n="lbl_dev_role_claude">AI Engineering Assistant · Sonnet 4.5</div></div></div>
-      <div class="dev-row"><div class="dev-num n3">03</div><div><div class="dev-name">ChatGPT (OpenAI)</div><div class="dev-role" data-i18n="lbl_dev_role_chatgpt">AI Code Review · Audit Assistant</div></div></div>
-      <div class="dev-row"><div class="dev-num n4">04</div><div><div class="dev-name">Gemini (Google)</div><div class="dev-role" data-i18n="lbl_dev_role_gemini">AI Engineering Audit · BNBC Validation</div></div></div>
-    </div>
-  </div>
-  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span><span data-i18n="lbl_modules">Modules</span></div>
-    <div class="grp-card">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:12px">
-        <div style="background:var(--amber-bg);border:1px solid var(--amber-bg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--amber);margin-bottom:5px" data-i18n="sand_name">Sand</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_sand_desc">Multi-point measurement with avg, geometry &amp; unit conversion</div></div>
-        <div style="background:var(--chips-bg);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--chips);margin-bottom:5px" data-i18n="chips_name">Stone Chips</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_chips_desc">Same multi-point engine with chips-specific record format</div></div>
-        <div style="background:var(--steel-cbg);border:1px solid var(--steel-cbg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--steel-c);margin-bottom:5px" data-i18n="steel_name">Steel Bars</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_steel_desc">Diameter-wise KG entry (8–32mm) with grand total &amp; tonnage</div></div>
-        <div style="background:var(--cement-bg);border:1px solid rgba(6,182,212,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--cement);margin-bottom:5px" data-i18n="cement_name">Cement</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_cement_desc">Bag count with brand, vehicle tracking &amp; KG conversion</div></div>
-        <div style="background:var(--brick-bg);border:1px solid rgba(217,118,77,.28);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--brick);margin-bottom:5px" data-i18n="brick_name">Brick</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_brick_desc">Class &amp; Picket category with Truck/Piece quantity tracking</div></div>
-        <div style="background:var(--blu-bg);border:1px solid rgba(124,58,237,.25);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--blu);margin-bottom:5px" data-i18n="rcc_name">RCC</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_rcc_desc">BNBC 2020 multi-element estimator with mix comparison</div></div>
-        <div style="background:var(--pay-bg);border:1px solid var(--pay-bg);border-radius:var(--r);padding:10px 11px"><div style="font:700 9px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;color:var(--pay);margin-bottom:5px" data-i18n="lbl_mod_pay_title">Contractor Pay</div><div style="font:400 10px/1.4 Inter,sans-serif;color:var(--text-dim)" data-i18n="lbl_mod_pay_desc">Payment log by trade type with search, filter &amp; PDF export</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--purp)"></span><span data-i18n="lbl_standards_refs">Standards &amp; References</span></div>
-    <div class="grp-card">
-      <div class="coll-hdr" id="chdr-refs" onclick="toggleColl('refs')"><span><span class="ms ms-sm" style="vertical-align:-3px;margin-right:6px">menu_book</span><span data-i18n="lbl_show_refs">Show References</span></span><span class="ms ms-sm coll-chev">expand_more</span></div>
-      <div class="coll-body" id="cbody-refs">
-        <div class="notebox t5" style="margin:12px">
-          <div class="notebox-text">• BNBC 2020 — Bangladesh National Building Code
-• Unit weight of steel: 7850 kg/m³ (standard)
-• Cement bag: 50 kg (standard Bangladesh)</div>
-        </div>
-      </div>
-    </div>
-  </div>
   <footer><span data-i18n="lbl_made_with">Made with</span> <span class="h">♥</span> <span data-i18n="lbl_by">by</span> <span class="glow-name">K. M. Zaman</span> · <span data-i18n="lbl_footer_civil_suite">Civil Suite v1.0</span></footer>
 </div>
 
@@ -2971,7 +2918,7 @@ var I18N={
   "cement_th_title": "Cement Entry",
   "cement_th_sub": "Bags · 50 KG per bag",
   "brick_th_title": "Brick Entry",
-  "brick_th_sub": "Class &amp; Picket · Truck / Piece",
+  "brick_th_sub": "Class & Picket · Truck / Piece",
   "rcc_th_sub": "BNBC 2020 · Multi-element · Mix Comparison",
   "lbl_project_info": "Project Info",
   "lbl_vehicle_info": "Vehicle Information",
@@ -3002,7 +2949,7 @@ var I18N={
   "lbl_input_mode": "Input Mode",
   "lbl_measurements_per_dim": "Measurements per Dimension",
   "lbl_lwh_measurements": "L · W · H Measurements",
-  "opt_ftin": "ft &amp; in",
+  "opt_ftin": "ft & in",
   "opt_decft": "Dec ft",
   "opt_inches": "Inches",
   "opt_meter": "Meter",
@@ -3074,15 +3021,13 @@ var I18N={
   "nav_more": "More",
   "more_th_sub": "Logs · Backup · Settings · About",
   "lbl_ultimate_edition": "Ultimate Edition",
-  "lbl_about_dev_info": "About &amp; Developer Info",
-  "lbl_about_dev_info_sub": "Dev team · references · standards used",
   "lbl_site_diary": "Site Diary",
   "lbl_site_log_keeper": "Site Log Keeper",
   "lbl_site_log_keeper_sub": "Construction diary with timestamped entries",
-  "lbl_styles_themes": "Styles &amp; Themes",
+  "lbl_styles_themes": "Styles & Themes",
   "lbl_dark_mode": "Dark Mode",
-  "lbl_dark_mode_sub": "OxygenOS Engineering Theme · Light &amp; Dark",
-  "lbl_data_backup": "Data &amp; Backup",
+  "lbl_dark_mode_sub": "OxygenOS Engineering Theme · Light & Dark",
+  "lbl_data_backup": "Data & Backup",
   "lbl_export_backup": "Export Backup File",
   "lbl_export_backup_sub": "Save all records as a .json file to your device",
   "lbl_import_backup": "Import Backup File",
@@ -3100,23 +3045,14 @@ var I18N={
   "lbl_splash_sub": "Ultimate Edition · v1.0 · BNBC 2020",
   "sec_language": "Language",
   "lang_hint": "Switch the app's language instantly",
+  "lang_hint_system": "Following your phone's system language ({lang})",
+  "opt_system_default": "System",
+  "toast_lang_system_on": "Now following your phone's system language",
   "about_th_title": "About",
   "about_th_sub": "App Info · Dev Team · Version",
-  "lbl_dev_team": "Development Team",
-  "lbl_dev_role_zaman": "Lead Developer · Project Owner · Civil Engineer",
-  "lbl_dev_role_claude": "AI Engineering Assistant · Sonnet 4.5",
-  "lbl_dev_role_chatgpt": "AI Code Review · Audit Assistant",
-  "lbl_dev_role_gemini": "AI Engineering Audit · BNBC Validation",
-  "lbl_modules": "Modules",
-  "lbl_mod_sand_desc": "Multi-point measurement with avg, geometry &amp; unit conversion",
   "lbl_mod_chips_desc": "Same multi-point engine with chips-specific record format",
-  "lbl_mod_steel_desc": "Diameter-wise KG entry (8–32mm) with grand total &amp; tonnage",
-  "lbl_mod_cement_desc": "Bag count with brand, vehicle tracking &amp; KG conversion",
-  "lbl_mod_brick_desc": "Class &amp; Picket category with Truck/Piece quantity tracking",
   "lbl_mod_rcc_desc": "BNBC 2020 multi-element estimator with mix comparison",
   "lbl_mod_pay_title": "Contractor Pay",
-  "lbl_mod_pay_desc": "Payment log by trade type with search, filter &amp; PDF export",
-  "lbl_standards_refs": "Standards &amp; References",
   "lbl_show_refs": "Show References",
   "lbl_footer_civil_suite": "Civil Suite v1.0",
   "lbl_made_with": "Made with",
@@ -3128,18 +3064,18 @@ var I18N={
   "lbl_civil_engineer_dev": "Civil Engineer · Developer",
   "btn_enter_app": "ENTER APP",
   "lbl_capabilities": "Capabilities",
-  "feat_1": "Multi-point field measurement with avg &amp; outlier detection",
+  "feat_1": "Multi-point field measurement with avg & outlier detection",
   "feat_2": "Steel bar inventory by diameter (8–32 mm)",
-  "feat_3": "Cement bags entry with brand &amp; vehicle tracking",
+  "feat_3": "Cement bags entry with brand & vehicle tracking",
   "feat_4": "BNBC 2020 RCC material estimation with mix comparison",
-  "feat_5": "Contractor payment log by trade type with date &amp; remarks",
-  "feat_6": "PDF export per material with signature lines &amp; grand total",
+  "feat_5": "Contractor payment log by trade type with date & remarks",
+  "feat_6": "PDF export per material with signature lines & grand total",
   "lbl_contractor_pay": "Contractor Pay",
-  "lbl_records_pdf": "Records &amp; PDF",
+  "lbl_records_pdf": "Records & PDF",
   "lbl_structure_elements": "Structure Elements",
   "btn_add_element": "Add Element",
   "hint_add_elements": "Add beams, slabs, columns separately — volumes are combined automatically.",
-  "lbl_grade_wc": "Concrete Grade &amp; W/C Ratio",
+  "lbl_grade_wc": "Concrete Grade & W/C Ratio",
   "lbl_override": "Override",
   "lbl_wc_ratio": "W/C Ratio",
   "hint_bnbc_wc": "BNBC 2020: M20→0.55 · M25→0.50 · M30→0.45 · Override for special mixes.",
@@ -3309,9 +3245,9 @@ var I18N={
   "pdf_report_date": "Report Date",
   "pdf_site_log_entries": "Site Log Entries",
   "pdf_log_entry_col": "Log Entry",
-  "pdf_date_time_col": "Date &amp; Time",
+  "pdf_date_time_col": "Date & Time",
   "pdf_civil_suite": "CIVIL SUITE",
-  "pdf_ultimate_material_report": "Ultimate Edition · Material &amp; Payment Report · BNBC 2020",
+  "pdf_ultimate_material_report": "Ultimate Edition · Material & Payment Report · BNBC 2020",
   "pdf_ultimate_engineering_report": "Ultimate Edition · Engineering Report",
   "pdf_generated_by": "Generated by Civil Suite Ultimate",
   "pdf_version_label": "Version",
@@ -3475,8 +3411,6 @@ var I18N={
   "nav_more": "আরও",
   "more_th_sub": "লগ · ব্যাকআপ · সেটিংস · অ্যাবাউট",
   "lbl_ultimate_edition": "আল্টিমেট এডিশন",
-  "lbl_about_dev_info": "অ্যাবাউট ও ডেভেলপার তথ্য",
-  "lbl_about_dev_info_sub": "ডেভ টিম · রেফারেন্স · ব্যবহৃত মানদণ্ড",
   "lbl_site_diary": "সাইট ডায়েরি",
   "lbl_site_log_keeper": "সাইট লগ কিপার",
   "lbl_site_log_keeper_sub": "সময়সহ এন্ট্রিযুক্ত নির্মাণ ডায়েরি",
@@ -3501,23 +3435,14 @@ var I18N={
   "lbl_splash_sub": "আল্টিমেট এডিশন · ভার্সন ১.০ · বিএনবিসি ২০২০",
   "sec_language": "ভাষা",
   "lang_hint": "অ্যাপের ভাষা তাৎক্ষণিকভাবে পরিবর্তন করুন",
+  "lang_hint_system": "আপনার ফোনের সিস্টেম ভাষা অনুসরণ করছে ({lang})",
+  "opt_system_default": "সিস্টেম",
+  "toast_lang_system_on": "এখন আপনার ফোনের সিস্টেম ভাষা অনুসরণ করা হচ্ছে",
   "about_th_title": "অ্যাবাউট",
   "about_th_sub": "অ্যাপ তথ্য · ডেভ টিম · ভার্সন",
-  "lbl_dev_team": "ডেভেলপমেন্ট টিম",
-  "lbl_dev_role_zaman": "লিড ডেভেলপার · প্রজেক্ট মালিক · সিভিল ইঞ্জিনিয়ার",
-  "lbl_dev_role_claude": "এআই ইঞ্জিনিয়ারিং সহকারী · Sonnet 4.5",
-  "lbl_dev_role_chatgpt": "এআই কোড রিভিউ · অডিট সহকারী",
-  "lbl_dev_role_gemini": "এআই ইঞ্জিনিয়ারিং অডিট · বিএনবিসি যাচাই",
-  "lbl_modules": "মডিউল",
-  "lbl_mod_sand_desc": "গড়, জ্যামিতি ও একক রূপান্তরসহ মাল্টি-পয়েন্ট পরিমাপ",
   "lbl_mod_chips_desc": "চিপস-নির্দিষ্ট রেকর্ড ফরম্যাটসহ একই মাল্টি-পয়েন্ট ইঞ্জিন",
-  "lbl_mod_steel_desc": "সর্বমোট ও টনসহ ব্যাস অনুযায়ী কেজি এন্ট্রি (৮–৩২মিমি)",
-  "lbl_mod_cement_desc": "ব্র্যান্ড, যানবাহন ট্র্যাকিং ও কেজি রূপান্তরসহ ব্যাগ গণনা",
-  "lbl_mod_brick_desc": "ট্রাক/পিস পরিমাণ ট্র্যাকিংসহ শ্রেণী ও পিকেট ক্যাটাগরি",
   "lbl_mod_rcc_desc": "মিক্স তুলনাসহ বিএনবিসি ২০২০ মাল্টি-এলিমেন্ট এস্টিমেটর",
   "lbl_mod_pay_title": "ঠিকাদার পেমেন্ট",
-  "lbl_mod_pay_desc": "সার্চ, ফিল্টার ও পিডিএফ এক্সপোর্টসহ কাজের ধরন অনুযায়ী পেমেন্ট লগ",
-  "lbl_standards_refs": "মানদণ্ড ও রেফারেন্স",
   "lbl_show_refs": "রেফারেন্স দেখুন",
   "lbl_footer_civil_suite": "Civil Suite ভার্সন ১.০",
   "lbl_made_with": "তৈরি করা হয়েছে",
@@ -3749,7 +3674,20 @@ function tr(key){
   var lang=getCurrentLang();
   return (I18N[lang] && I18N[lang][key]) || (I18N.en && I18N.en[key]) || key;
 }
+// Resolves the device/system UI language to 'bn' or 'en'. WebView exposes
+// the Android app/system locale via navigator.language(s), so "System
+// Default" mode can genuinely track the phone's language instead of
+// always falling back to English.
+function resolveSystemLang(){
+  try{
+    var langs=(navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language||'en'];
+    for(var i=0;i<langs.length;i++){ if(/^bn/i.test(langs[i])) return 'bn'; }
+  }catch(e){}
+  return 'en';
+}
 function getCurrentLang(){
+  var mode=localStorage.getItem('csu3_lang_mode')||'manual';
+  if(mode==='system') return resolveSystemLang();
   return localStorage.getItem('csu3_lang') || 'en';
 }
 function applyLanguage(lang){
@@ -3771,14 +3709,28 @@ function applyLanguage(lang){
   if(typeof renderLogs==='function'){var ll=document.getElementById('log-list'); if(ll) renderLogs();}
   if(typeof renderRecords==='function'){var rl=document.getElementById('rec-list'); if(rl) renderRecords();}
   if(typeof renderRecentActivity==='function') renderRecentActivity();
-  var enBtn=document.getElementById('lang-en'), bnBtn=document.getElementById('lang-bn');
-  if(enBtn) enBtn.classList.toggle('active', lang==='en');
-  if(bnBtn) bnBtn.classList.toggle('active', lang==='bn');
+  // Exactly one segmented option is highlighted: "System" while system mode
+  // is on (regardless of which language that currently resolves to), or
+  // whichever language the user picked manually.
+  var mode=localStorage.getItem('csu3_lang_mode')||'manual';
+  var sysBtn=document.getElementById('lang-system'), enBtn=document.getElementById('lang-en'), bnBtn=document.getElementById('lang-bn');
+  if(sysBtn) sysBtn.classList.toggle('active', mode==='system');
+  if(enBtn) enBtn.classList.toggle('active', mode==='manual' && lang==='en');
+  if(bnBtn) bnBtn.classList.toggle('active', mode==='manual' && lang==='bn');
+  var hintEl=document.getElementById('lang-hint-txt');
+  if(hintEl) hintEl.textContent = (mode==='system') ? tr('lang_hint_system').replace('{lang}', lang==='bn'?'বাংলা':'English') : tr('lang_hint');
 }
 function setLanguage(lang){
+  localStorage.setItem('csu3_lang_mode','manual');
   localStorage.setItem('csu3_lang', lang);
   applyLanguage(lang);
   showToast(lang==='bn' ? 'ভাষা পরিবর্তন হয়েছে' : 'Language changed');
+}
+function setLanguageMode(mode){
+  localStorage.setItem('csu3_lang_mode', mode);
+  var resolved=getCurrentLang();
+  applyLanguage(resolved);
+  showToast(tr('toast_lang_system_on'));
 }
 
 
