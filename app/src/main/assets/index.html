@@ -1330,6 +1330,15 @@ html.light select,html.light textarea{background:var(--field-bg)}
       <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="c_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_chips_qty_mode">Quantity Mode</span></div>
+    <div class="grp-card"><div class="seg-wrap"><div class="seg" id="chips-qty-mode-seg">
+      <div class="seg-item active" onclick="setChipsQtyMode('cft',this)"><span data-i18n="opt_cft_legacy">CFT (Legacy)</span></div>
+      <div class="seg-item" onclick="setChipsQtyMode('ton',this)"><span data-i18n="opt_ton_manual">Tons (Manual)</span></div>
+    </div></div>
+    <div class="grp-note" data-i18n="hint_chips_qty_mode">Use CFT for the traditional L×W×H method, or switch to Tons when the chips are delivered by weight and entered manually.</div>
+    </div>
+  </div>
+  <div id="chips-cft-section">
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_input_mode">Input Mode</span></div>
     <div class="grp-card"><div class="seg-wrap"><div class="seg" id="chips-mode-seg">
       <div class="seg-item active" onclick="setChipsMode('ftin',this)"><span data-i18n="opt_ftin">ft & in</span></div>
@@ -1377,6 +1386,25 @@ html.light select,html.light textarea{background:var(--field-bg)}
     </div>
   </div>
   <div style="padding:0 0 8px"><button class="btn-save t2" id="chips-add-btn" onclick="saveChipsRecord()" style="display:none"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
+  </div>
+  <div id="chips-ton-section" style="display:none">
+    <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_chips_ton_qty">Tonnage (Manual Entry)</span></div>
+      <div class="grp-card">
+        <div class="row">
+          <div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">scale</span></div>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="c_ton_qty" min="0" placeholder="0.000" step="0.001"></div></div>
+          <div style="margin-left:6px;flex-shrink:0;text-align:center">
+            <div style="font:700 9px/1 Inter,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px" data-i18n="lbl_unit">Unit</div>
+            <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--chips)" data-i18n="opt_ton">TON</div>
+          </div>
+        </div>
+        <div class="grp-note" data-i18n="hint_chips_ton_manual">Enter the delivery weight as shown on the vehicle's weight slip.</div>
+      </div>
+    </div>
+    <div class="grp"><div class="grp-card"><div class="btn-row">
+      <button class="btn-save t2" onclick="saveChipsTonRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button>
+    </div></div></div>
+  </div>
 </div>
 
 <!-- PANEL 3: STEEL -->
@@ -2187,7 +2215,8 @@ function normalizeRecord(r){
   // to an actual number — a backup with these stored as strings (or missing)
   // used to crash the whole app on load instead of just that one record.
   if(r.type==='sand'||r.type==='chips'){
-    r.vol=numOr(r.vol); r.volM3=numOr(r.volM3);
+    if(r.type==='chips'&&r.qtyUnit==='ton'){ r.tonQty=numOr(r.tonQty); }
+    else { r.vol=numOr(r.vol); r.volM3=numOr(r.volM3); }
   } else if(r.type==='steel'){
     r.totalKg=numOr(r.totalKg); r.totalTon=numOr(r.totalTon,r.totalKg/1000);
     if(r.breakdown && typeof r.breakdown==='object'){
@@ -2615,7 +2644,8 @@ function renderRecentActivity(){
   var typeKey={sand:'sand_name',chips:'chips_name',steel:'steel_name',cement:'cement_name',brick:'brick_name',rcc:'rcc_name_short',payment:'lbl_payment_short'};
   list.innerHTML=recent.map(function(r){
     var val='';
-    if(r.type==='sand'||r.type==='chips') val=(r.vol||0).toFixed(2)+' CFT';
+    if(r.type==='chips'&&r.qtyUnit==='ton') val=(r.tonQty||0).toFixed(3)+' TON';
+    else if(r.type==='sand'||r.type==='chips') val=(r.vol||0).toFixed(2)+' CFT';
     else if(r.type==='steel') val=(r.totalTon||(r.totalKg?r.totalKg/1000:0)||0).toFixed(2)+' TON';
     else if(r.type==='cement') val=(r.bags||0)+' '+tr('pdf_w_bags');
     else if(r.type==='brick') val=(r.qty||0).toLocaleString('en-IN')+' '+esc(r.unit||'');
@@ -2986,6 +3016,29 @@ function calcChips(){
   document.getElementById('c-bH').textContent=fmtFt(avgs[2]); document.getElementById('c-bHd').textContent=fmtDecFt(avgs[2]);
 }
 function copyChipsResult(){var v=document.getElementById('c-vol').textContent;navigator.clipboard.writeText(v+' CFT').catch(function(){});showToast(tr('toast_copied')+' '+v+' CFT');}
+var chipsQtyMode='cft';
+function setChipsQtyMode(mode,el){
+  chipsQtyMode=mode;
+  var seg=document.getElementById('chips-qty-mode-seg');
+  if(seg) seg.querySelectorAll('.seg-item').forEach(function(s){s.classList.remove('active');});
+  if(el) el.classList.add('active');
+  var cft=document.getElementById('chips-cft-section'), ton=document.getElementById('chips-ton-section');
+  if(cft) cft.style.display=(mode==='ton')?'none':'';
+  if(ton) ton.style.display=(mode==='ton')?'':'none';
+}
+function saveChipsTonRecord(){
+  if(isLocked('chips'))return;
+  var ton=parseFloat(document.getElementById('c_ton_qty').value)||0;
+  if(!ton||ton<=0){showToast(tr('toast_enter_one_value'));return;}
+  saveRecord({id:genId(),createdAt:Date.now(),type:'chips',qtyUnit:'ton',
+    date:document.getElementById('c_proj_date').value||todayISO(),
+    proj:document.getElementById('c_proj_name').value||'Unnamed',addr:document.getElementById('c_proj_addr').value||'',
+    category:document.getElementById('c_category').value||'',
+    tonQty:ton,
+    vehNum:document.getElementById('c_veh_num').value,drvName:document.getElementById('c_drv_name').value,drvMob:document.getElementById('c_drv_mob').value,voucher:document.getElementById('c_voucher').value
+  });
+  document.getElementById('c_ton_qty').value='';
+}
 function saveChipsRecord(){
   if(isLocked('chips'))return;
   var vol=parseFloat(document.getElementById('c-vol').textContent)||0;
@@ -3132,6 +3185,13 @@ var I18N={
   "lbl_avg_h": "Avg H",
   "btn_copy": "Copy",
   "hint_empty_skip": "Empty fields are skipped automatically.",
+  "lbl_chips_qty_mode": "Quantity Mode",
+  "opt_cft_legacy": "CFT (Legacy)",
+  "opt_ton_manual": "Tons (Manual)",
+  "hint_chips_qty_mode": "Use CFT for the traditional L×W×H method, or switch to Tons when the chips are delivered by weight and entered manually.",
+  "lbl_chips_ton_qty": "Tonnage (Manual Entry)",
+  "opt_ton": "TON",
+  "hint_chips_ton_manual": "Enter the delivery weight as shown on the vehicle's weight slip.",
   "lbl_input_mode": "Input Mode",
   "lbl_measurements_per_dim": "Measurements per Dimension",
   "lbl_lwh_measurements": "L · W · H Measurements",
@@ -3522,6 +3582,13 @@ var I18N={
   "lbl_avg_h": "গড় উচ্চতা",
   "btn_copy": "কপি",
   "hint_empty_skip": "খালি ঘরগুলো স্বয়ংক্রিয়ভাবে বাদ যাবে।",
+  "lbl_chips_qty_mode": "পরিমাণ মোড",
+  "opt_cft_legacy": "সিএফটি (প্রচলিত)",
+  "opt_ton_manual": "টন (ম্যানুয়াল)",
+  "hint_chips_qty_mode": "প্রচলিত দৈর্ঘ্য×প্রস্থ×উচ্চতা পদ্ধতির জন্য সিএফটি ব্যবহার করুন, অথবা ওজন অনুযায়ী সরবরাহ করা হলে টন মোডে গিয়ে সরাসরি টন লিখুন।",
+  "lbl_chips_ton_qty": "টনেজ (ম্যানুয়াল এন্ট্রি)",
+  "opt_ton": "টন",
+  "hint_chips_ton_manual": "গাড়ির ওজন স্লিপে উল্লিখিত সরবরাহের ওজন লিখুন।",
   "lbl_input_mode": "ইনপুট মোড",
   "lbl_measurements_per_dim": "প্রতি মাত্রায় পরিমাপ সংখ্যা",
   "lbl_lwh_measurements": "দৈর্ঘ্য · প্রস্থ · উচ্চতা পরিমাপ",
@@ -4281,7 +4348,10 @@ function renderRecords(){
     hdr.appendChild(badge); hdr.appendChild(meta); hdr.appendChild(date); card.appendChild(hdr);
 
     var vals=document.createElement('div'); vals.className='rec-vals';
-    if(r.type==='sand'||r.type==='chips'){
+    if(r.type==='chips'&&r.qtyUnit==='ton'){
+      vals.innerHTML='<span class="rec-val-chip">Qty: <b>'+(r.tonQty||0).toFixed(3)+' TON</b></span>'+
+        (r.category?'<span class="rec-val-chip">'+esc(r.category)+'</span>':'');
+    } else if(r.type==='sand'||r.type==='chips'){
       vals.innerHTML='<span class="rec-val-chip">Vol: <b>'+(r.vol||0).toFixed(3)+' ft³</b></span>'+
         '<span class="rec-val-chip">'+(r.volM3||0).toFixed(3)+' m³</span>'+
         '<span class="rec-val-chip">L: <b>'+esc(r.avgL)+'</b></span>'+
@@ -4669,11 +4739,17 @@ function exportBulkPDF(materialFilter){
   function buildSection(type,recs,isFirst){
     if(!recs.length)return'';
     var color=MCOLOR[type],mname=MNAME[type]||type;
-    var grandVol=0,grandVol3=0,grandKg=0,grandBags=0,grandKgC=0,grandAmt=0,grandTrucks=0,grandPieces=0;
+    var grandVol=0,grandVol3=0,grandKg=0,grandBags=0,grandKgC=0,grandAmt=0,grandTrucks=0,grandPieces=0,grandTon=0;
     var entries='';
     recs.forEach(function(r,i){
       var inner='';
-      if(r.type==='sand'||r.type==='chips'){
+      if(r.type==='chips'&&r.qtyUnit==='ton'){
+        if(r.category) inner+=tRow(tr('pdf_category'),escH(r.category));
+        inner+=tRow(tr('pdf_quantity'),mono((r.tonQty||0).toFixed(3)+' TON'));
+        if(r.vehNum||r.drvName) inner+=tRow(tr('pdf_vehicle_driver'),escH(r.vehNum||'—')+' · '+escH(r.drvName||'—')+(r.drvMob?' · '+escH(r.drvMob):''));
+        if(r.voucher) inner+=tRow(tr('pdf_voucher_no'),escH(r.voucher));
+        grandTon+=parseFloat(r.tonQty)||0;
+      } else if(r.type==='sand'||r.type==='chips'){
         if(r.category) inner+=tRow(tr('pdf_category'),escH(r.category));
         inner+=tRow(tr('pdf_volume_cft'),mono((r.vol||0).toFixed(3)+' ft³'));
         inner+=tRow(tr('pdf_volume_m3'),mono((r.volM3||0).toFixed(3)+' m³'));
@@ -4728,7 +4804,12 @@ function exportBulkPDF(materialFilter){
 
     // Grand total summary panel
     var gt='';
-    if(type==='sand'||type==='chips') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+grandVol.toFixed(3)+' ft³<span class="summary-ref">('+tr('pdf_ref')+' '+grandVol3.toFixed(3)+' m³)</span></div></div>';
+    if(type==='sand'||type==='chips'){
+      var chipsValParts=[];
+      if(grandVol>0||!grandTon) chipsValParts.push(grandVol.toFixed(3)+' ft³<span class="summary-ref">('+tr('pdf_ref')+' '+grandVol3.toFixed(3)+' m³)</span>');
+      if(grandTon>0) chipsValParts.push(grandTon.toFixed(3)+' TON');
+      gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+chipsValParts.join(' <span class="summary-sep">/</span> ')+'</div></div>';
+    }
     else if(type==='steel') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+(grandKg/1000).toFixed(3)+' TON<span class="summary-ref">('+grandKg.toFixed(1)+' KG)</span></div></div>';
     else if(type==='cement') gt='<div class="summary" style="border-color:'+color+'"><div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total')+' ('+pdfCount(recs.length,'entry',tr('pdf_w_entry'))+')</div></div><div class="summary-val" style="color:'+color+'">'+grandBags.toFixed(0)+' '+tr('pdf_w_bags')+'<span class="summary-ref">('+tr('pdf_ref')+' '+grandKgC.toFixed(0)+' KG)</span></div></div>';
     else if(type==='brick'){
@@ -4893,7 +4974,12 @@ function generatePDF(rec,mode){
   rows+=row(tr('pdf_address'),esc(rec.projAddr||rec.addr||'—'));
   rows+=row(tr('pdf_date'),'<span class="mono">'+esc(pdfDate(rec.date)||'—')+'</span>');
 
-  if(rec.type==='sand'||rec.type==='chips'){
+  if(rec.type==='chips'&&rec.qtyUnit==='ton'){
+    rows+=section(tr('pdf_volume_measurement'));
+    if(rec.category) rows+=row(tr('pdf_category'),esc(rec.category));
+    rows+=row(tr('pdf_quantity'),'<span class="mono">'+rec.tonQty.toFixed(3)+' TON</span>');
+    if(mode==='standard'){rows+=section(tr('pdf_vehicle_info'));rows+=row(tr('pdf_vehicle_no'),esc(rec.vehNum||'—'));rows+=row(tr('pdf_driver'),esc(rec.drvName||'—'));rows+=row(tr('pdf_mobile'),esc(rec.drvMob||'—'));if(rec.voucher)rows+=row(tr('pdf_voucher_no'),esc(rec.voucher));}
+  } else if(rec.type==='sand'||rec.type==='chips'){
     rows+=section(tr('pdf_volume_measurement'));
     if(rec.category) rows+=row(tr('pdf_category'),esc(rec.category));
     rows+=row(tr('pdf_volume_cft'),'<span class="mono">'+rec.vol.toFixed(3)+' ft³</span>');
@@ -4943,6 +5029,11 @@ function generatePDF(rec,mode){
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_grand_total_payment')+'</div>'+
       '<div class="summary-sub">'+esc(rec.cTypeLabel||'')+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
       '<div class="summary-val">৳ '+rec.amount.toLocaleString('en-IN',{minimumFractionDigits:2})+'</div></div>';
+  } else if(rec.type==='chips'&&rec.qtyUnit==='ton'){
+    summaryPanel='<div class="summary">'+
+      '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_final_volume')+'</div>'+
+      '<div class="summary-sub">'+esc(typeLabel)+' · '+esc(rec.projName||rec.proj||'')+'</div></div>'+
+      '<div class="summary-val">'+rec.tonQty.toFixed(3)+' <span class="summary-unit">TON</span></div></div>';
   } else if(rec.type==='sand'||rec.type==='chips'){
     summaryPanel='<div class="summary">'+
       '<div class="summary-meta"><div class="summary-lbl">'+tr('pdf_final_volume')+'</div>'+
