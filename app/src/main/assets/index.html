@@ -968,7 +968,7 @@ html.light .steel-dia-inp{background:rgba(15,23,42,.07);color:var(--text)}
 
 /* ── DARK (default) tokens ── */
 :root{
-  --bg:#202124; --bg-card:rgba(255,255,255,.075); --bg-card-d:rgba(255,255,255,.12); --bg-seg:rgba(255,255,255,.10);
+  --bg:#202124; --bg-card:rgba(255,255,255,.075); --bg-card-solid:rgba(36,38,46,.86); --bg-card-d:rgba(255,255,255,.12); --bg-seg:rgba(255,255,255,.10);
   --text:#E8EAED; --text-dim:rgba(232,234,237,.70); --text-faint:rgba(232,234,237,.34); --label:#9AA0A6;
   --border:rgba(255,255,255,.12); --border-d:rgba(255,255,255,.20);
   --sep:rgba(255,255,255,.10); --sep2:rgba(255,255,255,.05);
@@ -1003,7 +1003,7 @@ html.light .steel-dia-inp{background:rgba(15,23,42,.07);color:var(--text)}
 
 /* ── LIGHT tokens ── */
 html.light{
-  --bg:#EEF1FB; --bg-card:rgba(255,255,255,.40); --bg-card-d:rgba(255,255,255,.62); --bg-seg:rgba(255,255,255,.60);
+  --bg:#EEF1FB; --bg-card:rgba(255,255,255,.40); --bg-card-solid:rgba(255,255,255,.80); --bg-card-d:rgba(255,255,255,.62); --bg-seg:rgba(255,255,255,.60);
   --text:#1B2140; --text-dim:rgba(27,33,64,.70); --text-faint:rgba(27,33,64,.34); --label:#5B6384;
   --border:rgba(255,255,255,.75); --border-d:rgba(27,33,64,.16);
   --sep:rgba(27,33,64,.10); --sep2:rgba(27,33,64,.06);
@@ -1048,14 +1048,25 @@ body{padding-bottom:calc(96px + var(--safe-bottom))}
 body.nav-hidden{padding-bottom:calc(24px + var(--safe-bottom))}
 #splash{background:var(--scene)}
 
-/* ── Glass surfaces ── */
-.home-stat,.dash-card,.recent-item,.module-grid,.grp-card,.res,.rec-card,.pay-dashboard,.log-card,.stat-list,.sp-feats{
+/* ── Glass surfaces ──
+   Blur (backdrop-filter) is expensive to recompute every frame for any
+   element that scrolls, because the GPU must re-sample whatever is behind
+   it each time its position changes. The original CSDL design only ever
+   blurred two *static* elements — the sticky header and the fixed nav —
+   never scrolling content. Scrolling cards get a solid frosted tint
+   instead: same glass look, no per-frame blur sampling cost. ── */
+.home-stat,.dash-card,.recent-item,.module-grid,.grp-card,.res,.rec-card,.pay-dashboard,.log-card,.stat-list{
+  background:var(--bg-card-solid);
+  border:1px solid var(--glass-border);
+  box-shadow:var(--sh-card);
+}
+.sp-feats{
   background:var(--bg-card);
   border:1px solid var(--glass-border);
   box-shadow:var(--sh-card);
   -webkit-backdrop-filter:var(--glass-blur);backdrop-filter:var(--glass-blur);
 }
-html.light .grp-card,html.light .rec-card,html.light .toggle-row{background:var(--bg-card)}
+html.light .grp-card,html.light .rec-card,html.light .toggle-row{background:var(--bg-card-solid)}
 .toggle-row{background:transparent}
 html.light .toggle-row{background:transparent}
 .dash-card,.recent-item{border-radius:var(--r-xl)}
