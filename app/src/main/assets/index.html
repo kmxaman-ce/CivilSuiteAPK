@@ -34,8 +34,10 @@
 <style>
 /* ═══════════════════════════════════════════════════════════
    CIVIL SUITE ULTIMATE — CSDL (Civil Suite Design Language)
-   Engineering Blue primary · Precision dark surfaces
-   Single polished theme · Light & Dark modes only
+   Structural/component system below · visual theme = Glassmorphism
+   (blue/purple, Google dark) applied by the Glass Theme block further
+   down — that block is the single source of truth for all colour,
+   surface, blur and shadow tokens. Light & Dark modes only.
 ═══════════════════════════════════════════════════════════ */
 
 /* ── CSDL CORE VARIABLES (Dark Mode — default) ── */
@@ -75,22 +77,18 @@
   --brick:#EA580C;        --brick-l:#FDBA74;  --brick-bg:rgba(234,88,12,.14);
   /* Legacy ios-* variable names remapped to CSDL palette
      Components use these names — redefining values here updates all of them */
-  /* ══ NEW DESIGN SYSTEM — "Terracotta" (replaces the old CSDL primary) ══
-     Role-based tokens per spec: primary / primary-container / accent /
-     error (kept distinct from primary) / success / warning / info.
-     Legacy --ios-orange(-d)/--ios-red(-d) below are kept as ALIASES so the
-     ~100 existing references to them across the file inherit this system
-     automatically, without hunting down every call site. */
-  --primary:#B04B25;           --primary-d:#C1592E;
-  --on-primary:#FFFFFF;
-  --primary-container:rgba(59,130,246,.16);
-  --primary-container-strong:rgba(59,130,246,.28);
-  --accent:#E0654F;            --accent-d:#E87D5F;
-  --error:#DC2626;             --error-d:#EF4444;    --on-error:#FFFFFF;
-  --success:#2F6B3F;           --success-d:#4A9B5E;
-  --warning:#B45309;           --warning-d:#D97706;
-  --info:#4A6FA5;              --info-d:#7B9BC7;
-  --ios-blue:#3A63BE;     --ios-blue-d:#4C78D4;
+  /* NOTE: primary/on-primary/primary-container(-strong)/accent/error/
+     success/warning/info/ios-blue below are ALL redefined later in this
+     stylesheet by the Glass Theme block (search id="glass-theme"), which
+     is what actually renders — this block is now dead for those tokens.
+     Only kept where the glass theme does NOT redefine them: --on-error,
+     and the ios-teal/indigo/purple/pink accents (still used elsewhere in
+     this file via var(--ios-teal) etc.). */
+  --on-error:#FFFFFF;
+  --ios-teal:#0891B2;     --ios-teal-d:#06B6D4;
+  --ios-indigo:#6D28D9;   --ios-indigo-d:#7C3AED;
+  --ios-purple:#7C3AED;   --ios-purple-d:#8B5CF6;
+  --ios-pink:#DB2777;     --ios-pink-d:#EC4899;
   --ios-orange:var(--primary);      --ios-orange-d:var(--primary-d);
   --ios-green:var(--success);       --ios-green-d:var(--success-d);
   --ios-red:var(--error);           --ios-red-d:var(--error-d);
@@ -159,23 +157,19 @@ html.light{
   --sh-btn:0 3px 12px rgba(0,0,0,.20);
   --sh-glass:0 8px 32px rgba(28,25,23,.10);
 
-  --primary:#A8431F;           --primary-d:#B04B25;
-  --on-primary:#FFFFFF;
-  --primary-container:rgba(37,99,235,.14);
-  --primary-container-strong:rgba(37,99,235,.24);
-  --accent:#C74E38;             --accent-d:#B04B25;
-  --error:#B91C1C;              --error-d:#DC2626;   --on-error:#FFFFFF;
-  --success:#276B37;            --success-d:#15803D;
-  --warning:#9A5209;            --warning-d:#B45309;
-  --info:#3E5C87;               --info-d:#4A6FA5;
-  --ios-blue:#1E3E8F;     --ios-blue-d:#2B52B8;
-  --ios-orange:var(--primary);      --ios-orange-d:var(--primary-d);
-  --ios-green:var(--success);       --ios-green-d:var(--success-d);
-  --ios-red:var(--error);           --ios-red-d:var(--error-d);
+  /* Same note as the dark block above: primary/on-primary/primary-container
+     (-strong)/accent/error/success/warning/info/ios-blue here are all
+     superseded by the Glass Theme block later in the cascade. Keeping only
+     --on-error and the ios-teal/indigo/purple/pink accents, which are not
+     redefined there and are still used elsewhere in this file. */
+  --on-error:#FFFFFF;
   --ios-teal:#0E7490;     --ios-teal-d:#0891B2;
   --ios-indigo:#5B21B6;   --ios-indigo-d:#6D28D9;
   --ios-purple:#6D28D9;   --ios-purple-d:#7C3AED;
   --ios-pink:#BE185D;     --ios-pink-d:#DB2777;
+  --ios-orange:var(--primary);      --ios-orange-d:var(--primary-d);
+  --ios-green:var(--success);       --ios-green-d:var(--success-d);
+  --ios-red:var(--error);           --ios-red-d:var(--error-d);
   --ios-yellow:var(--warning);      --ios-yellow-d:var(--warning-d);
   --ios-cyan:#0E7490;     --ios-cyan-d:#0891B2;
   --ios-mint:var(--success);        --ios-mint-d:var(--success-d);
@@ -1240,17 +1234,17 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t1"><span class="ms ms-xl">grain</span></div><div><div class="th-title" data-i18n="sand_th_title">Sand Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="f_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="f_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="f_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_f_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="f_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="f_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="f_proj_date" aria-label="Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_f_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="f_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="f_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
-      <div class="row"><div class="row-icon ri-v"><span class="ms ms-sm">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="f_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="f_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="f_veh_num" aria-label="Vehicle Number" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="f_drv_name" aria-label="Driver Name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon ri-v"><span class="ms ms-sm">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="f_drv_mob" aria-label="Driver Mobile" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="f_voucher" aria-label="Voucher Number" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--amber)"></span><span data-i18n="lbl_sand_category">Sand Category</span></div>
@@ -1327,18 +1321,18 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t2"><span class="ms ms-xl">bubble_chart</span></div><div><div class="th-title" data-i18n="chips_th_title">Stone Chips Entry</div><div class="th-sub" data-i18n="sand_th_sub">Multi-Point Avg · Volume · Geometry</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="c_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="c_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">category</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_category">Category</span><input type="text" class="proj-input" id="c_category" maxlength="120" placeholder="e.g. Tusha, Blackstone..."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="c_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="c_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="c_proj_date" aria-label="Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_c_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">category</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_category">Category</span><input type="text" class="proj-input" id="c_category" aria-label="Category" maxlength="120" placeholder="e.g. Tusha, Blackstone..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="c_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="c_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="c_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="c_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="c_veh_num" aria-label="Vehicle Number" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="c_drv_name" aria-label="Driver Name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="c_drv_mob" aria-label="Driver Mobile" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="c_voucher" aria-label="Voucher Number" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--chips)"></span><span data-i18n="lbl_chips_qty_mode">Quantity Mode</span></div>
@@ -1403,7 +1397,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
       <div class="grp-card">
         <div class="row">
           <div class="row-icon" style="background:var(--chips-bg)"><span class="ms ms-sm" style="color:var(--chips)">scale</span></div>
-          <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="c_ton_qty" min="0" placeholder="0.000" step="0.001"></div></div>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="c_ton_qty" aria-label="Quantity" min="0" placeholder="0.000" step="0.001"></div></div>
           <div style="margin-left:6px;flex-shrink:0;text-align:center">
             <div style="font:700 9px/1 Inter,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px" data-i18n="lbl_unit">Unit</div>
             <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--chips)" data-i18n="opt_ton">TON</div>
@@ -1423,32 +1417,32 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t3"><span class="ms ms-xl" style="color:#fff">bar_chart_4_bars</span></div><div><div class="th-title" data-i18n="steel_th_title">Steel Bar Entry</div><div class="th-sub" data-i18n="steel_th_sub">Diameter-wise inventory · KG / TON</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="s_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="s_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="s_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_s_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="s_brand" maxlength="120" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="s_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="s_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="s_proj_date" aria-label="Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_s_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="s_brand" aria-label="Brand Name" maxlength="120" placeholder="e.g. BSRM, AKS, GPH..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="s_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="s_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="s_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="s_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="s_veh_num" aria-label="Vehicle Number" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="s_drv_name" aria-label="Driver Name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--steel-cbg)"><span class="ms ms-sm" style="color:var(--steel-c)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="s_drv_mob" aria-label="Driver Mobile" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="s_voucher" aria-label="Voucher Number" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--steel-c)"></span><span data-i18n="lbl_diameters">Diameters — KG per bar size</span></div>
     <div class="grp-card">
       <div class="steel-dia-grid">
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">8 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d8" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">10 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d10" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">12 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d12" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">16 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d16" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">20 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d20" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">22 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d22" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">25 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d25" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">28 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d28" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
-        <div class="steel-dia-cell"><div class="steel-dia-lbl">32 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d32" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">8 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d8" aria-label="8 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">10 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d10" aria-label="10 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">12 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d12" aria-label="12 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">16 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d16" aria-label="16 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">20 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d20" aria-label="20 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">22 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d22" aria-label="22 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">25 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d25" aria-label="25 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">28 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d28" aria-label="28 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
+        <div class="steel-dia-cell"><div class="steel-dia-lbl">32 mm</div><input type="number" inputmode="decimal" class="steel-dia-inp" id="s_d32" aria-label="32 mm" min="0" placeholder="0" oninput="updateSteelTotal()"><div class="steel-dia-unit">KG</div></div>
       </div>
       <div style="padding:0 12px 14px">
         <div class="grand-total-bar">
@@ -1466,25 +1460,25 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t4"><span class="ms ms-xl" style="color:#111">deployed_code</span></div><div><div class="th-title" data-i18n="cement_th_title">Cement Entry</div><div class="th-sub" data-i18n="cement_th_sub">Bags · 50 KG per bag</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="m_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="m_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="m_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_m_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="m_brand" maxlength="120" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="m_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="m_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="m_proj_date" aria-label="Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_m_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">factory</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_brand_name">Brand Name</span></span><input type="text" class="proj-input" id="m_brand" aria-label="Brand Name" maxlength="120" placeholder="e.g. Crown, Shah, Bashundhara..."></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="m_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="m_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="m_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="m_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="m_veh_num" aria-label="Vehicle Number" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="m_drv_name" aria-label="Driver Name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="m_drv_mob" aria-label="Driver Mobile" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="m_voucher" aria-label="Voucher Number" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--cement)"></span><span data-i18n="lbl_cement_qty">Cement Quantity</span></div>
     <div class="grp-card">
       <div class="row">
         <div class="row-icon" style="background:var(--cement-bg)"><span class="ms ms-sm" style="color:var(--cement)">deployed_code</span></div>
-        <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="m_bags" min="0" placeholder="0" oninput="updateCementTotal()"></div></div>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit" data-i18n="lbl_quantity">Quantity</span><input type="number" inputmode="decimal" id="m_bags" aria-label="Quantity" min="0" placeholder="0" oninput="updateCementTotal()"></div></div>
         <div style="margin-left:6px;flex-shrink:0;text-align:center">
           <div style="font:700 9px/1 Inter,sans-serif;color:var(--label);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px" data-i18n="lbl_unit">Unit</div>
           <div style="font:700 14px/1 Rajdhani,sans-serif;color:var(--cement)" data-i18n="opt_bags">Bags</div>
@@ -1507,17 +1501,17 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t6"><span class="ms ms-xl" style="color:#fff">view_module</span></div><div><div class="th-title" data-i18n="brick_th_title">Brick Entry</div><div class="th-sub" data-i18n="brick_th_sub">Class & Picket · Truck / Piece</div></div></div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="b_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="b_proj_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_b_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="b_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="b_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="b_proj_date" aria-label="Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_b_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_vehicle_info">Vehicle Information</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="b_veh_num" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="b_drv_name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="b_drv_mob" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="b_voucher" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">directions_car</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_vehicle_number">Vehicle Number</span></span><input type="text" class="proj-input" id="b_veh_num" aria-label="Vehicle Number" maxlength="120" placeholder="e.g. Dhaka Metro-G 11-1234"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_name">Driver Name</span></span><input type="text" class="proj-input" id="b_drv_name" aria-label="Driver Name" maxlength="120" placeholder="Driver's full name" data-i18n-ph="ph_driver_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_driver_mobile">Driver Mobile</span></span><input type="tel" class="proj-input" id="b_drv_mob" aria-label="Driver Mobile" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--fill)"><span class="ms ms-sm">receipt_long</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_voucher_number">Voucher Number</span></span><input type="text" class="proj-input" id="b_voucher" aria-label="Voucher Number" maxlength="120" placeholder="e.g. VCH-2026-001"></div></div>
     </div>
   </div>
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--brick)"></span><span data-i18n="lbl_brick_category">Brick Category</span></div>
@@ -1536,7 +1530,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
       </div></div>
       <div class="row">
         <div class="row-icon" style="background:var(--brick-bg)"><span class="ms ms-sm" style="color:var(--brick)">view_module</span></div>
-        <div class="inp-row"><div class="inp-col"><span class="inp-unit" id="brick-qty-lbl">Quantity (Truck)</span><input type="number" inputmode="decimal" id="b_qty" min="0" placeholder="0" oninput="updateBrickTotal()"></div></div>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit" id="brick-qty-lbl">Quantity (Truck)</span><input type="number" inputmode="decimal" id="b_qty" aria-labelledby="brick-qty-lbl" min="0" placeholder="0" oninput="updateBrickTotal()"></div></div>
       </div>
       <div style="padding:0 12px 14px">
         <div class="grand-total-bar">
@@ -1552,6 +1546,14 @@ html.light select,html.light textarea{background:var(--field-bg)}
 <!-- PANEL 5: RCC -->
 <div class="panel subpage" id="p-rcc" role="tabpanel" aria-label="RCC Estimator">
   <div class="th"><div class="th-back" onclick="closeSubPage()" role="button" tabindex="0" aria-label="Back"><span class="ms">arrow_back</span></div><div class="th-icon t5"><span class="ms ms-xl" style="color:#fff">account_balance</span></div><div><div class="th-title" data-i18n="rcc_name">RCC Estimator</div><div class="th-sub" data-i18n="rcc_th_sub">BNBC 2020 · Multi-element · Mix Comparison</div></div></div>
+
+  <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_project_info">Project Info</span></div>
+    <div class="grp-card">
+      <div class="row"><div class="row-icon ri-o"><span class="ms ms-sm">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="rcc_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="rcc_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon ri-l"><span class="ms ms-sm">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_date">Date</span></span><div class="date-wrap"><input type="date" class="proj-input" id="rcc_proj_date" aria-label="Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_rcc_proj_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+    </div>
+  </div>
 
   <div class="grp">
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_structure_elements">Structure Elements</span></div>
@@ -1579,13 +1581,13 @@ html.light select,html.light textarea{background:var(--field-bg)}
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
           <span style="font:600 10px/1 Inter,sans-serif;color:var(--text-dim)" id="wc-override-lbl" data-i18n="lbl_override">Override</span>
-          <label class="switch"><input type="checkbox" id="r_wc_override" onchange="toggleWCOverride()"><span class="slider"></span></label>
+          <label class="switch"><input type="checkbox" id="r_wc_override" aria-label="Override" onchange="toggleWCOverride()"><span class="slider"></span></label>
         </div>
       </div>
       <div id="wc-manual-row" class="row" style="display:none;padding-top:2px">
         <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">tune</span></div>
         <span class="row-lbl" style="min-width:70px" data-i18n="lbl_wc_ratio">W/C Ratio</span>
-        <div class="inp-row"><div class="inp-col"><span class="inp-unit">w/c</span><input id="r_wc_manual" type="number" inputmode="decimal" min="0.3" max="0.7" step="0.01" placeholder="0.50"></div></div>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit">w/c</span><input id="r_wc_manual" aria-label="w/c" type="number" inputmode="decimal" min="0.3" max="0.7" step="0.01" placeholder="0.50"></div></div>
       </div>
     </div>
     <div class="grp-note" data-i18n="hint_bnbc_wc">BNBC 2020: M20→0.55 · M25→0.50 · M30→0.45 · Override for special mixes.</div>
@@ -1595,11 +1597,11 @@ html.light select,html.light textarea{background:var(--field-bg)}
     <div class="grp-lbl"><span class="grp-dot" style="background:var(--blu)"></span><span data-i18n="lbl_mix_ratio">Mix Ratio C : S : Aggregate</span></div>
     <div class="grp-card">
       <div class="mix-row">
-        <div class="inp-col"><span class="inp-unit" style="color:var(--red)" data-i18n="cement_name">Cement</span><input id="r_mc" type="number" inputmode="decimal" min="0" value="1"></div>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)" data-i18n="cement_name">Cement</span><input id="r_mc" aria-label="Cement" type="number" inputmode="decimal" min="0" value="1"></div>
         <span class="mix-colon">:</span>
-        <div class="inp-col"><span class="inp-unit" style="color:var(--red)" data-i18n="sand_name">Sand</span><input id="r_ms" type="number" inputmode="decimal" min="0" value="1.5"></div>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)" data-i18n="sand_name">Sand</span><input id="r_ms" aria-label="Sand" type="number" inputmode="decimal" min="0" value="1.5"></div>
         <span class="mix-colon">:</span>
-        <div class="inp-col"><span class="inp-unit" style="color:var(--blu)" data-i18n="lbl_agg_short">Agg</span><input id="r_ma" type="number" inputmode="decimal" min="0" value="3"></div>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--blu)" data-i18n="lbl_agg_short">Agg</span><input id="r_ma" aria-label="Agg" type="number" inputmode="decimal" min="0" value="3"></div>
       </div>
       <div class="chips-row" id="mix-chips">
         <div class="chip" onclick="setMix(1,1,2,this)">1:1:2</div>
@@ -1623,7 +1625,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
       <div id="dvf-custom-row" class="row" style="display:none;padding-top:4px">
         <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--blu)">tune</span></div>
         <span class="row-lbl" data-i18n="lbl_custom_factor">Custom Factor</span>
-        <div class="inp-row"><div class="inp-col"><span class="inp-unit">factor</span><input id="r_dvf_custom" type="number" inputmode="decimal" min="1.3" max="1.7" step="0.01" placeholder="1.54" oninput="onDVFCustomInput()"></div></div>
+        <div class="inp-row"><div class="inp-col"><span class="inp-unit">factor</span><input id="r_dvf_custom" aria-label="factor" type="number" inputmode="decimal" min="1.3" max="1.7" step="0.01" placeholder="1.54" oninput="onDVFCustomInput()"></div></div>
       </div>
     </div>
     <div class="grp-note" data-i18n="hint_dvf">BNBC range: 1.52–1.57 · Default 1.54 (most common). Lower = denser mix.</div>
@@ -1644,7 +1646,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
     <div class="grp-card">
       <div class="toggle-row">
         <div style="flex:1;min-width:0"><span class="toggle-lbl" data-i18n="lbl_sand_bulking_pct">Sand Bulking (+25%)</span><small class="toggle-sub" data-i18n="hint_sand_bulking">Accounts for moisture-induced volume increase · BNBC</small></div>
-        <label class="switch"><input type="checkbox" id="r_bulking"><span class="slider"></span></label>
+        <label class="switch"><input type="checkbox" id="r_bulking" aria-label="Sand Bulking (+25%)"><span class="slider"></span></label>
       </div>
     </div>
   </div>
@@ -1661,7 +1663,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
           <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">category</span></div>
           <span class="row-lbl" style="min-width:80px" data-i18n="lbl_element_type">Element Type</span>
           <div class="inp-row"><div class="inp-col"><span class="inp-unit">type</span>
-            <select id="r_steel_elem_type" onchange="onSteelElemTypeChange()" style="width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font:700 13px/1 Inter,sans-serif;padding:9px 10px;outline:none;-webkit-appearance:none">
+            <select id="r_steel_elem_type" aria-label="type" onchange="onSteelElemTypeChange()" style="width:100%;background:var(--fill);border:1.5px solid var(--border);border-radius:11px;color:var(--text);font:700 13px/1 Inter,sans-serif;padding:9px 10px;outline:none;-webkit-appearance:none">
               <option value="slab" data-i18n="opt_slab">Slab (80–120 kg/m³)</option>
               <option value="beam" data-i18n="opt_beam">Beam (120–180 kg/m³)</option>
               <option value="column" data-i18n="opt_column">Column (160–250 kg/m³)</option>
@@ -1672,7 +1674,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
         <div class="row" style="padding-top:2px">
           <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">scale</span></div>
           <span class="row-lbl" style="min-width:80px" data-i18n="lbl_steel_kgm3">Steel kg/m³</span>
-          <div class="inp-row"><div class="inp-col"><span class="inp-unit">kg/m³</span><input id="r_steel_kgm3" type="number" inputmode="decimal" min="0" placeholder="100"></div></div>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit">kg/m³</span><input id="r_steel_kgm3" aria-label="kg/m³" type="number" inputmode="decimal" min="0" placeholder="100"></div></div>
         </div>
         <div class="chips-row" id="steel-elem-chips">
           <div class="chip" onclick="setSteelElemPreset('slab',100,this)"><span data-i18n="opt_slab_100">Slab 100</span></div>
@@ -1689,7 +1691,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
         <div class="row">
           <div class="row-icon ri-g"><span class="ms ms-sm" style="color:var(--text-dim)">scale</span></div>
           <span class="row-lbl" style="min-width:80px" data-i18n="lbl_kgm3">kg/m³</span>
-          <div class="inp-row"><div class="inp-col"><span class="inp-unit">kg/m³</span><input id="r_steel_direct" type="number" inputmode="decimal" min="0" placeholder="0"></div></div>
+          <div class="inp-row"><div class="inp-col"><span class="inp-unit">kg/m³</span><input id="r_steel_direct" aria-label="kg/m³" type="number" inputmode="decimal" min="0" placeholder="0"></div></div>
         </div>
       </div>
     </div>
@@ -1709,11 +1711,11 @@ html.light select,html.light textarea{background:var(--field-bg)}
     <div class="grp-card">
       <div class="mix-row">
         <span style="font:600 12px/1 Inter,sans-serif;color:var(--text-dim);min-width:38px" data-i18n="lbl_mix_b">Mix B</span>
-        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">C</span><input id="r_mc2" type="number" inputmode="decimal" min="0" value="1"></div>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">C</span><input id="r_mc2" aria-label="C" type="number" inputmode="decimal" min="0" value="1"></div>
         <span class="mix-colon">:</span>
-        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">S</span><input id="r_ms2" type="number" inputmode="decimal" min="0" value="1.5"></div>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--red)">S</span><input id="r_ms2" aria-label="S" type="number" inputmode="decimal" min="0" value="1.5"></div>
         <span class="mix-colon">:</span>
-        <div class="inp-col"><span class="inp-unit" style="color:var(--blu)">A</span><input id="r_ma2" type="number" inputmode="decimal" min="0" value="3"></div>
+        <div class="inp-col"><span class="inp-unit" style="color:var(--blu)">A</span><input id="r_ma2" aria-label="A" type="number" inputmode="decimal" min="0" value="3"></div>
       </div>
     </div>
   </div>
@@ -1797,8 +1799,8 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <!-- Project Details -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_project_details">Project Details</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="pay_proj_name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
-      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="pay_proj_addr" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">business</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_project_name">Project Name</span></span><input type="text" class="proj-input" id="pay_proj_name" aria-label="Project Name" maxlength="120" placeholder="e.g. SAVAR DOHS, PLOT - 350" value="SAVAR DOHS, PLOT - 350"></div></div>
+      <div class="row"><div class="row-icon ri-g"><span class="ms ms-sm">pin_drop</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit"><span data-i18n="lbl_address">Address</span></span><input type="text" class="proj-input" id="pay_proj_addr" aria-label="Address" maxlength="120" placeholder="Savar DOHS, Savar, Dhaka." value="Savar DOHS, Savar, Dhaka."></div></div>
     </div>
   </div>
   <!-- Contractor Type -->
@@ -1817,24 +1819,24 @@ html.light select,html.light textarea{background:var(--field-bg)}
   <!-- Contractor Details -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_contractor_details">Contractor Details</span></div>
     <div class="grp-card">
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_contractor_name">Contractor's Name</span><input type="text" class="proj-input" id="pay_name" maxlength="120" placeholder="Full name of contractor" data-i18n-ph="ph_contractor_name"></div></div>
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_phone_number">Phone Number</span><input type="tel" class="proj-input" id="pay_phone" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">person</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_contractor_name">Contractor's Name</span><input type="text" class="proj-input" id="pay_name" aria-label="Contractor&#x27;s Name" maxlength="120" placeholder="Full name of contractor" data-i18n-ph="ph_contractor_name"></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">call</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_phone_number">Phone Number</span><input type="tel" class="proj-input" id="pay_phone" aria-label="Phone Number" maxlength="20" placeholder="+880 1XXX-XXXXXX"></div></div>
       <div class="row" style="flex-direction:column;align-items:stretch;gap:4px">
         <div style="display:flex;align-items:center;gap:10px">
           <div class="row-icon" style="background:var(--pay-bg);flex-shrink:0"><span class="ms ms-sm" style="color:var(--pay)">payments</span></div>
-          <div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_payment_amount">Payment Amount (BDT)</span><input type="number" inputmode="decimal" id="pay_amount" min="0" placeholder="0.00" oninput="updatePayAmountPreview()" style="font:700 18px/1 JetBrains Mono,monospace;text-align:left;padding-left:14px"></div>
+          <div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_payment_amount">Payment Amount (BDT)</span><input type="number" inputmode="decimal" id="pay_amount" aria-label="Payment Amount (BDT)" min="0" placeholder="0.00" oninput="updatePayAmountPreview()" style="font:700 18px/1 JetBrains Mono,monospace;text-align:left;padding-left:14px"></div>
         </div>
         <div class="pay-amount-preview" id="pay-amount-preview">
           <div class="pay-amount-preview-label" data-i18n="lbl_payment_amount_short">Payment Amount</div>
           <div class="pay-amount-preview-value" id="pay-amount-preview-val">৳ 0.00</div>
         </div>
       </div>
-      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_payment_date">Payment Date</span><div class="date-wrap"><input type="date" class="proj-input" id="pay_date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_pay_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
+      <div class="row"><div class="row-icon" style="background:var(--pay-bg)"><span class="ms ms-sm" style="color:var(--pay)">event</span></div><div style="flex:1;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_payment_date">Payment Date</span><div class="date-wrap"><input type="date" class="proj-input" id="pay_date" aria-label="Payment Date" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_pay_date" style="color:var(--text-dim)">DD/MM/YYYY</span></div></div></div>
     </div>
   </div>
   <!-- Comments -->
   <div class="grp"><div class="grp-lbl"><span class="grp-dot" style="background:var(--pay)"></span><span data-i18n="lbl_comments">Comments / Remarks</span></div>
-    <div class="grp-card"><div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_additional_notes">Additional Notes</span><textarea id="pay-comments" rows="3" maxlength="500" placeholder="e.g. Payment for slab work on 3rd floor, labour cost only..."></textarea></div></div>
+    <div class="grp-card"><div style="padding:10px 12px 14px;display:flex;flex-direction:column;gap:3px"><span class="inp-unit" data-i18n="lbl_additional_notes">Additional Notes</span><textarea id="pay-comments" aria-label="e.g. Payment for slab work on 3rd floor, labour cost only..." rows="3" maxlength="500" placeholder="e.g. Payment for slab work on 3rd floor, labour cost only..."></textarea></div></div>
   </div>
   <div style="padding:0 0 8px"><button class="btn-save t6" onclick="savePaymentRecord()"><span class="ms">bookmark_add</span><span data-i18n="btn_add_records">ADD TO RECORDS</span></button></div>
 </div>
@@ -1858,7 +1860,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
       <div style="padding:10px 12px">
         <div class="log-search-row">
           <span class="ms log-search-ico">search</span>
-          <input class="log-search-field" type="text" id="log-search-inp"
+          <input class="log-search-field" type="text" id="log-search-inp" aria-label="Search logs…"
             placeholder="Search logs…" data-i18n-ph="ph_search_logs"
             oninput="debouncedRenderLogs()">
         </div>
@@ -1890,16 +1892,16 @@ html.light select,html.light textarea{background:var(--field-bg)}
     <div style="font:400 13px/1 -apple-system;color:var(--label);text-align:center;margin-bottom:16px" data-i18n="lbl_timestamped_auto">Entry will be timestamped automatically</div>
     <div style="margin-bottom:12px">
       <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px" data-i18n="lbl_log_entry">LOG ENTRY</div>
-      <textarea id="log-text-inp" maxlength="1000" placeholder="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…" data-i18n-ph="ph_log_entry" style="width:100%;min-height:96px;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;padding:11px 14px;outline:none;-webkit-appearance:none;resize:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--ios-orange-d)'" onblur="this.style.borderColor='transparent'"></textarea>
+      <textarea id="log-text-inp" aria-label="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…" maxlength="1000" placeholder="e.g. Piling started today · 3rd slab casting done · Foundation inspection passed…" data-i18n-ph="ph_log_entry" style="width:100%;min-height:96px;background:var(--fill);border:.5px solid transparent;border-radius:var(--r);color:var(--text);font:500 15px/1.55 -apple-system;padding:11px 14px;outline:none;-webkit-appearance:none;resize:none;transition:border-color .18s" onfocus="this.style.borderColor='var(--ios-orange-d)'" onblur="this.style.borderColor='transparent'"></textarea>
     </div>
     <div style="display:flex;gap:10px;margin-bottom:16px">
       <div style="flex:1">
         <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px" data-i18n="lbl_date_caps">DATE</div>
-        <div class="date-wrap"><input type="date" id="log-date-inp" style="width:100%" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_log-date-inp" style="color:var(--text-dim)">DD/MM/YYYY</span></div>
+        <div class="date-wrap"><input type="date" id="log-date-inp" aria-label="DATE" style="width:100%" oninput="updateDateOverlay(this)" onchange="updateDateOverlay(this)"><span class="date-overlay" id="ov_log-date-inp" style="color:var(--text-dim)">DD/MM/YYYY</span></div>
       </div>
       <div style="flex:1">
         <div style="font:600 11px/1 -apple-system;color:var(--label);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px" data-i18n="lbl_time_caps">TIME</div>
-        <input type="time" id="log-time-inp" style="width:100%">
+        <input type="time" id="log-time-inp" aria-label="TIME" style="width:100%">
       </div>
     </div>
     <div style="display:flex;gap:10px">
@@ -1928,7 +1930,7 @@ html.light select,html.light textarea{background:var(--field-bg)}
       <div class="pay-search-wrap">
         <div class="pay-search-row">
           <span class="ms pay-search-icon">search</span>
-          <input type="text" class="pay-search-inp" id="pay-search-inp" placeholder="Search by contractor or project..." data-i18n-ph="ph_search_contractor" oninput="debouncedRenderRecords()">
+          <input type="text" class="pay-search-inp" id="pay-search-inp" aria-label="Search by contractor or project..." placeholder="Search by contractor or project..." data-i18n-ph="ph_search_contractor" oninput="debouncedRenderRecords()">
         </div>
         <div class="pay-type-filter" id="pay-type-filter">
           <div class="pay-type-filter-chip all active" onclick="setPTFilter('all',this)"><span data-i18n="opt_all">All</span></div>
@@ -1984,10 +1986,10 @@ html.light select,html.light textarea{background:var(--field-bg)}
       <div class="toggle-row">
         <div>
           <div class="toggle-lbl" data-i18n="lbl_dark_mode">Dark Mode</div>
-          <span class="toggle-sub">CSDL · Civil Suite Design Language</span>
+          <span class="toggle-sub" data-i18n="lbl_dark_mode_sub">CSDL · Civil Suite Design Language</span>
         </div>
         <label class="switch">
-          <input type="checkbox" id="settings-dark-switch" onchange="toggleDark()">
+          <input type="checkbox" id="settings-dark-switch" aria-label="Dark Mode" onchange="toggleDark()">
           <span class="slider"></span>
         </label>
       </div>
@@ -2071,11 +2073,11 @@ html.light select,html.light textarea{background:var(--field-bg)}
 </div>
 
 <!-- BOTTOM NAV -->
-<nav role="navigation" aria-label="Main Navigation">
-  <div class="ni d-home active" onclick="switchDest('home')" role="tab" id="nav-home"><span class="ni-icon-wrap"><span class="ni-icon">home</span></span><span class="ni-lbl" data-i18n="nav_home">Home</span></div>
-  <div class="ni d-records" onclick="switchDest('records')" role="tab" id="nav-records"><span class="ni-icon-wrap"><span class="ni-icon">table_rows</span></span><span class="ni-lbl" data-i18n="nav_records">Records</span></div>
-  <div class="ni d-payment" onclick="switchDest('payment')" role="tab" id="nav-payment"><span class="ni-icon-wrap"><span class="ni-icon">receipt_long</span></span><span class="ni-lbl" data-i18n="nav_payments">Payments</span></div>
-  <div class="ni d-more" onclick="switchDest('more')" role="tab" id="nav-more"><span class="ni-icon-wrap"><span class="ni-icon">apps</span></span><span class="ni-lbl" data-i18n="nav_more">More</span></div>
+<nav role="tablist" aria-label="Main Navigation">
+  <div class="ni d-home active" onclick="switchDest('home')" role="tab" id="nav-home" aria-selected="true" aria-controls="d-home" tabindex="0"><span class="ni-icon-wrap"><span class="ni-icon">home</span></span><span class="ni-lbl" data-i18n="nav_home">Home</span></div>
+  <div class="ni d-records" onclick="switchDest('records')" role="tab" id="nav-records" aria-selected="false" aria-controls="p-records" tabindex="-1"><span class="ni-icon-wrap"><span class="ni-icon">table_rows</span></span><span class="ni-lbl" data-i18n="nav_records">Records</span></div>
+  <div class="ni d-payment" onclick="switchDest('payment')" role="tab" id="nav-payment" aria-selected="false" aria-controls="p-payment" tabindex="-1"><span class="ni-icon-wrap"><span class="ni-icon">receipt_long</span></span><span class="ni-lbl" data-i18n="nav_payments">Payments</span></div>
+  <div class="ni d-more" onclick="switchDest('more')" role="tab" id="nav-more" aria-selected="false" aria-controls="d-more" tabindex="-1"><span class="ni-icon-wrap"><span class="ni-icon">apps</span></span><span class="ni-lbl" data-i18n="nav_more">More</span></div>
 </nav>
 
 
@@ -2111,7 +2113,14 @@ var NativeBridge = (function(){
   // ─── STORAGE ──────────────────────────────────────────
   function saveData(jsonString){
     if(_Droid){
-      try{ _Droid.saveData(jsonString); return true; }catch(e){}
+      try{
+        var nativeResult=_Droid.saveData(jsonString);
+        // Some native bridges return void (undefined) and some return a real
+        // boolean. Only an explicit false means the native layer told us it
+        // failed — in that case fall through to the localStorage fallback
+        // below instead of lying to the caller with `return true`.
+        if(nativeResult!==false) return true;
+      }catch(e){}
     }
     try{ localStorage.setItem('csu3_records', jsonString); return true; }
     catch(e){ return false; }
@@ -2123,6 +2132,19 @@ var NativeBridge = (function(){
     }
     try{ return localStorage.getItem('csu3_records') || '[]'; }
     catch(e){ return '[]'; }
+  }
+
+  // ─── SYSTEM LOCALE ────────────────────────────────────
+  // Exposed so resolveSystemLang() (below) can actually reach it. Returns
+  // null when the native side doesn't implement it yet — callers already
+  // treat null as "fall back to the next detection method", so this is
+  // safe to call unconditionally instead of feature-detecting a method
+  // that was never on this object in the first place.
+  function getSystemLocale(){
+    if(_Droid && typeof _Droid.getSystemLocale==='function'){
+      try{ return _Droid.getSystemLocale(); }catch(e){}
+    }
+    return null;
   }
 
   // ─── PDF PRINT ────────────────────────────────────────
@@ -2190,6 +2212,7 @@ var NativeBridge = (function(){
   return {
     saveData:       saveData,
     loadData:       loadData,
+    getSystemLocale:getSystemLocale,
     generatePDF:    generatePDF,
     downloadBackup: downloadBackup,
     openFilePicker: openFilePicker,
@@ -2392,10 +2415,24 @@ function countUp(el,to,dec,ms,prefix,suffix){
   });
 }
 
+// ─── KEYBOARD ACTIVATION FOR role="tab"/"button" ELEMENTS ───
+// These are <div>s with onclick handlers — unlike real <button> elements
+// they don't respond to Enter/Space out of the box. One delegated listener
+// makes every role="tab"/"button" element in the app (nav items, the
+// header back button, etc.) keyboard-activatable without touching each
+// element's existing onclick individually.
+document.addEventListener('keydown',function(e){
+  if(e.key!=='Enter'&&e.key!==' '&&e.key!=='Spacebar')return;
+  var el=e.target.closest && e.target.closest('[role="tab"],[role="button"]');
+  if(!el)return;
+  e.preventDefault();
+  el.click();
+});
+
 // ─── INIT ───
 window.addEventListener('DOMContentLoaded',function(){
   var today=todayISO();
-  ['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','pay_date'].forEach(function(id){
+  ['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','rcc_proj_date','pay_date'].forEach(function(id){
     var el=document.getElementById(id); if(el) el.value=today;
   });
   updateThemeMeta();
@@ -2428,6 +2465,9 @@ function enterApp(){
   switchDest('home');
   if(_recordsLoadFailed){
     setTimeout(function(){showToast(tr('toast_records_unreadable'));},700);
+  }
+  if(_siteLogsLoadFailed){
+    setTimeout(function(){showToast(tr('toast_logs_unreadable'));},1400);
   }
 }
 
@@ -2490,13 +2530,21 @@ function switchDest(name){
   var id=DEST_PANEL[name];
   var el=id&&document.getElementById(id);
   if(el) el.classList.add('active');
-  document.querySelectorAll('.ni').forEach(function(n){n.classList.remove('active');});
+  document.querySelectorAll('.ni').forEach(function(n){
+    n.classList.remove('active');
+    n.setAttribute('aria-selected','false');
+    n.setAttribute('tabindex','-1');
+  });
   var navEl=document.getElementById('nav-'+name);
-  if(navEl) navEl.classList.add('active');
+  if(navEl){
+    navEl.classList.add('active');
+    navEl.setAttribute('aria-selected','true');
+    navEl.setAttribute('tabindex','0');
+  }
   _activeDest=name;
   /* CSDL: hdr-row-default/calc removed — hdr-clear-btn hidden by line above */
   showNav(true);
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top:0,behavior:'auto'});
   if(name==='records') renderRecords();
   if(name==='home') updateHomeStats();
   // Destinations other than Home push (or replace) a history entry so
@@ -2522,7 +2570,7 @@ function openSubPage(name){
   // back button is the single, unambiguous way to return.
   showNav(false);
   /* CSDL: header rows replaced by hdr-clear-btn (handled at top of this function) */
-  window.scrollTo({top:0,behavior:'instant'});
+  window.scrollTo({top:0,behavior:'auto'});
   if(name==='log') renderLogs();
   // Push a history entry so the Android back gesture/button closes this
   // sub-page instead of falling through to the WebView's own history
@@ -2683,6 +2731,7 @@ function clearAll(){
     's_proj_name','s_proj_addr','s_proj_date','s_veh_num','s_drv_name','s_drv_mob','s_brand','s_voucher',
     'm_proj_name','m_proj_addr','m_proj_date','m_veh_num','m_drv_name','m_drv_mob','m_brand','m_voucher',
     'b_proj_name','b_proj_addr','b_proj_date','b_veh_num','b_drv_name','b_drv_mob','b_voucher',
+    'rcc_proj_name','rcc_proj_addr','rcc_proj_date',
     'pay_proj_name','pay_proj_addr','pay_date'];
   panel.querySelectorAll('input[type=number]').forEach(function(i){i.value='';});
   panel.querySelectorAll('input[type=text],input[type=tel]').forEach(function(i){
@@ -2778,15 +2827,18 @@ function buildFMTCard(){
       if(fmtMode==='ftin'){
         var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
         iF.id='f_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
+        iF.setAttribute('aria-label',d+' measurement '+(m+1)+', feet');
         iF.addEventListener('input',updateFMTAverages);
         var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
         iI.id='f_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1';
+        iI.setAttribute('aria-label',d+' measurement '+(m+1)+', inches');
         iI.addEventListener('input',updateFMTAverages);
         row.appendChild(iF); row.appendChild(iI);
       } else {
         var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
         inp.id='f_'+d+'_'+m; inp.min=0;
         inp.placeholder=fmtMode==='meter'?'m':fmtMode==='inch'?'in':'ft';
+        inp.setAttribute('aria-label',d+' measurement '+(m+1));
         inp.style.flex='1'; inp.addEventListener('input',updateFMTAverages); row.appendChild(inp);
       }
       block.appendChild(row);
@@ -2934,14 +2986,18 @@ function buildChipsCard(){
       if(chipsMode==='ftin'){
         var iF=document.createElement('input'); iF.type='number'; iF.inputMode='decimal';
         iF.id='ch_'+d+'_'+m+'_ft'; iF.placeholder='ft'; iF.min=0; iF.style.flex='1';
+        iF.setAttribute('aria-label',d+' measurement '+(m+1)+', feet');
         iF.addEventListener('input',updateChipsAverages);
         var iI=document.createElement('input'); iI.type='number'; iI.inputMode='decimal';
-        iI.id='ch_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1'; iI.addEventListener('input',updateChipsAverages);
+        iI.id='ch_'+d+'_'+m+'_in'; iI.placeholder='in'; iI.min=0; iI.max=12; iI.style.flex='1';
+        iI.setAttribute('aria-label',d+' measurement '+(m+1)+', inches');
+        iI.addEventListener('input',updateChipsAverages);
         row.appendChild(iF); row.appendChild(iI);
       } else {
         var inp=document.createElement('input'); inp.type='number'; inp.inputMode='decimal';
         inp.id='ch_'+d+'_'+m; inp.min=0;
         inp.placeholder=chipsMode==='meter'?'m':chipsMode==='inch'?'in':'ft';
+        inp.setAttribute('aria-label',d+' measurement '+(m+1));
         inp.style.flex='1'; inp.addEventListener('input',updateChipsAverages); row.appendChild(inp);
       }
       block.appendChild(row);
@@ -3155,6 +3211,7 @@ var I18N={
   "brick_name": "Brick",
   "brick_desc": "Class · Count",
   "rcc_name": "RCC Estimator",
+  "rcc_default_proj_name": "RCC Project",
   "rcc_name_short": "RCC",
   "rcc_desc": "BNBC 2020 · multi-element · mix comparison",
   "home_sec_quick": "Quick Actions",
@@ -3283,7 +3340,7 @@ var I18N={
   "lbl_site_log_keeper_sub": "Construction diary with timestamped entries",
   "lbl_styles_themes": "Styles & Themes",
   "lbl_dark_mode": "Dark Mode",
-  "lbl_dark_mode_sub": "OxygenOS Engineering Theme · Light & Dark",
+  "lbl_dark_mode_sub": "CSDL · Civil Suite Design Language",
   "lbl_data_backup": "Data & Backup",
   "lbl_export_backup": "Export Backup File",
   "lbl_export_backup_sub": "Save all records as a .json file to your device",
@@ -3412,6 +3469,10 @@ var I18N={
   "toast_storage_full_backup": "Storage full \u2014 backup your data!",
   "toast_storage_full_memory": "Storage full \u2014 records loaded in memory only",
   "toast_records_unreadable": "Saved records could not be read \u2014 starting with an empty list",
+  "toast_logs_unreadable": "Saved site logs could not be read \u2014 starting with an empty list",
+  "toast_restore_failed": "Restore failed \u2014 storage error. Your existing records were not changed.",
+  "toast_restore_partial": "Records restored, but site logs could not be saved.",
+  "confirm_restore_invalid_skip": "invalid, will be skipped",
   "toast_vol_gt_zero": "Volume must be greater than zero",
   "toast_applied": "applied",
   "toast_restored": "Restored",
@@ -3552,6 +3613,7 @@ var I18N={
   "brick_name": "ইট",
   "brick_desc": "শ্রেণী · সংখ্যা",
   "rcc_name": "আরসিসি এস্টিমেটর",
+  "rcc_default_proj_name": "আরসিসি প্রজেক্ট",
   "rcc_name_short": "আরসিসি",
   "rcc_desc": "বিএনবিসি ২০২০ · মাল্টি-এলিমেন্ট · মিক্স তুলনা",
   "home_sec_quick": "দ্রুত কার্যক্রম",
@@ -3680,7 +3742,7 @@ var I18N={
   "lbl_site_log_keeper_sub": "সময়সহ এন্ট্রিযুক্ত নির্মাণ ডায়েরি",
   "lbl_styles_themes": "স্টাইল ও থিম",
   "lbl_dark_mode": "ডার্ক মোড",
-  "lbl_dark_mode_sub": "অক্সিজেনওএস ইঞ্জিনিয়ারিং থিম · লাইট ও ডার্ক",
+  "lbl_dark_mode_sub": "সিএসডিএল · সিভিল স্যুট ডিজাইন ল্যাঙ্গুয়েজ",
   "lbl_data_backup": "ডেটা ও ব্যাকআপ",
   "lbl_export_backup": "ব্যাকআপ ফাইল এক্সপোর্ট করুন",
   "lbl_export_backup_sub": "সকল রেকর্ড .json ফাইল হিসেবে ডিভাইসে সংরক্ষণ করুন",
@@ -3809,6 +3871,10 @@ var I18N={
   "toast_storage_full_backup": "স্টোরেজ পূর্ণ — আপনার ডেটা ব্যাকআপ করুন!",
   "toast_storage_full_memory": "স্টোরেজ পূর্ণ — রেকর্ড শুধু মেমোরিতে লোড হয়েছে",
   "toast_records_unreadable": "সংরক্ষিত রেকর্ড পড়া যায়নি — খালি তালিকা দিয়ে শুরু হচ্ছে",
+  "toast_logs_unreadable": "সংরক্ষিত সাইট লগ পড়া যায়নি — খালি তালিকা দিয়ে শুরু হচ্ছে",
+  "toast_restore_failed": "পুনরুদ্ধার ব্যর্থ হয়েছে — স্টোরেজ সমস্যা। আপনার বিদ্যমান রেকর্ড অপরিবর্তিত আছে।",
+  "toast_restore_partial": "রেকর্ড পুনরুদ্ধার হয়েছে, কিন্তু সাইট লগ সংরক্ষণ করা যায়নি।",
+  "confirm_restore_invalid_skip": "টি অবৈধ, বাদ দেওয়া হবে",
   "toast_vol_gt_zero": "আয়তন অবশ্যই শূন্যের চেয়ে বেশি হতে হবে",
   "toast_applied": "প্রয়োগ হয়েছে",
   "toast_restored": "পুনরুদ্ধার হয়েছে",
@@ -4031,7 +4097,7 @@ function toggleDark(){
 }
 // ── THEME-AWARE PDF HELPERS ───────────────────────────────────────
 function updateDateOverlay(input){var ov=document.getElementById('ov_'+input.id);if(!ov)return;if(input.value){ov.textContent=localizeDateStr(formatDate(input.value));ov.style.color='';}else{ov.textContent='DD/MM/YYYY';ov.style.color='var(--text-faint)';}}
-function initDateOverlays(){var ids=['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','pay_date','log-date-inp'];ids.forEach(function(id){var el=document.getElementById(id);if(el)updateDateOverlay(el);});}
+function initDateOverlays(){var ids=['f_proj_date','c_proj_date','s_proj_date','m_proj_date','b_proj_date','rcc_proj_date','pay_date','log-date-inp'];ids.forEach(function(id){var el=document.getElementById(id);if(el)updateDateOverlay(el);});}
 
 
 // ── BRICK MODULE ──────────────────────────────────────────────────
@@ -4101,7 +4167,7 @@ function setRCCUnit(u,el){RCC_UNIT=u;lsSave('rcc_unit',u);activateSeg('rcc-unit-
 function addEl(){
   EL_IDX++;var id='el_'+EL_IDX;EL_IDS.push(id);
   var div=document.createElement('div');div.className='el-row';div.id=id;
-  div.innerHTML='<div class="el-top"><select class="el-type-sel" id="'+id+'_type"><option>Slab</option><option>Beam</option><option>Column</option><option>Footing</option><option>Staircase</option><option>Other</option></select><div class="el-del" onclick="removeEl(\''+id+'\')"><span class="ms">remove</span></div></div><div class="el-dims3"><div class="el-dim-col"><div class="el-dim-head">L</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_lft" min="0" placeholder="0"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_lin" min="0" placeholder="0"></div></div><div class="el-dim-col"><div class="el-dim-head">W</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_wft" min="0" placeholder="0"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_win" min="0" placeholder="0"></div></div><div class="el-dim-col"><div class="el-dim-head">H</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_hft" min="0" placeholder="0"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_hin" min="0" placeholder="0"></div></div></div>';
+  div.innerHTML='<div class="el-top"><select class="el-type-sel" id="'+id+'_type" aria-label="Element '+EL_IDX+' type"><option>Slab</option><option>Beam</option><option>Column</option><option>Footing</option><option>Staircase</option><option>Other</option></select><div class="el-del" onclick="removeEl(\''+id+'\')" role="button" tabindex="0" aria-label="Remove element '+EL_IDX+'"><span class="ms">remove</span></div></div><div class="el-dims3"><div class="el-dim-col"><div class="el-dim-head">L</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_lft" min="0" placeholder="0" aria-label="Element '+EL_IDX+' length, feet"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_lin" min="0" placeholder="0" aria-label="Element '+EL_IDX+' length, inches"></div></div><div class="el-dim-col"><div class="el-dim-head">W</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_wft" min="0" placeholder="0" aria-label="Element '+EL_IDX+' width, feet"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_win" min="0" placeholder="0" aria-label="Element '+EL_IDX+' width, inches"></div></div><div class="el-dim-col"><div class="el-dim-head">H</div><div class="el-d"><span class="el-d-lbl">ft</span><input type="number" inputmode="decimal" id="'+id+'_hft" min="0" placeholder="0" aria-label="Element '+EL_IDX+' height, feet"></div><div class="el-d"><span class="el-d-lbl">in</span><input type="number" inputmode="decimal" id="'+id+'_hin" min="0" placeholder="0" aria-label="Element '+EL_IDX+' height, inches"></div></div></div>';
   document.getElementById('r-elements').appendChild(div);
   bindLP();
 }
@@ -4178,7 +4244,9 @@ function saveRCCRecord(){
   if(!window._lastRCC){showToast(tr('toast_calc_rcc_first'));return;}
   var lr=window._lastRCC;
   saveRecord({id:genId(),createdAt:Date.now(),type:'rcc',
-    date:todayISO(),proj:'RCC Project',addr:'',
+    date:document.getElementById('rcc_proj_date').value||todayISO(),
+    proj:document.getElementById('rcc_proj_name').value||tr('rcc_default_proj_name'),
+    addr:document.getElementById('rcc_proj_addr').value||'',
     grade:lr.grade,vol:lr.vol,unit:lr.unit,
     cementBags:lr.bags,sand:lr.sand,agg:lr.chips
   });
@@ -4281,10 +4349,27 @@ function setPTFilter(type,el){
 // ═══════════════════════════════════════════════════════
 // RECORDS ENGINE
 // ═══════════════════════════════════════════════════════
+// ─── TRANSACTIONAL RECORD COMMIT ───
+// Every place that changes `records` (save/delete/clear/restore) must go
+// through this: persist the NEW array first, and only replace the in-memory
+// `records` if that persist actually succeeded. This prevents the
+// RAM-says-one-thing / disk-says-another split that happens when
+// NativeBridge.saveData() fails partway through a change — previously each
+// caller mutated `records` first and saved second, so a failed save left
+// the UI showing data that was never actually written to disk.
+function commitRecords(nextRecords, opts){
+  opts=opts||{};
+  var json;
+  try{ json=JSON.stringify(nextRecords); }
+  catch(e){ if(!opts.silent) showToast(tr('toast_storage_full_backup')); return false; }
+  var ok=NativeBridge.saveData(json);
+  if(ok){ records=nextRecords; return true; }
+  if(!opts.silent) showToast(tr('toast_storage_full_backup'));
+  return false;
+}
 function saveRecord(r){
-  records.push(r);
-  var ok=NativeBridge.saveData(JSON.stringify(records));
-  if(!ok) showToast(tr('toast_storage_full_backup'));
+  var next=records.concat([r]);
+  if(!commitRecords(next))return;
   renderRecords(); updatePayDashboard(); updateHomeStats();
   showToast(tr('toast_record_saved'));
   NativeBridge.vibrate(18);
@@ -4424,8 +4509,8 @@ function renderRecords(){
 function deleteRecord(id){
   if(isLocked('delrec_'+id,1500))return;
   if(!confirm(tr('confirm_delete_record')))return;
-  records=records.filter(function(r){return String(r.id)!==String(id);});
-  NativeBridge.saveData(JSON.stringify(records));
+  var next=records.filter(function(r){return String(r.id)!==String(id);});
+  if(!commitRecords(next))return;
   renderRecords(); updatePayDashboard(); updateHomeStats(); showToast(tr('toast_record_deleted'));
 }
 
@@ -4454,6 +4539,10 @@ function backupLocal(){
 // NOTE FOR ANDROID: WebChromeClient MUST implement onShowFileChooser()
 // to handle the <input type="file"> picker triggered by openFilePicker().
 // Without it, this function will silently do nothing in Android WebView.
+// Versions this build knows how to restore. '1.1' is what backupLocal()
+// currently writes (records + logs); '1.0' (records only) is kept for
+// backward compatibility with older exported backups.
+var SUPPORTED_BACKUP_VERSIONS=['1.0','1.1'];
 function restoreLocal(){
   if(isLocked('restore'))return;
   NativeBridge.openFilePicker(function(file){
@@ -4463,27 +4552,26 @@ function restoreLocal(){
         var raw=ev.target.result;
         var data;
         try{ data=JSON.parse(raw); }catch(e){ showToast(tr('toast_invalid_backup')); return; }
-        // Validate: must be a Civil Suite backup with a records array
+        // Strict schema validation: a missing `app`/`v` field used to be
+        // silently accepted (data.app&&data.app!==... skips the check
+        // entirely when app is absent). Now every field is required and
+        // checked against what backupLocal() actually writes.
         if(!data||typeof data!=='object'){ showToast(tr('toast_invalid_backup')); return; }
-        if(data.app&&data.app!=='Civil Suite Ultimate'){ showToast(tr('toast_invalid_backup')); return; }
+        if(!data.app||data.app!=='Civil Suite Ultimate'){ showToast(tr('toast_invalid_backup')); return; }
+        if(!data.v||SUPPORTED_BACKUP_VERSIONS.indexOf(String(data.v))===-1){ showToast(tr('toast_invalid_backup')); return; }
         if(!data.records||!Array.isArray(data.records)){ showToast(tr('toast_invalid_backup')); return; }
-        // Build confirmation message
-        var hasLogs=(data.logs&&Array.isArray(data.logs)&&data.logs.length>0);
-        var confirmMsg=tr('confirm_restore_prefix')+' '
-          +pdfCount(data.records.length,'record',tr('pdf_w_record'))
-          +(hasLogs?' + '+data.logs.length+' log(s)':'')
-          +tr('confirm_restore_suffix');
-        if(!confirm(confirmMsg))return;
-        // Restore records
+        if(data.logs!==undefined&&!Array.isArray(data.logs)){ showToast(tr('toast_invalid_backup')); return; }
+
+        // Normalize BEFORE the confirmation dialog — previously the dialog
+        // showed data.records.length (the raw, unvalidated count) and the
+        // actual restore could silently end up with fewer records after
+        // normalizeRecord() filtered invalid ones, so the number the user
+        // agreed to and the number they actually got could differ.
         var incoming=data.records.map(normalizeRecord).filter(function(r){return r;});
-        records=incoming;
-        var ok=NativeBridge.saveData(JSON.stringify(records));
-        if(!ok) showToast(tr('toast_storage_full_memory'));
-        // Restore site logs (v1.1+) — update the in-memory siteLogs array,
-        // not just localStorage, or the Site Log screen keeps showing the
-        // pre-restore entries until the next add/edit/delete overwrites them.
+        var invalidCount=data.records.length-incoming.length;
+
+        var incomingLogs=[];
         if(data.logs&&Array.isArray(data.logs)){
-          var incomingLogs=[];
           data.logs.forEach(function(l){
             if(l&&typeof l==='object'&&l.text){
               incomingLogs.push({id:l.id||genId(),serial:0,text:String(l.text),date:l.date||todayISO(),time:l.time||'00:00',createdAt:l.createdAt||Date.now()});
@@ -4491,13 +4579,30 @@ function restoreLocal(){
           });
           incomingLogs.sort(function(a,b){return (a.date+'T'+a.time)<(b.date+'T'+b.time)?-1:1;});
           incomingLogs.forEach(function(l,i){l.serial=i+1;});
-          siteLogs=incomingLogs;
-          saveSiteLogs();
+        }
+        var hasLogs=incomingLogs.length>0;
+
+        var confirmMsg=tr('confirm_restore_prefix')+' '
+          +pdfCount(incoming.length,'record',tr('pdf_w_record'))
+          +(hasLogs?' + '+incomingLogs.length+' log(s)':'')
+          +(invalidCount>0?' ('+invalidCount+' '+tr('confirm_restore_invalid_skip')+')':'')
+          +tr('confirm_restore_suffix');
+        if(!confirm(confirmMsg))return;
+
+        // Persist FIRST, only then point the in-memory arrays at the new
+        // data. If the disk write fails, `records`/`siteLogs` are left
+        // completely untouched instead of the app showing restored data
+        // that was never actually saved.
+        if(!commitRecords(incoming,{silent:true})){ showToast(tr('toast_restore_failed')); return; }
+        var logsOk=true;
+        if(data.logs&&Array.isArray(data.logs)){
+          logsOk=commitSiteLogs(incomingLogs,{silent:true});
         }
         renderRecords();updatePayDashboard();updateHomeStats();
         var ll=document.getElementById('log-list'); if(ll) renderLogs();
-        var logMsg=hasLogs?' + '+data.logs.length+' logs':'';
+        var logMsg=hasLogs?' + '+incomingLogs.length+' logs':'';
         showToast(tr('toast_restored')+' '+records.length+' '+tr('toast_records_suffix')+logMsg+' ✓');
+        if(!logsOk){ setTimeout(function(){showToast(tr('toast_restore_partial'));},900); }
         switchDest('records');
       }catch(ex){ showToast(tr('toast_invalid_backup')); }
     };
@@ -4507,8 +4612,7 @@ function restoreLocal(){
 function clearAllRecords(){
   if(isLocked('clearall'))return;
   if(!confirm(tr('confirm_delete_all_prefix')+' '+pdfCount(records.length,'record',tr('pdf_w_record'))+' '+tr('confirm_delete_all_suffix')))return;
-  records=[];
-  NativeBridge.saveData(JSON.stringify(records));
+  if(!commitRecords([]))return;
   renderRecords();updatePayDashboard();updateHomeStats();
   showToast(tr('toast_records_cleared'));
 }
@@ -4520,11 +4624,12 @@ function clearAllRecords(){
 // ═══════════════════════════════════════════════════════
 // SITE LOG KEEPER MODULE
 // ═══════════════════════════════════════════════════════
+var _siteLogsLoadFailed=false;
 function loadSiteLogs(){
   var parsed;
   try{ parsed=JSON.parse(localStorage.getItem('csu3_logs')||'[]'); }
-  catch(e){ console.warn('Civil Suite: site log storage corrupted, resetting.',e); return []; }
-  if(!Array.isArray(parsed)) return [];
+  catch(e){ console.warn('Civil Suite: site log storage corrupted, resetting.',e); _siteLogsLoadFailed=true; return []; }
+  if(!Array.isArray(parsed)){ _siteLogsLoadFailed=true; return []; }
   var clean=[];
   for(var i=0;i<parsed.length;i++){
     var l=parsed[i];
@@ -4535,8 +4640,27 @@ function loadSiteLogs(){
   }
   return clean;
 }
+// Persists the CURRENT siteLogs array and reports success/failure — kept
+// for any external caller, but internal code should prefer commitSiteLogs()
+// below so a failed write never leaves memory ahead of disk.
 function saveSiteLogs(){
-  try{ localStorage.setItem('csu3_logs',JSON.stringify(siteLogs)); }catch(e){}
+  try{ localStorage.setItem('csu3_logs',JSON.stringify(siteLogs)); return true; }
+  catch(e){ return false; }
+}
+// ─── TRANSACTIONAL SITE-LOG COMMIT ───
+// Mirrors commitRecords(): persist the NEW array first, only then point
+// `siteLogs` at it. Previously add/edit/delete mutated `siteLogs` directly
+// and saved afterward with a bare try/catch{}, so a full localStorage quota
+// silently lost the change while the UI kept showing it as saved.
+function commitSiteLogs(nextLogs, opts){
+  opts=opts||{};
+  var json;
+  try{ json=JSON.stringify(nextLogs); }
+  catch(e){ if(!opts.silent) showToast(tr('toast_storage_full_backup')); return false; }
+  try{ localStorage.setItem('csu3_logs', json); }
+  catch(e){ if(!opts.silent) showToast(tr('toast_storage_full_backup')); return false; }
+  siteLogs=nextLogs;
+  return true;
 }
 var siteLogs = loadSiteLogs();
 var _editingLogId = null;
@@ -4581,23 +4705,24 @@ function saveLogEntry(){
   if(!text){showToast(tr('toast_enter_log_entry'));textEl.focus();return;}
   var date=dateEl.value||todayISO();
   var time=timeEl.value||(function(){var n=new Date();return String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');})();
-  if(_editingLogId){
-    var idx=siteLogs.findIndex(function(l){return l.id===_editingLogId;});
-    if(idx>-1){siteLogs[idx].text=text;siteLogs[idx].date=date;siteLogs[idx].time=time;}
-    showToast(tr('toast_log_updated'));
+  var next=siteLogs.map(function(l){return {id:l.id,serial:l.serial,text:l.text,date:l.date,time:l.time,createdAt:l.createdAt};});
+  var isEdit=!!_editingLogId;
+  if(isEdit){
+    var idx=next.findIndex(function(l){return l.id===_editingLogId;});
+    if(idx>-1){next[idx].text=text;next[idx].date=date;next[idx].time=time;}
   } else {
     var entry={id:genId(),serial:0,text:text,date:date,time:time,createdAt:Date.now()};
     var newDT=date+'T'+time;
-    var insertIdx=siteLogs.length;
-    for(var i=0;i<siteLogs.length;i++){
-      if((siteLogs[i].date+'T'+siteLogs[i].time)>newDT){insertIdx=i;break;}
+    var insertIdx=next.length;
+    for(var i=0;i<next.length;i++){
+      if((next[i].date+'T'+next[i].time)>newDT){insertIdx=i;break;}
     }
-    siteLogs.splice(insertIdx,0,entry);
-    showToast(tr('toast_log_saved'));
-    NativeBridge.vibrate(18);
+    next.splice(insertIdx,0,entry);
   }
-  siteLogs.forEach(function(l,i){l.serial=i+1;});
-  saveSiteLogs();
+  next.forEach(function(l,i){l.serial=i+1;});
+  if(!commitSiteLogs(next))return;
+  showToast(isEdit?tr('toast_log_updated'):tr('toast_log_saved'));
+  if(!isEdit) NativeBridge.vibrate(18);
   renderLogs();
   closeLogDialog();
 }
@@ -4605,9 +4730,9 @@ function saveLogEntry(){
 function deleteLog(id){
   if(isLocked('dellog_'+id,1500))return;
   if(!confirm(tr('confirm_delete_log')))return;
-  siteLogs=siteLogs.filter(function(l){return l.id!==id;});
-  siteLogs.forEach(function(l,i){l.serial=i+1;});
-  saveSiteLogs();
+  var next=siteLogs.filter(function(l){return l.id!==id;});
+  next.forEach(function(l,i){l.serial=i+1;});
+  if(!commitSiteLogs(next))return;
   renderLogs();
   showToast(tr('toast_log_deleted'));
 }
