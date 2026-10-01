@@ -2690,7 +2690,12 @@ function relativeTimeShort(ts){
   var days=Math.floor(hrs/24);
   if(days===1) return tr('recent_time_yesterday');
   if(days<7) return days+'d';
-  return localizeDateStr(formatDate(new Date(ts).toISOString()));
+  // Use local calendar components (same pattern as todayISO()) rather than
+  // toISOString() which gives a UTC date — one day behind in UTC+ timezones
+  // (e.g. Bangladesh UTC+6) between midnight and 06:00 local time.
+  var d=new Date(ts);
+  var localISO=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  return localizeDateStr(formatDate(localISO));
 }
 function renderRecentActivity(){
   var sec=document.getElementById('recent-sec');
@@ -3471,7 +3476,7 @@ var I18N={
   "toast_records_unreadable": "Saved records could not be read \u2014 starting with an empty list",
   "toast_logs_unreadable": "Saved site logs could not be read \u2014 starting with an empty list",
   "toast_restore_failed": "Restore failed \u2014 storage error. Your existing records were not changed.",
-  "toast_restore_partial": "Records restored, but site logs could not be saved.",
+  "toast_restore_inconsistent": "Critical: restore partially written to disk. Please backup and restore again.",
   "confirm_restore_invalid_skip": "invalid, will be skipped",
   "toast_vol_gt_zero": "Volume must be greater than zero",
   "toast_applied": "applied",
@@ -3873,7 +3878,7 @@ var I18N={
   "toast_records_unreadable": "সংরক্ষিত রেকর্ড পড়া যায়নি — খালি তালিকা দিয়ে শুরু হচ্ছে",
   "toast_logs_unreadable": "সংরক্ষিত সাইট লগ পড়া যায়নি — খালি তালিকা দিয়ে শুরু হচ্ছে",
   "toast_restore_failed": "পুনরুদ্ধার ব্যর্থ হয়েছে — স্টোরেজ সমস্যা। আপনার বিদ্যমান রেকর্ড অপরিবর্তিত আছে।",
-  "toast_restore_partial": "রেকর্ড পুনরুদ্ধার হয়েছে, কিন্তু সাইট লগ সংরক্ষণ করা যায়নি।",
+  "toast_restore_inconsistent": "সতর্কতা: পুনরুদ্ধার আংশিকভাবে সংরক্ষিত হয়েছে। অনুগ্রহ করে আবার ব্যাকআপ ও পুনরুদ্ধার করুন।",
   "confirm_restore_invalid_skip": "টি অবৈধ, বাদ দেওয়া হবে",
   "toast_vol_gt_zero": "আয়তন অবশ্যই শূন্যের চেয়ে বেশি হতে হবে",
   "toast_applied": "প্রয়োগ হয়েছে",
@@ -4459,14 +4464,14 @@ function renderRecords(){
         '<span class="rec-val-chip"><b>'+(r.totalTon||r.totalKg/1000).toFixed(3)+' TON</b></span>'+
         (r.brand?'<span class="rec-val-chip">'+esc(r.brand)+'</span>':'');
     } else if(r.type==='cement'){
-      vals.innerHTML='<span class="rec-val-chip">Bags: <b>'+r.bags+'</b></span>'+
+      vals.innerHTML='<span class="rec-val-chip">Bags: <b>'+esc(r.bags)+'</b></span>'+
         '<span class="rec-val-chip"><b>'+r.totalKg.toLocaleString('en-IN')+' KG</b></span>'+
         (r.brand?'<span class="rec-val-chip">'+esc(r.brand)+'</span>':'');
     } else if(r.type==='brick'){
       vals.innerHTML='<span class="rec-val-chip">Category: <b>'+esc(r.category||'—')+'</b></span>'+
         '<span class="rec-val-chip">Qty: <b>'+(r.qty||0).toLocaleString('en-IN')+' '+esc(r.unit||'')+(r.qty===1?'':'s')+'</b></span>';
     } else if(r.type==='rcc'){
-      vals.innerHTML='<span class="rec-val-chip">Grade: <b>'+r.grade+'</b></span>'+
+      vals.innerHTML='<span class="rec-val-chip">Grade: <b>'+esc(r.grade)+'</b></span>'+
         '<span class="rec-val-chip">Vol: <b>'+(r.vol||0).toFixed(2)+' '+(r.unit==='cft'?'ft³':'m³')+'</b></span>'+
         '<span class="rec-val-chip">Cement: <b>'+rccBags(r)+' bags</b></span>';
     } else if(r.type==='payment'){
@@ -4589,20 +4594,66 @@ function restoreLocal(){
           +tr('confirm_restore_suffix');
         if(!confirm(confirmMsg))return;
 
-        // Persist FIRST, only then point the in-memory arrays at the new
-        // data. If the disk write fails, `records`/`siteLogs` are left
-        // completely untouched instead of the app showing restored data
-        // that was never actually saved.
-        if(!commitRecords(incoming,{silent:true})){ showToast(tr('toast_restore_failed')); return; }
+        // ── TRULY ATOMIC RESTORE ─────────────────────────────────────────────
+        // Strategy:
+        //   1. Snapshot the current on-disk state for both records and logs.
+        //   2. Attempt to write the new records to disk.
+        //   3. Attempt to write the new logs to disk.
+        //   4. If EITHER write fails, roll back whichever writes already
+        //      succeeded so disk returns to the pre-restore snapshot.
+        //   5. Only after BOTH writes succeed do we update the in-memory
+        //      `records` and `siteLogs` pointers.
+        //   6. If rollback itself fails, report that explicitly rather than
+        //      pretending the restore was clean.
+        // This prevents the split state where records are replaced on disk
+        // but logs remain old (or vice-versa) while the UI shows success.
+
+        var prevRecordsJson;
+        try{ prevRecordsJson=JSON.stringify(records); }
+        catch(e){ prevRecordsJson='[]'; }
+
+        var prevLogsJson;
+        try{ prevLogsJson=JSON.stringify(siteLogs); }
+        catch(e){ prevLogsJson='[]'; }
+
+        // --- write records ---
+        var recJson;
+        try{ recJson=JSON.stringify(incoming); }catch(e){ showToast(tr('toast_restore_failed')); return; }
+        var recOk=NativeBridge.saveData(recJson);
+        if(!recOk){ showToast(tr('toast_restore_failed')); return; }
+
+        // --- write logs ---
+        var logsNeedWrite=data.logs&&Array.isArray(data.logs);
         var logsOk=true;
-        if(data.logs&&Array.isArray(data.logs)){
-          logsOk=commitSiteLogs(incomingLogs,{silent:true});
+        if(logsNeedWrite){
+          try{
+            localStorage.setItem('csu3_logs',JSON.stringify(incomingLogs));
+          }catch(e){
+            logsOk=false;
+          }
         }
+
+        if(!logsOk){
+          // Roll back the records write we just made
+          var rollbackOk=NativeBridge.saveData(prevRecordsJson);
+          if(!rollbackOk){
+            // Both the new-log write AND the records rollback failed — we are
+            // now in an inconsistent disk state. Report this explicitly.
+            showToast(tr('toast_restore_inconsistent'));
+          } else {
+            showToast(tr('toast_restore_failed'));
+          }
+          return;
+        }
+
+        // ── Both writes succeeded — safe to update in-memory state ──────────
+        records=incoming;
+        if(logsNeedWrite){ siteLogs=incomingLogs; }
+
         renderRecords();updatePayDashboard();updateHomeStats();
         var ll=document.getElementById('log-list'); if(ll) renderLogs();
         var logMsg=hasLogs?' + '+incomingLogs.length+' logs':'';
         showToast(tr('toast_restored')+' '+records.length+' '+tr('toast_records_suffix')+logMsg+' ✓');
-        if(!logsOk){ setTimeout(function(){showToast(tr('toast_restore_partial'));},900); }
         switchDest('records');
       }catch(ex){ showToast(tr('toast_invalid_backup')); }
     };
